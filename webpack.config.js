@@ -1,5 +1,6 @@
 const path =require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack =require('webpack');
 const dev = process.env.NODE_ENV;
 console.log(`--- ${dev} 모드로 실행합니다. ---`);
 const isDevmode = dev === 'development';
@@ -9,13 +10,20 @@ module.exports  = {
     },
     output:{
         path:path.resolve(__dirname,'dist'),
-        filename: isDevmode ? "[name].bundle.js" :'[name].bundle.[chunkhash].js',
-        chunkFilename: "[id].[chunkhash].js",
+        filename: isDevmode ? "[name].bundle.js" :'[name].bundle.[hash].js',
+        // chunkFilename: "[id].[chunkhash].js",
         publicPath: "/dist/"
     },
     devtool: "source-map",
     resolve: {
         extensions: [".ts",".tsx",".js",".json"]
+    },
+    devServer: {
+        host:process.env.HOST,
+        port:process.env.PORT,
+        open:true,
+        hot:true,
+        inline:true
     },
     module: {
         rules: [
@@ -68,9 +76,10 @@ module.exports  = {
     },
     plugins: [
         new ExtractTextPlugin({
-            filename: isDevmode ? '[name].bundle.css' : '[name].[chunkhash].bundle.css',
+            filename: isDevmode ? '[name].bundle.css' : '[name].[hash].bundle.css',
             allChunks: true
         }),
+        new webpack.HotModuleReplacementPlugin()
     ]
 };
 

@@ -1,1 +1,0 @@
-{"version":3,"sources":["webpack:///./src/layout/Main.scss"],"names":[],"mappings":"AAAA;EACE,WAAW,EAAE","file":"app.bundle.css","sourcesContent":[".main {\n  color: red; }\n"],"sourceRoot":""}

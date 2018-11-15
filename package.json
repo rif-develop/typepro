@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "babel": "npx babel index.js --out-dir outputfolder",
-    "start": "NODE_ENV=development webpack --mode=development --watch",
-    "deploy": "NODE_ENV=production webpack --mode=production"
+    "start": "webpack-dev-server --mode=development --inline --hot",
+    "deploy":"webpack --mode=production"
   },
   "author": "",
   "license": "ISC",
@@ -34,7 +34,16 @@
     "typescript": "^3.1.6",
     "url-loader": "^1.1.2",
     "webpack": "^4.25.1",
-    "webpack-cli": "^3.1.2"
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cizz3007/typepro.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cizz3007/typepro/issues"
+  },
+  "homepage": "https://github.com/cizz3007/typepro#readme"
 }
