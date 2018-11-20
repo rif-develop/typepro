@@ -1,23 +1,23 @@
-import React from 'react';
-import styles from './Main';
+import React ,{Fragment}from 'react';
+import styles from './Main.scss';
+console.log(styles);
 class Main extends React.Component {
 
     constructor(props:any) {
-        super(props)
-    }
-
-    componentDidMount(){
-        window.onunload = function(){
-          return alert("!");
+        super(props);
+        this.state = {
+            number:1111111
         }
     }
 
-
     render(){
         return(
-            <div className={styles['main']}>
-                테스트 완료dfdf하였습닌다!
+            <Fragment>
+            <div className={styles['main']}>dd
+                <div className={styles['main--dev']}>g</div>
             </div>
+                </Fragment>
+
         )
     }
 }

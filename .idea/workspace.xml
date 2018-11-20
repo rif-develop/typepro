@@ -2,36 +2,59 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5663ff13-d6d6-4092-ba8d-2415d8167c26" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/postcss.config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FETCH_HEAD" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/declarations.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/app.bundle.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/app.bundle.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/app.bundle.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/app.bundle.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/colour/.npmignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/colour/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/colour/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/colour/colour.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/colour/colour.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/colour/colour.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/colour/examples/example.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/colour/examples/example.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/colour/examples/example.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/colour/externs/colour.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/colour/externs/minimal-env.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/colour/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/colour/tests/test.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/typings-for-css-modules-loader/node_modules/graceful-fs/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/typings-for-css-modules-loader/node_modules/graceful-fs/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/typings-for-css-modules-loader/node_modules/graceful-fs/fs.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/typings-for-css-modules-loader/node_modules/graceful-fs/graceful-fs.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/typings-for-css-modules-loader/node_modules/graceful-fs/legacy-streams.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/typings-for-css-modules-loader/node_modules/graceful-fs/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/typings-for-css-modules-loader/node_modules/graceful-fs/polyfills.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/postcss/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/postcss/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/postcss/CONTRIBUTING.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/postcss/README-cn.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/postcss/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/postcss/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/postcss/docs/architecture.md" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/postcss/docs/architecture.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/postcss/docs/guidelines/plugin.md" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/postcss/docs/guidelines/plugin.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/postcss/docs/guidelines/runner.md" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/postcss/docs/guidelines/runner.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/postcss/docs/source-maps.md" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/postcss/docs/source-maps.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/postcss/docs/syntax.md" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/postcss/docs/syntax.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/postcss/gulpfile.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/postcss/lib/at-rule.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/postcss/lib/at-rule.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/postcss/lib/comment.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/postcss/lib/comment.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/postcss/lib/container.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/postcss/lib/container.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/postcss/lib/css-syntax-error.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/postcss/lib/css-syntax-error.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/postcss/lib/declaration.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/postcss/lib/declaration.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/postcss/lib/input.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/postcss/lib/input.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/postcss/lib/lazy-result.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/postcss/lib/lazy-result.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/postcss/lib/list.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/postcss/lib/list.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/postcss/lib/map-generator.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/postcss/lib/map-generator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/postcss/lib/node.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/postcss/lib/node.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/postcss/lib/parse.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/postcss/lib/parse.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/postcss/lib/parser.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/postcss/lib/parser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/postcss/lib/postcss.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/postcss/lib/postcss.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/postcss/lib/postcss.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/postcss/lib/postcss.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/postcss/lib/previous-map.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/postcss/lib/previous-map.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/postcss/lib/processor.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/postcss/lib/processor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/postcss/lib/result.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/postcss/lib/result.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/postcss/lib/root.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/postcss/lib/root.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/postcss/lib/rule.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/postcss/lib/rule.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/postcss/lib/stringifier.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/postcss/lib/stringifier.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/postcss/lib/stringify.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/postcss/lib/stringify.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/postcss/lib/terminal-highlight.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/postcss/lib/terminal-highlight.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/postcss/lib/tokenize.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/postcss/lib/tokenize.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/postcss/lib/vendor.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/postcss/lib/vendor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/postcss/lib/warn-once.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/postcss/lib/warn-once.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/postcss/lib/warning.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/postcss/lib/warning.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/postcss/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/postcss/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/typings-for-css-modules-loader/node_modules/json5/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/typings-for-css-modules-loader/node_modules/json5/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/typings-for-css-modules-loader/node_modules/loader-utils/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/typings-for-css-modules-loader/node_modules/loader-utils/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/typings-for-css-modules-loader/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/typings-for-css-modules-loader/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputfolder/index.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layout/Main.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layout/Main.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/layout/Main.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/layout/Main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layout/Main.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -158,42 +181,152 @@
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
     </session>
+    <session id="-283330873">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="1" />
+          <entry key="project.open.time.2" value="1" />
+          <entry key="project.open.time.9" value="1" />
+          <entry key="project.opened" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.js.language.service.starts">
+        <counts>
+          <entry key="TypeScriptServerServiceImpl" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="css" value="1" />
+          <entry key="gitignore" value="1" />
+          <entry key="html" value="2" />
+          <entry key="iml" value="1" />
+          <entry key="js" value="4" />
+          <entry key="json" value="3" />
+          <entry key="md" value="1" />
+          <entry key="scss" value="2" />
+          <entry key="ts" value="6" />
+          <entry key="tsx" value="2" />
+          <entry key="xml" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="CSS" value="1" />
+          <entry key="Git file" value="1" />
+          <entry key="HTML" value="2" />
+          <entry key="IDEA_MODULE" value="1" />
+          <entry key="JSON" value="2" />
+          <entry key="JavaScript" value="4" />
+          <entry key="Markdown" value="1" />
+          <entry key="SCSS" value="2" />
+          <entry key="TypeScript" value="6" />
+          <entry key="TypeScript JSX" value="2" />
+          <entry key="XML" value="1" />
+          <entry key="tsconfig" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="html" value="67" />
+          <entry key="js" value="154" />
+          <entry key="json" value="134" />
+          <entry key="md" value="134" />
+          <entry key="scss" value="46" />
+          <entry key="ts" value="60" />
+          <entry key="tsx" value="719" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="HTML" value="67" />
+          <entry key="JSON" value="110" />
+          <entry key="JavaScript" value="154" />
+          <entry key="Markdown" value="134" />
+          <entry key="SCSS" value="46" />
+          <entry key="TypeScript" value="60" />
+          <entry key="TypeScript JSX" value="719" />
+          <entry key="tsconfig" value="24" />
+        </counts>
+      </usages-collector>
+    </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/package.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="8" column="61" selection-start-line="8" selection-start-column="61" selection-end-line="8" selection-end-column="61" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/layout/Main.tsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="17" column="35" selection-start-line="17" selection-start-column="35" selection-end-line="17" selection-end-column="35" />
+            <state relative-caret-position="38">
+              <caret line="2" column="20" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="20" />
               <folding>
-                <element signature="e#0#26#0" expanded="true" />
+                <element signature="e#0#37#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/layout/Main.d.ts">
-          <provider selected="true" editor-type-id="text-editor" />
+        <entry file="file://$PROJECT_DIR$/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="343">
+              <caret line="43" column="24" lean-forward="true" selection-start-line="43" selection-start-column="24" selection-end-line="43" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Main.d.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret selection-end-line="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="133">
+              <caret line="7" column="6" lean-forward="true" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/layout/Main.scss.d.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="19">
+              <caret line="1" selection-start-line="1" selection-end-line="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/index.tsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="133">
+              <caret line="7" column="1" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tsconfig.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="518">
+              <caret line="60" column="2" selection-start-line="60" selection-start-column="2" selection-end-line="60" selection-end-column="2" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/layout/Main.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="38">
+              <caret line="2" column="15" selection-start-line="2" selection-start-column="15" selection-end-line="2" selection-end-column="15" />
             </state>
           </provider>
         </entry>
@@ -201,8 +334,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/webpack.config.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="25" column="19" selection-start-line="25" selection-start-column="19" selection-end-line="25" selection-end-column="19" />
+            <state relative-caret-position="351">
+              <caret line="57" column="26" selection-start-line="57" selection-start-column="26" selection-end-line="57" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -213,9 +346,10 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
+        <option value="CSS File" />
+        <option value="package.json" />
         <option value="JavaScript File" />
         <option value="TypeScript File" />
-        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -229,19 +363,25 @@
         <option value="$PROJECT_DIR$/src/layout/main.js" />
         <option value="$PROJECT_DIR$/src/layout/Main.js" />
         <option value="$PROJECT_DIR$/src/index.js" />
-        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/babel.config.js" />
         <option value="$PROJECT_DIR$/index.js" />
         <option value="$PROJECT_DIR$/index.ts" />
-        <option value="$PROJECT_DIR$/tsconfig.json" />
-        <option value="$PROJECT_DIR$/src/index.tsx" />
-        <option value="$PROJECT_DIR$/src/layout/Main.scss" />
         <option value="$PROJECT_DIR$/global.d.ts" />
         <option value="$PROJECT_DIR$/src/layout/gg'.css" />
         <option value="$PROJECT_DIR$/package-lock.json" />
-        <option value="$PROJECT_DIR$/webpack.config.js" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/src/layout/package.json" />
+        <option value="$PROJECT_DIR$/postcss.config.js" />
+        <option value="$PROJECT_DIR$/src/index.tsx" />
+        <option value="$PROJECT_DIR$/src/layout/Main.d.ts" />
+        <option value="$PROJECT_DIR$/tsconfig.json" />
+        <option value="$PROJECT_DIR$/webpack.config.js" />
+        <option value="$PROJECT_DIR$/src/layout/Main.scss.d.ts" />
+        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/src/layout/Main.tsx" />
+        <option value="$PROJECT_DIR$/src/layout/Main.scss" />
       </list>
     </option>
   </component>
@@ -290,6 +430,17 @@
             <path>
               <item name="typepro" type="b2602c69:ProjectViewProjectNode" />
               <item name="typepro" type="462c0819:PsiDirectoryNode" />
+              <item name="dist" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="typepro" type="b2602c69:ProjectViewProjectNode" />
+              <item name="typepro" type="462c0819:PsiDirectoryNode" />
+              <item name="dist" type="462c0819:PsiDirectoryNode" />
+              <item name="app.bundle.css" type="620a8d5e:NestingTreeNode" />
+            </path>
+            <path>
+              <item name="typepro" type="b2602c69:ProjectViewProjectNode" />
+              <item name="typepro" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -303,7 +454,6 @@
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="AndroidView" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -312,7 +462,8 @@
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542242768381" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542721534522" />
+    <property name="ignore_missing_gitignore" value="true" />
     <property name="javascript.nodejs.core.library.configured.version" value="8.12.0" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
@@ -326,6 +477,7 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/layout" />
+      <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -343,44 +495,23 @@
   <component name="RunManager">
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <patterns />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="SUITE_NAME" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="GROUP_NAME" />
-      <option name="TEST_OBJECT" value="CLASS" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <option name="OUTPUT_DIRECTORY" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <option name="USE_DEFAULT_REPORTERS" value="false" />
-      <option name="PROPERTIES_FILE" />
       <properties />
       <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
   </component>
   <component name="SvnConfiguration">
@@ -403,6 +534,8 @@
       <workItem from="1542249600828" duration="82000" />
       <workItem from="1542253036828" duration="608000" />
       <workItem from="1542256596895" duration="218000" />
+      <workItem from="1542383393977" duration="6168000" />
+      <workItem from="1542433907197" duration="2601000" />
     </task>
     <task id="LOCAL-00001" summary="d">
       <created>1542242505689</created>
@@ -415,13 +548,22 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17107000" />
+    <option name="totallyTimeSpent" value="25876000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1920" height="1080" extended-state="6" />
+    <frame x="0" y="0" width="1680" height="1050" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16499737" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28090575" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -435,12 +577,12 @@
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.3298647" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="TypeScript" order="10" weight="0.21816038" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49791667" visible="true" weight="0.28225806" />
+      <window_info anchor="bottom" id="TypeScript" order="10" weight="0.21748179" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49791667" visible="true" weight="0.31009364" />
       <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.50208336" side_tool="true" weight="0.31552917" />
       <window_info anchor="bottom" id="CSS-X-Fire" order="13" />
       <window_info anchor="bottom" id="Statistic" order="14" />
@@ -498,46 +640,124 @@
     <option name="LAST_COMMIT_MESSAGE" value="d" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/package.json">
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="8" column="61" selection-start-line="8" selection-start-column="61" selection-end-line="8" selection-end-column="61" />
+        <state relative-caret-position="-8564" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="57">
+            <caret line="3" column="14" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/webpack.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="25" column="19" selection-start-line="25" selection-start-column="19" selection-end-line="25" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/layout/Main.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="17" column="35" selection-start-line="17" selection-start-column="35" selection-end-line="17" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/layout/Main.d.ts">
+    <entry file="file://$PROJECT_DIR$/babel.config.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/layout/Main.scss">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="1" lean-forward="true" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
+        <state relative-caret-position="551">
+          <caret line="29" selection-start-line="29" selection-end-line="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/typescript.iml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/index.d.ts" />
+    <entry file="file://$PROJECT_DIR$/dist/layout/Main.d.ts" />
+    <entry file="file://$PROJECT_DIR$/dist/app.e2c821fe5777277305e7.hot-update.js" />
+    <entry file="file://$PROJECT_DIR$/src/layout/package.json" />
+    <entry file="file://$PROJECT_DIR$/dist/app.bundle.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/postcss.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="2" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/index.tsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="133">
+          <caret line="7" column="1" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tsconfig.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="518">
+          <caret line="60" column="2" selection-start-line="60" selection-start-column="2" selection-end-line="60" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webpack.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="57" column="26" selection-start-line="57" selection-start-column="26" selection-end-line="57" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="343">
+          <caret line="43" column="24" lean-forward="true" selection-start-line="43" selection-start-column="24" selection-end-line="43" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/layout/test.scss">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="7" column="6" lean-forward="true" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/layout/Main.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="20" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/layout/Main.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="15" selection-start-line="2" selection-start-column="15" selection-end-line="2" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/app.bundle.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="41" lean-forward="true" selection-start-line="6" selection-start-column="41" selection-end-line="6" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/layout/Main.scss.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
         </state>
       </provider>
     </entry>

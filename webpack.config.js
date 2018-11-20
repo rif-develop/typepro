@@ -47,13 +47,17 @@ module.exports  = {
                     fallback: 'style-loader',
                     use: [
                         {
-                            loader: 'css-loader',
+                            loader: 'typings-for-css-modules-loader',
                             options: {
                                 modules: isDevmode ? 'false' : 'true',
+                                namedExport:true,
                                 localIdentName: isDevmode ? null : '_[hash:base64:11]',
                                 sourceMap: true,
                                 minimize: true,
                             }
+                        },
+                        {
+                            loader:'postcss-loader'
                         },
                         {
                             loader: 'sass-loader'
