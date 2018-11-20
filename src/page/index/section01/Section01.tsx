@@ -3,7 +3,7 @@ import styles from './Section01.scss';
 class Section01 extends React.Component{
     render(){
         return(
-            <div className={styles['test']}>mssain01</div>
+            <div className={styles['test']}>mssddddddddaisdsdsdsdsn01</div>
         )
     }
 }
