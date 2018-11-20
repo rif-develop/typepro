@@ -1,0 +1,129 @@
+{
+  "lang": {
+    "code": "en",
+    "dialects": "en-US",
+    "name": "English"
+  },
+  "smarttemp": {
+    "section01": {
+      "00": "SMART TEMP",
+      "01": "Thermometer Band",
+      "02": "Monitoring, Alerts",
+      "03": "&Analysis"
+    },
+    "section02": {
+      "00": "internet of babies",
+      "01": "Smart wearable thermometer",
+      "02": null,
+      "03": "Smart-Temp monitors body temperature changes",
+      "04": "in real-time to alert you when there is fever.",
+      "05": "Real-time monitoring",
+      "06": "Monitors temp. change in real-time",
+      "07": "and alerts you if temp. reaches preset level.",
+      "08": null,
+      "09": "Easy to check",
+      "10": "You can also check temp. and battery status",
+      "11": "via display on the device.",
+      "12": null,
+      "13": "Accurate measurement",
+      "14": "Highly reliable sensor measures temperature",
+      "15": "accurately without error.",
+      "16": null,
+      "17": "Breathable band",
+      "18": "Releases heat and moisture effectively",
+      "19": "and protects sensitive skin from allergies.",
+      "20": null
+    },
+    "section03": {
+      "00": "Watching over your baby constantly",
+      "01": null,
+      "02": "Get fever alerts, and track temperature records",
+      "03": "through real-time monitoring app.",
+      "04": "Smart-Temp",
+      "05": "App/ web",
+      "06": "Caregivers"
+    },
+    "section04": {
+      "00": "Recording data & receiving alerts,",
+      "01": "all through the app.",
+      "02": "Fever alerts",
+      "03": "If baby’s body temp. reaches preset level",
+      "04": "it alerts the caregiver via app.",
+      "05": "Temperature statistics",
+      "06": "App will record and analyze temp. changes",
+      "07": "and show info-graphics.",
+      "08": "Antiphrasis advice",
+      "09": "In case of high fever, it provides advice",
+      "10": "on ways to alleviate fever."
+    },
+    "section05": {
+      "00": "Parenting information at a glance",
+      "01": null,
+      "02": "You can check collected data such as temp logs,",
+      "03": "info-graphics at your fingertip.",
+      "04": null
+    },
+    "section06": {
+      "00": "Comfortable, wearable, breathable",
+      "01": null,
+      "02": "Lightweight material and breathable band",
+      "03": "mean minimum discomfort and maximum safety",
+      "04": "Temp. display",
+      "05": "Breathable band",
+      "06": "High accuracy temp. sensor"
+    },
+    "section07": {
+      "00": "What other thermometers can’t do,",
+      "01": "Smart-Temp can.",
+      "02": "Continuous monitoring and fever alerts, easy-to-read statistics,",
+      "03": "replaceable batteries that lasts months.",
+      "04": null
+    },
+    "section08": {
+      "00": "Smart-Temp specification",
+      "01": "Compatibility",
+      "02": "Android 4.3 and above",
+      "03": "Accuracy",
+      "04": "±0.1℃",
+      "05": "Measurement",
+      "06": "28*40*8mm",
+      "07": "Material",
+      "08": "ABS, fabric",
+      "09": "Comm.",
+      "10": "Bluetooth 4.0",
+      "11": "Battery",
+      "12": "CR2032",
+      "13": "Company name:",
+      "14": "Littleone Inc.",
+      "15": "Product name:",
+      "16": "Wireless device",
+      "17": "Model No:",
+      "18": "WDJI",
+      "19": "Certification No:",
+      "20": "---",
+      "21": "Mfg. date:",
+      "22": "Marked separately",
+      "23": "Mfr. / Origin:",
+      "24": "Littleone Inc. / China"
+    },
+    "section09":{
+      "00":"Other smart products",
+      "01":"Smart-Peepee",
+      "02":"(Diaper sensor)",
+      "03":"Detects bowel activities",
+      "04":"and provides reports.",
+      "05":null,
+      "06":"Smart-Bottle",
+      "07":"(Feeding bottle)",
+      "08":"Detects temperature, feeding angle,",
+      "09":"and provides reports.",
+      "10":null,
+      "11":"Smart-Temp",
+      "12":"(Thermometer)",
+      "13":"Monitors body temperature",
+      "14":"and provides statistics.",
+      "15":null,
+      "common-button":"Learn more"
+    }
+  }
+}

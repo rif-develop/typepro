@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Main from "./layout/Main";
+import IndexLayout from "./layout/index";
 const root = document.getElementById('app');
 
 ReactDOM.render(
-    <Main/>,root
-)
+    <IndexLayout/>,root
+);

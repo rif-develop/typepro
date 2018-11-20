@@ -1,0 +1,131 @@
+{
+  "lang": {
+    "code": "en",
+    "dialects": "en-US",
+    "name": "English"
+  },
+  "smartbottle": {
+    "section01":{
+      "00": "SMART BOTTLE",
+      "01": "Track feedings",
+      "02": "Warm milk",
+      "03": "Tilt warning and more"
+    },
+    "section02":{
+      "00": "INTERNET OF BABIES",
+      "01": "Baby bottle",
+      "02": "that helps comfortable feeding",
+      "03": "Smart-Bottle monitors temperature and feeding posture",
+      "04": "to help you feed your baby more safely and conveniently",
+      "05": "Keep warm",
+      "06": "When connected to power source, Smart-Bottle keeps milk at ideal temperature.",
+      "07": "Prevent burns",
+      "08": "If temperature is too high for feeding,",
+      "09": "it will vibrate to warn you.",
+      "10": null,
+      "11": "Feeding posture",
+      "12": "If the angle is inappropriate,",
+      "13": "it vibrates to warn you of too much air intake.",
+      "14": null,
+      "15": "Accurate measurement",
+      "16": "Prevents loss of nutrition",
+      "17": "with the help of accurate sensors.",
+      "18": null
+    },
+    "section03":{
+      "00": "Feeding has never been easier!",
+      "01": null,
+      "02": "Record feeding statistics and get alarms",
+      "03": "with real-time monitoring app.",
+      "04": "Smart-Bottle",
+      "05": "App/ web",
+      "06": "Caregivers"
+    },
+    "section04":{
+      "00": "Recording data & receiving alerts,",
+      "01": "all through the app.",
+      "02": "Feeding records",
+      "03": "App automatically records in real-time detailed data ",
+      "04": "like feeding times and duration.",
+      "05": "Feeding alerts",
+      "06": "App will record feeding logs and alerts you",
+      "07": "when it’s time to feed your baby again.",
+      "08": "Automatic detection",
+      "09": "By scanning bar code of your specific brand of formula,",
+      "10": "Smart-Bottle will set the right temperature."
+    },
+    "section05":{
+      "00": "Parenting information at a glance",
+      "01": null,
+      "02": "Check collected data such as feeding statistics, feeding alerts,",
+      "03": "milk consumption at your fingertip.",
+      "04": null
+    },
+    "section06":{
+      "00": "Designed to make feeding easier",
+      "01": null,
+      "02": "Bottle cap",
+      "03": "Ring and handle",
+      "04": "Straw",
+      "05": "Smart base",
+      "06": "Nipple",
+      "07": "Glass body"
+    },
+    "section07":{
+      "00": "스마트 보틀의 하단부 이미지 입니다.",
+      "01": "Cutting-edge IoT",
+      "02": "makes feeding safe and smart",
+      "03": "Temperature sensor, acceleration sensor, heating plate,",
+      "04": "bluetooth, and patented algorithm"
+    },
+    "section08":{
+      "00": "Smart-Bottle specification",
+      "01": "Compatibility",
+      "02": "Android 4.3 and above",
+      "03": "Measurement",
+      "04": "70*235mm",
+      "05": "Volume",
+      "06": "160 / 240ml",
+      "07": "Material",
+      "08": "Silicone, glass, ABS",
+      "09": "Comm.",
+      "10": "Bluetooth 4.0",
+      "11": "Power",
+      "12": "5V 2A",
+      "13": "Battery",
+      "14": "180 mAh",
+      "15": "Company name:",
+      "16": "Littleone Inc.",
+      "17": "Product name:",
+      "18": "Wireless device",
+      "19": "Model No:",
+      "20": "NP188I",
+      "21": "Certification No:",
+      "22": "R-CMM-BK0-NP188I",
+      "23": "Mfg. date:",
+      "24": "Marked separately",
+      "25": "Mfr. / Origin:",
+      "26": "Littleone Inc. / China"
+    },
+    "section09":{
+      "00":"Other smart products",
+      "01":"Smart-Peepee",
+      "02":"(Diaper sensor)",
+      "03":"Detects bowel activities",
+      "04":"and provides reports.",
+      "05":null,
+      "06":"Smart-Bottle",
+      "07":"(Feeding bottle)",
+      "08":"Detects temperature, feeding angle,",
+      "09":"and provides reports.",
+      "10":null,
+      "11":"Smart-Temp",
+      "12":"(Thermometer)",
+      "13":"Monitors body temperature",
+      "14":"and provides statistics.",
+      "15":null,
+      "common-button":"Learn more"
+    }
+
+  }
+}
