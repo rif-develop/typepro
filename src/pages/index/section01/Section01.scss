@@ -1,0 +1,235 @@
+@charset "UTF-8";
+
+.main-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: block;
+  background: url("./web-m-1-bg@2x.jpg") no-repeat bottom center/cover;
+
+  -webkit-transition: all 0.4s ease-out;
+  -moz-transition: all 0.4s ease-out;
+  -o-transition: all 0.4s ease-out;
+  transition: all 0.4s ease-out;
+  &--content {
+    position: absolute;
+    top: 41.5554%;
+    left: 17%;
+
+    width: 100%;
+
+    &--text {
+      position: relative;
+      z-index: 4;
+      margin: 0 auto;
+
+      &__upper {
+        h1 {
+          font-size: 2.6vw;
+          font-weight: bold;
+          letter-spacing: 1px;
+
+        }
+        h1.__kr {
+          font-size: 1.875vw;
+        }
+        p {
+          margin-top: 1.3625vw;
+          font-size: 1.3541vw;
+          font-weight: 100;
+          line-height: normal;
+          letter-spacing: 1px;
+        }
+      }
+
+      &__lower {
+        margin-top: 3.0895vw;
+
+        p {
+          font-size: 1.2541vw;
+          line-height: normal;
+          font-weight: 100;
+        }
+      }
+
+      h1, p {
+        z-index: 5;
+        position: relative;
+        color: #fff;
+      }
+    }
+
+    .outer {
+      display: table;
+      width: 100%;
+      height: 100%;
+      .inner {
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+
+        .centered {
+          position: relative;
+          display: inline-block;
+
+        }
+
+      }
+
+    }
+
+  }
+
+  #violet {
+    position: absolute;
+    left: 54.9480vw;
+    top: 16.3541vw;
+    z-index: 3;
+    width: 27.6563vw;
+    height: 26.7188vw;
+
+  }
+
+  #purple {
+    top: 11.5625vw;
+    left: 50vw;
+    z-index: 2;
+    position: absolute;
+    width: 27.6563vw;
+    height: 26.7188vw;
+  }
+
+  #green {
+    top: 7.7604vw;
+    left: 54.9480vw;
+    z-index: 1;
+    position: absolute;
+    width: 30.05208vw;
+    height: 30.05208vw;
+  }
+
+}
+
+//main section
+
+@media only screen and (max-width: 1919px) {
+  .main-section {
+    padding-bottom: 51.65528%;
+    height: initial;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .main-section {
+    padding: 0;
+    height: 696px;
+    background: url("./mobile-m-1-bg.jpg") no-repeat center/cover;
+
+    #violet {
+      position: absolute;
+      left: 26.3285vw;
+      top: 93.9614vw;
+      z-index: 3;
+      width: 217px;
+      height: 213px;
+      min-width: 217px;
+      min-height: 213px;
+    }
+
+    #purple {
+      top: 85.0241vw;
+      left: 16.9082vw;
+      z-index: 2;
+      position: absolute;
+      width: 217px;
+      height: 209px;
+      min-width: 217px;
+      min-height: 209px;
+    }
+
+    #green {
+      top: 77.7777vw;
+      left: 26.3285vw;
+      z-index: 1;
+      position: absolute;
+      width: 235px;
+      height: 239px;
+      min-width: 235px;
+      min-height: 239px;
+    }
+
+  }
+
+  .main-section--content--text {
+    display: block;
+
+  }
+
+  .main-section--content--text__lower {
+    margin-top: 21px;
+    p {
+      font-size: 10px;
+      line-height: 16px;
+      letter-spacing: 0;
+    }
+  }
+
+  .main-section--content--text__upper {
+    h1.__kr {
+      font-size: 14px;
+      margin-bottom: 9px;
+
+    }
+
+    p {
+      margin-top: 9px;
+      font-size: 10px;
+      line-height: 16px;
+      letter-spacing: 0;
+    }
+  }
+
+  .main-section--content {
+    top: 104.9323vw;
+    left: 0;
+    display: block;
+  }
+
+}
+
+@media only screen and (max-width: 320px) {
+  .main-section {
+
+    #violet {
+      left: 21.3285vw;
+
+    }
+
+    #purple {
+      left: 11.9082vw;
+
+    }
+
+    #green {
+      left: 21.3285vw;
+    }
+
+  }
+  .main-section--content--text__upper {
+    h1 {
+      font-size: 16px;
+      margin-bottom: 9px;
+
+    }
+    p {
+      margin-top: 9px;
+      font-size: 11px;
+      line-height: 16px;
+      letter-spacing: 0;
+    }
+  }
+
+}
+
+
+
