@@ -6,9 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "babel": "npx babel index.js --out-dir outputfolder",
-    "start": "NODE_ENV=development webpack-dev-server --mode=development --inline --hot --watch",
-    "deploy": "NODE_ENV=production webpack --mode=production",
-    "webpack": "NODE_ENV=development webpack --mode=development --watch"
+    "start": "cross-env NODE_ENV=development webpack-dev-server --mode=development --inline --hot --watch",
+    "deploy": "cross-env NODE_ENV=production webpack --mode=production",
+    "webpack": "cross-env NODE_ENV=development webpack --mode=development --watch"
   },
   "author": "",
   "license": "ISC",
@@ -23,6 +23,8 @@
     "autoprefixer": "^9.3.1",
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.0.4",
+    "classnames": "^2.2.6",
+    "cross-env": "^5.2.0",
     "css-loader": "^1.0.1",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "node-sass": "^4.10.0",
