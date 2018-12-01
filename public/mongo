@@ -1,0 +1,19 @@
+$gt:초과
+$gte:이상
+$lt:미만
+$lte:이하
+$ne: 같지 않음
+$or: 또는
+$in: 배열 요소 중 하나
+
+#정렬 sort
+-1:내림차순
+ 1:오름차순
+
+#개수 설정 limit
+
+ db.users.find({},{_id:0, name:1,age:1}).sort({age:-1});db
+
+#skip() 건너뜀
+
+
