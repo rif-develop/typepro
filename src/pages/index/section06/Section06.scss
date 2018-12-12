@@ -1,0 +1,93 @@
+@import '../../../lib/base';
+
+$max-height: 983px;
+
+.seventh-section {
+  position: relative;
+  width: 100%;
+  padding-top: 19.1%;
+  padding-bottom: 19.1%;
+  -webkit-transition: all 0.4s ease-out;
+  -moz-transition: all 0.4s ease-out;
+  -ms-transition: all 0.4s ease-out;
+  -o-transition: all 0.4s ease-out;
+  transition: all 0.4s ease-out;
+  max-height: $max-height * 1;
+
+  svg {
+    position: absolute;
+    top: 20.7528%;
+    left: 55.5208%;
+    width: 29.4791%;
+
+    height: 58.5961%;
+  }
+
+  &--txt {
+    position: relative;
+    left: 58.8796%;
+    width: 23%;
+    h1 {
+      position: relative;
+      font-size: 2.29vw;
+      font-weight: bold;
+      color: #fff;
+      z-index: 1;
+    }
+
+    p {
+      position: relative;
+      margin-top: 2.08vw;
+      font-size: 1.2vw;
+      font-weight: 300;
+      line-height: 1.5;
+      color: #fff;
+      z-index: 1;
+
+      em {
+        font-weight: 500;
+        color: #fff;
+        vertical-align: baseline;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 2550px) {
+  .seventh-section {
+    max-height: $max-height * 2;
+  }
+}
+
+@media only screen and (max-width: $mobile-large-width) {
+  .seventh-section {
+    padding-top: 31.8840%;
+    padding-bottom: 101.4493%;
+  }
+  .seventh-section--txt {
+    width: 65.2174%;
+    margin: 0 auto;
+    left: initial;
+  }
+  .seventh-section--txt h1 {
+    font-size: 5.7971vw;
+  }
+  .seventh-section--txt p {
+    font-size: 3.3816vw;
+    margin-top: 20px;
+  }
+
+  .seventh-section svg {
+    top: 5.6034%;
+    left: 50%;
+    width: 78.2609%;
+    height: 47.4138%;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
+
+  }
+
+}

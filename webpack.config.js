@@ -6,7 +6,7 @@ console.log(`--- ${dev} 모드로 실행합니다. ---`);
 const isDevmode = dev === 'development';
 module.exports  = {
     entry:{
-        'app':['@babel/polyfill','./src/index.tsx']
+        'app':['@babel/polyfill','./src/index.js']
     },
     output:{
         path:path.resolve(__dirname,'dist'),
@@ -32,10 +32,11 @@ module.exports  = {
                 test: /\.js$/,
                 exclude: /node_modules/,
             },
-            {
-                test:/\.tsx?$/,
-                loader:"awesome-typescript-loader"
-            },
+            // {
+            //     test: /\.ts|\.tsx$/,
+            //     loader:"awesome-typescript-loader",
+            //     exclude: /node_modules/
+            // },
             {
                 enforce: "pre",
                 test:/\.js$/,
@@ -47,11 +48,11 @@ module.exports  = {
                     fallback: 'style-loader',
                     use: [
                         {
-                            loader: 'typings-for-css-modules-loader',
+                            loader: 'css-loader',
                             options: {
                                 modules: isDevmode ? 'false' : 'true',
-                                namedExport:true,
                                 localIdentName: isDevmode ? null : '_[hash:base64:11]',
+                                namedexport:true,
                                 sourceMap: true,
                                 minimize: true,
                             }
@@ -60,7 +61,7 @@ module.exports  = {
                             loader:'postcss-loader'
                         },
                         {
-                            loader: 'sass-loader'
+                            loader: 'fast-sass-loader'
                         }
                     ]
                 }),
@@ -75,7 +76,7 @@ module.exports  = {
                     outputPath: 'images/',
                     limit: isDevmode ? 1000000 : 100000,
                 }
-            },
+            }
         ]
     },
     plugins: [

@@ -1,0 +1,8 @@
+.index-background {
+  background: url('./main-smart-devices-bg@2x.jpg') no-repeat center/cover;
+}
+@media only screen and (max-width: 640px){
+  .index-background {
+    background: url('./mobile-devices-bg@2x.jpg') no-repeat center/cover;
+  }
+}

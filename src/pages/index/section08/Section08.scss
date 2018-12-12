@@ -1,0 +1,110 @@
+@import '../../../lib/base';
+
+.seventeenth-section {
+  position: relative;
+  width: 100%;
+  font-size: 16px;
+  padding-top: 8.8021%;
+  padding-bottom: 26.875%;
+  -webkit-transition: all 0.45s ease-out;
+  -moz-transition: all 0.45s ease-out;
+  -ms-transition: all 0.45s ease-out;
+  -o-transition: all 0.45s ease-out;
+  transition: all 0.45s ease-out;
+
+  > div {
+    width: 70%;
+    margin: 0 auto;
+  }
+  &--article {
+    width: 100%;
+    text-align: center;
+
+    h1 {
+      font-size: 2.291vw;
+      font-weight: bold;
+      line-height: normal;
+      color: #3726af;
+    }
+    //h1
+
+    p {
+      margin-top: 3.703703703703704%;
+      font-size: 1.042vw;
+      font-weight: 300;
+      word-break: keep-all;
+
+    }
+    //p
+  }
+  //article
+
+  &--buttons {
+    margin-top: 5%;
+    text-align: center;
+
+  }
+
+}
+
+@media only screen and (max-width: $mobile-large-width) {
+  .seventeenth-section {
+    padding: 16.9082% 0 89.8551% 0;
+  }
+  .seventeenth-section > div {
+    width: 90%;
+  }
+  .seventeenth-section--article {
+    width: 246px;
+    margin: 0 auto;
+
+  }
+  .seventeenth-section--article h1 {
+    font-size: 24px;
+  }
+  .seventeenth-section--article p {
+    margin-top: 20px;
+    font-size: 14px;
+    line-height: 1.43;
+  }
+  .seventeenth-section--buttons {
+    margin-top: 37px;
+  }
+  .seventeenth-section--buttons > a {
+    display: block;
+    margin: 0 auto;
+
+  }
+  .seventeenth-section--buttons > a {
+    width: 246px;
+    height: 64px;
+    line-height: 62px;
+    -webkit-transition: all 0.25s ease-out;
+    -moz-transition: all 0.25s ease-out;
+    -ms-transition: all 0.25s ease-out;
+    -o-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
+
+    > img {
+      padding-right: 15px;
+      width: 30px;
+      height: 21px;
+
+    }
+    > span {
+      font-size: 18px;
+      letter-spacing: -0.8px;
+
+    }
+  }
+  .seventeenth-section--buttons > a:nth-child(2) {
+    margin-top: 6px;
+
+  }
+  .seventeenth-section--buttons > a.seventeenth-section__kakao > img {
+    width: 29px;
+    height: 26px;
+  }
+}
+
+

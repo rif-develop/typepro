@@ -1,0 +1,101 @@
+$max-height: 983px;
+@import '../../../lib/base';
+
+.fifth-section {
+  position: relative;
+  width: 100%;
+  font-size: 16px;
+  padding-top: 19.9%;
+  padding-bottom: 19.9%;
+  -webkit-transition: all 0.4s ease-out;
+  -moz-transition: all 0.4s ease-out;
+  -ms-transition: all 0.4s ease-out;
+  -o-transition: all 0.4s ease-out;
+  transition: all 0.4s ease-out;
+  max-height: 983px;
+
+  svg {
+    position: absolute;
+    width: 29.4791%;
+    height: 58.596%;
+    bottom: 20.753%;
+    left: 15%;
+
+  }
+
+  > div {
+    position: relative;
+    left: 16.9791%;
+    width: 23%;
+
+    h1 {
+      position: relative;
+      font-size: 2.29vw;
+      font-weight: bold;
+      color: #fff;
+      z-index: 1;
+    }
+
+    p {
+      position: relative;
+      margin-top: 2.08vw;
+      z-index: 1;
+      font-size: 1.2vw;
+      font-weight: 300;
+      line-height: 1.5;
+      color: #fff;
+    }
+
+    em {
+      font-weight: 500;
+      vertical-align: baseline;
+      color: #fff;
+    }
+  }
+}
+
+@media only screen and (min-width: 2550px) {
+  .fifth-section {
+    max-height: $max-height * 2;
+  }
+
+}
+
+@media only screen and (max-width: $mobile-large-width) {
+  .fifth-section {
+    padding-top: 104.5894%;
+    padding-bottom: 38.4058%;
+
+  }
+
+  .fifth-section svg {
+
+    top: 47.1264%;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
+    bottom: initial;
+    width: 78.2608%;
+    height: 47.4137%;
+
+  }
+
+  .fifth-section {
+    > div {
+      width: 65.2174%;
+      left: initial;
+      margin: 0 auto;
+      h1 {
+        font-size: 5.7971vw;
+      }
+      p {
+        font-size: 2.9vw;
+        margin-top: 20px;
+        width: 100%;
+      }
+    }
+  }
+}

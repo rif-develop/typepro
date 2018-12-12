@@ -11,6 +11,10 @@ server.listen(8080);
 server.on('listening', ()=>{
     console.log('8080포트에서 서버 대기 중');
 });
+server.get('/getPeopleAge',(req,res)=>{
+   req.param('parkeunhye'
+   db.
+});
 
 server.on('error',(error)=>{
     console.error(error);

@@ -1,0 +1,100 @@
+@import '../../../lib/base';
+
+$max-height: 983px;
+
+.twelfth-section {
+  position: relative;
+  width: 100%;
+  padding-top: 20.4%;
+  padding-bottom: 17.1354%;
+  font-size: 16px;
+  -webkit-transition: all 0.4s ease-out;
+  -moz-transition: all 0.4s ease-out;
+  -ms-transition: all 0.4s ease-out;
+  -o-transition: all 0.4s ease-out;
+  transition: all 0.4s ease-out;
+  max-height: 983px;
+
+  svg {
+    position: absolute;
+    width: 29.7425%;
+    height: 58.596%;
+    top: 25.4323%;
+    left: 15%;
+    display: block;
+  }
+
+  &--article {
+    position: relative;
+    left: 16.9792%;
+    width: 24.5%;
+    z-index: 1;
+
+    h1 {
+      font-size: 2.29vw;
+      font-weight: bold;
+      color: #fff;
+    }
+    //h1
+
+    p {
+      margin-top: 2.08vw;
+      font-size: 1.23vw;
+      font-weight: 300;
+      line-height: 1.5;
+      color: #fff;
+
+      em {
+        font-weight: bold;
+        vertical-align: baseline;
+        color: #fff;
+      }
+    }
+    //p
+
+  }
+  //article
+
+}
+
+//section 12
+
+@media only screen and (min-width: 2550px) {
+  .twelfth-section {
+    max-height: $max-height * 2;
+  }
+}
+
+@media only screen and (max-width: $mobile-large-width) {
+
+
+  .twelfth-section {
+    padding: 106.5217% 0 26.8116% 0;
+  }
+  .twelfth-section--article {
+    left: initial;
+    width: 65.2174%;
+    margin: 0 auto;
+  }
+  .twelfth-section--article h1 {
+    font-size: 5.7971vw;
+
+  }
+  .twelfth-section--article p {
+    font-size: 3.1vw;
+    margin-top: 20px;
+    font-weight: 300;
+    line-height: 1.43;
+  }
+  .twelfth-section svg {
+    top: 50%;
+    left: 50%;
+    width: 78.2609%;
+    height: 47.4138%;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
+  }
+}

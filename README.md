@@ -9,5 +9,9 @@ ___
 ___
 > typescript는 ts만 인식한다. 그러니 typings-for-css-module && postcss-loader를 사용해 scss 이슈를 해결함.
 
+### 2018 - 12 - 11
+___
+> 도저히 속도가 안나와서 타입스크립트는 잠시 꺼놈..
+
 
 

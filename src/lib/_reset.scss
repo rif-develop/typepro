@@ -1,0 +1,206 @@
+/*한국*/
+@font-face {
+  font-family: 'Noto Sans Korean';
+  src: local('Noto Sans Light'), local('NotoSans-Light'),
+  url(/fonts/NotoSansKR-Light.woff) format('woff');
+  font-weight: 300;
+}
+
+
+@font-face {
+  font-family: 'Noto Sans Korean';
+  src: local('Noto Sans Medium'), local('NotoSans-Medium'),
+  url(/fonts/NotoSansKR-Medium.woff) format('woff');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'Noto Sans Korean';
+  src: local('Noto Sans Bold'), local('NotoSans-Bold'),
+  url(/fonts/NotoSansKR-Bold.woff) format('woff');
+  font-weight: 700;
+}
+/*재팬*/
+@font-face {
+  font-family: 'Noto Sans Japanese';
+  src: local('Noto Sans Light'), local('NotoSans-Light'),
+  url(/fonts/NotoSansJP-Light.woff) format('woff');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'Noto Sans Japanese';
+  src: local('Noto Sans Medium'), local('NotoSans-Medium'),
+  url(/fonts/NotoSansJP-Medium.woff) format('woff');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'Noto Sans Japanese';
+  src: local('Noto Sans Bold'), local('NotoSans-Bold'),
+  url(/fonts/NotoSansJP-Bold.woff) format('woff');
+  font-weight: 700;
+}
+/*중국*/
+@font-face {
+  font-family: 'Noto Sans Chinese';
+  src: local('Noto Sans Light'), local('NotoSans-Light'),
+  url(/fonts/NotoSansSC-Light.woff) format('woff');
+  font-weight: 300;
+}
+
+
+@font-face {
+  font-family: 'Noto Sans Chinese';
+  src: local('Noto Sans Medium'), local('NotoSans-Medium'),
+  url(/fonts/NotoSansSC-Medium.woff) format('woff');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'Noto Sans Chinese';
+  src: local('Noto Sans Bold'), local('NotoSans-Bold'),
+  url(/fonts/NotoSansSC-Bold.woff) format('woff');
+  font-weight: 700;
+}
+
+
+a {
+  color: #333;
+  -webkit-tap-highlight-color:transparent;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+html, body {
+  font-family:"Noto Sans Korean", system, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "애플 SD 산돌고딕 Neo", Sans-serif, serif;
+  width: 100%;
+  height: 100%;
+  /*드래그 방지 (+IE9)*/
+  user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  /*스크롤 제거*/
+  -ms-overflow-style: none;
+  overflow: auto;
+  -webkit-overflow-scrolling:touch;
+
+}
+
+::-moz-selection {
+  background: #ffcea6
+}
+
+::selection {
+  background: #ffcea6
+}
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: middle;
+  text-decoration: none;
+  font-style: normal;
+  font-weight: normal;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smooth: always;
+
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, main {
+  display: block
+}
+
+body {
+  line-height: 1
+}
+
+ol, ul {
+  list-style: none
+}
+
+ol::after, ul::after {
+  clear: both;
+  content: "";
+  display: block
+}
+
+blockquote, q {
+  quotes: none
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+  content: '';
+  content: none
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0
+}
+
+.clearfix {
+  content: "";
+  display: block;
+  clear: both
+}
+
+img {
+  border: none
+}
+
+caption, legend {
+  visibility: hidden;
+  position: absolute;
+  left: -9999em;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+  background: none;
+  font-size: 0;
+  line-height: 0;
+  text-indent: -9999em
+}
+
+select::-ms-expand {
+  display: none
+}
+
+select {
+  padding-right: 20px !important;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #fff inset !important
+}
+
+input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s
+}
+
+input:disabled {
+  background-color: #fff;
+  opacity: .5
+}
+
+br {
+  color: transparent;
+  visibility: hidden;
+}
+
+.application{
+  max-width: 100%;
+  width: 100%;
+  overflow: hidden;
+}

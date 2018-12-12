@@ -1,0 +1,124 @@
+@import '../../../lib/base';
+
+.fourth-section {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  background: url("./web-m-4-bg@2x.jpg") no-repeat center/cover;
+  -webkit-transition: all 0.4s ease-out;
+  -moz-transition: all 0.4s ease-out;
+  -ms-transition: all 0.4s ease-out;
+  -o-transition: all 0.4s ease-out;
+  transition: all 0.4s ease-out;
+  font-size: 16px;
+  padding-top: 11.98%;
+  padding-bottom: 57.71%;
+  max-height: 1590px;
+
+  &--article {
+    position: relative;
+    width: 70%;
+    margin: 0 auto;
+
+    /*모바일 -> block*/
+    > div {
+      display: inline-block;
+      -webkit-transition: all 0.2s ease-out;
+      -moz-transition: all 0.2s ease-out;
+      -ms-transition: all 0.2s ease-out;
+      -o-transition: all 0.2s ease-out;
+      transition: all 0.2s ease-out;
+    }
+
+    > div:nth-child(1) {
+
+      h1 {
+        color: #3726af;
+        font-size: 2.083vw;
+        font-weight: bolder;
+        word-break: keep-all;
+        line-height: normal;
+
+      }
+      p {
+        margin-top: 2.08vw;
+        font-size: 1.15vw;
+        font-weight: 100;
+        line-height: 1.65;
+
+      }
+    }
+    // div(1)
+
+  }
+  //article
+
+  .fourth-section--mobile {
+    display: none;
+
+    > div {
+      margin: 0 auto;
+      overflow: hidden;
+      text-indent: -9999px;
+
+    }
+
+    .fourth-section--mobile--devices {
+      margin-top: 60px;
+      width: 83%;
+      padding-bottom: 79.71%;
+      background: url("./mobile-m-4-devices@2x.png") no-repeat center/contain;
+    }
+    .fourth-section--mobile--mobile {
+      margin-top: 66px;
+      width: 83%;
+      padding-bottom: 66.1836%;
+      background: url("./mobile-m-4-mobile@2x.png") no-repeat center/contain;
+    }
+    .fourth-section--mobile--pictures {
+      width: 100%;
+      padding-bottom: 100.9662%;
+      background: url("./mobile-m-4-pics@2x.png") no-repeat center/contain;
+
+    }
+  }
+  //모바일에서만
+}
+
+@media only screen and (min-width: 2550px) {
+  .fourth-section {
+    max-height: 3180px;
+  }
+}
+
+@media only screen and (max-width: $mobile-large-width) {
+
+  .fourth-section {
+    background: url("./mobile-m-4-rectangle.svg") no-repeat center/cover;
+    padding-top: 28.0193%;
+    padding-bottom: 0;
+  }
+
+  .fourth-section .fourth-section--mobile {
+    display: block;
+  }
+  .fourth-section--article {
+    width: 83%;
+    text-align: center;
+    margin: 0 auto;
+  }
+  .fourth-section--article > div:nth-child(1) h1 {
+    font-size: 7.8vw;
+    width: 94%;
+    margin: 0 auto;
+  }
+  .fourth-section--article > div:nth-child(1) p {
+    margin-top: 26px;
+    line-height: 1.67;
+    font-size: 4vw;
+  }
+}
+
+@media only screen and (max-width: 350px) {
+
+}

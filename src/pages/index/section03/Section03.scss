@@ -1,0 +1,131 @@
+@import '../../../lib/base';
+
+.third-section {
+  width: 100%;
+  padding: 130px 0;
+  background-color: #f6f4fc;
+  font-size: 16px;
+
+  &--content {
+    width: 70%;
+    margin: 0 auto;
+    -webkit-transition: all 0.45s ease-out;
+    -moz-transition: all 0.45s ease-out;
+    -ms-transition: all 0.45s ease-out;
+    -o-transition: all 0.45s ease-out;
+    transition: all 0.45s ease-out;
+
+    &--list {
+      float: left;
+      width: 30.80357142857143%;
+      height: 560px;
+      background-color: #fff;
+      margin-right: 3.794642857142857%;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      border-radius: 10px;
+
+
+
+      > div {
+        padding: 0 77px;
+        text-align: center;
+
+        img {
+          width: 100%;
+          max-width: 120px;
+          min-width: 64px;
+          max-height: 120px;
+          min-height: 120px;
+          height: auto;
+          display: inline-block;
+          margin-top: 110px;
+        }
+        h1 {
+          margin-top: 3.65vw;
+          font-size: 1.25vw;
+          font-weight: bold;
+        }
+        p {
+          margin: 30px auto 0;
+          text-align: center;
+          font-size: 0.83vw;
+          line-height: 1.88;
+          font-weight: 300;
+          opacity: .9;
+
+        }
+
+      }
+    }
+
+    &--list:nth-child(3) {
+      margin: 0;
+    }
+
+  }
+
+}
+
+/*레티나 해상도*/
+@media only screen and (min-width: 2560px) {
+  .third-section--content--list {
+    height: 800px;
+  }
+}
+
+
+@media only screen and (max-width: $desktop-large-width) {
+  .third-section--content {
+    width: 80%;
+  }
+  .third-section--content--list > div {
+    padding: 0 30px;
+  }
+}
+
+@media only screen and (max-width: $tablet-large-width) {
+  .third-section--content {
+    width: 90%;
+  }
+  .third-section--content--list > div {
+    padding: 0 15px;
+
+  }
+}
+
+@media only screen and (max-width: $mobile-large-width) {
+  .third-section--content--list > div {
+    min-width: 260px;
+    width: 62.80193236714976%;
+    margin: 0 auto;
+  }
+  .third-section {
+    padding: 0;
+
+  }
+  .third-section--content {
+    width: 100%;
+  }
+  .third-section--content--list {
+    float: none;
+    width: 100%;
+    margin: 10px auto !important;
+    max-width: none;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+  }
+  .third-section--content--list > div img {
+    margin-bottom: 70px;
+  }
+  .third-section--content--list > div h1 {
+    margin-top: 0;
+    font-size: 5.797vw;
+  }
+  .third-section--content--list > div p {
+    font-size: 3.86vw;
+
+  }
+
+}

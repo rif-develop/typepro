@@ -1,0 +1,16 @@
+{
+  "short_name": "LITTLEONE",
+  "name": "LITTLEONE WEB APPLICATION",
+  "icons": [
+    {
+      "src": "./favicon/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": "/?utm_source=homescreen",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#fff",
+  "orientation": "portrait"
+}

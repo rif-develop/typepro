@@ -1,0 +1,30 @@
+.component-default-email{
+  display: inline-block;
+  min-width: 210px;
+  cursor: pointer;
+  margin: 0 4px;
+  width: 340px;
+  height: 98px;
+  line-height: 98px;
+  max-width: 340px;
+  letter-spacing: -1px;
+  background-color: #fff;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 1px solid #71dbd4;
+
+  > img {
+    padding-right: 30px;
+
+  }
+
+  > span {
+    width: 217px;
+    font-size: 1.4em;
+  }
+
+}
