@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import ReactDOM from 'react-dom';
 import {applyMiddleware, createStore, compose, combineReducers} from 'redux';
+import {Route, Router, BrowserRouter, HashRouter} from "react-router-dom";
 import {Provider} from 'react-redux';
 import createSagaMiddleware from "redux-saga";
 import Button from "./test/Button";
@@ -8,6 +9,10 @@ import reducer from "./reducers/index";
 import Counter from './test/Counter'
 import rootSaga from "./sagas";
 import App from "./test/app";
+import Header from "./component/header/Header";
+import IndexLayout from "./pages/index";
+import LoginLayout from "./pages/login/Login";
+
 const root = document.getElementById('app');
 
 //상태를 저장할 스토어
@@ -21,7 +26,7 @@ let store = createStore(
 );
 
 
-store.subscribe(function(){
+store.subscribe(function () {
     console.log(store.getState());
 });
 
@@ -29,11 +34,12 @@ sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
     <Provider store={store}>
-        <div>
-            <Button/>
-            <Counter/>
-            <App/>
-        </div>
+        <HashRouter>
+            <Fragment>
+                <Route exact path={"/"} component={IndexLayout}/>
+                <Route path={"/login"} component={LoginLayout}/>
+            </Fragment>
+        </HashRouter>
     </Provider>, root
 );
 

@@ -13,6 +13,7 @@ import styles from './Index.scss';
 import Section07 from "./section07/Section07";
 import Section08 from "./section08/Section08";
 import Footer from "../../component/footer/Footer";
+import Header from "../../component/header/Header";
 
 class IndexLayout extends React.Component {
 
@@ -28,6 +29,7 @@ class IndexLayout extends React.Component {
             <Fragment>
                 <main>
                     <Head title={'LITTLEONE'}/>
+                    <Header/>
                     <Section01 language={this.state.language}/>
                     <Section02 language={this.state.language}/>
                     <Section03 language={this.state.language}/>

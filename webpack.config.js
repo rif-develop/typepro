@@ -4,6 +4,7 @@ const webpack =require('webpack');
 const dev = process.env.NODE_ENV;
 console.log(`--- ${dev} 모드로 실행합니다. ---`);
 const isDevmode = dev === 'development';
+console.log(isDevmode);
 module.exports  = {
     entry:{
         'app':['@babel/polyfill','./src/index.js']
@@ -51,7 +52,7 @@ module.exports  = {
                             loader: 'css-loader',
                             options: {
                                 modules: isDevmode ? 'false' : 'true',
-                                localIdentName: isDevmode ? null : '_[hash:base64:11]',
+                                localIdentName: isDevmode ? '[local]' : '_[hash:base64:11]',
                                 namedexport:true,
                                 sourceMap: true,
                                 minimize: true,
