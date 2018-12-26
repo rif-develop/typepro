@@ -1,25 +1,39 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {applyMiddleware, createStore} from 'redux';
+import {applyMiddleware, createStore, compose, combineReducers} from 'redux';
 import {Provider} from 'react-redux';
-import IndexLayout from "./pages/index/Index";
-import rootSaga from "./action/dispatch/saga";
-import reducer from "./reducers/Reducer";
 import createSagaMiddleware from "redux-saga";
-
+import Button from "./test/Button";
+import reducer from "./reducers/index";
+import Counter from './test/Counter'
+import rootSaga from "./sagas";
+import App from "./test/app";
 const root = document.getElementById('app');
 
+//상태를 저장할 스토어
+const sagaMiddleware = createSagaMiddleware();
+//크롬 리덕스 데브툴
+const reduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
 
-const sagaMiddleWare = createSagaMiddleware();
-
-const store = createStore(
+let store = createStore(
     reducer,
-    applyMiddleware(sagaMiddleWare)
+    compose(applyMiddleware(sagaMiddleware), reduxDevTools)
 );
 
-console.log(store);
+
+store.subscribe(function(){
+    console.log(store.getState());
+});
+
+sagaMiddleware.run(rootSaga);
+
 ReactDOM.render(
     <Provider store={store}>
-        <IndexLayout/>
+        <div>
+            <Button/>
+            <Counter/>
+            <App/>
+        </div>
     </Provider>, root
 );
+

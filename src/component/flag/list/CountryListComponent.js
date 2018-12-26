@@ -1,14 +1,10 @@
 import React from "react";
-import {createStore, applyMiddleware} from 'redux';
-import createSagaMiddleware from 'redux-saga';
-import reducer from '../../../reducers/Reducer';
 import styles from '../FlagComponent.scss';
 import classnames from 'classnames';
 import {setCookie} from "../../../action/cookie/Cookie";
-import rootSaga from "../../../action/dispatch/saga";
+import {connect} from 'react-redux';
 
 const cx = classnames.bind(styles);
-
 
 class CountryListComponent extends React.Component {
     constructor(props) {
@@ -36,21 +32,12 @@ class CountryListComponent extends React.Component {
            }
         });
 
-        const sagaMiddleWare = createSagaMiddleware();
-
-        const store = createStore(
-            reducer,
-            applyMiddleware(sagaMiddleWare)
-        );
-
-
-        sagaMiddleWare.run(rootSaga);
-
-        store.getState();
     }
 
 
     render() {
+        const {language, fetching} = this.props;
+
         return (
             <li className={styles['footer-language-box--list']} data-select-value={this.props.country} data-react-key={this.props.id} onClick={()=>{
                 this.onClickHandler(this.props.country)
@@ -71,4 +58,20 @@ class CountryListComponent extends React.Component {
     }
 }
 
-export default CountryListComponent
+const mapStateToProps = state =>{
+    return {
+        language:state,
+        fetching:state.fetching,
+        error:state.error
+    }
+};
+
+const mapDispatchToProps = dispatch =>{
+    return {
+        onClickHandler:()=> dispatch({
+            type:"SET_LANGUAGE_REQUEST"
+        })
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CountryListComponent);
