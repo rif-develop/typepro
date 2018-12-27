@@ -1,0 +1,137 @@
+.client-info-component.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.client-info-component {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  padding: 33px;
+  top: 53px;
+  left: -119px;
+  width: 204px;
+  height: 332px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px 0 rgba(35, 39, 43, 0.2);
+  z-index: 3;
+  -webkit-transition: all 0.4s ease-out;
+  -moz-transition: all 0.4s ease-out;
+  -ms-transition: all 0.4s ease-out;
+  -o-transition: all 0.4s ease-out;
+  transition: all 0.4s ease-out;
+
+
+  /*삼각 꼭지점*/
+  &--triangle {
+    position: absolute;
+    top: -29px;
+    width: 60px;
+    height: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: url("./tooltip-menu-triangle-shadow-2@2x.png") no-repeat center/contain;
+  }
+
+  //triangle
+
+  &__head {
+    position: relative;
+
+
+    /*헤더 우측 작은 썸네일이미지*/
+    > img {
+      position: absolute;
+      width: 48px;
+      height: 48px;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%;
+      -webkit-box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.1);
+      -moz-box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.1);
+      box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    &--desc {
+      padding-left: 62px;
+
+      p {
+        font-size: 16px;
+        font-weight: 500;
+        color: #333;
+        max-width: 148px;
+        word-wrap: break-word;
+        line-height: 17px;
+
+        //님
+        > span {
+          display: inline-block;
+          padding: 0 2px;
+          font-size: 12px;
+        }
+
+        //span
+
+      }
+
+      //p
+
+      &__activity {
+        margin-top: 11px;
+
+        span {
+          width: 70px;
+          text-align: left;
+          font-size: 10px;
+          color: #6a6a6a;
+          padding: 11px 0;
+        }
+
+        span:first-child {
+          padding-right: 16px;
+        }
+      }
+
+      //activity
+
+    }
+
+    //--desc
+
+    &__more {
+      position: relative;
+      text-align: right;
+      margin: 20px 0 15px;
+
+      .__more-info-button {
+        display: inline-block;
+        text-align: center;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        width: 48px;
+        padding: 5px 0;
+        background-color: #c3cbd5;
+        color: #fff;
+        font-size: 10px;
+        cursor: pointer;
+      }
+
+
+      &--bottom-bar {
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 70px;
+        height: 2px;
+        background-color: #00f0d6;
+      }
+    }
+
+  }
+
+  //--hea
+
+
+}
