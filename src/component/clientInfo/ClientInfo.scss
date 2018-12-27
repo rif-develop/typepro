@@ -36,7 +36,7 @@
 
   //triangle
 
-  &__head {
+  &--head {
     position: relative;
 
 
@@ -51,6 +51,7 @@
       -webkit-box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.1);
       -moz-box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.1);
       box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.1);
+      overflow: hidden;
     }
 
     &--desc {
@@ -94,44 +95,72 @@
       }
 
       //activity
+      &__more {
+        position: relative;
+        text-align: right;
+        margin: 20px 0 15px;
 
+        .__more-info-button {
+          display: inline-block;
+          text-align: center;
+          -webkit-border-radius: 10px;
+          -moz-border-radius: 10px;
+          border-radius: 10px;
+          width: 48px;
+          padding: 5px 0;
+          background-color: #c3cbd5;
+          color: #fff;
+          font-size: 10px;
+          cursor: pointer;
+        }
+
+
+        &--bottom-bar {
+          position: absolute;
+          bottom: -10px;
+          left: 0;
+          width: 70px;
+          height: 2px;
+          background-color: #00f0d6;
+        }
+      }
     }
 
     //--desc
 
-    &__more {
-      position: relative;
-      text-align: right;
-      margin: 20px 0 15px;
 
-      .__more-info-button {
-        display: inline-block;
-        text-align: center;
-        -webkit-border-radius: 10px;
-        -moz-border-radius: 10px;
-        border-radius: 10px;
-        width: 48px;
-        padding: 5px 0;
-        background-color: #c3cbd5;
-        color: #fff;
-        font-size: 10px;
-        cursor: pointer;
-      }
-
-
-      &--bottom-bar {
-        position: absolute;
-        bottom: -10px;
-        left: 0;
-        width: 70px;
-        height: 2px;
-        background-color: #00f0d6;
-      }
-    }
 
   }
 
   //--hea
+
+  /*나의 정보*/
+  &__list {
+
+    li {
+      padding: 17px 0;
+      border-bottom: 1px solid #e9e9e9;
+
+      a {
+        color: black;
+      }
+    }
+  }
+  //__list
+
+  &__logout {
+    position: relative;
+    width: 100%;
+    text-align: right;
+    a {
+      color: #6a6a6a;
+      padding: 16px 0;
+      font-size: 12px;
+    }
+
+  }
+  //logout
+
 
 
 }

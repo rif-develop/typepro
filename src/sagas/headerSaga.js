@@ -8,6 +8,10 @@ export function* wathcerClientInfoHeader() {
     yield takeLatest('HEADER_CLIENT_ACTIVE_REQUEST', clientInfoActiveSaga);
 }
 
+export function* watcherMobileMenu() {
+    yield takeLatest('HEADER_MOBILE_MENU_REQUEST', mobileMenuSaga);
+}
+
 function* alarmActiveSaga() {
 
     try {
@@ -34,4 +38,15 @@ function* clientInfoActiveSaga() {
     }
 }
 
+function* mobileMenuSaga() {
+    try {
+        yield put({
+            type: 'HEADER_MOBILE_MENU_SUCCESS'
+        })
+    } catch (e) {
+        yield put({
+            type: 'HEADER_MOBILE_MENU_FAILURE'
+        })
+    }
+}
 

@@ -27,18 +27,6 @@ class ClientInfo extends React.Component {
             }
         ];
 
-        console.log(items);
-
-        const menuList = (items) => {
-            return (
-                <li>
-                    {
-                        items.map((item, i) => <Link to={item.url} key={i}>{item.boardName}</Link>)
-                    }
-                </li>
-            )
-        };
-
         return (
             <div className={cx(styles['client-info-component'], {active: this.props.active})}>
                 <div className={styles['client-info-component--triangle']}></div>
@@ -56,12 +44,15 @@ class ClientInfo extends React.Component {
                         <div className={styles['client-info-component--head--desc__more--bottom-bar']}></div>
                     </div>
                 </div>
-                <ul className={styles['header--menu__client-info__list']}>
+                <ul className={styles['client-info-component__list']}>
                     {
-                        menuList(items)
+                        items ? items.map((item, key)=>{
+                            return <li key={key}><Link to={'item.url'}/>{item.boardName}</li>
+                        }) : <li>메뉴가 활성화 되지 않았습니다.</li>
+
                     }
                 </ul>
-                <div className={styles['header--menu__client-info__logout']}>
+                <div className={styles['client-info-component__logout']}>
                     <Link to="/logout">로그아웃</Link>
                 </div>
             </div>

@@ -1,12 +1,17 @@
 import React from 'react';
 import styles from "./MobileMenu.scss";
 import {Link} from "react-router-dom";
+import classnames from 'classnames';
+
+const cx = classnames.bind(styles);
 
 class MobileMenu extends React.Component{
     render(){
         return(
-            <div className={styles['header--mobile']}>
+            <div className={cx(styles['mobile-menu-component'],{active:this.props.active})}>
+                {/*네비*/}
                 <nav className={styles['slide-nav']}>
+                    {/*메뉴*/}
                     <ol className={styles['header--mobile--menu']}>
                         <li className={styles['header--mobile--menu__device']}>
                             <Link to="/smartbottle">디바이스</Link>

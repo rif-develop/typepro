@@ -11,20 +11,6 @@
   -o-transition: all 0.26s ease-out;
   transition: all 0.26s ease-out;
 
-  .more-info__button {
-    display: inline-block;
-    text-align: center;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    width: 48px;
-    padding: 5px 0;
-    background-color: #c3cbd5;
-    color: #fff;
-    font-size: 10px;
-    cursor: pointer;
-  }
-
   > div:nth-child(1) {
     -webkit-transition: all 0.25s ease-out;
     -moz-transition: all 0.25s ease-out;
@@ -57,71 +43,11 @@
     color: #6d5ddb;
   }
 
-  &--mobile {
-    background-color: #3726af;
-    position: fixed;
-    width: 100%;
-    font-size: 14px;
-    color: #fff;
-    display: block;
-    height: 0;
-    top: 46px;
-    box-shadow: 0 0 10px 0 rgba(35, 39, 43, 0.2);
-    overflow: hidden;
 
-    > nav {
-      width: 100%;
-      height: 100%;
-      overflow-y: scroll;
-      padding-right: 17px;
-      padding-left: 9px;
-    }
-
-    &--menu {
-      color: #fff;
-      width: 80%;
-      margin: 0 auto;
-      padding: 30px 0;
-      overflow: hidden;
-
-      > li {
-        padding: 13px 0;
-
-        ol {
-          position: relative;
-          top: 0;
-          height: 0;
-          overflow: hidden;
-          -webkit-transition: all 0.25s ease-out;
-          -moz-transition: all 0.25s ease-out;
-          -o-transition: all 0.25s ease-out;
-          transition: all 0.25s ease-out;
-
-          li {
-            padding: 7px 10px;
-            font-size: 14px;
-
-          }
-        }
-        ol.active {
-          height: 84px;
-          max-height: 84px;
-          overflow: hidden;
-        }
-
-        a {
-          color: #fff;
-        }
-
-      }
-    }
-  }
 
   &--logo, &--navigation, &--menu {
     display: table-cell;
-  }
-
-  //로고
+  } //로고
 
   &--logo {
     a {
@@ -310,34 +236,6 @@
         }
       }
 
-
-      /*나의 정보*/
-      &__list {
-
-        li {
-          padding: 17px 0;
-          border-bottom: 1px solid #e9e9e9;
-
-          a {
-            color: black;
-          }
-        }
-      }
-      //__list
-
-      &__logout {
-        position: relative;
-        width: 100%;
-        text-align: right;
-        a {
-          color: #6a6a6a;
-          padding: 16px 0;
-          font-size: 12px;
-        }
-
-      }
-      //logout
-
     }
 
   }
@@ -428,80 +326,6 @@
   transform: translateY(-4px) rotate(45deg);
   background-color: #3726af;
 }
-
-.header--mobile--user-info {
-  padding: 30px 0;
-  border-top: 1px solid #523ed9;
-
-  /*모바일 썸네일 영역*/
-  .header--menu__client-info__head {
-    color: #fff;
-    width: 80%;
-    margin: 0 auto;
-
-    &--desc {
-
-      > div span {
-        color: #fff;
-        opacity: .85;
-      }
-
-      p {
-        color: #fff;
-      }
-    }
-  }
-
-  //head
-  &__list {
-    width: 80%;
-    margin: 0 auto;
-    li {
-      padding: 17px 0;
-      border-bottom: 1px solid #523ed9;
-
-      a {
-        color: #fff;
-      }
-    }
-  }
-  &__logout {
-    position: relative;
-    width: 80%;
-    margin: 0 auto;
-    text-align: right;
-    a {
-      color: #00f0d6;
-      padding: 16px 0;
-      font-size: 12px;
-    }
-
-  }
-
-}
-
-
-.header--mobile--user-info__head {
-  display: none;
-}
-
-.slide-nav li {
-  opacity: 0;
-  position: relative;
-  top: 100px;
-}
-
-.slide-nav li.active {
-  top: 0;
-  opacity: 1;
-  -webkit-transition: all 0.63s ease-in-out;
-  -moz-transition: all 0.63s ease-in-out;
-  -ms-transition: all 0.63s ease-in-out;
-  -o-transition: all 0.63s ease-in-out;
-  transition: all 0.63s ease-in-out;
-}
-
-//헤더 모바일 알람
 
 /*헤더 서브 링크*/
 

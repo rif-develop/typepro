@@ -17,7 +17,7 @@ class Header extends React.Component {
 
     render() {
 
-        const {loading, error, alarmList, clientMenu, onClickClientHandler, onClickAlarmHandler} = this.props;
+        const {loading, error, alarmList, clientMenu, mobileMenu, onClickClientHandler, onClickAlarmHandler, onClickMobileHandler} = this.props;
 
         return (
             <header className={styles['header']} id={'header-component'}>
@@ -82,8 +82,9 @@ class Header extends React.Component {
                             <ClientInfo active={clientMenu}/>
                         </div>
                     </div>
-                    <div className={styles['header--hamburger']}>
-                        <a href="javascript:void(0)" className={styles['header--hamburger__menu']}>
+                    {/*모바일용 메뉴*/}
+                    <div className={styles['header--hamburger']} onClick={onClickMobileHandler}>
+                        <a href="javascript:void(0)" className={cx(styles['header--hamburger__menu'],{active:mobileMenu})}>
                             <span></span>
                             <span></span>
                             <span></span>
@@ -92,7 +93,7 @@ class Header extends React.Component {
                 </div>
                 {/*서브링크(제품)*/}
                 {/*모바일 슬라이더 메뉴*/}
-                <MobileMenu/>
+                <MobileMenu active={mobileMenu}/>
             </header>
         );
     }
@@ -103,6 +104,7 @@ const mapStateToProps = state => {
         loading: state.headerReducer.loading,
         alarmList: state.headerReducer.alarmList,
         clientMenu: state.headerReducer.clientMenu,
+        mobileMenu: state.headerReducer.mobileMenu,
         error: state.headerReducer.error
     }
 };
@@ -113,6 +115,9 @@ const mapDispatchToProps = (dispatch) => {
         }),
         onClickAlarmHandler: () => dispatch({
             type: 'HEADER_ALARM_ACTIVE_REQUEST'
+        }),
+        onClickMobileHandler: () => dispatch({
+            type: "HEADER_MOBILE_MENU_REQUEST"
         })
     }
 };
