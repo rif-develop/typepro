@@ -2,14 +2,16 @@
   "lang": {
     "code": "en",
     "dialects": "en-US",
-    "name": "English"
+    "name": "English",
+    "lastModified": "2018-11-06",
+    "writer": "brian"
   },
   "section03": {
     "first": {
       "01": "Baby bottle",
       "02": "that helps comfortable feeding",
       "03": "Smart-Bottle monitors temperature and feeding posture",
-      "04": "to help you feed your baby more safely and conveniently"
+      "04": "to help you feed your baby more safely and conveniently."
     },
     "second": {
       "01": "Bottle cap (pp)",
@@ -29,7 +31,7 @@
       "07": "Smart-Bottle will vibrate to warn you.",
       "08": "Feeding posture",
       "09": "If the angle is inappropriate,",
-      "10": "Smart-Bottle will vibrate to warn you",
+      "10": "Smart-Bottle will vibrate to warn you.",
       "11": null,
       "12": "Accurate measurement",
       "13": "Prevents loss of nutrition",
@@ -50,7 +52,7 @@
     "third": {
       "01": "Easy to use",
       "02": "Use the supplied patch to apply",
-      "03": "to *any brand your baby likes",
+      "03": "to *any brand your baby likes.",
       "04": "Real-time alerts",
       "05": "Once bowel activity is detected,",
       "06": "it will alert you through the app.",
@@ -60,6 +62,27 @@
       "10": "Reliable data",
       "11": "Accurately predicts bowel activities",
       "12": "to reduce the risk of skin rash and infections."
+    }
+  },
+  "section045": {
+    "first": {
+      "00": "Smart Wearable\nThermometer",
+      "01": "Smart-Temp monitors body temperature changes\nin real-time to alert you when there is fever."
+    },
+    "second": {
+      "00": "Temp. Display",
+      "01": "Breathable Band",
+      "02": "High Accuracy Temp. Sensor"
+    },
+    "third": {
+      "00": "Real-time Monitoring",
+      "01": "Monitors temp. change in real-time\nand alerts you if temp. reaches preset level.",
+      "02": "Easy to check",
+      "03": "You can check temp. and battery status\nvia display on the device.",
+      "04": "Accurate Measurement",
+      "05": "Highly reliable sensor measures temperature\naccurately without error.",
+      "06": "Breathable Band",
+      "07": "Releases heat and moisture effectively\nand protects sensitive skin from allergies."
     }
   },
   "section05": {
@@ -85,9 +108,9 @@
       "02": "Smart-Peepee",
       "03": "(Diaper sensor)",
       "04": "Detects baby's bowel activities",
-      "05": "and provides reports",
+      "05": "and provides reports.",
       "06": "Smart-Bottle",
-      "07": "(Feeding Bottle)",
+      "07": "(Feeding bottle)",
       "08": "Detects temperature, feeding angle,",
       "09": "and provides reports.",
       "10": "Smart-Temp",
@@ -96,9 +119,14 @@
       "13": "and provides reports."
     }
   },
-  "footer":{
-    "first":{
-      "01":"MEET THE NEXT LEVEL PARENTING ASSISTANT"
+  "section06": {
+    "first": {
+      "00": "Meet our products on Kickstarter!"
+    }
+  },
+  "footer": {
+    "first": {
+      "01": "MEET THE NEXT LEVEL PARENTING ASSISTANT"
     }
   }
 }

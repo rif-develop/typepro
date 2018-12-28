@@ -62,6 +62,7 @@
     "@types/classnames": "^2.2.6",
     "animejs": "^2.2.0",
     "axios": "^0.18.0",
+    "fullpage.js": "^3.0.4",
     "react-anime": "^2.2.0"
   },
   "repository": {

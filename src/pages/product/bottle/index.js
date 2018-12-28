@@ -1,19 +1,19 @@
 import React from 'react';
 import * as styles from './Index.scss';
-import '../../library/_reset.scss';
+import '../../../lib/_reset.scss';
 import fullpage from 'fullpage.js';
 import Section01 from "./section01/Section01";
 import Section02 from "./section02/Section02";
 import Section03 from "./section03/Section03";
-import Head from "../../promotion/head/Head";
+import Head from "../../../component/head/head";
 import Section04 from "./section04/Section04";
 import Section05 from "./section05/Section05";
 import Section06 from "./section06/Section06";
 import Section07 from "./section07/Section07";
 import Section08 from "./section08/Section08";
 import Section09 from "./section09/Section09";
-import {getCookie, setCookie} from "../../library/_LittleoneScript";
 import anime from 'animejs';
+import {getCookie, setCookie} from "../../../action/cookie/Cookie";
 
 
 class BottleLayout extends React.Component {
@@ -21,75 +21,17 @@ class BottleLayout extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            language: getCookie('lang') === 'ko' ? require('../../landing/language/korean/product/smartbottle') : null ||
-            getCookie('lang') === 'en' ? require('../../landing/language/english/product/smartbottle') : null ||
-            getCookie('lang') === 'cn' ? require('../../landing/language/chinese/product/smartbottle') : null ||
-            getCookie('lang') === 'ja' ? require('../../landing/language/japanese/product/smartbottle') : null ||
-            getCookie('lang') === undefined || null || false ? require('../../landing/language/english/product/smartbottle') : require('../../landing/language/english/product/smartbottle')
+            language: getCookie('lang') === 'ko' ? require('../../../language/korean/product/smartbottle') : null ||
+            getCookie('lang') === 'en' ? require('../../../language/english/product/smartbottle') : null ||
+            getCookie('lang') === 'zh' ? require('../../../language/chinese/product/smartbottle') : null ||
+            getCookie('lang') === 'ja' ? require('../../../language/japanese/product/smartbottle') : null ||
+            getCookie('lang') === undefined || getCookie('lang') === null || getCookie('lang') === false ? require('../../../language/korean/product/smartbottle') : require('../../../language/korean/product/smartbottle')
         };
-        this.setLanguage = this.setLanguage.bind(this);
-
     }
 
-    setLanguage(e) {
-        const langBox = document.getElementById('react-header');
-        const body = document.getElementsByTagName('body')[0];
-        langBox.classList.toggle(styles['active']);
-        let dataSet = e.currentTarget.dataset['lang'];
-        let target = document.getElementsByClassName('current-language')[0];
-        if (dataSet === 'ko') {
-            setCookie('lang', 'ko', 14);
-            this.setState(function () {
-                return {
-                    language: require('../../landing/language/korean/product/smartbottle')
-                }
-            });
-            target.style.background = '#fff url(' + require('../../landing/head/web-footer-icn-ko.svg') + ') no-repeat center/contain';
-            document.getElementsByTagName('html')[0].lang = 'ko';
-            body.setAttribute('class', 'lang-korean');
 
 
-        } else if (dataSet === 'en') {
-            setCookie('lang', 'en', 14);
-            this.setState(function () {
-                return {
-                    language: require('../../landing/language/english/product/smartbottle')
-                }
-            });
-            target.style.background = '#fff url(' + require('../../landing/head/web-footer-icn-us.svg') + ') no-repeat center/contain';
-            document.getElementsByTagName('html')[0].lang = 'en';
-            body.setAttribute('class', 'lang-english');
 
-        }
-        else if (dataSet === 'cn') {
-            setCookie('lang', 'cn', 14);
-            this.setState(function () {
-                return {
-                    language: require('../../landing/language/chinese/product/smartbottle')
-                }
-            });
-            target.style.background = '#fff url(' + require('../../landing/head/web-footer-icn-cn.svg') + ') no-repeat center/contain';
-            document.getElementsByTagName('html')[0].lang = 'zh';
-            body.setAttribute('class', 'lang-chinese');
-
-
-        }
-        else if (dataSet === 'ja') {
-            setCookie('lang', 'ja', 14);
-            this.setState(function () {
-                return {
-                    language: require('../../landing/language/japanese/product/smartbottle')
-                }
-            });
-            target.style.background = '#fff url(' + require('../../landing/head/web-footer-icn-jp.svg') + ') no-repeat center/contain';
-            document.getElementsByTagName('html')[0].lang = 'ja';
-            body.setAttribute('class', 'lang-japanese');
-
-        }
-    }
-    
-    
-    
     componentDidMount() {
         const windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
         const a1 = document.querySelector("[data-action='anime-01']");
@@ -111,10 +53,7 @@ class BottleLayout extends React.Component {
         const a17 = document.querySelector("[data-action='anime-17']");
         const a18 = document.querySelector("[data-action='anime-18']");
         const a19 = document.querySelectorAll('[data-action="anime-19"]');
-        const a20= document.querySelector("[data-action='anime-20']");
-
-
-
+        const a20 = document.querySelector("[data-action='anime-20']");
 
 
         const body = document.getElementsByTagName('body')[0];
@@ -126,7 +65,7 @@ class BottleLayout extends React.Component {
             document.getElementsByTagName('html')[0].lang = 'ja';
             body.setAttribute('class', 'lang-japanese');
 
-        } else if (getCookie('lang') === 'cn') {
+        } else if (getCookie('lang') === 'zh') {
             document.getElementsByTagName('html')[0].lang = 'zh';
             body.setAttribute('class', 'lang-chinese');
 
@@ -402,7 +341,7 @@ class BottleLayout extends React.Component {
                     const anime16 = anime({
                         targets: a16,
                         rotate: 0,
-                        translateY:0,
+                        translateY: 0,
                         opacity: 1,
                         duration: 1200,
                     });
@@ -437,7 +376,7 @@ class BottleLayout extends React.Component {
                     const anime16 = anime({
                         targets: a16,
                         rotate: -45,
-                        translateY:200,
+                        translateY: 200,
                         opacity: 0,
                         duration: 0,
                     });
@@ -455,7 +394,7 @@ class BottleLayout extends React.Component {
                         translateY: '0',
                         opacity: 1,
                         duration: 1000,
-                        delay:240,
+                        delay: 240,
                         easing: 'easeOutQuint',
 
                     });
@@ -474,7 +413,7 @@ class BottleLayout extends React.Component {
                         duration: 0,
                     });
                 }
-                if(index === 5){
+                if (index === 5) {
                     const anime20 = anime({
                         targets: a20,
                         translateY: '0',
@@ -482,21 +421,21 @@ class BottleLayout extends React.Component {
                         duration: 1000,
                         easing: 'easeOutQuint',
                     });
-                    a19.forEach(function(ele,idx){
-                       setTimeout(function(){
-                           let actions = anime({
-                               targets: ele,
-                               easing: 'easeInSine',
-                               color: 'rgba(0,0,0,1)',
-                               paddingLeft: '20',
-                               paddingRight: '20',
-                               textIndent: '0',
-                               duration: '200',
-                           });
-                       },100*idx);
+                    a19.forEach(function (ele, idx) {
+                        setTimeout(function () {
+                            let actions = anime({
+                                targets: ele,
+                                easing: 'easeInSine',
+                                color: 'rgba(0,0,0,1)',
+                                paddingLeft: '20',
+                                paddingRight: '20',
+                                textIndent: '0',
+                                duration: '200',
+                            });
+                        }, 100 * idx);
                     });
 
-                } else if(index!==5){
+                } else if (index !== 5) {
                     let actions = anime({
                         targets: a19,
                         easing: 'easeInSine',
@@ -539,7 +478,7 @@ class BottleLayout extends React.Component {
     render() {
         return (
             <div className={styles['smart-bottle-article']} id={'product-section'}>
-                <Head title={"LITTLEONE, SMART BOTTLE"}/>
+                <Head title={"LITTLEONE, 스마트보틀"} description={'리틀원 스마트 보틀 제품페이지 입니다.'}/>
                 <Section01 language={this.state.language}/>
                 <Section02 language={this.state.language}/>
                 <Section03 language={this.state.language}/>
@@ -548,7 +487,7 @@ class BottleLayout extends React.Component {
                 <Section06 language={this.state.language}/>
                 <Section07 language={this.state.language}/>
                 <Section08 language={this.state.language}/>
-                <Section09 language={this.state.language} position={'absolute'} action={this.setLanguage}/>
+                <Section09 language={this.state.language}/>
             </div>
         )
 

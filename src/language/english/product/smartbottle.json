@@ -2,7 +2,9 @@
   "lang": {
     "code": "en",
     "dialects": "en-US",
-    "name": "English"
+    "name": "English",
+    "lastModified":"2018-10-20",
+    "writer":"brian"
   },
   "smartbottle": {
     "section01":{
@@ -16,7 +18,7 @@
       "01": "Baby bottle",
       "02": "that helps comfortable feeding",
       "03": "Smart-Bottle monitors temperature and feeding posture",
-      "04": "to help you feed your baby more safely and conveniently",
+      "04": "to help you feed your baby more safely and conveniently.",
       "05": "Keep warm",
       "06": "When connected to power source, Smart-Bottle keeps milk at ideal temperature.",
       "07": "Prevent burns",
@@ -51,7 +53,7 @@
       "06": "App will record feeding logs and alerts you",
       "07": "when it’s time to feed your baby again.",
       "08": "Automatic detection",
-      "09": "By scanning bar code of your specific brand of formula,",
+      "09": "By scanning bar code of your specific brand of \n formula,",
       "10": "Smart-Bottle will set the right temperature."
     },
     "section05":{
@@ -112,17 +114,17 @@
       "01":"Smart-Peepee",
       "02":"(Diaper sensor)",
       "03":"Detects bowel activities",
-      "04":"and provides reports.",
+      "04":"and provides reports",
       "05":null,
       "06":"Smart-Bottle",
       "07":"(Feeding bottle)",
       "08":"Detects temperature, feeding angle,",
-      "09":"and provides reports.",
+      "09":"and provides reports",
       "10":null,
       "11":"Smart-Temp",
       "12":"(Thermometer)",
       "13":"Monitors body temperature",
-      "14":"and provides statistics.",
+      "14":"and provides statistics",
       "15":null,
       "common-button":"Learn more"
     }

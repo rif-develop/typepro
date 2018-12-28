@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Section04.scss'
 import classNames from 'classnames';
-import {getCookie} from "../../../library/_LittleoneScript";
+import {getCookie} from "../../../../action/cookie/Cookie";
 
 const cx = classNames.bind(styles);
 

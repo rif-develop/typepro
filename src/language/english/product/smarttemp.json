@@ -2,7 +2,9 @@
   "lang": {
     "code": "en",
     "dialects": "en-US",
-    "name": "English"
+    "name": "English",
+    "lastModified":"2018-10-20",
+    "writer":"brian"
   },
   "smarttemp": {
     "section01": {
@@ -13,7 +15,7 @@
     },
     "section02": {
       "00": "internet of babies",
-      "01": "Smart wearable thermometer",
+      "01": "Smart wearable\nthermometer",
       "02": null,
       "03": "Smart-Temp monitors body temperature changes",
       "04": "in real-time to alert you when there is fever.",
@@ -35,7 +37,7 @@
       "20": null
     },
     "section03": {
-      "00": "Watching over your baby constantly",
+      "00": "Watching over your baby\nconstantly",
       "01": null,
       "02": "Get fever alerts, and track temperature records",
       "03": "through real-time monitoring app.",
@@ -76,7 +78,7 @@
       "00": "What other thermometers can’t do,",
       "01": "Smart-Temp can.",
       "02": "Continuous monitoring and fever alerts, easy-to-read statistics,",
-      "03": "replaceable batteries that lasts months.",
+      "03": "replaceable battery that lasts months.",
       "04": null
     },
     "section08": {

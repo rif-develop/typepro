@@ -1,8 +1,6 @@
 import React from 'react';
 import styles from './Section09.scss';
 import classNames from 'classnames';
-import {Link} from 'react-router-dom';
-import LadingHead from "../../../landing/head/Head";
 
 const cx = classNames.bind(styles);
 
@@ -18,7 +16,6 @@ class Section09 extends React.Component {
         let language = this.props.language;
         return (
             <div className={cx(styles['other-product-section'], 'section')}>
-                <LadingHead position={'absolute'} action={this.props.action}/>
                 <div className={styles['other-product-section--desc']}>
                     <div>
                         <h2>SMART SERIES</h2>
@@ -32,9 +29,9 @@ class Section09 extends React.Component {
                         <p>{language.smarttemp.section09['03']}<br/>
                             {language.smarttemp.section09['04']}<br/>
                             {language.smarttemp.section09['05']}</p>
-                        <Link to={'/smartpeepee'}>
+                        <a href={'/device/smartpeepee'}>
                             <button type={'button'} role={'button'}>{language.smarttemp.section09['common-button']}</button>
-                        </Link>
+                        </a>
                     </div>
                     <div className={styles['bottle']}>
                         <div className={styles["other-product-section--products--image"]}></div>
@@ -42,9 +39,9 @@ class Section09 extends React.Component {
                         <p>{language.smarttemp.section09['08']}<br/>
                             {language.smarttemp.section09['09']}<br/>
                             {language.smarttemp.section09['10']}</p>
-                        <Link to={'/smartbottle'}>
+                        <a href={'/device/smartbottle'}>
                             <button type={'button'} role={'button'}>{language.smarttemp.section09['common-button']}</button>
-                        </Link>
+                        </a>
                     </div>
                     <div className={styles['temp']}>
                         <div className={styles["other-product-section--products--image"]}></div>
@@ -52,9 +49,9 @@ class Section09 extends React.Component {
                         <p>{language.smarttemp.section09['13']}<br/>
                             {language.smarttemp.section09['14']}<br/>
                             {language.smarttemp.section09['15']}</p>
-                        <Link to={'/smarttemp'}>
+                        <a href={'/device/smarttemp'}>
                             <button type={'button'} role={'button'}>{language.smarttemp.section09['common-button']}</button>
-                        </Link>
+                        </a>
                     </div>
                 </div>
 

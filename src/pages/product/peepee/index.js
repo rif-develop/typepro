@@ -9,105 +9,45 @@ import Section04 from "./section04/Section04";
 import Section05 from "./section05/Section05";
 import fullpage from "fullpage.js";
 import Section06 from "./section06/Section06";
-import Head from "../../promotion/head/Head";
-import {getCookie, setCookie} from "../../library/_LittleoneScript";
 import Section09 from "./section09/Section09";
+import {getCookie, setCookie} from "../../../action/cookie/Cookie";
+import Head from "../../../component/head/head";
 
 class PeepeeLayout extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            language: getCookie('lang') === 'ko' ? require('../../landing/language/korean/product/smartpeepee') : null ||
-            getCookie('lang') === 'en' ? require('../../landing/language/english/product/smartpeepee') : null ||
-            getCookie('lang') === 'cn' ? require('../../landing/language/chinese/product/smartpeepee') : null ||
-            getCookie('lang') === 'ja' ? require('../../landing/language/japanese/product/smartpeepee') : null ||
-            getCookie('lang') === undefined || null || false ? require('../../landing/language/english/product/smartpeepee') : require('../../landing/language/english/product/smartpeepee')
+            language: getCookie('lang') === 'ko' ? require('../../../language/korean/product/smartpeepee') : null ||
+            getCookie('lang') === 'en' ? require('../../../language/english/product/smartpeepee') : null ||
+            getCookie('lang') === 'zh' ? require('../../../language/chinese/product/smartpeepee') : null ||
+            getCookie('lang') === 'ja' ? require('../../../language/japanese/product/smartpeepee') : null ||
+            getCookie('lang') === undefined || getCookie('lang') === null || getCookie('lang') === false ? require('../../../language/korean/product/smartpeepee') : require('../../../language/korean/product/smartpeepee')
         };
-        this.setLanguage = this.setLanguage.bind(this);
-
     }
-
-    setLanguage(e) {
-        const langBox = document.getElementById('react-header');
-        const body = document.getElementsByTagName('body')[0];
-        langBox.classList.toggle(styles['active']);
-        let dataSet = e.currentTarget.dataset['lang'];
-        let target = document.getElementsByClassName('current-language')[0];
-        if (dataSet === 'ko') {
-            setCookie('lang', 'ko', 14);
-            this.setState(function () {
-                return {
-                    language: require('../../landing/language/korean/product/smartpeepee')
-                }
-            });
-            target.style.background = '#fff url(' + require('../../landing/head/web-footer-icn-ko.svg') + ') no-repeat center/contain';
-            document.getElementsByTagName('html')[0].lang = 'ko';
-            body.setAttribute('class', 'lang-korean');
-
-
-        } else if (dataSet === 'en') {
-            setCookie('lang', 'en', 14);
-            this.setState(function () {
-                return {
-                    language: require('../../landing/language/english/product/smartpeepee')
-                }
-            });
-            target.style.background = '#fff url(' + require('../../landing/head/web-footer-icn-us.svg') + ') no-repeat center/contain';
-            document.getElementsByTagName('html')[0].lang = 'en';
-            body.setAttribute('class', 'lang-english');
-
-        }
-        else if (dataSet === 'cn') {
-            setCookie('lang', 'cn', 14);
-            this.setState(function () {
-                return {
-                    language: require('../../landing/language/chinese/product/smartpeepee')
-                }
-            });
-            target.style.background = '#fff url(' + require('../../landing/head/web-footer-icn-cn.svg') + ') no-repeat center/contain';
-            document.getElementsByTagName('html')[0].lang = 'zh';
-            body.setAttribute('class', 'lang-chinese');
-
-
-        }
-        else if (dataSet === 'ja') {
-            setCookie('lang', 'ja', 14);
-            this.setState(function () {
-                return {
-                    language: require('../../landing/language/japanese/product/smartpeepee')
-                }
-            });
-            target.style.background = '#fff url(' + require('../../landing/head/web-footer-icn-jp.svg') + ') no-repeat center/contain';
-            document.getElementsByTagName('html')[0].lang = 'ja';
-            body.setAttribute('class', 'lang-japanese');
-
-        }
-    }
-    
 
     componentDidMount() {
 
         const body = document.getElementsByTagName('body')[0];
         if (getCookie('lang') === 'en') {
             document.getElementsByTagName('html')[0].lang = 'en';
-            body.setAttribute('class','lang-english');
+            body.setAttribute('class', 'lang-english');
 
         } else if (getCookie('lang') === 'ja') {
             document.getElementsByTagName('html')[0].lang = 'ja';
-            body.setAttribute('class','lang-japanese');
+            body.setAttribute('class', 'lang-japanese');
 
-        } else if (getCookie('lang') === 'cn') {
+        } else if (getCookie('lang') === 'zh') {
             document.getElementsByTagName('html')[0].lang = 'zh';
-            body.setAttribute('class','lang-chinese');
+            body.setAttribute('class', 'lang-chinese');
 
         } else if (getCookie('lang') === 'ko') {
             document.getElementsByTagName('html')[0].lang = 'ko';
-            body.setAttribute('class','lang-korean');
+            body.setAttribute('class', 'lang-korean');
 
-        } else{
+        } else {
             document.getElementsByTagName('html')[0].lang = 'en';
-            body.setAttribute('class','lang-english');
+            body.setAttribute('class', 'lang-english');
         }
 
         new fullpage('#smart-peepee-section', {
@@ -138,18 +78,12 @@ class PeepeeLayout extends React.Component {
 
     componentWillUnmount() {
         fullpage_api.destroy();
-        this.setLanguage = null;
-    }
-
-
-    componentWillMount() {
-
     }
 
     render() {
         return (
             <div className={styles['smart-peepee-article']} id={'smart-peepee-section'}>
-                <Head title={"LITTLEONE, SMART PEEPEE"}/>
+                <Head title={"LITTLEONE, SMART PEEPEE"} description={'리틀원의 스마트피피 제품입니다.'}/>
                 <Section01 language={this.state.language}/>
                 <Section02 language={this.state.language}/>
                 <Section03 language={this.state.language}/>
@@ -158,7 +92,7 @@ class PeepeeLayout extends React.Component {
                 <Section06 language={this.state.language}/>
                 <Section07 language={this.state.language}/>
                 <Section08 language={this.state.language}/>
-                <Section09 language={this.state.language} position={'absolute'} action={this.setLanguage}/>
+                <Section09 language={this.state.language}/>
             </div>
         )
     }

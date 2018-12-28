@@ -2,7 +2,9 @@
   "lang": {
     "code": "en",
     "dialects": "en-US",
-    "name": "English"
+    "name": "English",
+    "lastModified":"2018-10-20",
+    "writer":"brian"
   },
   "smartpeepee": {
     "section01":{
@@ -46,7 +48,7 @@
     "section04":{
       "00": "Recording data & receiving alerts,",
       "01": "all through the app.",
-      "02": "Diaper Condition",
+      "02": "Diaper condition",
       "03": "Get real-time information on temp. and humidity",
       "04": "to know what’s going on inside.",
       "05": "Bowel alerts",

@@ -20,7 +20,7 @@ class Head extends React.Component {
                 <title>{this.props.title}</title>
                 <meta name="twitter:title" content={this.props.title}/>
                 <meta name="twitter:description" content={this.props.description}/>
-                <meta name="twitter:image" content="./favicon/icon-144.png"/>
+                <meta name="twitter:image" content="/favicon/icon-144.png"/>
                 <meta name="twitter:card" content="summary"/>
                 <meta name="theme-color" content="#2d3039"/>
                 <meta name="twitter:site" content="http://www.littleone.kr"/>
@@ -32,7 +32,7 @@ class Head extends React.Component {
                 <meta property="og:site_name" content="LITTLEONE"/>
                 <meta property="og:url" content="http://littleone.kr"/>
                 <meta property="og:title" content={this.props.title}/>
-                <meta property="og:image" content="./favicon/icon-144.png"/>
+                <meta property="og:image" content="/favicon/icon-144.png"/>
                 <meta property="og:image:secure_url" content="http://littleone.kr"/>
                 <meta property="og:image:type" content="image/png"/>
                 <meta property="og:image:width" content="1280"/>
@@ -46,26 +46,26 @@ class Head extends React.Component {
                 <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
                 <meta name="format-detection" content="telephone=no, address=no, email=no"/>
                 <meta name="msapplication-TileColor" content="#da532c"/>
-                <meta name="msapplication-TileImage" content="./favicon/icon-144.png"/>
-                <link rel="apple-touch-icon" sizes="57x57" href="./favicon/icon-57.png"/>
-                <link rel="apple-touch-icon" sizes="60x60" href="./favicon/icon-60.png"/>
-                <link rel="apple-touch-icon" sizes="72x72" href="./favicon/icon-72.png"/>
-                <link rel="apple-touch-icon" sizes="76x76" href="./favicon/icon-76.png"/>
-                <link rel="apple-touch-icon" sizes="114x114" href="./favicon/icon-114.png"/>
-                <link rel="apple-touch-icon" sizes="120x120" href="./favicon/icon-120.png"/>
-                <link rel="apple-touch-icon" sizes="144x144" href="./favicon/icon-144.png"/>
-                <link rel="apple-touch-icon" sizes="152x152" href="./favicon/icon-152.png"/>
-                <link rel="apple-touch-icon" sizes="167x167" href="./favicon/icon-167.png"/>
-                <link rel="apple-touch-icon" sizes="180x180" href="./favicon/icon-180.png"/>
-                <link rel="icon" type="image/png" href="./favicon/icon-16.png" sizes="16x16"/>
-                <link rel="icon" type="image/png" href="./favicon/icon-32.png" sizes="32x32"/>
-                <link rel="icon" type="image/png" href="./favicon/icon-96.png" sizes="96x96"/>
-                <link rel="icon" type="image/png" href="./favicon/icon-144.png" sizes="144x144"/>
-                <link rel="icon" type="image/png" href="./favicon/icon-192.png" sizes="192x192"/>
-                <link rel="icon" type="image/png" href="./favicon/icon-196.png" sizes="196x196"/>
-                <link rel="shortcut icon" href="./favicon/favicon.ico"/>
-                <link rel="mask-icon" color="#fff" href="./favicon/safari-pinned-tag-icon.svg"/>
-                <link rel="manifest" href="./manifest.json"/>
+                <meta name="msapplication-TileImage" content="/favicon/icon-144.png"/>
+                <link rel="apple-touch-icon" sizes="57x57" href="/favicon/icon-57.png"/>
+                <link rel="apple-touch-icon" sizes="60x60" href="/favicon/icon-60.png"/>
+                <link rel="apple-touch-icon" sizes="72x72" href="/favicon/icon-72.png"/>
+                <link rel="apple-touch-icon" sizes="76x76" href="/favicon/icon-76.png"/>
+                <link rel="apple-touch-icon" sizes="114x114" href="/favicon/icon-114.png"/>
+                <link rel="apple-touch-icon" sizes="120x120" href="/favicon/icon-120.png"/>
+                <link rel="apple-touch-icon" sizes="144x144" href="/favicon/icon-144.png"/>
+                <link rel="apple-touch-icon" sizes="152x152" href="/favicon/icon-152.png"/>
+                <link rel="apple-touch-icon" sizes="167x167" href="/favicon/icon-167.png"/>
+                <link rel="apple-touch-icon" sizes="180x180" href="/favicon/icon-180.png"/>
+                <link rel="icon" type="image/png" href="/favicon/icon-16.png" sizes="16x16"/>
+                <link rel="icon" type="image/png" href="/favicon/icon-32.png" sizes="32x32"/>
+                <link rel="icon" type="image/png" href="/favicon/icon-96.png" sizes="96x96"/>
+                <link rel="icon" type="image/png" href="/favicon/icon-144.png" sizes="144x144"/>
+                <link rel="icon" type="image/png" href="/favicon/icon-192.png" sizes="192x192"/>
+                <link rel="icon" type="image/png" href="/favicon/icon-196.png" sizes="196x196"/>
+                <link rel="shortcut icon" href="/favicon/favicon.ico"/>
+                <link rel="mask-icon" color="#fff" href="/favicon/safari-pinned-tag-icon.svg"/>
+                <link rel="manifest" href="/manifest.json"/>
             </Helmet>
         );
     }

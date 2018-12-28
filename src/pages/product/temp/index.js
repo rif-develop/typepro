@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Index.scss';
 import Section01 from "./section01/Section01";
 import fullpage from "fullpage.js";
-import Head from "../../promotion/head/Head";
+import Head from "../../../component/head/head";
 import Section02 from "./section02/Section02";
 import Section03 from "./section03/Section03";
 import Section04 from "./section04/Section04";
@@ -11,79 +11,20 @@ import Section06 from "./section06/Section06";
 import Section07 from "./section07/Section07";
 import Section08 from "./section08/Section08";
 import Section09 from "./section09/Section09";
-import {getCookie, setCookie} from "../../library/_LittleoneScript";
-
+import {getCookie, setCookie} from "../../../action/cookie/Cookie";
 
 class TempLayout extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            language: getCookie('lang') === 'ko' ? require('../../landing/language/korean/product/smarttemp') : null ||
-            getCookie('lang') === 'en' ? require('../../landing/language/english/product/smarttemp') : null ||
-            getCookie('lang') === 'cn' ? require('../../landing/language/chinese/product/smarttemp') : null ||
-            getCookie('lang') === 'ja' ? require('../../landing/language/japanese/product/smarttemp') : null ||
-            getCookie('lang') === undefined || false || null || '' ? require('../../landing/language/english/product/smarttemp') : require('../../landing/language/english/product/smarttemp')
+            language: getCookie('lang') === 'ko' ? require('../../../language/korean/product/smarttemp') : null ||
+            getCookie('lang') === 'en' ? require('../../../language/english/product/smarttemp') : null ||
+            getCookie('lang') === 'zh' ? require('../../../language/chinese/product/smarttemp') : null ||
+            getCookie('lang') === 'ja' ? require('../../../language/japanese/product/smarttemp') : null ||
+            getCookie('lang') === undefined ||  getCookie('lang') ===false || getCookie('lang') === null || '' ? require('../../../language/korean/product/smarttemp') : require('../../../language/korean/product/smarttemp')
         }
-        this.setLanguage = this.setLanguage.bind(this);
 
-    }
-
-    setLanguage(e) {
-        const langBox = document.getElementById('react-header');
-        const body = document.getElementsByTagName('body')[0];
-        langBox.classList.toggle(styles['active']);
-        let dataSet = e.currentTarget.dataset['lang'];
-        let target = document.getElementsByClassName('current-language')[0];
-        if (dataSet === 'ko') {
-            setCookie('lang', 'ko', 14);
-            this.setState(function () {
-                return {
-                    language: require('../../landing/language/korean/product/smarttemp')
-                }
-            });
-            target.style.background = '#fff url(' + require('../../landing/head/web-footer-icn-ko.svg') + ') no-repeat center/contain';
-            document.getElementsByTagName('html')[0].lang = 'ko';
-            body.setAttribute('class', 'lang-korean');
-
-
-        } else if (dataSet === 'en') {
-            setCookie('lang', 'en', 14);
-            this.setState(function () {
-                return {
-                    language: require('../../landing/language/english/product/smarttemp')
-                }
-            });
-            target.style.background = '#fff url(' + require('../../landing/head/web-footer-icn-us.svg') + ') no-repeat center/contain';
-            document.getElementsByTagName('html')[0].lang = 'en';
-            body.setAttribute('class', 'lang-english');
-
-        }
-        else if (dataSet === 'cn') {
-            setCookie('lang', 'cn', 14);
-            this.setState(function () {
-                return {
-                    language: require('../../landing/language/chinese/product/smarttemp')
-                }
-            });
-            target.style.background = '#fff url(' + require('../../landing/head/web-footer-icn-cn.svg') + ') no-repeat center/contain';
-            document.getElementsByTagName('html')[0].lang = 'zh';
-            body.setAttribute('class', 'lang-chinese');
-
-
-        }
-        else if (dataSet === 'ja') {
-            setCookie('lang', 'ja', 14);
-            this.setState(function () {
-                return {
-                    language: require('../../landing/language/japanese/product/smarttemp')
-                }
-            });
-            target.style.background = '#fff url(' + require('../../landing/head/web-footer-icn-jp.svg') + ') no-repeat center/contain';
-            document.getElementsByTagName('html')[0].lang = 'ja';
-            body.setAttribute('class', 'lang-japanese');
-
-        }
     }
 
     componentDidMount() {
@@ -97,7 +38,7 @@ class TempLayout extends React.Component {
             document.getElementsByTagName('html')[0].lang = 'ja';
             body.setAttribute('class', 'lang-japanese');
 
-        } else if (getCookie('lang') === 'cn') {
+        } else if (getCookie('lang') === 'zh') {
             document.getElementsByTagName('html')[0].lang = 'zh';
             body.setAttribute('class', 'lang-chinese');
 

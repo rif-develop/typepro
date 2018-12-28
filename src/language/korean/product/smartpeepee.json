@@ -2,7 +2,9 @@
   "lang": {
     "code": "ko",
     "dialects": "ko-KR",
-    "name": "Korean"
+    "name": "Korean",
+    "lastModified":"2018-10-20",
+    "writer":"brian"
   },
   "smartpeepee": {
     "section01":{
