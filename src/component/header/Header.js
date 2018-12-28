@@ -6,6 +6,7 @@ import {connect} from "react-redux";
 import HeaderAlarm from "../headerAlarm/HeaderAlarm";
 import ClientInfo from "../clientInfo/ClientInfo";
 import MobileMenu from "../mobileMenu/MobileMenu";
+import Anime from 'react-anime';
 
 const cx = classnames.bind(styles);
 
@@ -19,14 +20,21 @@ class Header extends React.Component {
 
         const {loading, error, alarmList, clientMenu, mobileMenu, onClickClientHandler, onClickAlarmHandler, onClickMobileHandler} = this.props;
 
+        let openanimeState = {
+            opacity: [0.7, 1],
+            height: ['0%', '100%'],
+            duration: 600,
+            easing: 'easeInSine'
+        };
+
         return (
             <header className={styles['header']} id={'header-component'}>
                 <div>
                     {/*로고*/}
                     <div className={styles['header--logo']}>
-                        <a href="/">
+                        <Link to="/">
                             <span className={styles['__beta-testing']}></span>
-                        </a>
+                        </Link>
                     </div>
                     {/*데스크탑 메뉴*/}
                     <nav className={styles['header--navigation']}>
@@ -84,7 +92,7 @@ class Header extends React.Component {
                     </div>
                     {/*모바일용 메뉴*/}
                     <div className={styles['header--hamburger']} onClick={onClickMobileHandler}>
-                        <a href="javascript:void(0)" className={cx(styles['header--hamburger__menu'],{active:mobileMenu})}>
+                        <a href="javascript:void(0)" className={cx(styles['header--hamburger__menu'], {active: mobileMenu})}>
                             <span></span>
                             <span></span>
                             <span></span>

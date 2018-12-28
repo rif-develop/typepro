@@ -1,0 +1,228 @@
+@charset "UTF-8";
+
+.fourth-section {
+  position: relative;
+  .fourth-section--desc {
+    text-align: center;
+
+    .fourth-section--integration {
+      margin-top: 3.8021vw;
+      display: inline-block;
+      width: 161px;
+      background: url("./app-integration.svg") no-repeat center/contain;
+
+      h2 {
+        opacity: 0;
+        overflow: hidden;
+        text-indent: -9999px;
+
+      }
+
+    }
+    //fourth-section--integration
+
+    h1 {
+      font-size: 2.9166vw;
+      margin-top: 3.2292vw;
+      line-height: 3.2291vw;
+      font-weight: 300;
+      color:#333;
+      letter-spacing: -2.6px;
+    }
+
+  }
+  //fourth-section--desc
+
+  .fourth-section--spec {
+    width: 70%;
+    margin: 118px auto 0;
+
+    .fourth-section--spec--box {
+      position: relative;
+      margin-bottom: 64px;
+      > img {
+        display: inline-block;
+        position: absolute;
+        width: 5.7292vw;
+        height: 5.7292vw;
+        top: 0;
+        left: 0;
+      }
+
+      .fourth-section--spec--box--txt {
+        padding-left: 8.3333vw;
+
+        h3 {
+          font-size: 1.5625vw;
+          font-weight: 300;
+          letter-spacing: -1px;
+          color:#333;
+        }
+
+        p {
+          margin-top: 24px;
+          font-size: 0.9375vw;
+          color: #8a8a8a;
+          line-height: 1.4vw;
+          letter-spacing: -1px;
+        }
+      }
+
+    }
+    //fourth-section--spec--box
+
+  }
+  //fourth-section--spec
+
+  .fourth-section--app-image {
+    width: 26.0938vw;
+    min-width: 250px;
+    min-height: 310px;
+    height: 32.2396vw;
+    position: absolute;
+    bottom: 0;
+    right: 22.3958vw;
+    background: url("./web-peepee-4-peepee-hand@2x.png") no-repeat center/contain;
+  }
+  //fourth-section--app-image
+
+}
+
+//fourth-section
+
+@media only screen and (max-width: 640px) {
+
+  .fourth-section {
+    .fourth-section--desc {
+
+      .fourth-section--integration {
+        width: 240px;
+        height: 20px;
+        margin-top: 14.4928vw;
+        h2 {
+
+        }
+
+      }
+      //fourth-section--integration
+
+      h1 {
+        margin-top: 20px;
+        font-size: 20px;
+        line-height: 26px;
+        letter-spacing: -1px;
+      }
+
+    }
+    //fourth-section--desc
+
+    .fourth-section--spec {
+      width: 80%;
+      margin-top: 30px;
+
+      .fourth-section--spec--box {
+        margin-bottom: 30px;
+        > img {
+          width: 60px;
+          height: 60px;
+        }
+
+        .fourth-section--spec--box--txt {
+
+          padding-left: 80px;
+
+          h3 {
+            font-size: 16px;
+          }
+
+          p {
+            margin-top: 10px;
+            font-size: 12px;
+            line-height: 18px;
+          }
+        }
+
+      }
+      //fourth-section--spec--box
+
+    }
+    //fourth-section--spec
+
+    .fourth-section--app-image {
+      display: none;
+    }
+    //fourth-section--app-image
+
+  }
+
+  //fourth-section
+
+}
+
+@media only screen and (max-width: 320px) {
+
+  .fourth-section {
+    .fourth-section--desc {
+
+      .fourth-section--integration {
+        width: 220px;
+        height: 18px;
+        margin-top: 7.4928vw;
+        h2 {
+
+        }
+
+      }
+      //fourth-section--integration
+
+      h1 {
+        margin-top: 7.4928vw;
+        font-size: 6.6957vw;
+        line-height: 8vw;
+      }
+
+    }
+    //fourth-section--desc
+
+    .fourth-section--spec {
+      margin-top: 40px;
+
+      .fourth-section--spec--box {
+        margin-bottom: 20px;
+        > img {
+          width: 48px;
+          height: 48px;
+        }
+
+        .fourth-section--spec--box--txt {
+
+          padding-left: 70px;
+
+          h3 {
+            font-size: 14px;
+          }
+
+          p {
+            margin-top: 10px;
+            font-size: 10px;
+            line-height: 16px;
+
+            br {
+              display: none;
+            }
+          }
+        }
+
+      }
+      //fourth-section--spec--box
+
+    }
+    //fourth-section--spec
+
+
+
+  }
+
+  //fourth-section
+
+}

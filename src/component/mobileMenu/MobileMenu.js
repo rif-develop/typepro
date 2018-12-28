@@ -1,14 +1,50 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import styles from "./MobileMenu.scss";
+import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import classnames from 'classnames';
+import Anime from 'react-anime';
+
 
 const cx = classnames.bind(styles);
 
-class MobileMenu extends React.Component{
-    render(){
-        return(
-            <div className={cx(styles['mobile-menu-component'],{active:this.props.active})}>
+class MobileMenu extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.myRef = React.createRef();
+        this.state = {
+            width:  window.innerWidth && document.documentElement.clientWidth ?
+                Math.min(window.innerWidth, document.documentElement.clientWidth) :
+                window.innerWidth ||
+                document.documentElement.clientWidth ||
+                document.getElementsByTagName('body')[0].clientWidth
+        }
+        this.onResizeHandler = this.onResizeHandler.bind(this);
+    }
+
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        return nextProps
+    }
+
+    componentDidMount() {
+        window.onresize = this.onResizeHandler
+    }
+
+    onResizeHandler(){
+        this.setState({
+            width:window.innerWidth && document.documentElement.clientWidth ?
+                Math.min(window.innerWidth, document.documentElement.clientWidth) :
+                window.innerWidth ||
+                document.documentElement.clientWidth ||
+                document.getElementsByTagName('body')[0].clientWidth
+        })
+    }
+
+
+    render() {
+        return (
+            <div className={cx(styles['mobile-menu-component'], {active: this.props.active && this.state.width <= 768})} ref={this.myRef} id={'mobile-menu'}>
                 {/*네비*/}
                 <nav className={styles['slide-nav']}>
                     {/*메뉴*/}
@@ -66,5 +102,6 @@ class MobileMenu extends React.Component{
         )
     }
 }
+
 
 export default MobileMenu;

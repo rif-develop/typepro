@@ -1,0 +1,326 @@
+@charset "UTF-8";
+
+.other-product-section {
+  position: relative;
+  background-color: #eff6f9;
+
+  .other-product-section--desc {
+    text-align: center;
+
+    > div {
+      margin-top: 73px;
+      display: inline-block;
+      width: 126px;
+      height: 12px;
+      background: url("./smart-series@2x.png") no-repeat center/contain;
+
+      -webkit-transition: all 0.2s ease-out;
+      -moz-transition: all 0.2s ease-out;
+      -ms-transition: all 0.2s ease-out;
+      -o-transition: all 0.2s ease-out;
+      transition: all 0.2s ease-out;
+
+      h2 {
+        overflow: hidden;
+        opacity: 0;
+        text-indent: -9999px;
+      }
+
+    }
+    //div
+
+    h1 {
+      margin-top: 62px;
+      font-weight: 300;
+      font-size: 2.9166vw;
+      letter-spacing: -2.6px;
+      -webkit-transition: all 0.2s ease-out;
+      -moz-transition: all 0.2s ease-out;
+      -ms-transition: all 0.2s ease-out;
+      -o-transition: all 0.2s ease-out;
+      transition: all 0.2s ease-out;
+    }
+    //h1
+
+  }
+  //other-product-section--desc
+
+  .other-product-section--products {
+    display: table;
+    width: 70%;
+    margin: 62px auto 0;
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -ms-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+
+    > div {
+      display: table-cell;
+      width: 33.333%;
+      text-align: center;
+      vertical-align: bottom;
+
+      .other-product-section--products--image {
+        display: inline-block;
+        -webkit-transition: all 0.2s ease-out;
+        -moz-transition: all 0.2s ease-out;
+        -ms-transition: all 0.2s ease-out;
+        -o-transition: all 0.2s ease-out;
+        transition: all 0.2s ease-out;
+
+      }
+
+      h5 {
+        margin-top: 56px;
+        font-size: 1.25vw;
+        line-height: 1.6666vw;
+      }
+      //h5
+
+      p {
+        font-size:1.0416vw;
+        margin-top: 20px;
+        line-height: 1.4583vw;
+        color: #8a8a8a;
+      }
+      //p
+
+      button {
+        cursor: pointer;
+        border: none;
+        background-color: #5ed5e8;
+        color: #fff;
+        font-size: 1.0416vw;
+        font-weight: 500;
+        margin-top: 40px;
+        -webkit-border-radius: 30px;
+        -moz-border-radius: 30px;
+        border-radius: 30px;
+        padding: 1.0417vw;
+        width: 11.6666vw;
+        min-width: 87px;
+        box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.2);
+        -webkit-box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.2);
+        -moz-box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.2);
+      }
+      //button
+
+    }
+    //other-product-section--products > div
+
+    .pee-pee {
+      .other-product-section--products--image {
+        width: 5.677vw;
+        height: 9.8958vw;
+        background: url("./web-bottle-11-peepee@2x.png") no-repeat center/contain;
+      }
+    }
+    //pee-pee
+    .bottle {
+      .other-product-section--products--image {
+        width: 8.8541vw;
+        height: 17.7083vw;
+        background: url("./web-bottle-11-bottle@2x.png") no-repeat center/contain;
+      }
+    }
+    .temp {
+      .other-product-section--products--image {
+        width:11.5104vw;
+        height:8.8020vw;
+        background: url("./web-bottle-11-temp@2x.png") no-repeat center/contain;
+      }
+    }
+
+  }
+  //other-product-section--products
+
+}
+
+//other-product-section
+
+@media only screen and (max-width: 640px) {
+  .other-product-section {
+
+    .other-product-section--desc {
+
+      > div {
+        width: 240px;
+        height: 20px;
+        margin-top: 14.4928vw;
+        h2 {
+
+        }
+
+      }
+      //div
+
+      h1 {
+        margin-top: 6.4928vw;
+        font-size: 8.6957vw;
+        line-height: normal;
+      }
+      //h1
+
+    }
+    //other-product-section--desc
+
+    .other-product-section--products {
+      display: block;
+      width: 95%;
+      > div {
+
+        display: inline-block;
+        padding: 8px;
+        width: 28%;
+
+        .other-product-section--products--image {
+
+        }
+
+        h5 {
+          font-size: 14px;
+          line-height: 20px;
+          margin-top: 25px;
+        }
+        //h5
+
+        p {
+          font-size: 12px;
+          margin-top: 15px;
+          line-height: 18px;
+          br{
+            display: none;
+          }
+        }
+        //p
+
+        button {
+          padding: 10px;
+          margin-top: 20px;
+          width: 87px;
+          font-size: 12px;
+        }
+        //button
+
+      }
+      //other-product-section--products > div
+
+      .pee-pee {
+        .other-product-section--products--image {
+          width: 54.5px;
+          height: 95px;
+        }
+      }
+      //pee-pee
+      .bottle {
+        .other-product-section--products--image {
+          width: 85px;
+          height: 170px;
+        }
+      }
+      .temp {
+        .other-product-section--products--image {
+          width: 90px;
+          height: 69px;
+        }
+      }
+
+    }
+    //other-product-section--products
+
+  }
+
+}
+
+@media only screen and(max-width: 320px){
+  .other-product-section {
+
+    .other-product-section--desc {
+
+      > div {
+        width: 220px;
+        height: 18px;
+        margin-top: 7.4928vw;
+        h2 {
+
+        }
+
+      }
+      //div
+
+      h1 {
+        margin-top: 7.4928vw;
+        font-size: 6.6957vw;
+        line-height: 8vw;
+      }
+      //h1
+
+    }
+    //other-product-section--desc
+
+    .other-product-section--products {
+      display: block;
+      width: 95%;
+      margin-top: 18px;
+      > div {
+
+        display: inline-block;
+        padding: 8px;
+        width: 28%;
+
+        .other-product-section--products--image {
+
+        }
+
+        h5 {
+          font-size: 14px;
+          line-height: 20px;
+          margin-top: 25px;
+        }
+        //h5
+
+        p {
+          font-size: 10px;
+          margin-top: 12px;
+          line-height: 16px;
+        }
+        //p
+
+        button {
+          padding: 7px;
+          margin-top: 10px;
+          width: 80px;
+          font-size: 11px;
+        }
+        //button
+
+      }
+      //other-product-section--products > div
+
+      .pee-pee {
+        .other-product-section--products--image {
+          width: 54.5px;
+          height: 95px;
+        }
+      }
+      //pee-pee
+      .bottle {
+        .other-product-section--products--image {
+          width: 85px;
+          height: 170px;
+        }
+      }
+      .temp {
+        .other-product-section--products--image {
+          width: 90px;
+          height: 69px;
+        }
+      }
+
+    }
+    //other-product-section--products
+
+  }
+
+}

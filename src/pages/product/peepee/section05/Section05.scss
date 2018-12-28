@@ -1,0 +1,140 @@
+@charset "UTF-8";
+
+.fifth-section {
+  position: relative;
+
+  .fifth-section--desc {
+    text-align: center;
+    .fifth-section--desc--head {
+      margin-top: 73px;
+      display: inline-block;
+      width: 189px;
+      height: 12px;
+      background: url("./parenting-reports.svg") no-repeat center/contain;
+
+      h2 {
+        opacity: 0;
+        overflow: hidden;
+        text-indent: -9999px;
+      }
+    }
+    //fifth-section--desc--head
+
+    h1 {
+      margin-top: 3.2292vw;
+      font-size: 2.9166vw;
+      font-weight: 300;
+      line-height: 3.2291vw;
+      letter-spacing: -2.6px;
+      color:#333;
+    }
+
+    p {
+      margin-top: 30px;
+      font-size: 1.1458vw;
+      line-height: normal;
+      color: #8a8a8a;
+      font-weight: 500;
+    }
+
+  }
+  //fifth-section--desc
+
+  .fifth-section--image {
+    position: relative;
+    width: 46.6146vw;
+    min-width: 358px;
+    height: 27.1771vw;
+    margin: 53px auto 0;
+    min-height: 216px;
+    background: url("./web-peepee-5-laptop@2x.png") no-repeat center/contain;
+    overflow: hidden;
+    text-indent: -9999px;
+
+  }
+  //fifth-section--image
+
+}
+
+//fifth-section
+
+@media only screen and (max-width: 640px) {
+  .fifth-section {
+
+    .fifth-section--desc {
+      .fifth-section--desc--head {
+        width: 240px;
+        height: 20px;
+        margin-top: 14.4928vw;
+        h2 {
+
+        }
+      }
+      //fifth-section--desc--head
+
+      h1 {
+        margin-top: 20px;
+        font-size: 20px;
+        line-height: 26px;
+        letter-spacing: -1px;
+      }
+
+      p {
+        font-size: 12px;
+        line-height: 18px;
+        margin-top: 15px;
+      }
+
+    }
+    //fifth-section--desc
+
+    .fifth-section--image {
+      min-width: initial;
+      min-height: initial;
+      width: 89.8551vw;
+      height: 54.3478vw;
+      margin: 35px auto 0;
+    }
+    //fifth-section--image
+
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .fifth-section {
+
+    .fifth-section--desc {
+      .fifth-section--desc--head {
+        width: 220px;
+        height: 18px;
+        margin-top: 7.4928vw;
+        h2 {
+
+        }
+      }
+      //fifth-section--desc--head
+
+      h1 {
+        margin-top: 7.4928vw;
+        font-size: 6.6957vw;
+        line-height: 8vw;
+      }
+
+      p {
+        font-size: 3.8648vw;
+        margin-top: 7.2464vw;
+      }
+
+    }
+    //fifth-section--desc
+
+    .fifth-section--image {
+      min-width: initial;
+      min-height: initial;
+      width: 89.8551vw;
+      height: 54.3478vw;
+    }
+    //fifth-section--image
+
+  }
+}

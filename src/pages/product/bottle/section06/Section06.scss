@@ -1,0 +1,261 @@
+@charset "UTF-8";
+
+.sixth-section {
+  position: relative;
+  .sixth-section--desc {
+    text-align: center;
+    > div {
+      display: inline-block;
+      margin-top: 73px;
+      width: 164px;
+      height: 12px;
+      background: url("./product-details@2x.png") no-repeat center/contain;
+
+      h2 {
+        margin-top: 73px;
+        overflow: hidden;
+        text-indent: -9999px;
+        opacity: 0;
+      }
+    }
+    //div
+
+    h1 {
+      margin-top: 62px;
+      font-size: 56px;
+      font-weight: 300;
+      line-height: 62px;
+      letter-spacing: -2.6px;
+    }
+    //h1
+
+  }
+  //sixth-section--desc
+
+  .sixth-section--bottle-image {
+    position: relative;
+    margin: 24px auto 0;
+    background: url("./web-bottle-6@2x.png") no-repeat center/contain;
+    width: 194px;
+    height: 620px;
+
+  }
+  //sixth-section--bottle-image
+
+  .sixth-section--float-txt {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+
+    .sixth-section--float-txt__circle {
+      display: inline-block;
+      height: 38px;
+      line-height: 38px;
+      -webkit-border-radius: 50px;
+      -moz-border-radius: 50px;
+      border-radius: 50px;
+      color: rgba(0, 0, 0, 0);
+      overflow: hidden;
+      font-size: 14px;
+      opacity: 1;
+      -webkit-transform: scale(1, 1);
+      -moz-transform: scale(1, 1);
+      -ms-transform: scale(1, 1);
+      -o-transform: scale(1, 1);
+      transform: scale(1, 1);
+      background-color: rgba(138, 224, 237, 0.7);
+      background-size: 14px;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-image: url("./plus.svg");
+    }
+    .sixth-section--float-txt__circle.active {
+      background-image: initial;
+    }
+
+  }
+  //sixth-section--float-txt
+
+  .bottle-cap {
+    top: 35px;
+    right: 125px;
+  }
+  .handle {
+    top: 215px;
+    right: 165px;
+  }
+
+  .straw {
+    top: 441px;
+    right: 80px;
+  }
+  .smart-base {
+    top: 570px;
+    right: 125px;
+  }
+  .nipple {
+    top: 115px;
+    left: 125px;
+  }
+  .glass {
+    top: 330px;
+    left: 133px;
+  }
+
+  @keyframes circleBeep {
+    from {
+      opacity: 0.2;
+    }
+    to {
+      opacity: 0.8;
+    }
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .sixth-section {
+    .sixth-section--desc {
+      > div {
+        width: 240px;
+        height: 20px;
+        margin-top: 14.4928vw;
+
+        h2 {
+
+        }
+      }
+      //div
+
+      h1 {
+        margin-top: 20px;
+        font-size: 20px;
+        line-height: 26px;
+        letter-spacing: -1px;
+      }
+      //h1
+
+    }
+    //sixth-section--desc
+
+    .sixth-section--bottle-image {
+      width: 120px;
+      height: 420px;
+
+      a {
+        -webkit-transform: scale(0.7, 0.7);
+        -moz-transform: scale(0.7, 0.7);
+        -ms-transform: scale(0.7, 0.7);
+        -o-transform: scale(0.7, 0.7);
+        transform: scale(0.7, 0.7);
+      }
+
+      .bottle-cap {
+        top: 18px;
+        right: 70px;
+      }
+      .handle {
+        top: 142px;
+        right: 98px;
+
+      }
+
+      .straw {
+        top: 288px;
+        right: 43px;
+      }
+      .smart-base {
+        top: 375px;
+        right: 76px;
+      }
+      .nipple {
+        top: 72px;
+        left: 72px;
+
+      }
+      .glass {
+        top: 225px;
+        left: 75px;
+      }
+
+    }
+    //sixth-section--bottle-image
+
+  }
+
+  //sixth-section--float-txt
+
+}
+
+@media only screen and (max-width: 320px) {
+  .sixth-section {
+    .sixth-section--desc {
+      > div {
+        width: 220px;
+        height: 18px;
+        margin-top: 7.4928vw;
+
+        h2 {
+
+        }
+      }
+      //div
+
+      h1 {
+        margin-top: 15px;
+        font-size: 16px;
+        line-height: 22px;
+      }
+      //h1
+
+    }
+    //sixth-section--desc
+
+    .sixth-section--bottle-image {
+      width: 103px;
+      height: 288px;
+
+      a {
+        -webkit-transform: scale(0.5, 0.5);
+        -moz-transform: scale(0.5, 0.5);
+        -ms-transform: scale(0.5, 0.5);
+        -o-transform: scale(0.5, 0.5);
+        transform: scale(0.5, 0.5);
+      }
+
+      .bottle-cap {
+        top: 8px;
+        right: 54px;
+      }
+      .handle {
+        top: 90px;
+        right: 72px;
+
+      }
+
+      .straw {
+        top: 190px;
+        right: 38px;
+      }
+      .smart-base {
+        top: 251px;
+        right: 56px;
+      }
+      .nipple {
+        top: 32px;
+        left: 52px;
+
+      }
+      .glass {
+        top: 150px;
+        left: 60px;
+      }
+
+    }
+    //sixth-section--bottle-image
+
+  }
+
+}
+
+
+

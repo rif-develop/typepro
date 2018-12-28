@@ -1,0 +1,236 @@
+@charset "UTF-8";
+
+.second-section {
+  position: relative;
+
+  .second-section-desc {
+    margin: 0 auto;
+    text-align: center;
+
+    .second-section-desc--sub {
+      display: inline-block;
+      margin-top: 3.8021vw;
+      width: 168px;
+      height: 12px;
+      background: url("./internet-of-babies@2x.png") no-repeat center / contain;
+
+      h2 {
+        opacity: 0;
+        overflow: hidden;
+        text-indent: -9999px;
+      }
+    }
+    //second-section-desc--sub
+
+    .second-section-desc--title {
+      font-size: 2.916vw;
+      text-align: center;
+      margin-top: 3.2292vw;
+      font-weight: 300;
+      letter-spacing: -2.6px;
+      line-height: 3.229vw;
+    }
+
+    .second-section-desc--paragraph {
+      margin-top: 1.9271vw;
+      font-size: 1.1458vw;
+      color: #8a8a8a;
+      line-height: normal;
+      text-align: center;
+    }
+    //second-section-desc--paragraph
+
+  }
+  //second-section-desc
+
+  .second-section-spec {
+    position: relative;
+    width: 70%;
+    margin: 6.0416vw auto 0;
+
+    .second-section-spec--container {
+      width: 12.9688vw;
+      text-align: center;
+      display: inline-block;
+      margin-right: 6.0417vw;
+
+      img {
+        display: inline-block;
+        width: 5.7292vw;
+        min-width: 55px;
+      }
+      h3 {
+        margin-top: 1.5625vw;
+        font-size: 1.5625vw;
+        font-weight: 300;
+        letter-spacing: -1px;
+        white-space: nowrap;
+      }
+      p {
+        -ms-word-break: keep-all;
+        word-break: keep-all;
+        -ms-word-wrap: break-word;
+        word-wrap: break-word;
+        margin-top: 27px;
+        font-size: 0.9375vw;
+        letter-spacing: -1px;
+        line-height: 1.5vw;
+        color: #8a8a8a;
+        min-height: 9.6875vw;
+
+      }
+      //img
+    }
+    //second-section-spec--container
+
+    .second-section-spec--container:last-child {
+      margin-right: 0;
+    }
+  }
+  //second-section-spec
+
+}
+
+//second-section
+
+@media only screen and (max-width: 640px) {
+  .second-section {
+
+    .second-section-desc {
+
+      .second-section-desc--sub {
+        width: 240px;
+        height: 20px;
+        margin-top: 14.4928vw;
+        h2 {
+
+        }
+      }
+      //second-section-desc--sub
+
+      .second-section-desc--title {
+        margin-top: 20px;
+        font-size: 20px;
+        line-height: 26px;
+        letter-spacing: -1px;
+      }
+
+      .second-section-desc--paragraph {
+        font-size: 12px;
+        line-height: 18px;
+        margin-top: 15px;
+      }
+      //second-section-desc--paragraph
+
+    }
+    //second-section-desc
+
+    .second-section-spec {
+      width: 90%;
+      .second-section-spec--container {
+        position: relative;
+        width: 100%;
+        padding: 10px 0;
+
+        br{
+          display: none;
+        }
+
+        img {
+          position: absolute;
+          left: 0;
+          top: 50%;
+          -webkit-transform: translateY(-50%);
+          -moz-transform: translateY(-50%);
+          -ms-transform: translateY(-50%);
+          -o-transform: translateY(-50%);
+          transform: translateY(-50%);
+          width: 48px;
+          min-width: 48px;
+        }
+        >div{
+          padding-left: 16.9082vw;
+          text-align: left;
+
+          h3 {
+            font-size: 4.3478vw;
+
+          }
+          p {
+            margin-top: 10px;
+            line-height: 5.5vw;
+            font-size: 14px;
+            min-height: initial;
+          }
+        }
+
+        //img
+      }
+      //second-section-spec--container
+
+      .second-section-spec--container:last-child {
+      }
+    }
+    //second-section-spec
+
+  }
+}
+
+@media only screen and (max-width: 320px){
+  .second-section {
+
+    .second-section-desc {
+
+      .second-section-desc--sub {
+        width: 220px;
+        height: 18px;
+        margin-top: 7.4928vw;
+        h2 {
+
+        }
+      }
+      //second-section-desc--sub
+
+      .second-section-desc--title {
+        margin-top: 7.4928vw;
+        font-size: 6.6957vw;
+        line-height: 8vw;
+      }
+
+      .second-section-desc--paragraph {
+        font-size: 3.8648vw;
+        margin-top: 7.2464vw;
+      }
+      //second-section-desc--paragraph
+
+    }
+    //second-section-desc
+
+    .second-section-spec {
+      .second-section-spec--container {
+
+        padding: 8px 0;
+
+        img {
+          width: 36px;
+          min-width: 36px;
+        }
+        >div{
+          padding-left: 18.9082vw;
+
+          p {
+            margin-top: 7px;
+            line-height: 4.5vw;
+            font-size: 12px;
+          }
+        }
+
+        //img
+      }
+      //second-section-spec--container
+
+    }
+    //second-section-spec
+
+  }
+}
