@@ -5,27 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5663ff13-d6d6-4092-ba8d-2415d8167c26" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/reducers/clientStatusReducer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sagas/clientStatusaction.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/bottle.60d73160e2eca411aa3c.bundle.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/bottle.bundle.60d73160e2eca411aa3c.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/head/head.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/head/head.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/header/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/header/Header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/loading/DefaultLoading.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/loading/DefaultLoading.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/loading/DefaultLoading.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/loading/DefaultLoading.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/mobileMenu/MobileMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/mobileMenu/MobileMenu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/mobileMenu/MobileMenu.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/mobileMenu/MobileMenu.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/index/Index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index/Index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/index/section01/Section01.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index/section01/Section01.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sagas/autoLoginSaga.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/sagas/autoLoginSaga.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sagas/counterSaga.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/sagas/counterSaga.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sagas/headerSaga.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/sagas/headerSaga.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sagas/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/sagas/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -72,7 +52,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-227">
+            <state relative-caret-position="285">
               <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
@@ -320,7 +300,7 @@
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1546219172808" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1546230580522" />
     <property name="ignore_missing_gitignore" value="true" />
     <property name="javascript.nodejs.core.library.configured.version" value="8.12.0" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -430,7 +410,7 @@
       <workItem from="1545906762569" duration="29000" />
       <workItem from="1545959370646" duration="4756000" />
       <workItem from="1545964158456" duration="21551000" />
-      <workItem from="1546013433227" duration="10110000" />
+      <workItem from="1546013433227" duration="10481000" />
     </task>
     <task id="LOCAL-00001" summary="d">
       <created>1542242505689</created>
@@ -443,7 +423,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="212588000" />
+    <option name="totallyTimeSpent" value="212959000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -456,7 +436,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="966" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49922958" visible="true" weight="0.21001221" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -899,7 +878,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-227">
+        <state relative-caret-position="285">
           <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
