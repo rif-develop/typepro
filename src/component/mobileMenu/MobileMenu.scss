@@ -1,4 +1,4 @@
-.mobile-menu-component.active{
+.mobile-menu-component.active {
   height: 100%;
   transition: all 0.3s ease-in, background 0.5s ease-in;
   transition-delay: 0.25s;
@@ -18,124 +18,182 @@
   transition: all 0.5s ease-out, background 1s ease-out;
   transition-delay: 0.2s;
 
-  > nav {
+  &--nav {
     width: 100%;
     height: 100%;
     overflow-y: scroll;
-    padding-right: 17px;
-    padding-left: 9px;
-  }
 
-  &--menu {
-    color: #fff;
-    width: 80%;
-    margin: 0 auto;
-    padding: 30px 0;
-    overflow: hidden;
-
-    > li {
-      padding: 13px 0;
-
-      ol {
-        position: relative;
-        top: 0;
-        height: 0;
-        overflow: hidden;
-        -webkit-transition: all 0.25s ease-out;
-        -moz-transition: all 0.25s ease-out;
-        -o-transition: all 0.25s ease-out;
-        transition: all 0.25s ease-out;
-
-        li {
-          padding: 7px 10px;
-          font-size: 14px;
-
-        }
-      }
-
-      ol.active {
-        height: 84px;
-        max-height: 84px;
-        overflow: hidden;
-      }
-
-      a {
-        color: #fff;
-      }
-
-    }
-  }
-
-  .header--mobile--user-info {
-    padding: 30px 0;
-    border-top: 1px solid #523ed9;
-
-    /*모바일 썸네일 영역*/
-    .header--menu__client-info__head {
+    &__list {
       color: #fff;
       width: 80%;
       margin: 0 auto;
+      padding: 30px 0;
+      overflow: hidden;
 
-      &--desc {
+      > li {
+        padding: 13px 0;
 
-        > div span {
-          color: #fff;
-          opacity: .85;
+        ol {
+          position: relative;
+          top: 0;
+          height: 0;
+          overflow: hidden;
+          -webkit-transition: all 0.25s ease-out;
+          -moz-transition: all 0.25s ease-out;
+          -o-transition: all 0.25s ease-out;
+          transition: all 0.25s ease-out;
+
+          li {
+            padding: 7px 10px;
+            font-size: 14px;
+
+          }
         }
 
-        p {
-          color: #fff;
+        ol.active {
+          height: 84px;
+          max-height: 84px;
+          overflow: hidden;
         }
-      }
-    }
-
-    //head
-    &__list {
-      width: 80%;
-      margin: 0 auto;
-      li {
-        padding: 17px 0;
-        border-bottom: 1px solid #523ed9;
 
         a {
           color: #fff;
         }
+
       }
     }
-    &__logout {
-      position: relative;
-      width: 80%;
-      margin: 0 auto;
-      text-align: right;
-      a {
-        color: #00f0d6;
-        padding: 16px 0;
-        font-size: 12px;
+
+    //list
+
+    &__client-info {
+      padding: 30px 0;
+      border-top: 1px solid #523ed9;
+
+      /*모바일 썸네일 영역*/
+      &__status {
+        position: relative;
+        color: #fff;
+        width: 80%;
+        margin: 0 auto;
+
+        img {
+          position: absolute;
+          width: 48px;
+          height: 48px;
+          -webkit-border-radius: 50%;
+          -moz-border-radius: 50%;
+          border-radius: 50%;
+          -webkit-box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.1);
+          -moz-box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.1);
+          box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.1);
+          overflow: hidden;
+        }
+
+        &__desc {
+          padding-left: 62px;
+
+          >div{
+            margin-top: 11px;
+
+            span{
+              width: 70px;
+              text-align: left;
+              font-size: 10px;
+              color: #6a6a6a;
+              padding: 11px 0;
+            }
+
+            span:first-child{
+              padding-right: 16px;
+            }
+          }
+          > div span {
+            color: #fff;
+            opacity: .85;
+          }
+
+          p {
+            color: #fff;
+            font-size: 16px;
+            font-weight: 500;
+            max-width: 148px;
+            word-break: keep-all;
+            -ms-word-wrap: break-word;
+            word-wrap: break-word;
+            line-height: normal;
+
+            span{
+              vertical-align: baseline;
+            }
+          }
+        }
+
+
+        &__more{
+          position: relative;
+          text-align: right;
+          margin: 20px 0 15px;
+
+          .__more-info-button{
+            display: inline-block;
+            text-align: center;
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            border-radius: 10px;
+            padding: 5px 10px;
+            color: #fff;
+            font-size: 10px;
+            cursor: pointer;
+            top: 16px;
+            background-color: #523ed9;
+          }
+          &--vertical-bar{
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 70px;
+            height: 2px;
+            background-color: #00f0d6;
+          }
+        }
+      }
+
+      //status
+
+      //head
+      &__list {
+        width: 80%;
+        margin: 0 auto;
+
+        li {
+          padding: 17px 0;
+          border-bottom: 1px solid #523ed9;
+
+          a {
+            color: #fff;
+          }
+        }
+      }
+
+      &__sign {
+        position: relative;
+        width: 80%;
+        margin: 0 auto;
+        text-align: right;
+
+        a {
+          color: #00f0d6;
+          padding: 16px 0;
+          font-size: 12px;
+        }
+
       }
 
     }
 
+    //info
+
   }
 
-
-  .header--mobile--user-info__head {
-    display: none;
-  }
-
-  .slide-nav li {
-    opacity: 0;
-    position: relative;
-    top: 100px;
-  }
-
-  .slide-nav li.active {
-    top: 0;
-    opacity: 1;
-    -webkit-transition: all 0.63s ease-in-out;
-    -moz-transition: all 0.63s ease-in-out;
-    -ms-transition: all 0.63s ease-in-out;
-    -o-transition: all 0.63s ease-in-out;
-    transition: all 0.63s ease-in-out;
-  }
-
+  //nav
 }

@@ -12,7 +12,8 @@ function* incrementSaga(count = 1){
         })
     } catch (e) {
         yield put({
-            type:'INCREMENT_FAILURE'
+            type:'INCREMENT_FAILURE',
+            e
         })
     }
 }

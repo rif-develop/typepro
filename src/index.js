@@ -6,6 +6,7 @@ import {Provider} from 'react-redux';
 import createSagaMiddleware from "redux-saga";
 import reducer from "./reducers/index";
 import rootSaga from "./sagas";
+
 import {CheckWebBrowser} from "./lib/script";
 
 import IndexLayout from "./pages/index";
@@ -31,6 +32,7 @@ let store = createStore(
 store.subscribe(function (e) {
     console.log(store.getState());
 });
+
 /*미들웨어 구동*/
 sagaMiddleware.run(rootSaga);
 

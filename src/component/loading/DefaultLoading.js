@@ -13,6 +13,7 @@ class DefaultLoading extends React.Component{
                         <span className={styles['ball-4']}></span>
                     </div>
                 </div>
+                <p>LITTLEONE, NEXT LEVEL PARENTING</p>
             </div>
         )
     }

@@ -5,7 +5,6 @@ import Section01 from "./section01/Section01";
 import Section02 from "./section02/Section02";
 import Section03 from "./section03/Section03";
 import Section04 from "./section04/Section04";
-import korean from '../../language/korean/index.json';
 import Section05 from "./section05/Section05";
 import Section06 from "./section06/Section06";
 
@@ -19,9 +18,6 @@ class IndexLayout extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            language: korean
-        }
     }
 
     render() {
@@ -30,15 +26,15 @@ class IndexLayout extends React.Component {
                 <main>
                     <Head title={'LITTLEONE'}/>
                     <Header/>
-                    <Section01 language={this.state.language}/>
-                    <Section02 language={this.state.language}/>
-                    <Section03 language={this.state.language}/>
-                    <Section04 language={this.state.language}/>
+                    <Section01/>
+                    <Section02/>
+                    <Section03/>
+                    <Section04/>
                     <div className={styles['index-background']}>
-                        <Section05 language={this.state.language}/>
-                        <Section06 language={this.state.language}/>
-                        <Section07 language={this.state.language}/>
-                        <Section08 language={this.state.language}/>
+                        <Section05/>
+                        <Section06/>
+                        <Section07/>
+                        <Section08/>
                     </div>
                 </main>
                 <Footer/>

@@ -6,6 +6,7 @@ import {connect} from "react-redux";
 import HeaderAlarm from "../headerAlarm/HeaderAlarm";
 import ClientInfo from "../clientInfo/ClientInfo";
 import MobileMenu from "../mobileMenu/MobileMenu";
+import DefaultLoading from '../loading/DefaultLoading'
 import Anime from 'react-anime';
 
 const cx = classnames.bind(styles);

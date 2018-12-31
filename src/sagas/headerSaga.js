@@ -20,7 +20,8 @@ function* alarmActiveSaga() {
         })
     } catch (e) {
         yield put({
-            type: 'HEADER_ALARM_ACTIVE_FAILURE'
+            type: 'HEADER_ALARM_ACTIVE_FAILURE',
+            e
         })
     }
 }
@@ -33,7 +34,8 @@ function* clientInfoActiveSaga() {
         });
     } catch (e) {
         yield put({
-            type: "HEADER_CLIENT_ACTIVE_FAILURE"
+            type: "HEADER_CLIENT_ACTIVE_FAILURE",
+            e
         });
     }
 }
@@ -45,7 +47,8 @@ function* mobileMenuSaga() {
         })
     } catch (e) {
         yield put({
-            type: 'HEADER_MOBILE_MENU_FAILURE'
+            type: 'HEADER_MOBILE_MENU_FAILURE',
+            e
         })
     }
 }

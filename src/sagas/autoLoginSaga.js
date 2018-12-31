@@ -12,7 +12,8 @@ function* checkAutoLogin(){
         })
     } catch (e) {
         yield put({
-            type:'AUTO_LOGIN_FAILURE'
+            type:'AUTO_LOGIN_FAILURE',
+            e
         })
     }
 }
