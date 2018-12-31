@@ -1,12 +1,38 @@
 import React from 'react';
-import styels from './SubLink.scss';
-import styles from "../header/Header.scss";
+import styles from './SubLink.scss';
 import {Link} from "react-router-dom";
+import classnames from 'classnames';
+import Anime from 'react-anime';
+import App from "../../test/app";
 
-class SubLink extends React.Component{
-    render(){
-        return(
-            <div className={styles['header--sublink']}>
+const cx = classnames.bind(styles);
+
+class SubLink extends React.Component {
+
+
+    constructor(props) {
+        super(props);
+    }
+
+
+    render() {
+
+        const animation = {
+            easing: "easeOutElastic",
+            duration: 5000,
+            direction: "alternate",
+            rotate: '360deg',
+            scale: [.55, 1]
+        }
+
+        const sublinkImageAni = {
+            duration: 2000,
+            opacity: [0, 1]
+        }
+
+
+        return (
+            <div className={cx(styles['header--sublink'], {active: this.props.active})}>
                 <nav className={styles['header--sublink__device']}>
                     <Link to="/device/smartbottle" className={styles['header--sublink__device__smart-bottle']}>
                         <div></div>

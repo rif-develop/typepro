@@ -8,6 +8,7 @@ import ClientInfo from "../clientInfo/ClientInfo";
 import MobileMenu from "../mobileMenu/MobileMenu";
 import DefaultLoading from '../loading/DefaultLoading'
 import Anime from 'react-anime';
+import SubLink from "../sublink/SubLink";
 
 const cx = classnames.bind(styles);
 
@@ -15,6 +16,60 @@ class Header extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            subMenu: false
+        };
+
+        this.Menu1 = React.createRef();
+        this.Menu2 = React.createRef();
+        this.Menu3 = React.createRef();
+        this.Menu4 = React.createRef();
+
+        this.onMouseEnterHandler = this.onMouseEnterHandler.bind(this);
+        this.onMouseLeaveHandler = this.onMouseLeaveHandler.bind(this);
+        this.onHoverHandler = this.onHoverHandler.bind(this);
+        this.onHoverLeaveHandler = this.onHoverLeaveHandler.bind(this);
+    }
+
+    onMouseEnterHandler() {
+        this.setState({
+            subMenu: true
+        })
+    }
+
+    onMouseLeaveHandler() {
+        this.setState({
+            subMenu: false
+        })
+    }
+
+
+    onHoverHandler(target) {
+        if (target === 'Menu1') {
+            this.Menu1.current.classList.add('active')
+        } else if (target === 'Menu2') {
+            this.Menu2.current.classList.add('active')
+
+        } else if (target === 'Menu3') {
+            this.Menu3.current.classList.add('active')
+
+        } else if (target === 'Menu4') {
+            this.Menu4.current.classList.add('active')
+        }
+    }
+
+    onHoverLeaveHandler(target){
+        if (target === 'Menu1') {
+            this.Menu1.current.classList.remove('active')
+        } else if (target === 'Menu2') {
+            this.Menu2.current.classList.remove('active')
+
+        } else if (target === 'Menu3') {
+            this.Menu3.current.classList.remove('active')
+
+        } else if (target === 'Menu4') {
+            this.Menu4.current.classList.remove('active')
+        }
     }
 
     render() {
@@ -29,7 +84,7 @@ class Header extends React.Component {
         };
 
         return (
-            <header className={styles['header']} id={'header-component'}>
+            <header className={styles['header']} id={'header-component'} onMouseLeave={this.onMouseLeaveHandler}>
                 <div>
                     {/*로고*/}
                     <div className={styles['header--logo']}>
@@ -40,32 +95,44 @@ class Header extends React.Component {
                     {/*데스크탑 메뉴*/}
                     <nav className={styles['header--navigation']}>
                         <ul>
-                            <li>
-                                <Link to="javascript:void(0)" className={styles['link_device']}>
+                            <li onMouseEnter={this.onMouseEnterHandler}>
+                                <Link to="javascript:void(0)" className={styles['link_device']} onMouseEnter={()=>{
+                                    this.onHoverHandler('Menu1')
+                                }} onMouseLeave={()=>{
+                                    this.onHoverLeaveHandler('Menu1');
+                                }}>
                                     <span>디바이스</span>
-                                    <div className={styles['navigation__effect']}></div>
-                                    {/*<div className={styles['selected_effect']}></div>*/}
+                                    <div className={styles['navigation__effect']} ref={this.Menu1}></div>
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/dashboard" className={styles['link_device']}>
+                                <Link to="/dashboard" className={styles['link_device']} onMouseEnter={()=>{
+                                    this.onHoverHandler('Menu2')
+                                }} onMouseLeave={()=>{
+                                    this.onHoverLeaveHandler('Menu2');
+                                }}>
                                     <span>대시보드</span>
-                                    <div className={styles['navigation__effect']}></div>
-                                    {/*<div className={styles['selected_effect']}></div>*/}
+                                    <div className={styles['navigation__effect']} ref={this.Menu2}></div>
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/dashboard" className={styles['link_device']}>
+                                <Link to="/dashboard" className={styles['link_device']} onMouseEnter={()=>{
+                                    this.onHoverHandler('Menu3')
+                                }} onMouseLeave={()=>{
+                                    this.onHoverLeaveHandler('Menu3');
+                                }}>
                                     <span>커뮤니티</span>
-                                    <div className={styles['navigation__effect']}></div>
-                                    {/*<div className={styles['selected_effect']}></div>*/}
+                                    <div className={styles['navigation__effect']} ref={this.Menu3}></div>
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/dashboard" className={styles['link_device']}>
+                                <Link to="/dashboard" className={styles['link_device']} onMouseEnter={()=>{
+                                    this.onHoverHandler('Menu4')
+                                }} onMouseLeave={()=>{
+                                    this.onHoverLeaveHandler('Menu4');
+                                }}>
                                     <span>갤러리</span>
-                                    <div className={styles['navigation__effect']}></div>
-                                    {/*<div className={styles['selected_effect']}></div>*/}
+                                    <div className={styles['navigation__effect']} ref={this.Menu4}></div>
                                 </Link>
                             </li>
                         </ul>
@@ -100,9 +167,10 @@ class Header extends React.Component {
                         </a>
                     </div>
                 </div>
-                {/*서브링크(제품)*/}
                 {/*모바일 슬라이더 메뉴*/}
                 <MobileMenu active={mobileMenu}/>
+                {/*서브링크(제품)*/}
+                <SubLink active={this.state.subMenu}/>
             </header>
         );
     }

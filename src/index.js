@@ -37,7 +37,18 @@ store.subscribe(function (e) {
 sagaMiddleware.run(rootSaga);
 
 /*IE버젼 체커*/
-var ieVersion = CheckWebBrowser();
+const ieVersion = CheckWebBrowser();
+
+/*리틀원 웹 앱 어플리케이션 구동 가능한 브라우저별 버전*/
+const LauchableVersion = {
+    ie:'10',
+    firefox:'',
+    opera:'',
+    mozilla:'',
+    chrome:'',
+    safari:'',
+};
+
 
 /*익스 10보다 버전이 낮으면 대체 페이지로*/
 if(ieVersion < 10){

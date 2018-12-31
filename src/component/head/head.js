@@ -4,10 +4,16 @@ import {connect} from "react-redux";
 
 class Head extends React.Component {
 
-
+    static defaultState = {
+        title:'리틀원',
+        description:'육아의 넘버 원 리틀원'
+    };
+    
     constructor(props) {
         super(props);
         const {loading, error, width, store} = props;
+
+
     }
 
     componentDidMount() {

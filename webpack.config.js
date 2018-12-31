@@ -8,7 +8,6 @@ console.log(isDevmode);
 module.exports  = {
     entry:{
         'app':['@babel/polyfill','./src/index.js'],
-        // 'bottle':['@babel/polyfill','./src/pages/product/index.js']
     },
     output:{
         path:path.resolve(__dirname,'dist'),
