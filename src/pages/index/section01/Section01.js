@@ -20,11 +20,11 @@ class Section01 extends React.Component{
                                 <div></div>
                                 <div className={styles['main-section--content--text']}>
                                     <div className={styles['main-section--content--text__upper']}>
-                                        <h1>{language.section01.first['01']}</h1>
+                                        <h1></h1>
                                     </div>
                                     <div className={styles['main-section--content--text__lower']}>
-                                        <p>{language.section01.first['02']}</p>
-                                        <p>{language.section01.first['03']}</p>
+                                        <p></p>
+                                        <p></p>
                                     </div>
                                 </div>
                             </div>

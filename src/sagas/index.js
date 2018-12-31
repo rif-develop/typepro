@@ -4,6 +4,7 @@ import {watcherLanguage} from './languagesaga';
 import {watcherSaga} from "./axiosSaga";
 import {watcherAutoLogin} from "./autoLoginSaga";
 import {wathcerAlarmHeader, wathcerClientInfoHeader, watcherMobileMenu} from './headerSaga';
+import {wathcerWindowWidth} from "./clientStatusaction";
 
 export default function* rootSaga(){
     yield all([
@@ -13,7 +14,8 @@ export default function* rootSaga(){
         fork(watcherAutoLogin),
         fork(wathcerAlarmHeader),
         fork(wathcerClientInfoHeader),
-        fork(watcherMobileMenu)
+        fork(watcherMobileMenu),
+        fork(wathcerWindowWidth)
     ]);
 }
 

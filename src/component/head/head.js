@@ -1,14 +1,28 @@
 import React from "react";
 import {Helmet} from 'react-helmet';
+import {connect} from "react-redux";
 
 class Head extends React.Component {
 
-
+    static defaultState = {
+        title:'리틀원',
+        description:'육아의 넘버 원 리틀원'
+    };
+    
     constructor(props) {
         super(props);
+        const {loading, error, width, store} = props;
+
+
+    }
+
+    componentDidMount() {
+        window.addEventListener('resize', this.props.onResizeHandler);
     }
 
     render() {
+
+
         return (
             <Helmet defer={false}>
                 <meta charSet="UTF-8"/>
@@ -71,4 +85,24 @@ class Head extends React.Component {
     }
 }
 
-export default Head;
+
+const mapStateToProps = state => {
+    return {
+        loading: state.clientStatusReducer.loading,
+        error: state.clientStatusReducer.error,
+        width: state.clientStatusReducer.width
+    }
+};
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onResizeHandler: () => dispatch({
+            type:'SET_WINDOW_WIDTH_REQUEST',
+            width:window.innerWidth && document.documentElement.clientWidth ?
+                Math.min(window.innerWidth, document.documentElement.clientWidth) :
+                window.innerWidth ||
+                document.documentElement.clientWidth ||
+                document.getElementsByTagName('body')[0].clientWidth
+        }),
+    }
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Head);
