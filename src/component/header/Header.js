@@ -58,7 +58,7 @@ class Header extends React.Component {
         }
     }
 
-    onHoverLeaveHandler(target){
+    onHoverLeaveHandler(target) {
         if (target === 'Menu1') {
             this.Menu1.current.classList.remove('active')
         } else if (target === 'Menu2') {
@@ -83,6 +83,7 @@ class Header extends React.Component {
             easing: 'easeInSine'
         };
 
+
         return (
             <header className={styles['header']} id={'header-component'} onMouseLeave={this.onMouseLeaveHandler}>
                 <div>
@@ -96,19 +97,19 @@ class Header extends React.Component {
                     <nav className={styles['header--navigation']}>
                         <ul>
                             <li onMouseEnter={this.onMouseEnterHandler}>
-                                <Link to="javascript:void(0)" className={styles['link_device']} onMouseEnter={()=>{
+                                <a href="javascript:void(0)" className={styles['link_device']} onMouseEnter={() => {
                                     this.onHoverHandler('Menu1')
-                                }} onMouseLeave={()=>{
+                                }} onMouseLeave={() => {
                                     this.onHoverLeaveHandler('Menu1');
                                 }}>
                                     <span>디바이스</span>
                                     <div className={styles['navigation__effect']} ref={this.Menu1}></div>
-                                </Link>
+                                </a>
                             </li>
                             <li>
-                                <Link to="/dashboard" className={styles['link_device']} onMouseEnter={()=>{
+                                <Link to="/dashboard" className={styles['link_device']} onMouseEnter={() => {
                                     this.onHoverHandler('Menu2')
-                                }} onMouseLeave={()=>{
+                                }} onMouseLeave={() => {
                                     this.onHoverLeaveHandler('Menu2');
                                 }}>
                                     <span>대시보드</span>
@@ -116,9 +117,9 @@ class Header extends React.Component {
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/dashboard" className={styles['link_device']} onMouseEnter={()=>{
+                                <Link to="/dashboard" className={styles['link_device']} onMouseEnter={() => {
                                     this.onHoverHandler('Menu3')
-                                }} onMouseLeave={()=>{
+                                }} onMouseLeave={() => {
                                     this.onHoverLeaveHandler('Menu3');
                                 }}>
                                     <span>커뮤니티</span>
@@ -126,9 +127,9 @@ class Header extends React.Component {
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/dashboard" className={styles['link_device']} onMouseEnter={()=>{
+                                <Link to="/dashboard" className={styles['link_device']} onMouseEnter={() => {
                                     this.onHoverHandler('Menu4')
-                                }} onMouseLeave={()=>{
+                                }} onMouseLeave={() => {
                                     this.onHoverLeaveHandler('Menu4');
                                 }}>
                                     <span>갤러리</span>
@@ -139,28 +140,28 @@ class Header extends React.Component {
                     </nav>
                     <div className={styles['header--menu']}>
                         {/*로그인*/}
-                        {/*<div className={styles['header--menu__login']}>*/}
-                        {/*<Link to="/login">*/}
-                        {/*로그인*/}
-                        {/*</Link>*/}
-                        {/*</div>*/}
+                        <div className={styles['header--menu__login']}>
+                            <Link to="/login">
+                                로그인
+                            </Link>
+                        </div>
                         {/*알람*/}
-                        <div className={styles['header--menu__alarm']} role="graphics-object" onClick={onClickAlarmHandler}>
-                            <div className={styles['header--menu__alarm__notification']}></div>
-                            <HeaderAlarm active={alarmList}/>
-                        </div>
+                        {/*<div className={styles['header--menu__alarm']} role="graphics-object" onClick={onClickAlarmHandler}>*/}
+                        {/*<div className={styles['header--menu__alarm__notification']}></div>*/}
+                        {/*<HeaderAlarm active={alarmList}/>*/}
+                        {/*</div>*/}
                         {/*유저정보*/}
-                        <div className={styles['header--menu__client-info']} role="graphics-symbol" onClick={onClickClientHandler}>
-                            <a href="javascript:void(0)">
-                                <img src={require('./icon-144.png')} alt={'client-thumbnail'}/>
-                            </a>
-                            {/*유저 정보 창 들어올 곳*/}
-                            <ClientInfo active={clientMenu}/>
-                        </div>
+                        {/*<div className={styles['header--menu__client-info']} role="graphics-symbol" onClick={onClickClientHandler}>*/}
+                        {/*<a href="javascript:void(0)">*/}
+                        {/*<img src={require('./icon-144.png')} alt={'client-thumbnail'}/>*/}
+                        {/*</a>*/}
+                        {/*/!*유저 정보 창 들어올 곳*!/*/}
+                        {/*<ClientInfo active={clientMenu}/>*/}
+                        {/*</div>*/}
                     </div>
                     {/*모바일용 메뉴*/}
                     <div className={styles['header--hamburger']} onClick={onClickMobileHandler}>
-                        <a href="javascript:void(0)" className={cx(styles['header--hamburger__menu'], {active: mobileMenu})}>
+                        <a href="javascript:void(0)" className={cx(styles['header--hamburger__menu'], mobileMenu ? styles['active']:null)}>
                             <span></span>
                             <span></span>
                             <span></span>

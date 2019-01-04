@@ -1,39 +1,41 @@
 import React from "react";
-import {Helmet} from 'react-helmet';
-import {connect} from "react-redux";
-
+import Helmet from 'react-helmet-async';
+import styles from '../../lib/_reset.scss';
 class Head extends React.Component {
 
     static defaultState = {
-        title:'리틀원',
-        description:'육아의 넘버 원 리틀원'
+        title: '리틀원',
+        description: '육아의 넘버 원 리틀원',
+        keyword: ['육아', '초보엄마', '스마트보틀', '스마트피피', '스마트템프', '정기배송', '기저귀', '분유', '커뮤니티', '아기', '아이', '엄마', '아빠', '가족', '육아일기', '다이어리'],
     };
-    
+
     constructor(props) {
         super(props);
-        const {loading, error, width, store} = props;
-
-
     }
 
-    componentDidMount() {
-        window.addEventListener('resize', this.props.onResizeHandler);
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        return this.props.language !== nextProps.language;
     }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log('ok')
+    }
+
 
     render() {
-
-
         return (
-            <Helmet defer={false}>
+            <Helmet key={window.location.href}>
+                <html lang={this.props.language}/>
+                <body className={styles[`lang-${this.props.language}`]}/>
                 <meta charSet="UTF-8"/>
-                <meta name="description" content={this.props.description}/>
-                <meta name="keywords" content="육아, 초보엄마, 스마트보틀, 스마트피피, 스마트템프, 정기배송, 기저귀, 분유, 커뮤니티, 아기, 아이, 엄마, 아빠, 가족, 육아일기, 다이어리"/>
+                <meta name="description" content={this.props.description || Head.defaultState.description}/>
+                <meta name="keywords" content={Head.defaultState.keyword}/>
                 <meta name="google" content="notranslate"/>
                 <meta name="author" content="리틀원"/>
-                <meta name="title" content={this.props.title}/>
+                <meta name="title" content={this.props.title || Head.defaultState.title}/>
                 <title>{this.props.title}</title>
-                <meta name="twitter:title" content={this.props.title}/>
-                <meta name="twitter:description" content={this.props.description}/>
+                <meta name="twitter:title" content={this.props.title || Head.defaultState.title}/>
+                <meta name="twitter:description" content={this.props.description || Head.defaultState.description}/>
                 <meta name="twitter:image" content="/favicon/icon-144.png"/>
                 <meta name="twitter:card" content="summary"/>
                 <meta name="theme-color" content="#2d3039"/>
@@ -42,10 +44,10 @@ class Head extends React.Component {
                 <meta name="twitter:player" content="https://player.vimeo.com/video/292078292"/>
                 <meta name="twitter:player:width" content="1280"/>
                 <meta name="twitter:player:height" content="720"/>
-                <meta property="og:description" content={this.props.description}/>
+                <meta property="og:description" content={this.props.description || Head.defaultState.description}/>
                 <meta property="og:site_name" content="LITTLEONE"/>
                 <meta property="og:url" content="http://littleone.kr"/>
-                <meta property="og:title" content={this.props.title}/>
+                <meta property="og:title" content={this.props.title || Head.defaultState.title}/>
                 <meta property="og:image" content="/favicon/icon-144.png"/>
                 <meta property="og:image:secure_url" content="http://littleone.kr"/>
                 <meta property="og:image:type" content="image/png"/>
@@ -85,24 +87,4 @@ class Head extends React.Component {
     }
 }
 
-
-const mapStateToProps = state => {
-    return {
-        loading: state.clientStatusReducer.loading,
-        error: state.clientStatusReducer.error,
-        width: state.clientStatusReducer.width
-    }
-};
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onResizeHandler: () => dispatch({
-            type:'SET_WINDOW_WIDTH_REQUEST',
-            width:window.innerWidth && document.documentElement.clientWidth ?
-                Math.min(window.innerWidth, document.documentElement.clientWidth) :
-                window.innerWidth ||
-                document.documentElement.clientWidth ||
-                document.getElementsByTagName('body')[0].clientWidth
-        }),
-    }
-};
-export default connect(mapStateToProps, mapDispatchToProps)(Head);
+export default Head;

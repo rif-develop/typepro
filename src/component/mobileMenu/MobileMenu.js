@@ -44,13 +44,13 @@ class MobileMenu extends React.Component {
 
     render() {
         return (
-            <div className={cx(styles['mobile-menu-component'], {active: this.props.active && this.state.width <= 768})} ref={this.myRef} id={'mobile-menu'}>
+            <div className={cx(styles['mobile-menu-component'], (this.props.active && this.state.width <= 768) ? styles['active']:null)} ref={this.myRef} id={'mobile-menu'}>
                 {/*네비*/}
                 <nav className={styles['mobile-menu-component--nav']}>
                     {/*메뉴*/}
                     <ol className={styles['mobile-menu-component--nav__list']}>
                         <li>
-                            <Link to="/smartbottle">디바이스</Link>
+                            <Link to="/device/smartbottle">디바이스</Link>
                         </li>
                         <li>
                             <Link to="/dashboard">대시보드</Link>

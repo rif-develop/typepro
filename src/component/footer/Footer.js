@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from "react-router-dom";
 import styles from './Footer.scss';
 import classnames from 'classnames';
 import FlagComponent from "../flag/FlagComponent";
@@ -13,7 +14,7 @@ class Footer extends React.Component{
     }
     render(){
         return(
-            <footer role="contentinfo" className={styles['footer-section']}>
+            <footer role="contentinfo" className={cx(styles['footer-section'], this.props.index ? null:styles['theme-02'])}>
                 <div className={styles['footer-section--upper']}>
                     <div>
                         <div className={styles['footer-section--upper--email']}>
@@ -79,11 +80,11 @@ class Footer extends React.Component{
                                 <div className={styles['footer-section--lower--list--terms--desc']}>
                                     <em>ⓒ 2018 LITTLEONE All rights reserved.</em>
                                     <div>
-                                        <a href="/join_business/privacypolicy">개인정보보호정책</a>
-                                        <a href="/join_business/termsofuse" className={styles['__link-service-terms']}>서비스 약관</a>
+                                        <Link to="/privacypolicy">개인정보보호정책</Link>
+                                        <Link to="/termsofuse" className={styles['__link-service-terms']}>서비스 약관</Link>
                                     </div>
                                 </div>
-                                <FlagComponent/>
+                                <FlagComponent index={this.props.index}/>
                             </div>
                         </div>
                     </div>

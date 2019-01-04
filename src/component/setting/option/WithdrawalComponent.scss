@@ -1,0 +1,195 @@
+.option-leave-component {
+  border: 1px solid #c3cbd5;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  padding: 30px 20px;
+  background-color: #f9fbff;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin-bottom: 14px;
+
+  &--desc {
+    position: relative;
+
+    h2 {
+      font-size: 16px;
+      font-weight: 500;
+      color: #333;
+    }
+
+    p {
+      margin-top: 10px;
+      font-size: 12px;
+      color: #333;
+      opacity: .85;
+      font-weight: 300;
+    }
+  }
+
+
+  .client-leaving-component {
+    position: relative;
+    margin-top: 18px;
+
+    &--container {
+      position: relative;
+      display: inline-block;
+
+      input {
+        width: 360px;
+        height: 30px;
+        border: 1px solid #c3cbd5;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        text-indent: 12px;
+      }
+
+      input.invalid {
+        border: 1px solid #ff1a6f;
+      }
+
+      input::-webkit-input-placeholder {
+        color: #c3cbd5;
+      }
+
+      input::-ms-input-placeholder {
+        color: #c3cbd5;
+      }
+
+      input:-ms-input-placeholder {
+        color: #c3cbd5;
+      }
+
+      input:-moz-placeholder {
+        color: #c3cbd5;
+      }
+
+      input::-moz-placeholder {
+        color: #c3cbd5;
+      }
+
+      input::placeholder {
+        color: #c3cbd5;
+      }
+
+      .__remove-input-button {
+        position: absolute;
+        border: none;
+        width: 15px;
+        height: 15px;
+        top: 7px;
+        right: 15px;
+        text-indent: -999px;
+        overflow: hidden;
+        cursor: not-allowed;
+        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAMAAAC6V+0/AAAAPFBMVEUAAAD////////i6eng4+bg4+bi5ejg4ufg4ufh4+jg4+fg4+bg4ubg4+fg4ufg4+bg4ubg4+fg4+ff4uYG48jhAAAAE3RSTlMAAgUjUlNXamtvi6TM29zt7vP9vT4dFgAAAIJJREFUeNptkVsShCAMBAcWQUUQNve/q5XEWO5Cf5Cq5jUECD7m0nvJ0eMhVLqpAYrb6cXuRJozy26hPwLg5bz2ktUjcj3dymX7iI3IUhMSDxsxGYXM8oRQ0MmsOepTOd3+e9GqF2mkQxcl1ySShv8eJLQ7PMLwzFlD5q1TlrHJ43dc4QcUih0ojG4AAAAASUVORK5CYII=) no-repeat center/10px 10px;
+        visibility: hidden;
+        opacity: 0;
+      }
+
+      .__remove-input-button.active {
+        visibility: visible;
+        opacity: 1;
+        cursor: pointer;
+      }
+
+    }
+
+    .__leaving-submit-button {
+      cursor: pointer;
+      border: none;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      height: 30px;
+      background-color: #6c5cda;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 500;
+      vertical-align: middle;
+      opacity: .6;
+      padding: 0 20px;
+      margin-left: 8px;
+    }
+
+    .__leaving-submit-button.active {
+      opacity: 1;
+    }
+
+    .sns_leave_mail_btn {
+      width: 100px;
+      height: 30px;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      border: 1px solid #b8bcc9;
+      background-color: #f9fbff;
+      font-size: 14px;
+      font-weight: 500;
+
+      &:focus, &:hover {
+        -webkit-box-shadow: 0 0 4px 0 rgba(152, 155, 165, 0.5);
+        -moz-box-shadow: 0 0 4px 0 rgba(152, 155, 165, 0.5);
+        box-shadow: 0 0 4px 0 rgba(152, 155, 165, 0.5);
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .option-leave-component {
+    padding: 24px 19px;
+
+    &--desc {
+
+      h2 {
+        font-size: 14px;
+      }
+
+      p {
+        font-size: 12px;
+        margin-top: 10px;
+        line-height: 1.25em;
+      }
+
+      .client-leaving-component {
+
+        &--container {
+          width: 80%;
+
+          input {
+            width: 100%;
+            height: 24px;
+            font-size: 12px;
+          }
+          .__remove-input-button {
+            top: 4px;
+            right: 8px;
+          }
+
+        }
+
+        .__leaving-submit-button {
+          padding: 0 14px;
+          height: 24px;
+          margin-left: 4px;
+          font-size: 12px;
+        }
+      }
+    }
+  }
+
+
+}
+
+@media only screen and (max-width: 340px){
+  .option-leave-component--desc .client-leaving-component--container{
+    width: 67%;
+  }
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './Section09.scss';
 import classNames from 'classnames';
+import {Link} from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
@@ -28,9 +29,9 @@ class Section09 extends React.Component {
                         <p>{language.smartpeepee.section09['03']}<br/>
                             {language.smartpeepee.section09['04']}<br/>
                             {language.smartpeepee.section09['05']}</p>
-                        <a href={'/device/smartpeepee'}>
+                        <Link to={'/device/smartpeepee'}>
                             <button type={'button'} role={'button'}>{language.smartpeepee.section09['common-button']}</button>
-                        </a>
+                        </Link>
                     </div>
                     <div className={styles['bottle']}>
                         <div className={styles["other-product-section--products--image"]}></div>
@@ -38,9 +39,9 @@ class Section09 extends React.Component {
                         <p>{language.smartpeepee.section09['08']}<br/>
                             {language.smartpeepee.section09['09']}<br/>
                             {language.smartpeepee.section09['10']}</p>
-                        <a href={'/device/smartbottle'}>
+                        <Link to={'/device/smartbottle'}>
                             <button type={'button'} role={'button'}>{language.smartpeepee.section09['common-button']}</button>
-                        </a>
+                        </Link>
                     </div>
                     <div className={styles['temp']}>
                         <div className={styles["other-product-section--products--image"]}></div>
@@ -48,9 +49,9 @@ class Section09 extends React.Component {
                         <p>{language.smartpeepee.section09['13']}<br/>
                             {language.smartpeepee.section09['14']}<br/>
                             {language.smartpeepee.section09['15']}</p>
-                        <a href={'/device/smarttemp'}>
+                        <Link to={'/device/smarttemp'}>
                             <button type={'button'} role={'button'}>{language.smartpeepee.section09['common-button']}</button>
-                        </a>
+                        </Link>
                     </div>
                 </div>
 

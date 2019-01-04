@@ -16,7 +16,7 @@ const initialState = {
 export function clientStatusReducer(state = initialState, action){
     switch (action.type) {
         case SET_WINDOW_WIDTH_REQUEST:
-            return {...state, loading:true, error:null}
+            return {...state, loading:true, error:null, width:state.width}
         case SET_WINDOW_WIDTH_SUCCESS:
             return {...state, loading:false, error:null, width:action.width}
         case SET_WINDOW_WIDTH_FAILURE:

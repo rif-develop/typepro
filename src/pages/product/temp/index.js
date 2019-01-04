@@ -29,28 +29,6 @@ class TempLayout extends React.Component {
 
     componentDidMount() {
 
-        const body = document.getElementsByTagName('body')[0];
-        if (getCookie('lang') === 'en') {
-            document.getElementsByTagName('html')[0].lang = 'en';
-            body.setAttribute('class', 'lang-english');
-
-        } else if (getCookie('lang') === 'ja') {
-            document.getElementsByTagName('html')[0].lang = 'ja';
-            body.setAttribute('class', 'lang-japanese');
-
-        } else if (getCookie('lang') === 'zh') {
-            document.getElementsByTagName('html')[0].lang = 'zh';
-            body.setAttribute('class', 'lang-chinese');
-
-        } else if (getCookie('lang') === 'ko') {
-            document.getElementsByTagName('html')[0].lang = 'ko';
-            body.setAttribute('class', 'lang-korean');
-
-        } else {
-            document.getElementsByTagName('html')[0].lang = 'en';
-            body.setAttribute('class', 'lang-english');
-        }
-
         new fullpage('#smart-temp-section', {
             //options here
             licenseKey: 'C1CC5B53-80DD44AD-B875A4EB-2F0182E3',
@@ -79,7 +57,6 @@ class TempLayout extends React.Component {
 
     componentWillUnmount() {
         fullpage_api.destroy();
-        this.setLanguage = null;
     }
 
     shouldComponentUpdate(nextProps) {
@@ -98,7 +75,7 @@ class TempLayout extends React.Component {
                 <Section06 language={this.state.language}/>
                 <Section07 language={this.state.language}/>
                 <Section08 language={this.state.language}/>
-                <Section09 language={this.state.language} action={this.setLanguage}/>
+                <Section09 language={this.state.language}/>
             </div>
         )
     }

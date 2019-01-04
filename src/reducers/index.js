@@ -5,6 +5,7 @@ import {axiosReducer} from './axiosReducer';
 import {autologinReducer} from "./autoLoginReducer";
 import {headerReducer} from './headerReducer';
 import {clientStatusReducer} from "./clientStatusReducer";
+import {settingReducer} from "./settingReducer";
 
 export default combineReducers({
     clientStatusReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
     languageReducer,
     counterReducer,
     autologinReducer,
-    headerReducer
+    headerReducer,
+    settingReducer
 });

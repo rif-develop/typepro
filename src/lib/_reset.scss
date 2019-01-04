@@ -64,6 +64,26 @@
   font-weight: 700;
 }
 
+.lang-ko{
+  font-family:"Noto Sans Korean", system, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "애플 SD 산돌고딕 Neo", Sans-serif, serif;
+  -ms-word-break: keep-all;
+  word-break: keep-all;
+}
+.lang-ja{
+  font-family:"Noto Sans Japanese", system, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "애플 SD 산돌고딕 Neo", Sans-serif, serif;
+  -ms-word-wrap: break-word;
+  word-wrap: break-word;
+}
+.lang-zh{
+  font-family:"Noto Sans Chinese", system, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "애플 SD 산돌고딕 Neo", Sans-serif, serif;
+  -ms-word-wrap: break-word;
+  word-wrap: break-word;
+}
+.lang-en{
+  font-family:"Noto Sans Korean", system, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "애플 SD 산돌고딕 Neo", Sans-serif, serif;
+  -ms-word-wrap: break-word;
+  word-wrap: break-word;
+}
 
 a {
   color: #333;
@@ -73,6 +93,7 @@ a {
 body::-webkit-scrollbar {
   display: none;
 }
+
 html, body {
   font-family:"Noto Sans Korean", system, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "애플 SD 산돌고딕 Neo", Sans-serif, serif;
   width: 100%;

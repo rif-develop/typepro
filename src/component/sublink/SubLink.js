@@ -32,7 +32,7 @@ class SubLink extends React.Component {
 
 
         return (
-            <div className={cx(styles['header--sublink'], {active: this.props.active})}>
+            <div className={cx(styles['header--sublink'], this.props.active ? styles['active']:null)}>
                 <nav className={styles['header--sublink__device']}>
                     <Link to="/device/smartbottle" className={styles['header--sublink__device__smart-bottle']}>
                         <div></div>

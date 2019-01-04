@@ -1,0 +1,106 @@
+.option-component {
+  position: relative;
+  width: 100%;
+  border-bottom: 1px solid #e7e9ec;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 20.5px 0;
+  max-height: 80px;
+
+  h2 {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+  }
+
+  p {
+    font-size: 12px;
+    font-weight: 300;
+    color: #333;
+    opacity: .85;
+    margin-top: 10px;
+    width: 86%;
+  }
+
+  .__switch {
+    position: absolute;
+    display: block;
+    top: 50%;
+    right: 0;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    cursor: pointer;
+    width: 41px;
+    height: 25px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    background-color: #dfe2e6;
+
+    div{
+      -webkit-transition: all 0.2s ease-out;
+      -moz-transition: all 0.2s ease-out;
+      -ms-transition: all 0.2s ease-out;
+      -o-transition: all 0.2s ease-out;
+      transition: all 0.2s ease-out;
+      position: relative;
+      top: 2px;
+      left: 1px;
+      display: block;
+      width: 21px;
+      height: 21px;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%;
+      background-color: #fff;
+      overflow: hidden;
+      -webkit-box-shadow: 0 3px 1px 0 rgba(0,0,0,0.06), 0 3px 8px 0 rgba(0,0,0,0.15);
+      -moz-box-shadow: 0 3px 1px 0 rgba(0,0,0,0.06),0 3px 8px 0 rgba(0,0,0,0.15);
+      box-shadow: 0 3px 1px 0 rgba(0,0,0,0.06), 0 3px 8px 0 rgba(0,0,0,0.15);
+
+      &.active{
+        -webkit-transform: translateX(18px);
+        -moz-transform: translateX(18px);
+        -ms-transform: translateX(18px);
+        -o-transform: translateX(18px);
+        transform: translateX(18px);
+      }
+    }
+  }
+
+  .__switch.active {
+    background-color: #6d5ddb;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .option-component {
+    padding: 16.5px 14px;
+
+    h2 {
+      font-size: 14px;
+    }
+    .__switch{
+      right: 14px;
+    }
+
+  }
+}
+
+@media only screen and (max-width: 330px) {
+  .option-component {
+    padding: 16.5px 14px;
+
+    h2 {
+      font-size: 12px;
+    }
+    p{
+      font-size: 10px;
+      margin-top: 8px;
+    }
+  }
+}
