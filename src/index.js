@@ -19,6 +19,7 @@ import TempLayout from "./pages/product/temp";
 import SettingLayout from "./pages/setting/SettingLayout";
 import PrivacypolicyLayout from "./pages/privacypolicy/PrivacypolicyLayout";
 import TermsOfUseLayout from "./pages/termsofuse/TermsOfUseLayout";
+import AddressLayout from "./pages/address/AddressLayout";
 
 const root = document.getElementById('app');
 
@@ -81,6 +82,7 @@ if (ieVersion < LauchableVersion.ie) {
                         <Route exact path={'/mypage/setting'} component={SettingLayout}/>
                         <Route exact path={'/privacypolicy'} component={PrivacypolicyLayout}/>
                         <Route exact path={'/termsofuse'} component={TermsOfUseLayout}/>
+                        <Route exact path={'/mypage/address'} component={AddressLayout}/>
                         <Redirect from="*" to="/404error"/>
                     </Switch>
                 </HashRouter>

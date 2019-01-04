@@ -1,0 +1,301 @@
+
+.delivery-manage-section {
+  margin: 0 auto;
+  position: relative;
+  width: 440px;
+  min-width: 440px;
+  text-align: center;
+
+  -webkit-transition: all 0.45s ease-out;
+  -moz-transition: all 0.45s ease-out;
+  -ms-transition: all 0.45s ease-out;
+  -o-transition: all 0.45s ease-out;
+  transition: all 0.45s ease-out;
+
+  padding-top: 120px;
+
+  .delivery-manage-section--logo {
+    display: inline-block;
+    overflow: hidden;
+    text-indent: -999px;
+    width: 120px;
+    height: 100px;
+    background: url("./littleone.svg") no-repeat center/contain;
+  }
+  //delivery-manage-section--logo
+
+  .delivery-manage-section-horizontal-bar {
+    display: inline-block;
+    margin-top: 38px;
+    width: 30px;
+    height: 1px;
+    background-color: #000;
+
+  }
+  //delivery-manage-section-horizontal-bar
+
+  .delivery-manage-section--desc {
+    margin-top: 38px;
+
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.8px;
+    }
+
+    p {
+      margin-top: 38px;
+      /*다국어 지원을 위해*/
+      -ms-word-break: keep-all;;
+      word-break: keep-all;
+      -ms-word-wrap: break-word;
+      word-wrap: break-word;
+      font-size: 14px;
+      font-weight: 300;
+      letter-spacing: -0.6px;
+      opacity: 0.85;
+    }
+
+  }
+  //delivery-manage-section--desc
+
+  .delivery-manage-section--button-box {
+    padding: 26px 0 10px 0;
+    text-align: right;
+    .__register-address-btn {
+      display: inline-block;
+      border: none;
+      -webkit-border-radius: 24px;
+      -moz-border-radius: 24px;
+      border-radius: 24px;
+      background-color: #e8ecf5;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 8px 11px;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      cursor: not-allowed;
+      -webkit-transition: all 0.4s ease-out;
+      -moz-transition: all 0.4s ease-out;
+      -ms-transition: all 0.4s ease-out;
+      -o-transition: all 0.4s ease-out;
+      transition: all 0.4s ease-out;
+    }
+    .active {
+      background-color: #19ebdd;
+      cursor: pointer;
+    }
+    .__register-address-btn:hover {
+      opacity: .666;
+      color: #fafafa;
+    }
+  }
+  //delivery-manage-section--button-box
+
+  .delivery-manage-section--list {
+    padding-bottom: 83px;
+
+    .none-address {
+      text-align: center;
+
+      background-color: #f9fbff;
+      -webkit-border-radius: 2px;
+      -moz-border-radius: 2px;
+      border-radius: 2px;
+      border: 2px dotted #b8bcc9;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: -0.1px;
+      color: #b8bcc9;
+      padding: 77px 0;
+
+    }
+    //none-address
+
+  }
+  //delivery-manage-section--list
+
+  .delivery-manage-section--list--info {
+    background-color: #fff;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    border: 1px solid #b8bcc9;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+
+    .delivery-manage-section--list--info--head {
+      padding: 10px 18px;
+      background-color: #e8ecf5;
+      text-align: left;
+
+      h2 {
+        display: inline-block;
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: -0.1px;
+        color: #333;
+      }
+
+      span {
+        display: inline-block;
+        margin-left: 2px;
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: -0.1px;
+        color: #333;
+      }
+
+    }
+    //delivery-manage-section--list--info--head
+
+    .delivery-manage-section--list--info--desc {
+      padding: 10px 18px 0 18px;
+
+      > div {
+        display: table;
+        width: 100%;
+        text-align: left;
+        padding-bottom: 10px;
+
+        > div {
+          display: table-cell;
+          font-size: 12px;
+          font-weight: 500;
+          line-height: 18px;
+          -ms-word-break: keep-all;
+          word-break: keep-all;
+          -ms-word-wrap: break-word;
+          word-wrap: break-word;
+        }
+        > div:nth-of-type(2) {
+          display: inline-block;
+          width: 95%;
+          opacity: .85;
+
+        }
+
+        .client-delivery-info {
+          padding-right: 5px;
+          width: 80px;
+
+        }
+        //client-delivery-info
+      }
+      .__last-components {
+        padding-bottom: 0;
+      }
+
+    }
+    //delivery-manage-section--list--info--desc
+
+    .delivery-manage-section--list--info--button-box {
+      padding: 7px 14px 14px 14px;
+      text-align: right;
+      button {
+        cursor: pointer;
+        display: inline-block;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+        border: 1px solid #b8bcc9;
+        background-color: #f9fbff;
+        padding: 7px 8px;
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: -0.6px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        -webkit-transition: all 0.45s ease-out;
+        -moz-transition: all 0.45s ease-out;
+        -ms-transition: all 0.45s ease-out;
+        -o-transition: all 0.45s ease-out;
+        transition: all 0.45s ease-out;
+      }
+      button:hover {
+        opacity: 0.66;
+      }
+
+    }
+    //delivery-manage-section--list--info--button-box
+
+  }
+  //delivery-manage-section--list--info
+
+}
+
+//delivery-manage-section
+
+@media only screen and (max-width: 640px) {
+  .delivery-manage-section {
+    width: 92%;
+    padding-top: 77px;
+    min-width: 300px;
+  }
+
+  .delivery-manage-section .delivery-manage-section--logo {
+    width: 87px;
+    height: 70px;
+  }
+  .delivery-manage-section .delivery-manage-section-horizontal-bar {
+    width: 18px;
+    margin-top: 18px;
+  }
+  .delivery-manage-section .delivery-manage-section--desc {
+    margin-top: 18px;
+    h1 {
+      font-size: 18px;
+      letter-spacing: -0.5px;
+    }
+    p {
+      margin-top: 18px;
+      font-size: 10px;
+      font-weight: 300;
+      line-height: 16px;
+      letter-spacing: -0.4px;
+    }
+  }
+  .delivery-manage-section .delivery-manage-section--button-box {
+    padding: 18px 0 8px;
+  }
+  .delivery-manage-section .delivery-manage-section--list--info .delivery-manage-section--list--info--head {
+    padding: 9px 14px;
+  }
+  .delivery-manage-section .delivery-manage-section--list--info .delivery-manage-section--list--info--head h2 {
+    font-size: 10px;
+    letter-spacing: -0.1px;
+  }
+  .delivery-manage-section .delivery-manage-section--list--info .delivery-manage-section--list--info--head span {
+    font-size: 10px;
+  }
+  .delivery-manage-section .delivery-manage-section--list--info .delivery-manage-section--list--info--desc > div > div {
+    font-size: 10px;
+  }
+  .delivery-manage-section .delivery-manage-section--list--info .delivery-manage-section--list--info--desc > div {
+    padding-bottom: 5px;
+  }
+  .delivery-manage-section .delivery-manage-section--list--info .delivery-manage-section--list--info--desc {
+    padding: 9px 14px 0 14px;
+  }
+  .delivery-manage-section .delivery-manage-section--list--info .delivery-manage-section--list--info--button-box {
+    padding: 6px 14px 14px 9px;
+  }
+  .delivery-manage-section .delivery-manage-section--list--info .delivery-manage-section--list--info--button-box button {
+    font-size: 10px;
+    padding: 6px 8px;
+    margin-right: 3px;
+  }
+
+  .delivery-manage-section .delivery-manage-section--list .none-address {
+    font-size: 10px;
+    padding: 70px 0;
+  }
+  .delivery-manage-section .delivery-manage-section--list--info {
+    margin-bottom: 8px;
+  }
+}

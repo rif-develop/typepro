@@ -20,3 +20,30 @@ export function CheckWebBrowser(){
 
     return rv;
 }
+//컴포넌트 로딩 후 CDN추가한다.
+export function loadScript(src, id, callback) {
+    if(id && document.getElementById(id)){
+        return; // don't accidentally re-add
+    }
+    const script = document.createElement( 'script' );
+    if(callback){
+        script.onload = callback;
+    }
+    if(id){
+        script.setAttribute( 'id', id );
+    }
+    script.setAttribute( 'src', src );
+    script.setAttribute('type','text/javascript');
+    script.setAttribute('charset','utf8');
+    document.body.appendChild( script );
+}
+
+//가운데 정렬 시키는 함수
+export function innerCenter(cssSelector) {
+    const targetHeight = cssSelector.offsetHeight;
+    const targetWidth = cssSelector.offsetWidth;
+    const windowHeight = window.document.body.clientHeight;
+    const windowWidth = window.document.body.clientWidth;
+    cssSelector.style.top = Math.max(((windowHeight - targetHeight) / 2) + window.scrollY) + "px";
+    cssSelector.style.left = Math.max(((windowWidth - targetWidth) / 2) + window.scrollX) + "px";
+}
