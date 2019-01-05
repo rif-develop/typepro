@@ -6,6 +6,7 @@ import {autologinReducer} from "./autoLoginReducer";
 import {headerReducer} from './headerReducer';
 import {clientStatusReducer} from "./clientStatusReducer";
 import {settingReducer} from "./settingReducer";
+import {addressReducer} from "./addressReducer";
 
 export default combineReducers({
     clientStatusReducer,
@@ -14,5 +15,6 @@ export default combineReducers({
     counterReducer,
     autologinReducer,
     headerReducer,
-    settingReducer
+    settingReducer,
+    addressReducer
 });

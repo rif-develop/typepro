@@ -58,7 +58,7 @@ class LoginLayout extends React.Component {
                     </div>
                     <SocialSignButton/>
                     <div className="login-section-join">
-                        <p>아직 계정이 없으신가요?</p><Link to="/join">회원가입</Link>
+                        <p>아직 계정이 없으신가요?</p><Link to="/signup">회원가입</Link>
                     </div>
                 </section>
                 <Footer/>

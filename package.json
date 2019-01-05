@@ -67,7 +67,9 @@
     "animejs": "^2.2.0",
     "axios": "^0.18.0",
     "fullpage.js": "^3.0.4",
-    "react-anime": "^2.2.0"
+    "react-anime": "^2.2.0",
+    "snapsvg": "^0.5.1",
+    "snapsvg-cjs": "0.0.6"
   },
   "repository": {
     "type": "git",

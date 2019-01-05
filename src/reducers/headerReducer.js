@@ -16,7 +16,7 @@ const initialState = {
     loading: false,
     alarmList: false,
     clientMenu: false,
-    mobileMenu: false,
+    // mobileMenu: false,
     error: null
 };
 

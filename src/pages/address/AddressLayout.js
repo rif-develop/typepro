@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import Head from "../../component/head/head";
 import Header from "../../component/header/Header";
 import Footer from "../../component/footer/Footer";
+import {connect} from "react-redux";
 import RegisterAddressComponent from "../../component/address/RegisterAddressComponent";
 const cx = classnames.bind(styles);
 import {loadScript} from "../../lib/script";
@@ -12,28 +13,18 @@ class AddressLayout extends React.Component {
 
     constructor(props){
         super(props);
-        this.state={
-            register:false,
-            modify:false
-        };
-
-        this.addressRegister = this.addressRegister.bind(this);
     }
 
-    addressRegister(){
-        this.setState({
-            register:!this.state.register
-        });
-    }
     componentDidMount() {
         loadScript('http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false','daum-map','');
     }
 
     render() {
+        const {loading,error, registerModal, modifyModal, onClickModalOpener} = this.props;
         return (
             <Fragment>
                 {
-                    this.state.register ? <RegisterAddressComponent/>:null
+                    registerModal ? <RegisterAddressComponent action={onClickModalOpener} active={registerModal}/>:null
                 }
                 <Head tittle={'리틀원 - 배송지 관리'} desc={'고객님의 배송지를 관리할 수 있는 페이지입니다.'}/>
                 <section className={styles['delivery-manage-section']}>
@@ -46,7 +37,9 @@ class AddressLayout extends React.Component {
                         <p>자주 쓰는 배송지를 등록 및 관리하실 수 있습니다. (최대 3개)</p>
                     </div>
                     <div className={styles['delivery-manage-section--button-box']}>
-                        <button type="button" className={styles['__register-address-btn']} onClick={this.addressRegister}>배송지 등록</button>
+                        <button type="button" className={styles['__register-address-btn']} onClick={()=>{
+                            onClickModalOpener('add');
+                        }}>배송지 등록</button>
                     </div>
                     <ul className={styles['delivery-manage-section--list']}>
                         <li className={styles['delivery-manage-section--list--info']}>
@@ -89,5 +82,21 @@ class AddressLayout extends React.Component {
         )
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        loading:state.addressReducer.loading,
+        error:state.addressReducer.error,
+        registerModal:state.addressReducer.registerModal,
+        modifyModal:state.addressReducer.modifyModal
+    }
+};
 
-export default AddressLayout;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onClickModalOpener: (value) => dispatch({
+            type: 'SET_ADDRESS_REQUEST',
+            value
+        }),
+    }
+};
+export default connect(mapStateToProps, mapDispatchToProps)(AddressLayout);

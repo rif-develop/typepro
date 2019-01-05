@@ -17,7 +17,8 @@ class Header extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            subMenu: false
+            subMenu: false,
+            mobileMenu:false
         };
 
         this.Menu1 = React.createRef();
@@ -29,6 +30,14 @@ class Header extends React.Component {
         this.onMouseLeaveHandler = this.onMouseLeaveHandler.bind(this);
         this.onHoverHandler = this.onHoverHandler.bind(this);
         this.onHoverLeaveHandler = this.onHoverLeaveHandler.bind(this);
+        this.onClickMobileMenuHandler = this.onClickMobileMenuHandler.bind(this);
+    }
+
+
+    onClickMobileMenuHandler(){
+        this.setState({
+            mobileMenu:!this.state.mobileMenu
+        })
     }
 
     onMouseEnterHandler() {
@@ -160,8 +169,8 @@ class Header extends React.Component {
                         {/*</div>*/}
                     </div>
                     {/*모바일용 메뉴*/}
-                    <div className={styles['header--hamburger']} onClick={onClickMobileHandler}>
-                        <a href="javascript:void(0)" className={cx(styles['header--hamburger__menu'], mobileMenu ? styles['active']:null)}>
+                    <div className={styles['header--hamburger']} onClick={this.onClickMobileMenuHandler}>
+                        <a href="javascript:void(0)" className={cx(styles['header--hamburger__menu'], this.state.mobileMenu ? styles['active']:null)}>
                             <span></span>
                             <span></span>
                             <span></span>
@@ -169,7 +178,7 @@ class Header extends React.Component {
                     </div>
                 </div>
                 {/*모바일 슬라이더 메뉴*/}
-                <MobileMenu active={mobileMenu}/>
+                <MobileMenu active={this.state.mobileMenu}/>
                 {/*서브링크(제품)*/}
                 <SubLink active={this.state.subMenu}/>
             </header>
@@ -182,7 +191,6 @@ const mapStateToProps = state => {
         loading: state.headerReducer.loading,
         alarmList: state.headerReducer.alarmList,
         clientMenu: state.headerReducer.clientMenu,
-        mobileMenu: state.headerReducer.mobileMenu,
         error: state.headerReducer.error
     }
 };
@@ -194,9 +202,6 @@ const mapDispatchToProps = (dispatch) => {
         onClickAlarmHandler: () => dispatch({
             type: 'HEADER_ALARM_ACTIVE_REQUEST'
         }),
-        onClickMobileHandler: () => dispatch({
-            type: "HEADER_MOBILE_MENU_REQUEST"
-        })
     }
 };
 

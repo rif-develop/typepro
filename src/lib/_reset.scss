@@ -214,6 +214,9 @@ input:disabled {
   background-color: #fff;
   opacity: .5
 }
+input:focus{
+  outline: none;
+}
 
 br {
   color: transparent;

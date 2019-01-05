@@ -20,6 +20,7 @@ import SettingLayout from "./pages/setting/SettingLayout";
 import PrivacypolicyLayout from "./pages/privacypolicy/PrivacypolicyLayout";
 import TermsOfUseLayout from "./pages/termsofuse/TermsOfUseLayout";
 import AddressLayout from "./pages/address/AddressLayout";
+import SignupLayout from "./pages/signup/SignupLayout";
 
 const root = document.getElementById('app');
 
@@ -83,6 +84,7 @@ if (ieVersion < LauchableVersion.ie) {
                         <Route exact path={'/privacypolicy'} component={PrivacypolicyLayout}/>
                         <Route exact path={'/termsofuse'} component={TermsOfUseLayout}/>
                         <Route exact path={'/mypage/address'} component={AddressLayout}/>
+                        <Route exact path={'/signup'} component={SignupLayout}/>
                         <Redirect from="*" to="/404error"/>
                     </Switch>
                 </HashRouter>

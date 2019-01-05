@@ -52,7 +52,7 @@ module.exports  = {
                             loader: 'css-loader',
                             options: {
                                 modules: isDevmode ? 'false' : 'true',
-                                localIdentName: isDevmode ? 'dev_[local]' : '_[hash:base64:11]',
+                                localIdentName: isDevmode ? '[local]' : '_[hash:base64:11]',
                                 namedexport:true,
                                 sourceMap: true,
                                 minimize: true,
