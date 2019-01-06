@@ -27,12 +27,12 @@ class LoginLayout extends React.Component {
                                 <legend>리틀원의 로그인 페이지입니다. 아이디 비밀번호 입력 후 로그인 하실 수 있습니다.</legend>
                                 <div className={styles['login-section-form--box']}>
                                     <label htmlFor="user_email" className={styles['client-email']}></label>
-                                    <input type="email" name="email" id="user_email" maxLength="42" required="required" autoCapitalize="off"/>
+                                    <input type="email" name="email" id="user_email" maxLength="42" required="required" autoCapitalize="off" placeholder={'이메일(아이디)'}/>
                                     <button type="button" className={cx(styles['__remove-component'], styles['__email'])} role="button">닫기</button>
                                 </div>
                                 <div className={styles['login-section-form--box']}>
                                     <label htmlFor="user_password" className={styles['client_password']}></label>
-                                    <input type="password" name="password" id="user_password" required="required" autoCapitalize="off" maxLength="16"/>
+                                    <input type="password" name="password" id="user_password" required="required" autoCapitalize="off" maxLength="16" placeholder={'비밀번호'}/>
                                     <button type="button" className={cx(styles['__remove-component'], styles['__password'])} role="button">닫기</button>
                                     <button type="button" className={styles['__check-client-password-num']} role="button"></button>
                                 </div>

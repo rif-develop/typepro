@@ -56,6 +56,11 @@ class PeepeeLayout extends React.Component {
 
     componentWillUnmount() {
         fullpage_api.destroy();
+        document.getElementsByTagName('html')[0].style.overflow = null;
+        document.getElementsByTagName('html')[0].style.height = null;
+        document.getElementsByTagName('html')[0].classList.remove('fp-enabled');
+        document.getElementsByTagName('body')[0].style.overflow = null;
+        document.getElementsByTagName('body')[0].style.height = null;
     }
 
     render() {

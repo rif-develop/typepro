@@ -14,7 +14,6 @@ class RegisterAddressComponent extends React.Component {
     constructor(props) {
         super(props);
         this.findAddress = this.findAddress.bind(this);
-        this.onScrollingHandler = this.onScrollingHandler.bind(this);
         this.modal = React.createRef();
     }
 

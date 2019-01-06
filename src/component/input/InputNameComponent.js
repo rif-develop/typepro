@@ -6,21 +6,20 @@ const cx = classnames.bind(styles);
 import {Validations} from "../../lib/validation";
 import {checkAnimation} from "../../lib/script";
 
-class InputEmailComponent extends React.Component {
+class InputNameComponent extends React.Component {
 
     static defaultState = {
-        type: 'email',
-        name: 'email',
-        id: 'email-input-component',
+        type: 'text',
+        name: 'name',
+        id: 'name-input-component',
         required: true,
-        placeholder: '이메일 (id@email.com)',
-        maxLength: 42,
+        placeholder: '전체 이름을 기입하세요.',
+        maxLength: 32,
         removeBtn: '클릭시 현재 작성 중인 태그의 입력값을 지우는 버튼입니다.',
         autoCapitalize: 'off',
         autoComplete: 'off',
-        title: '사용자님의 아이디로 사용 될 이메일을 입력할 수 있습니다.',
-        validationError: '잘못된 형식입니다. 이메일 주소를 다시 입력해 주세요.'
-
+        title: '사용자님의 실명을 입력해주세요.',
+        validationError: '잘못된 입력입니다. 다시 확인해 주세요.'
     };
 
     constructor(props) {
@@ -34,15 +33,17 @@ class InputEmailComponent extends React.Component {
         this.inputComponent = React.createRef();
         this.check = React.createRef();
         this.removeBtn = React.createRef();
+
         this.onBlurHandler = this.onBlurHandler.bind(this);
         this.onKeyHandler = this.onKeyHandler.bind(this);
         this.onRemoveHandler = this.onRemoveHandler.bind(this);
         this.onFocusHandler = this.onFocusHandler.bind(this);
+
     }
 
     onBlurHandler() {
         const val = this.inputComponent.current.value;
-        const result = Validations.checkEmail(val);
+        const result = Validations.checkString(val);
 
         if (val.length === 0) {
             this.setState({
@@ -64,6 +65,7 @@ class InputEmailComponent extends React.Component {
                 error: true,
                 checkAni: false
             });
+
             this.inputComponent.current.value = '';
             this.inputComponent.current.focus();
         }
@@ -101,22 +103,23 @@ class InputEmailComponent extends React.Component {
         return (
             <div>
                 <div className={styles['client-join-section--form--box']}>
-                    <label htmlFor={InputEmailComponent.defaultState.id} className={styles['email-icon']}
-                           title={InputEmailComponent.defaultState.title}></label>
-                    <input type={InputEmailComponent.defaultState.type}
-                           name={InputEmailComponent.defaultState.name}
-                           id={InputEmailComponent.defaultState.id}
-                           required={InputEmailComponent.defaultState.required}
-                           placeholder={InputEmailComponent.defaultState.placeholder}
-                           aria-placeholder={InputEmailComponent.defaultState.placeholder}
-                           autoCapitalize={InputEmailComponent.defaultState.autoCapitalize}
-                           autoComplete={InputEmailComponent.defaultState.autoComplete}
-                           maxLength={InputEmailComponent.defaultState.maxLength}
+                    <label htmlFor={InputNameComponent.defaultState.id} className={styles['nickname-icon']}
+                           title={InputNameComponent.defaultState.title}></label>
+                    <input type={InputNameComponent.defaultState.type}
+                           name={InputNameComponent.defaultState.name}
+                           id={InputNameComponent.defaultState.id}
+                           required={InputNameComponent.defaultState.required}
+                           placeholder={InputNameComponent.defaultState.placeholder}
+                           aria-placeholder={InputNameComponent.defaultState.placeholder}
+                           autoCapitalize={InputNameComponent.defaultState.autoCapitalize}
+                           autoComplete={InputNameComponent.defaultState.autoComplete}
+                           maxLength={InputNameComponent.defaultState.maxLength}
                            className={styles['__default-input-component']}
                            ref={this.inputComponent}
-                           onBlurCapture={this.onBlurHandler}
+                           onBlur={this.onBlurHandler}
                            onKeyDown={this.onKeyHandler}
-                           onKeyUp={this.onKeyHandler} onFocus={this.onFocusHandler}/>
+                           onKeyUp={this.onKeyHandler}
+                           onFocus={this.onFocusHandler}/>
                     <div className={cx(styles['__remove-input-button'], this.state.removeBtn ? styles['active'] : null)}
                          ref={this.removeBtn}
                          onClick={() => {
@@ -127,17 +130,17 @@ class InputEmailComponent extends React.Component {
                          }}
                          onMouseLeave={() => {
                              this.removeBtn.current.style.zIndex = '0';
-                         }}>{InputEmailComponent.defaultState.removeBtn}</div>
+                         }}>{InputNameComponent.defaultState.removeBtn}</div>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 12" className={cx(styles['__check-animation'], this.state.checkAni ? styles['active'] : null)} ref={this.check}>
                         <path fill="none" stroke="#19ebdd" strokeWidth="3" strokeMiterlimit={"10"} d="M1.1,5.6"/>
                     </svg>
                 </div>
                 <div className={styles['client-join-section--form--warning']}>
-                    <em>{this.state.error ? InputEmailComponent.defaultState.validationError : null}</em>
+                    <em>{this.state.error ? InputNameComponent.defaultState.validationError : null}</em>
                 </div>
             </div>
         )
     }
 }
 
-export default InputEmailComponent;
+export default InputNameComponent;
