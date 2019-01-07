@@ -27,6 +27,7 @@ class PeepeeLayout extends React.Component {
     }
 
     componentDidMount() {
+        document.body.scrollTo(0,0);
 
         new fullpage('#smart-peepee-section', {
             //options here

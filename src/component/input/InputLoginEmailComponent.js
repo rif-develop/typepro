@@ -1,0 +1,66 @@
+import React from 'react';
+import styles from "../../pages/login/Login.scss";
+import classnames from 'classnames';
+
+const cx = classnames.bind(styles);
+
+class InputLoginEmailComponent extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            removeBtn: false,
+            error: false
+        };
+
+        //ref
+        this.loginInput = React.createRef();
+        /*bind*/
+        this.onKeyHandler = this.onKeyHandler.bind(this);
+        this.removeHandler = this.removeHandler.bind(this);
+    }
+
+    onKeyHandler(ref) {
+        const val = ref.value.length;
+        val > 0 ? this.setState({
+            removeBtn: true
+        }) : this.setState({
+            removeBtn: false
+        })
+    }
+
+    removeHandler(ref) {
+        ref.value = '';
+        this.setState({
+            removeBtn: false
+        });
+        ref.focus();
+    }
+
+    render() {
+        return (
+            <div className={styles['login-section-form--box']}>
+                <label htmlFor="user_email" className={styles['client-email']}></label>
+                <input type="email"
+                       name="email"
+                       id="user_email"
+                       maxLength="42"
+                       required={true}
+                       autoCapitalize={'off'}
+                       placeholder={'이메일(아이디)'}
+                       ref={this.loginInput}
+                       onKeyDown={(e) => {
+                           this.onKeyHandler(this.loginInput.current);
+                       }}
+                       onKeyUp={(e) => {
+                           this.onKeyHandler(this.loginInput.current);
+                       }}/>
+                <div className={cx(styles['__remove-component'], this.state.removeBtn ? styles['active'] : null)} role="button" onClick={() => {
+                    this.removeHandler(this.loginInput.current);
+                }}>닫기
+                </div>
+            </div>
+        )
+    }
+}
+
+export default InputLoginEmailComponent;

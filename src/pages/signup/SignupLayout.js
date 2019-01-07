@@ -13,15 +13,30 @@ import InputNameComponent from "../../component/input/InputNameComponent";
 import InputBirthdateComponent from "../../component/input/InputBirthdateComponent";
 import InputGenderComponent from "../../component/input/InputGenderComponent";
 import InputTermsagreeComponent from "../../component/input/InputTermsagreeComponent";
+import PhoneAuthComponent from "../../component/firebase/PhoneAuthComponent";
+import ScreenBlockComponent from "../../component/screenblock/ScreenBlockComponent";
 
 const cx = classnames.bind(styles);
 
 class SignupLayout extends React.Component {
+
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidMount() {
+        document.body.scrollTo(0, 0);
+    }
+
     render() {
-        const {language} = this.props;
+        const {language, phoneError, phoneAuth, phoneLoading, openPhoneAuth} = this.props;
         return (
             <Fragment>
                 <Head title={'리틀원 - 회원가입'} description={'리틀원에 회원가입하고 다양한 육아정보를 얻어보세요.'} language={language}/>
+                <div id={'firebase-container'} style={phoneAuth ? {'visibility':'visible','opacity':'1'} : {'visibility': 'hidden','opacity':'0'}}></div>
+                {
+                    phoneAuth ? <ScreenBlockComponent action={openPhoneAuth}/> : null
+                }
                 <Header/>
                 <section className={styles['client-join-section']}>
                     <div className={styles['client-join-section--logo']}>
@@ -38,33 +53,22 @@ class SignupLayout extends React.Component {
                                 <legend>리틀원의 회원가입 폼입니다.</legend>
                                 <InputEmailComponent/>
                                 <InputPasswordComponent/>
-                                <InputNicknameComponent/>
-                                <InputNameComponent/>
-                                <InputBirthdateComponent/>
-                                <InputGenderComponent/>
-
-                                <div className="client-join-section--form--authorization-box">
-                                    <a href="javascript:void(0)" className="__auth-client-phone-button" role="button" id="buttons">
-                                        <span className="--mobile-icon">휴대폰 인증</span>
-                                        <input type="hidden" name="phone"/>
-                                        <span className="__authorization"></span>
-                                    </a>
-                                </div>
-                                <div className="client-join-section--form--warning" data-name="phone">
-                                    <em></em>
-                                </div>
-
+                                {/*<InputNicknameComponent/>*/}
+                                {/*<InputNameComponent/>*/}
+                                {/*<InputBirthdateComponent/>*/}
+                                {/*<InputGenderComponent/>*/}
+                                {/*<PhoneAuthComponent container={'#firebase-container'} action={openPhoneAuth} auth={phoneAuth}/>*/}
                                 <InputTermsagreeComponent/>
                                 <div>
                                     <button type="submit" role="button" className="__join-member-button __submit-default-button">회원가입</button>
                                 </div>
                             </fieldset>
                         </form>
-                        <div className={styles['client-join-section-horizontal-line']}>
-                            <em>OR</em>
-                            <span className={styles['client-join-section-horizontal-line--bar']}></span>
-                        </div>
-                        <SocialSignButton/>
+                        {/*<div className={styles['client-join-section-horizontal-line']}>*/}
+                            {/*<em>OR</em>*/}
+                            {/*<span className={styles['client-join-section-horizontal-line--bar']}></span>*/}
+                        {/*</div>*/}
+                        {/*<SocialSignButton/>*/}
                     </div>
                 </section>
                 <Footer/>
@@ -75,8 +79,19 @@ class SignupLayout extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        language:state.languageReducer.language
+        language: state.languageReducer.language,
+        phoneLoading: state.phoneAuthReducer.loading,
+        phoneError: state.phoneAuthReducer.error,
+        phoneAuth: state.phoneAuthReducer.auth
+    }
+};
+const mapDispatchToProps = (dispatch) => {
+    return {
+        openPhoneAuth: () => dispatch({
+            type: 'SET_PHONE_AUTH_REQUEST'
+        }),
     }
 };
 
-export default connect(mapStateToProps)(SignupLayout);
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignupLayout);

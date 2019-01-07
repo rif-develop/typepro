@@ -18,7 +18,7 @@ class Header extends React.Component {
         super(props);
         this.state = {
             subMenu: false,
-            mobileMenu:false
+            mobileMenu: false
         };
 
         this.Menu1 = React.createRef();
@@ -33,10 +33,9 @@ class Header extends React.Component {
         this.onClickMobileMenuHandler = this.onClickMobileMenuHandler.bind(this);
     }
 
-
-    onClickMobileMenuHandler(){
+    onClickMobileMenuHandler() {
         this.setState({
-            mobileMenu:!this.state.mobileMenu
+            mobileMenu: !this.state.mobileMenu
         })
     }
 
@@ -170,7 +169,7 @@ class Header extends React.Component {
                     </div>
                     {/*모바일용 메뉴*/}
                     <div className={styles['header--hamburger']} onClick={this.onClickMobileMenuHandler}>
-                        <a href="javascript:void(0)" className={cx(styles['header--hamburger__menu'], this.state.mobileMenu ? styles['active']:null)}>
+                        <a href="javascript:void(0)" className={cx(styles['header--hamburger__menu'], this.state.mobileMenu ? styles['active'] : null)}>
                             <span></span>
                             <span></span>
                             <span></span>

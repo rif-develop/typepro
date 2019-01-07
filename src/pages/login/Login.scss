@@ -108,6 +108,7 @@
 
       .__remove-component {
         visibility: hidden;
+        opacity: 0;
         width: 32px;
         height: 50px;
         border: none;
@@ -118,9 +119,11 @@
         border-radius: 50%;
         cursor: not-allowed;
         background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxNCAxNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTEuOTUyIDIuMDQ4YTcuMDExIDcuMDExIDAgMCAwLTkuOTA0IDAgNy4wMTEgNy4wMTEgMCAwIDAgMCA5LjkwNCA3LjAxIDcuMDEgMCAwIDAgOS45MDQgMCA3LjAxMSA3LjAxMSAwIDAgMCAwLTkuOTA0em0tMi4xOSA3LjcxNGEuNTM5LjUzOSAwIDAgMS0uNzYyIDBsLTItMi0yLjA5NSAyLjA5NWEuNTM5LjUzOSAwIDEgMS0uNzYyLS43NjJMNi4yMzggN2wtMi0yQS41MzkuNTM5IDAgMSAxIDUgNC4yMzhsMiAyIDEuOTA1LTEuOTA0YS41MzkuNTM5IDAgMSAxIC43NjEuNzYxTDcuNzYyIDdsMiAyYy4yMS4yMS4yMS41NTEgMCAuNzYyeiIgZmlsbD0iI0I4QkNDOSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PC9zdmc+) no-repeat center/14px 14px;
+        display: inline-block;
       }
       .__remove-component.active {
         visibility: visible;
+        opacity: 1;
         cursor: pointer;
 
       }
@@ -225,7 +228,6 @@
     }
     //__set-auto-login
     .__check-box-pointer {
-      vertical-align: baseline;
 
       span {
         position: relative;
@@ -269,6 +271,7 @@
       -ms-transition: all 0.3s ease-out;
       -o-transition: all 0.3s ease-out;
       transition: all 0.3s ease-out;
+      vertical-align: baseline;
     }
     .__find-account:hover, .__find-password:hover, .__find-account:focus, .__find-password:focus {
       opacity: .666;

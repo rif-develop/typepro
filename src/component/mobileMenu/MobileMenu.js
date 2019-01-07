@@ -19,7 +19,7 @@ class MobileMenu extends React.Component {
                 window.innerWidth ||
                 document.documentElement.clientWidth ||
                 document.getElementsByTagName('body')[0].clientWidth
-        }
+        };
         this.onResizeHandler = this.onResizeHandler.bind(this);
     }
 

@@ -33,6 +33,10 @@ class IndexLayout extends React.Component {
         console.log('업데이트 완료');
     }
 
+    componentDidMount() {
+        document.body.scrollTo(0,0);
+    }
+
     render() {
         const {language} = this.props;
         return (

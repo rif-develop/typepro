@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {HelmetProvider} from "react-helmet-async";
 import {applyMiddleware, createStore, compose} from 'redux';
-import {Route, BrowserRouter, HashRouter, Switch, Redirect} from "react-router-dom";
+import {Route, BrowserRouter as Router, HashRouter, Switch, Redirect, Bro} from "react-router-dom";
 import {Provider} from 'react-redux';
 import createSagaMiddleware from "redux-saga";
 import reducer from "./reducers/index";
@@ -21,6 +21,8 @@ import PrivacypolicyLayout from "./pages/privacypolicy/PrivacypolicyLayout";
 import TermsOfUseLayout from "./pages/termsofuse/TermsOfUseLayout";
 import AddressLayout from "./pages/address/AddressLayout";
 import SignupLayout from "./pages/signup/SignupLayout";
+import FindClientIdLayout from "./pages/find/FindClientIdLayout";
+import FindClientPasswordLayout from "./pages/find/FindClientPasswordLayout";
 
 const root = document.getElementById('app');
 
@@ -85,6 +87,8 @@ if (ieVersion < LauchableVersion.ie) {
                         <Route exact path={'/termsofuse'} component={TermsOfUseLayout}/>
                         <Route exact path={'/mypage/address'} component={AddressLayout}/>
                         <Route exact path={'/signup'} component={SignupLayout}/>
+                        <Route exact path={'/findid'} component={FindClientIdLayout}/>
+                        <Route exact path={'/findpassword'} component={FindClientPasswordLayout}/>
                         <Redirect from="*" to="/404error"/>
                     </Switch>
                 </HashRouter>

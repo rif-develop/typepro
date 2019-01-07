@@ -7,6 +7,7 @@ import {wathcerAlarmHeader, wathcerClientInfoHeader, watcherMobileMenu} from './
 import {wathcerWindowWidth} from "./clientStatusAction";
 import {watcherSetting} from "./settingAction";
 import {watcherAddress} from './addressAction';
+import {wathcerPhoneAuth} from "./phoneAuthAction";
 
 export default function* rootSaga(){
     yield all([
@@ -19,7 +20,8 @@ export default function* rootSaga(){
         fork(watcherMobileMenu),
         fork(wathcerWindowWidth),
         fork(watcherSetting),
-        fork(watcherAddress)
+        fork(watcherAddress),
+        fork(wathcerPhoneAuth)
     ]);
 }
 

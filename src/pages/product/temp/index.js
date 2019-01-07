@@ -28,6 +28,7 @@ class TempLayout extends React.Component {
     }
 
     componentDidMount() {
+        document.body.scrollTo(0,0);
 
         new fullpage('#smart-temp-section', {
             //options here

@@ -2,6 +2,9 @@
 ### idea
 .idea
 
+###env (very important!)
+.env
+
 ### Node template
 # Logs
 logs

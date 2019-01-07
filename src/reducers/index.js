@@ -7,7 +7,7 @@ import {headerReducer} from './headerReducer';
 import {clientStatusReducer} from "./clientStatusReducer";
 import {settingReducer} from "./settingReducer";
 import {addressReducer} from "./addressReducer";
-
+import {phoneAuthReducer} from './phoneAuthReducer';
 export default combineReducers({
     clientStatusReducer,
     axiosReducer,
@@ -16,5 +16,6 @@ export default combineReducers({
     autologinReducer,
     headerReducer,
     settingReducer,
-    addressReducer
+    addressReducer,
+    phoneAuthReducer
 });

@@ -1,4 +1,5 @@
 import React, {Fragment} from 'react';
+import ReactDOM from 'react-dom';
 import styles from './Login.scss';
 import SocialSignButton from "../../component/socailSignButton/SocialSignButton";
 import classnames from 'classnames';
@@ -8,14 +9,22 @@ import Header from "../../component/header/Header";
 import Head from "../../component/head/head";
 import {connect} from "react-redux";
 import Footer from "../../component/footer/Footer";
+import InputLoginEmailComponent from "../../component/input/InputLoginEmailComponent";
+import InputLoginPasswordComponent from "../../component/input/InputLoginPasswordComponent";
 
 const cx = classnames.bind(styles);
 
 class LoginLayout extends React.Component {
+
+    componentDidMount() {
+        document.body.scrollTo(0,0);
+    }
+
     render() {
+        const {language} = this.props;
         return (
             <Fragment>
-                <Head title={'리틀원 - 로그인'} description={'리틀원의 로그인 페이지입니다.'} language={this.props.language}/>
+                <Head title={'리틀원 - 로그인'} description={'리틀원의 로그인 페이지입니다.'} language={language}/>
                 <Header/>
                 <section className={styles['login-section']}>
                     <div className={styles['login-section--logo']}>
@@ -25,17 +34,8 @@ class LoginLayout extends React.Component {
                         <form method="post" action="/login" role="form" id="littleone-login-form">
                             <fieldset form={'littleone-login-form'}>
                                 <legend>리틀원의 로그인 페이지입니다. 아이디 비밀번호 입력 후 로그인 하실 수 있습니다.</legend>
-                                <div className={styles['login-section-form--box']}>
-                                    <label htmlFor="user_email" className={styles['client-email']}></label>
-                                    <input type="email" name="email" id="user_email" maxLength="42" required="required" autoCapitalize="off" placeholder={'이메일(아이디)'}/>
-                                    <button type="button" className={cx(styles['__remove-component'], styles['__email'])} role="button">닫기</button>
-                                </div>
-                                <div className={styles['login-section-form--box']}>
-                                    <label htmlFor="user_password" className={styles['client_password']}></label>
-                                    <input type="password" name="password" id="user_password" required="required" autoCapitalize="off" maxLength="16" placeholder={'비밀번호'}/>
-                                    <button type="button" className={cx(styles['__remove-component'], styles['__password'])} role="button">닫기</button>
-                                    <button type="button" className={styles['__check-client-password-num']} role="button"></button>
-                                </div>
+                                <InputLoginEmailComponent/>
+                                <InputLoginPasswordComponent/>
                                 <div className={styles['login-section-warning-text']}></div>
                                 <div className={styles['login-section-captcha-area']} id="gcaptcha_div"></div>
                                 <div className={styles['login-section-form--submit']}>
@@ -69,7 +69,7 @@ class LoginLayout extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        language:state.languageReducer.language
+        language: state.languageReducer.language
     }
 };
 

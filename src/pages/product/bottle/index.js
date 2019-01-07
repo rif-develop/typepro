@@ -28,7 +28,9 @@ class BottleLayout extends React.Component {
             getCookie('lang') === undefined || getCookie('lang') === null || getCookie('lang') === false ? require('../../../language/korean/product/smartbottle') : require('../../../language/korean/product/smartbottle')
         };
     }
-
+    componentDidMount() {
+        window.scrollTo(0, 0);
+    }
 
 
 
