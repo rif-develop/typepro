@@ -16,4 +16,22 @@ $in: 배열 요소 중 하나
     db.users.find
 #skip() 건너뜀
 
+#관리자 계정
+use admin하고
+db.createUser({user:'', pwd:'', roles:['root']})로 꼐정 만들수 있음
+
+#데이터베이스 만들기(디비를 생성해도 데이터를 최소 한 개 이상 넣지 않으면 보이지 않음.)
+use 이름
+
+#데이터베이스 목록 확인
+show dbs
+
+#현재 사용중인 데이터베이스 확인
+db
+
+#컬렉션 생성
+db.createCollection();
+#컬렉션 확인
+show collections
+
 

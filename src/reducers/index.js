@@ -6,6 +6,7 @@ import {settingReducer} from "./settingReducer";
 import {addressReducer} from "./addressReducer";
 import {phoneAuthReducer} from './phoneAuthReducer';
 import {clientSignUpReducer} from "./clientSignupReducer";
+import {autologinReducer} from "./autoLoginReducer";
 
 
 export default combineReducers({
@@ -15,5 +16,6 @@ export default combineReducers({
     settingReducer,
     addressReducer,
     phoneAuthReducer,
-    clientSignUpReducer
+    clientSignUpReducer,
+    autologinReducer
 });
