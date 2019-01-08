@@ -1,6 +1,7 @@
 {
   "name": "littleone",
   "version": "0.0.1",
+  "private": true,
   "description": "littleone dev",
   "main": "index.js",
   "scripts": {
@@ -18,6 +19,7 @@
     "@babel/plugin-proposal-class-properties": "^7.2.3",
     "@babel/plugin-proposal-export-default-from": "^7.2.0",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/plugin-transform-async-to-generator": "^7.2.0",
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.1.6",
     "@babel/preset-react": "^7.0.0",
@@ -28,6 +30,7 @@
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.0.4",
     "classnames": "^2.2.6",
+    "connect-redis": "^3.4.0",
     "cross-env": "^5.2.0",
     "css-loader": "^1.0.1",
     "eslint": "^5.12.0",
@@ -51,6 +54,7 @@
     "react-loadable": "^5.5.0",
     "react-redux": "^5.1.1",
     "react-router-dom": "^4.3.1",
+    "redis": "^2.8.0",
     "redux": "^4.0.1",
     "redux-devtools": "^3.4.2",
     "redux-saga": "^0.16.2",
@@ -72,6 +76,7 @@
     "body-parser": "latest",
     "dotenv": "^6.2.0",
     "firebase": "^5.7.2",
+    "fs": "0.0.1-security",
     "fullpage.js": "^3.0.4",
     "nexmo": "^2.4.0",
     "react-anime": "^2.2.0",
@@ -87,5 +92,6 @@
   "bugs": {
     "url": "https://github.com/cizz3007/typepro/issues"
   },
-  "homepage": "https://github.com/cizz3007/typepro#readme"
+  "homepage": "https://github.com/cizz3007/typepro#readme",
+  "proxy": "http://localhost:8081/"
 }

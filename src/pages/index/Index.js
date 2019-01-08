@@ -12,12 +12,16 @@ import Section08 from "./section08/Section08";
 import Footer from "../../component/footer/Footer";
 import Header from "../../component/header/Header";
 import {connect} from "react-redux";
-
+import axios from 'axios';
 
 class IndexLayout extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            data:null
+        }
+        this.callBackendAPI = this.callBackendAPI.bind(this);
     }
 
 
@@ -35,7 +39,26 @@ class IndexLayout extends React.Component {
 
     componentDidMount() {
         document.body.scrollTo(0,0);
+        this.callBackendAPI()
+            .then(res => this.setState({ data: res.express }))
+            .catch(err => console.log(err));
+
+        axios.get('/user', {
+            params: { id: 'velopert' }
+        })
+            .then( response => { console.log(response) } )
+        .catch( response => { console.log(response) } );
     }
+
+    callBackendAPI = async () => {
+        const response = await fetch('/express_backend');
+        const body = await response.json();
+
+        if (response.status !== 200) {
+            throw Error(body.message)
+        }
+        return body;
+    };
 
     render() {
         const {language} = this.props;
@@ -45,6 +68,7 @@ class IndexLayout extends React.Component {
                     <Head title={'LITTLEONE'} language={language}/>
                     <Header/>
                     <Section01/>
+                    {this.state.data}
                     <Section02/>
                     <Section03/>
                     <Section04/>

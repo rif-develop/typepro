@@ -6,7 +6,8 @@ module.exports = (api) =>{
     const plugins = [
         '@babel/plugin-syntax-dynamic-import',
         '@babel/plugin-proposal-export-default-from',
-        '@babel/plugin-proposal-class-properties'
+        '@babel/plugin-proposal-class-properties',
+        '@babel/plugin-transform-async-to-generator'
     ];
 
     return {

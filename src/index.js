@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {HelmetProvider} from "react-helmet-async";
 import {applyMiddleware, createStore, compose} from 'redux';
-import {Route, BrowserRouter as Router, HashRouter, Switch, Redirect, Bro} from "react-router-dom";
+import {Route, BrowserRouter as Router, HashRouter, Switch, Redirect, } from "react-router-dom";
 import {Provider} from 'react-redux';
 import createSagaMiddleware from "redux-saga";
 import reducer from "./reducers/index";
@@ -74,7 +74,7 @@ if (ieVersion < LauchableVersion.ie) {
     ReactDOM.render(
         <Provider store={store}>
             <HelmetProvider>
-                <HashRouter>
+                <Router>
                     <Switch>
                         <Route exact path={"/"} component={IndexLayout}/>
                         <Route path={"/login"} component={LoginLayout}/>
@@ -91,7 +91,7 @@ if (ieVersion < LauchableVersion.ie) {
                         <Route exact path={'/findpassword'} component={FindClientPasswordLayout}/>
                         <Redirect from="*" to="/404error"/>
                     </Switch>
-                </HashRouter>
+                </Router>
             </HelmetProvider>
         </Provider>, root
     );

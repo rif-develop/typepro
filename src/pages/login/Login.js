@@ -52,12 +52,12 @@ class LoginLayout extends React.Component {
                             </fieldset>
                         </form>
                     </div>
-                    <div className="login-section-horizontal-line">
+                    <div className={styles['login-section-horizontal-line']}>
                         <em>OR</em>
-                        <span className="login-section-horizontal-line--bar"></span>
+                        <span className={styles['login-section-horizontal-line--bar']}></span>
                     </div>
                     <SocialSignButton/>
-                    <div className="login-section-join">
+                    <div className={styles['login-section-join']}>
                         <p>아직 계정이 없으신가요?</p><Link to="/signup">회원가입</Link>
                     </div>
                 </section>

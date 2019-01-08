@@ -20,11 +20,15 @@ module.exports  = {
         extensions: [".ts",".tsx",".js",".json"]
     },
     devServer: {
+        historyApiFallback: true,
         host:process.env.HOST,
         port:process.env.PORT,
         open:true,
         hot:true,
-        inline:true
+        inline:true,
+        proxy:{
+            '*':'http://localhost:8081'
+        }
     },
     module: {
         rules: [
