@@ -23,26 +23,17 @@ import AddressLayout from "./pages/address/AddressLayout";
 import SignupLayout from "./pages/signup/SignupLayout";
 import FindClientIdLayout from "./pages/find/FindClientIdLayout";
 import FindClientPasswordLayout from "./pages/find/FindClientPasswordLayout";
+import {sagaMiddleware, store} from './store/StoreComponent'
 
 const root = document.getElementById('app');
 
-const sagaMiddleware = createSagaMiddleware();
 
-//크롬 리덕스 데브툴
-const reduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
-
-//상태를 저장할 스토어(production모드에서는 devtool 빼기)
-let store = createStore(
-    reducer,
-    compose(applyMiddleware(sagaMiddleware), window.navigator.userAgent.includes('Chrome') ? reduxDevTools : compose)
-);
+/*미들웨어 구동*/
+sagaMiddleware.run(rootSaga);
 /*상태 변화시 마다 log 출력*/
 store.subscribe(function (e) {
     console.log(store.getState());
 });
-
-/*미들웨어 구동*/
-sagaMiddleware.run(rootSaga);
 
 /*IE버젼 체커*/
 const ieVersion = CheckWebBrowser();

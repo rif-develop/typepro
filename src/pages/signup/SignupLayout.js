@@ -5,16 +5,12 @@ import {connect} from "react-redux";
 import Head from "../../component/head/head";
 import Header from "../../component/header/Header";
 import Footer from "../../component/footer/Footer";
-import SocialSignButton from "../../component/socailSignButton/SocialSignButton";
 import InputEmailComponent from "../../component/input/InputEmailComponent";
 import InputPasswordComponent from "../../component/input/InputPasswordComponent";
-import InputNicknameComponent from "../../component/input/InputNicknameComponent";
-import InputNameComponent from "../../component/input/InputNameComponent";
-import InputBirthdateComponent from "../../component/input/InputBirthdateComponent";
-import InputGenderComponent from "../../component/input/InputGenderComponent";
 import InputTermsagreeComponent from "../../component/input/InputTermsagreeComponent";
-import PhoneAuthComponent from "../../component/firebase/PhoneAuthComponent";
-import ScreenBlockComponent from "../../component/screenblock/ScreenBlockComponent";
+import axios from 'axios';
+import InputSubmitComponent from "../../component/input/InputSubmitComponent";
+
 
 const cx = classnames.bind(styles);
 
@@ -22,21 +18,26 @@ class SignupLayout extends React.Component {
 
     constructor(props) {
         super(props);
+        this.sendSignup = this.sendSignup.bind(this);
     }
 
     componentDidMount() {
         document.body.scrollTo(0, 0);
     }
 
+
+    sendSignup(e) {
+        e.preventDefault();
+
+        const form = new FormData();
+
+    }
+
     render() {
-        const {language, phoneError, phoneAuth, phoneLoading, openPhoneAuth} = this.props;
+        const {language, terms, setEmail, setTerms, setPassword, sendData} = this.props;
         return (
             <Fragment>
                 <Head title={'리틀원 - 회원가입'} description={'리틀원에 회원가입하고 다양한 육아정보를 얻어보세요.'} language={language}/>
-                <div id={'firebase-container'} style={phoneAuth ? {'visibility':'visible','opacity':'1'} : {'visibility': 'hidden','opacity':'0'}}></div>
-                {
-                    phoneAuth ? <ScreenBlockComponent action={openPhoneAuth}/> : null
-                }
                 <Header/>
                 <section className={styles['client-join-section']}>
                     <div className={styles['client-join-section--logo']}>
@@ -51,22 +52,15 @@ class SignupLayout extends React.Component {
                         <form className={styles['client-join-section--form']} id="client-join-section--form" role="form">
                             <fieldset form="client-join-section--form">
                                 <legend>리틀원의 회원가입 폼입니다.</legend>
-                                <InputEmailComponent/>
-                                <InputPasswordComponent/>
-                                {/*<InputNicknameComponent/>*/}
-                                {/*<InputNameComponent/>*/}
-                                {/*<InputBirthdateComponent/>*/}
-                                {/*<InputGenderComponent/>*/}
-                                {/*<PhoneAuthComponent container={'#firebase-container'} action={openPhoneAuth} auth={phoneAuth}/>*/}
-                                <InputTermsagreeComponent/>
-                                <div>
-                                    <button type="submit" role="button" className="__join-member-button __submit-default-button">회원가입</button>
-                                </div>
+                                <InputEmailComponent action={setEmail}/>
+                                <InputPasswordComponent action={setPassword}/>
+                                <InputTermsagreeComponent terms={terms} action={setTerms}/>
+                                <InputSubmitComponent action={sendData}/>
                             </fieldset>
                         </form>
                         {/*<div className={styles['client-join-section-horizontal-line']}>*/}
-                            {/*<em>OR</em>*/}
-                            {/*<span className={styles['client-join-section-horizontal-line--bar']}></span>*/}
+                        {/*<em>OR</em>*/}
+                        {/*<span className={styles['client-join-section-horizontal-line--bar']}></span>*/}
                         {/*</div>*/}
                         {/*<SocialSignButton/>*/}
                     </div>
@@ -82,7 +76,7 @@ const mapStateToProps = (state) => {
         language: state.languageReducer.language,
         phoneLoading: state.phoneAuthReducer.loading,
         phoneError: state.phoneAuthReducer.error,
-        phoneAuth: state.phoneAuthReducer.auth
+        terms: state.clientSignUpReducer.form.terms
     }
 };
 const mapDispatchToProps = (dispatch) => {
@@ -90,6 +84,20 @@ const mapDispatchToProps = (dispatch) => {
         openPhoneAuth: () => dispatch({
             type: 'SET_PHONE_AUTH_REQUEST'
         }),
+        setEmail: (email) => dispatch({
+            type: 'SET_SIGN_UP_EMAIL_REQUEST',
+            email
+        }),
+        setPassword: (password) => dispatch({
+            type: 'SET_SIGN_UP_PASSWORD_REQUEST',
+            password
+        }),
+        setTerms: () => dispatch({
+            type: 'SET_SIGN_UP_TERMS_REQUEST',
+        }),
+        sendData: () => dispatch({
+            type: 'SET_SIGN_UP_COMPLETE_REQUEST',
+        })
     }
 };
 

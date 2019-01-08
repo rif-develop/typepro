@@ -59,12 +59,17 @@ class InputEmailComponent extends React.Component {
                 checkAni: true
             });
             checkAnimation(this.check.current);
+            /*리덕스에 디스패치*/
+            this.props.action(val);
         } else {
             this.setState({
                 error: true,
                 checkAni: false
             });
-            this.inputComponent.current.value = '';
+            /*밸류를 초기화 한 후에 REDUX를 원래대로 한다.*/
+            this.inputComponent.current.value = null;
+            this.props.action(this.inputComponent.current.value);
+            /*다시 인풋에 포커스*/
             this.inputComponent.current.focus();
         }
     }
@@ -82,13 +87,14 @@ class InputEmailComponent extends React.Component {
     }
 
     onRemoveHandler(ref) {
-        ref.value = '';
+        ref.value = null;
         this.setState({
             error: false,
             removeBtn: false,
             checkAni: false
         });
         ref.focus();
+        this.props.action(this.inputComponent.current.value);
     }
 
     onFocusHandler() {
@@ -114,7 +120,7 @@ class InputEmailComponent extends React.Component {
                            maxLength={InputEmailComponent.defaultState.maxLength}
                            className={styles['__default-input-component']}
                            ref={this.inputComponent}
-                           onBlurCapture={this.onBlurHandler}
+                           onBlur={this.onBlurHandler}
                            onKeyDown={this.onKeyHandler}
                            onKeyUp={this.onKeyHandler} onFocus={this.onFocusHandler}/>
                     <div className={cx(styles['__remove-input-button'], this.state.removeBtn ? styles['active'] : null)}

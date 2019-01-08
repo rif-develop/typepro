@@ -51,7 +51,7 @@ class InputPasswordComponent extends React.Component {
                 removeBtn: false
             });
             return;
-        }
+        }//end if
 
         if (result) {
             this.setState({
@@ -59,14 +59,22 @@ class InputPasswordComponent extends React.Component {
                 checkAni: true
             });
             checkAnimation(this.check.current);
+            this.props.action(this.inputComponent.current.value);
+
         } else {
+
             this.setState({
                 error: true,
                 checkAni: false
             });
-            this.inputComponent.current.value = '';
+
+            this.inputComponent.current.value = null;
             this.inputComponent.current.focus();
-        }
+            /*빈값을 디스패치*/
+            this.props.action(this.inputComponent.current.value);
+
+        }//end if~else
+
     }
 
     onKeyHandler(e) {
@@ -81,13 +89,15 @@ class InputPasswordComponent extends React.Component {
     }
 
     onRemoveHandler(ref) {
-        ref.value = '';
+        ref.value = null;
         this.setState({
             error: false,
             removeBtn: false,
             checkAni: false
         });
         ref.focus();
+        /*빈 값을 리덕스로 디스패치*/
+        this.props.action(ref.value);
     }
 
 
