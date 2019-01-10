@@ -24,10 +24,7 @@ import SignupLayout from "./pages/signup/SignupLayout";
 import FindClientIdLayout from "./pages/find/FindClientIdLayout";
 import FindClientPasswordLayout from "./pages/find/FindClientPasswordLayout";
 import {sagaMiddleware, store} from './store/StoreComponent'
-
 const root = document.getElementById('app');
-
-
 /*미들웨어 구동*/
 sagaMiddleware.run(rootSaga);
 /*상태 변화시 마다 log 출력*/

@@ -21,7 +21,6 @@ class IndexLayout extends React.Component {
         this.state = {
             data:null
         }
-        this.callBackendAPI = this.callBackendAPI.bind(this);
     }
 
 
@@ -39,26 +38,26 @@ class IndexLayout extends React.Component {
 
     componentDidMount() {
         document.body.scrollTo(0,0);
-        this.callBackendAPI()
-            .then(res => this.setState({ data: res.express }))
-            .catch(err => console.log(err));
-
-        axios.get('/user', {
-            params: { id: 'velopert' }
-        })
-            .then( response => { console.log(response) } )
-        .catch( response => { console.log(response) } );
+        // this.callBackendAPI()
+        //     .then(res => this.setState({ data: res.express }))
+        //     .catch(err => console.log(err));
+        //
+        // axios.get('/user', {
+        //     params: { id: 'velopert' }
+        // })
+        //     .then( response => { } )
+        // .catch( response => { console.log(response) } );
     }
 
-    callBackendAPI = async () => {
-        const response = await fetch('/express_backend');
-        const body = await response.json();
-
-        if (response.status !== 200) {
-            throw Error(body.message)
-        }
-        return body;
-    };
+    // callBackendAPI = async () => {
+    //     const response = await fetch('/express_backend');
+    //     const body = await response.json();
+    //
+    //     if (response.status !== 200) {
+    //         throw Error(body.message)
+    //     }
+    //     return body;
+    // };
 
     render() {
         const {language} = this.props;

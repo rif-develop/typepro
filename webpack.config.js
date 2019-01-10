@@ -26,9 +26,6 @@ module.exports  = {
         open:true,
         hot:true,
         inline:true,
-        // proxy:{
-        //     '*':'http://localhost:8081'
-        // }
     },
     module: {
         rules: [
@@ -88,6 +85,11 @@ module.exports  = {
         new ExtractTextPlugin({
             filename: isDevmode ? '[name].bundle.css' : '[name].bundle.[hash].css',
             allChunks: true
+        }),
+        new webpack.DefinePlugin({
+           'process.env':{
+               'MODE':`"${process.env.NODE_ENV}"`
+           }
         }),
         new webpack.HotModuleReplacementPlugin()
     ]
