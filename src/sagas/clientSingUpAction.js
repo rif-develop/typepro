@@ -68,7 +68,6 @@ function* signUpTerms() {
 
 function axiosSaga() {
 
-    console.log(store.getState().clientSignUpReducer.form);
     return axios({
         method: 'post',
         url: '/request/signup',
@@ -85,16 +84,21 @@ function axiosSaga() {
 function* signUpSubmit() {
 
     try {
-        const response = yield call(axiosSaga);
-        const success = response.data;
+        const result = yield call(axiosSaga);
+        const response = result.data;
+
+        if(result.data.success === true){
+
+        }
+
         yield put({
             type: 'SET_SIGN_UP_COMPLETE_SUCCESS',
-            success
+            response
         })
-    } catch (e) {
+    } catch (error) {
         yield put({
             type: 'SET_SIGN_UP_COMPLETE_FAILURE',
-            e
+            error
         })
     }
 

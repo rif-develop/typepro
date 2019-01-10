@@ -26,9 +26,9 @@ module.exports  = {
         open:true,
         hot:true,
         inline:true,
-        proxy:{
-            '*':'http://localhost:8081'
-        }
+        // proxy:{
+        //     '*':'http://localhost:8081'
+        // }
     },
     module: {
         rules: [

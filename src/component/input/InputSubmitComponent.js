@@ -1,6 +1,8 @@
 import styles from "../../pages/signup/SignupLayout.scss";
 import React from "react";
 import classnames from 'classnames';
+import {store} from "../../store/StoreComponent";
+import {Validations} from '../../lib/validation';
 
 const cx = classnames.bind(styles);
 
@@ -11,9 +13,10 @@ class InputSubmitComponent extends React.Component {
         this.onSubmitHandler = this.onSubmitHandler.bind(this);
     }
 
+
     onSubmitHandler(e) {
         e.preventDefault();
-        this.props.action();
+        this.props.action()
     }
 
     render() {

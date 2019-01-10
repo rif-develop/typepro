@@ -18,6 +18,7 @@ class LoginLayout extends React.Component {
 
     componentDidMount() {
         document.body.scrollTo(0,0);
+
     }
 
     render() {
@@ -52,11 +53,11 @@ class LoginLayout extends React.Component {
                             </fieldset>
                         </form>
                     </div>
-                    <div className={styles['login-section-horizontal-line']}>
-                        <em>OR</em>
-                        <span className={styles['login-section-horizontal-line--bar']}></span>
-                    </div>
-                    <SocialSignButton/>
+                    {/*<div className={styles['login-section-horizontal-line']}>*/}
+                        {/*<em>OR</em>*/}
+                        {/*<span className={styles['login-section-horizontal-line--bar']}></span>*/}
+                    {/*</div>*/}
+                    {/*<SocialSignButton/>*/}
                     <div className={styles['login-section-join']}>
                         <p>아직 계정이 없으신가요?</p><Link to="/signup">회원가입</Link>
                     </div>

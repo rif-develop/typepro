@@ -29,10 +29,19 @@ const initialState = {
         terms: false,
         date: new Date()
     },
+    validate: {
+        email: false,
+        password: false,
+        terms: false
+    },
     result: {
         loading: false,
         error: null,
-        success: false
+        response: {
+            success: false,
+            redirectUrl: null,
+            duplicate: false
+        }
     }
 
 };
@@ -43,19 +52,52 @@ export function clientSignUpReducer(state = initialState, action) {
         case SET_SIGN_UP_EMAIL_REQUEST:
             return {...state, loading: true, error: null};
         case SET_SIGN_UP_EMAIL_SUCCESS:
-            return {...state, loading: false, error: null, form: {email: action.email, password: state.form.password, terms: state.form.terms, date: new Date()}};
+            return {
+                ...state, loading: false, error: null,
+                form: {
+                    email: action.email,
+                    password: state.form.password,
+                    terms: state.form.terms,
+                    date: new Date()
+                },
+                validate: {
+                    email: true,
+                    password: state.validate.password,
+                    terms: state.validate.terms
+                }
+            };
         case SET_SIGN_UP_EMAIL_FAILURE:
             return {...state, loading: false, error: action.error};
         case SET_SIGN_UP_PASSWORD_REQUEST:
             return {...state, loading: true, error: null};
         case SET_SIGN_UP_PASSWORD_SUCCESS:
-            return {...state, loading: false, error: null, form: {email: state.form.email, password: action.password, terms: state.form.terms, date: new Date()}};
+            return {
+                ...state, loading: false, error: null,
+                form: {
+                    email: state.form.email, password: action.password, terms: state.form.terms, date: new Date()
+                },
+                validate: {
+                    email: state.validate.email,
+                    password: true,
+                    terms: state.validate.terms
+                }
+            };
         case SET_SIGN_UP_PASSWORD_FAILURE:
             return {...state, loading: false, error: action.error};
         case SET_SIGN_UP_TERMS_REQUEST:
             return {...state, loading: true, error: null};
         case SET_SIGN_UP_TERMS_SUCCESS:
-            return {...state, loading: false, error: null, form: {email: state.form.email, password: state.form.password, terms: !state.form.terms, date: new Date()}};
+            return {
+                ...state, loading: false, error: null,
+                form: {
+                    email: state.form.email, password: state.form.password, terms: !state.form.terms, date: new Date()
+                },
+                validate: {
+                    email: state.validate.email,
+                    password: state.validate.password,
+                    terms: !state.validate.terms
+                }
+            };
         case SET_SIGN_UP_TERMS_FAILURE:
             return {...state, loading: false, error: action.error};
         case SET_SIGN_UP_COMPLETE_REQUEST:
@@ -70,7 +112,7 @@ export function clientSignUpReducer(state = initialState, action) {
                 ...state, result: {
                     loading: true,
                     error: null,
-                    success: action.success
+                    response: action.response
                 }
             };
 
@@ -79,7 +121,11 @@ export function clientSignUpReducer(state = initialState, action) {
                 ...state, result: {
                     loading: false,
                     error: action.error,
-                    success: false
+                    response: {
+                        success: false,
+                        redirectUrl: null,
+                        duplicate: false
+                    }
                 }
             };
         case SET_SIGN_UP_INIT:

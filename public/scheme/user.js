@@ -15,10 +15,19 @@ const userSchema = new Schema({
         unique: false
     },
     name: {
-        type: String,
-        required: false,
-        unique: false,
-        default: null
+        first: {
+            type: String,
+            required: false,
+            unique: false,
+            default:null
+        },
+        last: {
+            type: String,
+            required: false,
+            unique: false,
+            default:null
+
+        }
     },
     birth: {
         type: Number,
@@ -61,7 +70,7 @@ const userSchema = new Schema({
     type: {
         type: String,
         required: false,
-        enum: ['personal','enterprise','social'],
+        enum: ['personal', 'enterprise', 'social'],
         default: 'personal'
     },
     status: {
@@ -101,10 +110,10 @@ const userSchema = new Schema({
             default: null,
             unique: false
         },
-        social:{
-            type:Array,
-            default:null,
-            unique:false
+        social: {
+            type: Array,
+            default: null,
+            unique: false
         }
     },
 

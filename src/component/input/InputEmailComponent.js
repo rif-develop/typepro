@@ -5,6 +5,7 @@ import classnames from 'classnames';
 const cx = classnames.bind(styles);
 import {Validations} from "../../lib/validation";
 import {checkAnimation} from "../../lib/script";
+import axios from 'axios';
 
 class InputEmailComponent extends React.Component {
 
@@ -26,7 +27,7 @@ class InputEmailComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            error: false,
+            error: null, //error 종류에 따라서 다르게 보여주게 하자. validation 이면 유효성 실패, duplicate 이면 중복
             checkAni: false,
             removeBtn: false
         };
@@ -34,6 +35,8 @@ class InputEmailComponent extends React.Component {
         this.inputComponent = React.createRef();
         this.check = React.createRef();
         this.removeBtn = React.createRef();
+        this.error = React.createRef();
+
         this.onBlurHandler = this.onBlurHandler.bind(this);
         this.onKeyHandler = this.onKeyHandler.bind(this);
         this.onRemoveHandler = this.onRemoveHandler.bind(this);
@@ -44,6 +47,7 @@ class InputEmailComponent extends React.Component {
         const val = this.inputComponent.current.value;
         const result = Validations.checkEmail(val);
 
+        //아무 값이 없을 떄
         if (val.length === 0) {
             this.setState({
                 error: false,
@@ -52,18 +56,10 @@ class InputEmailComponent extends React.Component {
             });
             return;
         }
-
-        if (result) {
+        //유효성 통과를 실패했을 경우
+        if (!result) {
             this.setState({
-                error: false,
-                checkAni: true
-            });
-            checkAnimation(this.check.current);
-            /*리덕스에 디스패치*/
-            this.props.action(val);
-        } else {
-            this.setState({
-                error: true,
+                error: 1,
                 checkAni: false
             });
             /*밸류를 초기화 한 후에 REDUX를 원래대로 한다.*/
@@ -71,7 +67,44 @@ class InputEmailComponent extends React.Component {
             this.props.action(this.inputComponent.current.value);
             /*다시 인풋에 포커스*/
             this.inputComponent.current.focus();
+            return;
         }
+
+
+        //아이디 중복 검사
+        axios({
+            method: 'post',
+            url: '/emailcheck',
+            data: {
+                email: val
+            }
+        }).then((response) => {
+            //중복되지 않은 이메일이라면
+            console.log(response.data)
+            if (!response.data.duplicate && result) {
+                this.setState({
+                    error: false,
+                    checkAni: true
+                });
+                checkAnimation(this.check.current);
+                /*리덕스에 디스패치*/
+                this.props.action(val);
+
+            } else {
+                //중복된 이메일이라면
+                this.setState({
+                    error: 0,
+                    checkAni: false
+                });
+                /*밸류를 초기화 한 후에 REDUX를 원래대로 한다.*/
+                this.inputComponent.current.value = null;
+                this.props.action(this.inputComponent.current.value);
+                /*다시 인풋에 포커스*/
+                this.inputComponent.current.focus();
+            }
+        }).catch((error) => {
+            console.log(error);
+        });
     }
 
     onKeyHandler(e) {
@@ -79,7 +112,7 @@ class InputEmailComponent extends React.Component {
         const isLen = val.length > 0;
         isLen ? this.setState({
             removeBtn: true,
-            error:false
+            error: false
 
         }) : this.setState({
             removeBtn: false
@@ -139,7 +172,11 @@ class InputEmailComponent extends React.Component {
                     </svg>
                 </div>
                 <div className={styles['client-join-section--form--warning']}>
-                    <em>{this.state.error ? InputEmailComponent.defaultState.validationError : null}</em>
+                    <em ref={this.error}>
+                        {
+                            this.state.error === 1 ? InputEmailComponent.defaultState.validationError :  this.state.error === 0 ? '중복된 이메일입니다.':null
+                        }
+                    </em>
                 </div>
             </div>
         )

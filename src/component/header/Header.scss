@@ -5,12 +5,12 @@
   top: 0;
   width: 100%;
   z-index: 7;
-  background-color: #fff;
   -webkit-transition: all 0.26s ease-out;
   -moz-transition: all 0.26s ease-out;
   -ms-transition: all 0.26s ease-out;
   -o-transition: all 0.26s ease-out;
   transition: all 0.26s ease-out;
+  background:#fff url("./web-header-line@2x.png") no-repeat bottom/100% 1px;
 
   > div:nth-child(1) {
     -webkit-transition: all 0.25s ease-out;

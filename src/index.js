@@ -48,6 +48,7 @@ const LauchableVersion = {
     safari: '',
 };
 
+
 //화면 사이즈 저장
 window.addEventListener('resize', function () {
     store.dispatch({
@@ -81,6 +82,7 @@ if (ieVersion < LauchableVersion.ie) {
                         <Route exact path={'/findid'} component={FindClientIdLayout}/>
                         <Route exact path={'/findpassword'} component={FindClientPasswordLayout}/>
                         <Redirect from="*" to="/404error"/>
+                        <Redirect to={'/login'}/>
                     </Switch>
                 </Router>
             </HelmetProvider>

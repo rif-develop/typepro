@@ -9,7 +9,8 @@
     "babel": "npx babel index.js --out-dir outputfolder",
     "start": "cross-env NODE_ENV=development webpack-dev-server --mode=development --inline --hot --watch --display-error-details",
     "deploy": "cross-env NODE_ENV=production webpack --mode=production",
-    "webpack": "cross-env NODE_ENV=development webpack --mode=development --watch"
+    "webpack": "cross-env NODE_ENV=development webpack --mode=development --watch",
+    "severstart":"pm2 start app.js --name app"
   },
   "author": "",
   "license": "ISC",
@@ -73,6 +74,7 @@
     "@types/classnames": "^2.2.6",
     "animejs": "^2.2.0",
     "axios": "^0.18.0",
+    "bcrypt": "^3.0.3",
     "body-parser": "latest",
     "dotenv": "^6.2.0",
     "express-validator": "^5.3.1",
@@ -93,6 +95,5 @@
   "bugs": {
     "url": "https://github.com/cizz3007/typepro/issues"
   },
-  "homepage": "https://github.com/cizz3007/typepro#readme",
-  "proxy": "http://localhost:8081/"
+  "homepage": "https://github.com/cizz3007/typepro#readme"
 }

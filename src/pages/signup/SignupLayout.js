@@ -10,7 +10,7 @@ import InputPasswordComponent from "../../component/input/InputPasswordComponent
 import InputTermsagreeComponent from "../../component/input/InputTermsagreeComponent";
 import axios from 'axios';
 import InputSubmitComponent from "../../component/input/InputSubmitComponent";
-
+import {store} from "../../store/StoreComponent";
 
 const cx = classnames.bind(styles);
 
@@ -18,23 +18,19 @@ class SignupLayout extends React.Component {
 
     constructor(props) {
         super(props);
-        this.sendSignup = this.sendSignup.bind(this);
     }
 
     componentDidMount() {
         document.body.scrollTo(0, 0);
+        store.getState();
     }
 
-
-    sendSignup(e) {
-        e.preventDefault();
-
-        const form = new FormData();
+    componentWillUnmount() {
 
     }
 
     render() {
-        const {language, terms, setEmail, setTerms, setPassword, sendData} = this.props;
+        const {language, terms, setEmail, setTerms, setPassword, sendData, emailCheck, passwordCheck, termsCheck} = this.props;
         return (
             <Fragment>
                 <Head title={'리틀원 - 회원가입'} description={'리틀원에 회원가입하고 다양한 육아정보를 얻어보세요.'} language={language}/>
@@ -76,7 +72,10 @@ const mapStateToProps = (state) => {
         language: state.languageReducer.language,
         phoneLoading: state.phoneAuthReducer.loading,
         phoneError: state.phoneAuthReducer.error,
-        terms: state.clientSignUpReducer.form.terms
+        terms: state.clientSignUpReducer.form.terms,
+        emailCheck:state.clientSignUpReducer.validate.email,
+        passwordCheck:state.clientSignUpReducer.validate.password,
+        termsCheck:state.clientSignUpReducer.validate.terms,
     }
 };
 const mapDispatchToProps = (dispatch) => {
