@@ -22,6 +22,7 @@ class InputSubmitComponent extends React.Component {
     render() {
         return (
             <div>
+                <div>{this.props.emailCheck}{this.props.passwordCheck}{this.props.termsCheck}</div>
                 <button type="submit" role="button" className={cx(styles['__join-member-button'], styles['__submit-default-button'])} onClick={this.onSubmitHandler}>회원가입</button>
             </div>
         )

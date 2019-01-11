@@ -39,15 +39,15 @@ class IndexLayout extends React.Component {
 
     componentDidMount() {
         document.body.scrollTo(0,0);
-        this.callBackendAPI()
-            .then(res => this.setState({ data: res.express }))
-            .catch(err => console.log(err));
-
-        axios.get('/user', {
-            params: { id: 'velopert' }
-        })
-            .then( response => { console.log(response) } )
-        .catch( response => { console.log(response) } );
+        // this.callBackendAPI()
+        //     .then(res => this.setState({ data: res.express }))
+        //     .catch(err => console.log(err));
+        //
+        // axios.get('/user', {
+        //     params: { id: 'velopert' }
+        // })
+        //     .then( response => { console.log(response) } )
+        // .catch( response => { console.log(response) } );
     }
 
     callBackendAPI = async () => {

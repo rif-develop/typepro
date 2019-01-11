@@ -2,23 +2,15 @@ import {call, put, takeEvery, takeLatest} from "redux-saga/effects";
 import axios from "axios";
 import {store} from "../store/StoreComponent";
 
-export function* wathcerSignupEmail() {
-    yield takeLatest('SET_SIGN_UP_EMAIL_REQUEST', signUpEmail);
-}
-
-export function* wathcerSignupPassword() {
-    yield takeLatest('SET_SIGN_UP_PASSWORD_REQUEST', signUpPassword);
-}
-
-export function* wathcerSignupTerms() {
-    yield takeLatest('SET_SIGN_UP_TERMS_REQUEST', signUpTerms);
-}
-
-export function* watcherSignSubmit() {
+export function* wathcerSignup() {
+    yield takeEvery('SET_SIGN_UP_EMAIL_REQUEST', signUpEmail);
+    yield takeEvery('SET_SIGN_UP_PASSWORD_REQUEST', signUpPassword);
+    yield takeEvery('SET_SIGN_UP_TERMS_REQUEST', signUpTerms);
     yield takeEvery('SET_SIGN_UP_COMPLETE_REQUEST', signUpSubmit);
+    yield takeEvery('SET_SIGN_UP_INIT_REQUEST', signUpinit);
 }
 
-function* signUpEmail(action) {
+function* signUpEmail(action, type) {
 
     const email = action.email;
     try {
@@ -29,7 +21,6 @@ function* signUpEmail(action) {
     } catch (error) {
         yield put({
             type: 'SET_SIGN_UP_EMAIL_FAILURE',
-            error
         })
     }
 }
@@ -50,7 +41,6 @@ function* signUpPassword(action) {
 }
 
 function* signUpTerms() {
-
     try {
         yield put({
             type: "SET_SIGN_UP_TERMS_SUCCESS",
@@ -63,12 +53,25 @@ function* signUpTerms() {
     }
 }
 
+function* signUpinit() {
+    try {
+        yield put({
+            type: "SET_SIGN_UP_INIT_SUCCESS",
+
+        })
+    } catch (error) {
+        yield put({
+            type: "SET_SIGN_UP_INIT_FAILURE",
+            error
+        })
+    }
+}
+
 
 /*회원가입*/
+function* signUpSubmit() {
 
-function axiosSaga() {
-
-    return axios({
+    axios({
         method: 'post',
         url: '/request/signup',
         data: {
@@ -76,30 +79,29 @@ function axiosSaga() {
             password: store.getState().clientSignUpReducer.form.password,
             terms: store.getState().clientSignUpReducer.form.terms
         }
+    }).then((res) => {
+        console.log(res);
     }).catch((error) => {
         console.log(error);
-    })
-}
+    });
 
-function* signUpSubmit() {
-
-    try {
-        const result = yield call(axiosSaga);
-        const response = result.data;
-
-        if(result.data.success === true){
-
-        }
-
-        yield put({
-            type: 'SET_SIGN_UP_COMPLETE_SUCCESS',
-            response
-        })
-    } catch (error) {
-        yield put({
-            type: 'SET_SIGN_UP_COMPLETE_FAILURE',
-            error
-        })
-    }
+    // try {
+    //     const result = yield call(axiosSaga);
+    //     const response = result.data;
+    //
+    //     if (result.data.success === true) {
+    //
+    //     }
+    //
+    //     yield put({
+    //         type: 'SET_SIGN_UP_COMPLETE_SUCCESS',
+    //         response
+    //     })
+    // } catch (error) {
+    //     yield put({
+    //         type: 'SET_SIGN_UP_COMPLETE_FAILURE',
+    //         error
+    //     })
+    // }
 
 }

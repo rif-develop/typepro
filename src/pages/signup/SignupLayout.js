@@ -11,6 +11,7 @@ import InputTermsagreeComponent from "../../component/input/InputTermsagreeCompo
 import axios from 'axios';
 import InputSubmitComponent from "../../component/input/InputSubmitComponent";
 import {store} from "../../store/StoreComponent";
+import ModalComponent from "../../component/modal/ModalComponent";
 
 const cx = classnames.bind(styles);
 
@@ -18,23 +19,28 @@ class SignupLayout extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            modal: false
+        }
     }
 
     componentDidMount() {
         document.body.scrollTo(0, 0);
-        store.getState();
     }
 
     componentWillUnmount() {
-
+        store.dispatch({
+            type:"SET_SIGN_UP_INIT_REQUEST"
+        });
     }
 
     render() {
-        const {language, terms, setEmail, setTerms, setPassword, sendData, emailCheck, passwordCheck, termsCheck} = this.props;
+        const {language, terms, setEmail, setTerms, setPassword, sendData, emailCheck, passwordCheck, termsCheck,duplicatedEmail} = this.props;
         return (
             <Fragment>
                 <Head title={'리틀원 - 회원가입'} description={'리틀원에 회원가입하고 다양한 육아정보를 얻어보세요.'} language={language}/>
                 <Header/>
+                {this.state.modal ? <ModalComponent/> : null}
                 <section className={styles['client-join-section']}>
                     <div className={styles['client-join-section--logo']}>
                         리틀원의 회원가입 섹션의 로고입니다.
@@ -48,10 +54,10 @@ class SignupLayout extends React.Component {
                         <form className={styles['client-join-section--form']} id="client-join-section--form" role="form">
                             <fieldset form="client-join-section--form">
                                 <legend>리틀원의 회원가입 폼입니다.</legend>
-                                <InputEmailComponent action={setEmail}/>
+                                <InputEmailComponent action={setEmail} duplicatedEmail={duplicatedEmail} emailCheck={emailCheck}/>
                                 <InputPasswordComponent action={setPassword}/>
                                 <InputTermsagreeComponent terms={terms} action={setTerms}/>
-                                <InputSubmitComponent action={sendData}/>
+                                <InputSubmitComponent action={sendData} emailCheck={emailCheck} passwordCheck={passwordCheck} termsCheck={termsCheck}/>
                             </fieldset>
                         </form>
                         {/*<div className={styles['client-join-section-horizontal-line']}>*/}
@@ -66,23 +72,19 @@ class SignupLayout extends React.Component {
         )
     }
 }
-
+//왠만하면 자식 컴포넌트들이 전달받아서 shouldcomponentupdate 할 수 있도록  밖에서 넘겨주자
 const mapStateToProps = (state) => {
     return {
         language: state.languageReducer.language,
-        phoneLoading: state.phoneAuthReducer.loading,
-        phoneError: state.phoneAuthReducer.error,
         terms: state.clientSignUpReducer.form.terms,
-        emailCheck:state.clientSignUpReducer.validate.email,
-        passwordCheck:state.clientSignUpReducer.validate.password,
-        termsCheck:state.clientSignUpReducer.validate.terms,
+        duplicatedEmail: state.clientSignUpReducer.validate.email.duplicate,
+        emailCheck: state.clientSignUpReducer.validate.email.success,
+        passwordCheck: state.clientSignUpReducer.validate.password.success,
+        termsCheck: state.clientSignUpReducer.validate.terms.success,
     }
 };
 const mapDispatchToProps = (dispatch) => {
     return {
-        openPhoneAuth: () => dispatch({
-            type: 'SET_PHONE_AUTH_REQUEST'
-        }),
         setEmail: (email) => dispatch({
             type: 'SET_SIGN_UP_EMAIL_REQUEST',
             email

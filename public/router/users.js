@@ -20,10 +20,11 @@ router.post('/emailcheck', (req, res) => {
             console.log('중복되지 않음');
             return res.json({
                 duplicate:false,
+                verifiedId:req.body.email,
                 msg:'중복되지 않은 이메일입니다.'
             })
         } else {
-            console.log('중복됨');
+            console.log(`# ${req.body.email}은 중복된 이메일(아이디)입니다.`);
 
             return res.json({
                 duplicate:true,

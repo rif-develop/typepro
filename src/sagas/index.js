@@ -8,9 +8,9 @@ import {wathcerWindowWidth} from "./clientStatusAction";
 import {watcherSetting} from "./settingAction";
 import {watcherAddress} from './addressAction';
 import {wathcerPhoneAuth} from "./phoneAuthAction";
-import {wathcerSignupEmail, wathcerSignupPassword ,wathcerSignupTerms, watcherSignSubmit} from './clientSingUpAction'
+import {wathcerSignup} from './clientSingUpAction'
 
-export default function* rootSaga(){
+export default function* rootSaga() {
     yield all([
         fork(watcherCounter),
         fork(watcherLanguage),
@@ -23,10 +23,7 @@ export default function* rootSaga(){
         fork(watcherSetting),
         fork(watcherAddress),
         fork(wathcerPhoneAuth),
-        fork(wathcerSignupEmail),
-        fork(wathcerSignupPassword),
-        fork(wathcerSignupTerms),
-        fork(watcherSignSubmit)
+        fork(wathcerSignup)
     ]);
 }
 

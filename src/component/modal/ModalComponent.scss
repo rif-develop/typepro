@@ -1,0 +1,682 @@
+.alarm-modal-component {
+  position: absolute;
+  background-color: #fff;
+
+  z-index: 9;
+  -webkit-box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  text-align: center;
+  width: 332px;
+  max-width: 100%;
+
+  /*모달창 닫기(x)버튼*/
+
+  .__close-modal-form {
+    position: absolute;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    top: -40px;
+    right: -26px;
+    border: none;
+    text-indent: -999px;
+    overflow: hidden;
+    -webkit-transition: all 0.25s ease-out;
+    -moz-transition: all 0.25s ease-out;
+    -ms-transition: all 0.25s ease-out;
+    -o-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAOVBMVEUAAAAAAAAAAAAAAAD///8AAAAAAAAAAADHx8cAAADOzs4AAAC7u7v+/v79/f2xsbHU1NTi4uL////3naNqAAAAEnRSTlMABAwI+BQQGFobVyJf6N9lT1mPZXf1AAABUklEQVR4AdyTwW7DMAxD5y2Sq7pJU///x86KECzhUEJAgB2mo8n3LB/88Z+mlHKhWvZJ0TF4+DUmYfhpFjj8HEMUtFnKdqgeUEOJpm4KELzmZRUN9Xver1dZl/l1FGzauffpLqJnNfKOy33qfT70Ili6G+pvA/LV+b6gQNeJGoCfVj22PJIIbmhA/hYXiZdOoXID8qcFIpVKDMBXgYbne4wG5KMANxRmeMOTFcFAwoQhxTODD+e5IckTwxjOc4Nuv5zzzOAKxzlPDDYUAzfOU4MP57nh0cY8EjwxMJ4YZH/48xm8VUnwp69pcXUsYvABE4ZqsXw8xGqChxWsNV/fn9GayR8Krj/hu/o6KAAAhmEQ6N81Iu7FJKxtAvKJPkZfJFxlOCY/Zw8UjzQNVY11LRatNi1XrncFDEYchCzHPAZNR12FbcZ9Fw5WHpYu1z4Xz/ML9k8vfZu737MAAAAASUVORK5CYII=) no-repeat center/24px 24px;
+  }
+  .__close-modal-form:hover, .__close-modal-form:focus {
+    -webkit-transform: rotate(180deg) scale(1.3);
+    -moz-transform: rotate(180deg) scale(1.3);
+    -ms-transform: rotate(180deg) scale(1.3);
+    -o-transform: rotate(180deg) scale(1.3);
+    transform: rotate(180deg) scale(1.3);
+
+  }
+
+  &--head {
+    padding: 12.5px 0;
+    border-bottom: 1px solid #e3e3e3;
+
+    &--title {
+      -ms-word-break: keep-all;
+      word-break: keep-all;
+      -ms-word-wrap: break-word;
+      word-wrap: break-word;
+      font-size: 20px;
+      color: #333;
+      font-weight: 500;
+      letter-spacing: -1px;
+      padding: 0 30px;
+      line-height: normal;
+    }
+  }
+  //head
+  &--text {
+    padding: 42px 0;
+    border-bottom: 1px solid #e3e3e3;
+
+    &--paragraph {
+      -ms-word-break: keep-all;
+      word-break: keep-all;
+      -ms-word-wrap: break-word;
+      word-wrap: break-word;
+      font-size: 14px;
+      font-weight: 300;
+      opacity: .85;
+      letter-spacing: -0.4px;
+      color: #333;
+      padding: 0 30px;
+      line-height: normal;
+
+    }
+  }
+
+  &--buttons {
+    position: relative;
+    height: 47px;
+    button {
+      position: absolute;
+      top: 13px;
+      display: inline-block;
+      border: none;
+      background-color: transparent;
+      color: #007aff;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      -webkit-transition: all 0.25s ease-out;
+      -moz-transition: all 0.25s ease-out;
+      -ms-transition: all 0.25s ease-out;
+      -o-transition: all 0.25s ease-out;
+      transition: all 0.25s ease-out;
+    }
+    button:hover, button:focus {
+      color: #ff5274;
+      opacity: .666;
+    }
+
+    /*삭제*/
+    .__baby-delete-button {
+      left: 0;
+    }
+
+    /*취소*/
+    .__cancel-modal-button {
+      left: 30px;
+    }
+
+    //확인
+    .__confirm-modal-button{
+      right: 30px;
+    }
+    .single-button{
+      right:0;
+      left: 50%;
+      -webkit-transform: translateX(-50%);
+      -moz-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+      -o-transform: translateX(-50%);
+      transform: translateX(-50%);
+    }
+
+    /*아이 정보*/
+    .default-cancel {
+      width: 72px;
+      height: 36px;
+      border: 1px solid #b8bcc9;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      font-size: 15px;
+      color: #989ba5;
+      font-weight: 500;
+      text-indent: 17px;
+      letter-spacing: -0.4px;
+      background: #f9fbff url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAAIVBMVEUAAACZnKabm6iZnKWZnKWYm6acoKmZnaf///+ZnKWYm6W257u1AAAACnRSTlMA6Cnv264dawFs7Z/usgAAAHBJREFUeAF900sKxDAMg2Hl3dH9Dzxd/qlB3pkPSqMoes4ca+sze415Hv38Tuu39eZ3jqapNE8NU2keWqbSvLQblda21Kl5ve3WYtRq0GrUalQalZYxfzb/UD5KDiHFl4OPa7zsWJNYsFzNE0odn8MfS0IOC7MTU10AAAAASUVORK5CYII=) no-repeat 12px/13px 13px;
+      margin-right: 142px;
+
+      &:focus, &:hover {
+        color: #181818;
+      }
+    }
+
+    /*수정*/
+    .default-edit {
+      width: 72px;
+      height: 36px;
+      border: 1px solid #b8bcc9;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      font-size: 15px;
+      font-weight: 500;
+      color: #181818;
+      text-indent: 17px;
+      letter-spacing: -0.4px;
+      background: #f9fbff  url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAAgVBMVEUAAAAYGBgbGxscHBwYGBgYGBgYGBgvLy8YGBgYGBgZGRkYGBgZGRkZGRkaGhoZGRkYGBgZGRkYGBgaGhoZGRkbGxsgICAbGxsZGRkYGBgZGRkZGRkYGBgYGBgaGhobGxsYGBgpKSkZGRkZGRkYGBgZGRkZGRkaGhocHBwdHR0YGBgFpYnaAAAAKnRSTlMA3j82x530BfuJ+LFRSibOqIBrYlkvEAnt6teUc1RDIBUMwrmil3t3Nxrs1GQgAAAAzElEQVR4AZXOyXKDMBCE4bYsJHazYEi8O3v6/R8whgyVQswl/0WHrzTV0Ouzg4Ee7pZ0W+glfPS018ib4WXUHXDdLut9Fhd3O2HNZZmvyPTS78azbmmvQzQ+ztzsHiBT+1c1HMlJv4ARN8udgmaNtVhaYIWfYnGOFTaUOqywna29liF2szXfGxNgHoudbgcGWMxW450hdoIJEIWY+HayIxRMM988LIKCJVnhxDdomE+/cq/iB+nsBVCxOJciCkr/QzXBZxVlwVlRl/zaDyYoMYnsLFtnAAAAAElFTkSuQmCC) no-repeat 12px/14px 14px;
+
+      &:focus, &:hover {
+        color: #181818;
+      }
+    }
+    /*삭제*/
+    .default-delete {
+      width: 72px;
+      height: 36px;
+      border: 1px solid #b8bcc9;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      font-size: 15px;
+      font-weight: 500;
+      color: #989ba5;
+      letter-spacing: -0.4px;
+      text-indent: 17px;
+      background: #f9fbff url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAcCAMAAABWBG9SAAAAgVBMVEUAAACYm6abnaeanKaxvr6anaaZnKWYm6aZnKaZnKaZnKaZnKecn6ibo6qZnKaZm6aZnKaZnKaZnKWanKipqa2YnKWZnKaZm6WYnKaZnKaYnKaanKabnKebnameoayZnKaZnKaZnKeYnKaZnaaZnaecnqiZnqeZm6eanqibpK2Ym6VJzbolAAAAKnRSTlMA+WN+BFf05KWbiXMjEffu2snAKArd19G4r6BJPy0XzcaRgXhnPDVuTBwSNFM4AAAA1UlEQVQYGX3BB07EMABFwZfg9F629wr8+x8QxyARrwQzOCZPpGC1Yy5Xm6abODgw03cG2C8K/mGiN8/tCVz1IhhgpVcFJMGrnD8cQ0/EJJTPYH3I0zB5ytMyKeU5Mxnl2eDUmstwEv3owqEqS5yTnDqEz93B4Kzl7HgsJcXvBmuryYVI31KsXJPjsdFlq1MRKwJusjru0p57NSZaA6GslExqBkwvNcBe1oZcWo9QSAvArCQtiKRD1T9olWJVRZZllem0TFT3qgd+la0mccTceD3Hy20JXz3cKmqz2avwAAAAAElFTkSuQmCC) no-repeat 14px/10px 14px;
+      margin-right: 142px;
+
+      &:focus, &:hover {
+        opacity: .6;
+        color: #181818;
+      }
+    }
+
+    .default-confirm {
+      width: 72px;
+      height: 36px;
+      border: 1px solid #b8bcc9;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      font-size: 15px;
+      font-weight: 500;
+      color: #181818;
+      letter-spacing: -0.4px;
+      text-indent: 17px;
+      background: #f9fbff url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAUCAMAAACpgK3LAAAAbFBMVEUAAAAYGBgjIyMYGBgZGRkYGBgZGRkYGBgYGBgbGxshISEfHx8ZGRkaGhobGxsfHx8oKCgYGBgYGBgZGRkYGBgZGRkYGBgYGBgZGRkbGxsZGRkbGxscHBwZGRkZGRkaGhoZGRkaGhoYGBgYGBijjLW+AAAAI3RSTlMA7wrK7Ojk0XIoFxSfNhsQBvff2dTEv6plQjIuI7umlYZQSlQ6OwsAAACTSURBVCjPfdFtD4IgEMDxUFIiNNRKLXu87/8dYxfnjnn6f8Xx24CNnVzdq9as2FRASNYDGrSi7QHTGwZuw7rjwu5kZxsmP34sM82tLgEaQ3YjK/HMHtfP7G+KWUjFaQrriiyPb+nirL7MTvGWAagXM8rMyo0adWKXLP2fXDLKu9muZKyhkYyq8AsfzHjWqeLt070fxLobcQXK0fAAAAAASUVORK5CYII=) no-repeat 12px/13px 9px;
+      &:focus, &:hover {
+        opacity: .6;
+        color: #181818;
+      }
+    }
+
+  }
+
+  &--bar {
+    height: 1px;
+    background-color: #e3e3e3;
+  }
+  &--form {
+    position: relative;
+  }
+
+  /*아기 정보 등록 폼*/
+  #baby-register-form {
+    padding: 35px 20px 18px 20px;
+  }
+
+  /*아기 수정 폼*/
+  #baby-update-form {
+    /*아기 삭제 버튼*/
+    .__baby-delete-button {
+      margin-right: 210px;
+    }
+  }
+
+  /*아이정보 추가*/
+  .baby-register-form {
+    padding: 35px 20px;
+    &--thumb-box {
+      text-align: center;
+      margin-bottom: 30px;
+      > div {
+        margin-bottom: 14px;
+      }
+
+      img {
+        width: 100px;
+        height: 100px;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        border: 1px solid #f0f0f0;
+      }
+
+      .__remove-baby-thumbnail {
+        cursor: pointer;
+        border: 1px solid #181818;
+        display: inline-block;
+        width: 50px;
+        height: 28px;
+        -webkit-border-radius: 16px;
+        -moz-border-radius: 16px;
+        border-radius: 16px;
+        background-color: #fff;
+        -webkit-transition: all 0.25s ease-out;
+        -moz-transition: all 0.25s ease-out;
+        -ms-transition: all 0.25s ease-out;
+        -o-transition: all 0.25s ease-out;
+        transition: all 0.25s ease-out;
+        font-size: 12px;
+        font-weight: 500;
+        margin-right: 3px;
+
+        &:hover {
+          opacity: .6;
+        }
+      }
+
+      .__find-picture {
+        position: relative;
+        display: inline-block;
+        width: 76px;
+        height: 28px;
+        line-height: 28px;
+        -webkit-border-radius: 16px;
+        -moz-border-radius: 16px;
+        border-radius: 16px;
+        font-size: 12px;
+        font-weight: 500;
+        color: #fff;
+        cursor: pointer;
+        overflow: hidden;
+        background-color: #9013fe;
+
+        input[type='file'] {
+          position: absolute;
+          top: 0;
+          width: 1px;
+          height: 1px;
+          margin-left: -999px;
+
+        }
+      }
+
+    }
+    //thumb-box
+
+    &--warn {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: -0.2px;
+      color: #4d40b5;
+      margin-top: 5px;
+      text-align: left;
+      padding-left: 20px;
+    }
+
+    &--container {
+      position: relative;
+      display: table;
+      width: 100%;
+      margin-bottom: 6px;
+
+      .__default-label-component, .__default-input-component {
+        display: table-cell;
+      }
+      .__default-label-component {
+        width: 70px;
+        font-size: 12px;
+        font-weight: 500;
+      }
+
+      .__default-input-component {
+        width: 224px;
+        height: 36px;
+        border: 1px solid #e0ddfc;
+        font-size: 12px;
+        text-indent: 10px;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+
+      input.invalid {
+        border: 1px solid #ff1a6f;
+      }
+
+      input::-webkit-input-placeholder {
+        color: #c3cbd5;
+      }
+      input:-ms-input-placeholder {
+        color: #c3cbd5;
+
+      }
+      input:-moz-placeholder {
+        color: #c3cbd5;
+      }
+
+      input::placeholder {
+        color: #c3cbd5;
+      }
+
+      .__remove-input-button {
+        text-indent: -999px;
+        overflow: hidden;
+        border: none;
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        top: 50%;
+        cursor: not-allowed;
+        right: 15px;
+        -webkit-transform: translateY(-50%);
+        -moz-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        -o-transform: translateY(-50%);
+        transform: translateY(-50%);
+        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAAOVBMVEUAAAC4vcq5wcu5vcq5vcm4vcq5vcq5vcq5vMu7v8u6v8m+wNC7vsy4vMq5vcq5vsm5vsu8v8u4vMkmfk0wAAAAEnRSTlMA3B3Y8+vAgFRANCBKysmcdSvH6x5qAAAAoElEQVQoz32TWQ6FIAxFW0YFnO7+F/vysCIa7PmBcBJSbgs1UgzsHIeY6M1k0bDTQ+UFD9Z8u9njhZ+bwwCx2Y+kP29eMGStdeKDf83yhq0wKrzLiSVKOClkuDpDuxwlirJjU60slUgBve0dAjF62zswOfS2d3CqVK9VC1Kf0kI47hDKFUKLrxxXfGWT+NTgtZapzdbGRB8wfTT1oVa/ww8pTSQMPuvzRQAAAABJRU5ErkJggg==) no-repeat center/14px 14px;
+      }
+      .__remove-input-button.active {
+        cursor: pointer;
+      }
+
+      .__select-radio-button.active {
+        border: 1px solid #9013fe;
+        label {
+          background-color: #9013fe;
+        }
+      }
+
+      .__select-radio-button {
+        display: inline-block;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        border: 1px solid #e8ecf5;
+        width: 14px;
+        height: 14px;
+        font-size: 12px;
+        text-align: center;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        -webkit-transition: all 0.25s ease-out;
+        -moz-transition: all 0.25s ease-out;
+        -ms-transition: all 0.25s ease-out;
+        -o-transition: all 0.25s ease-out;
+        transition: all 0.25s ease-out;
+
+        label {
+          position: relative;
+          top: -2px;
+          display: inline-block;
+          width: 8px;
+          height: 8px;
+          -webkit-border-radius: 50%;
+          -moz-border-radius: 50%;
+          border-radius: 50%;
+          background-color: #e8ecf5;
+          vertical-align: bottom;
+          -webkit-box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          box-sizing: border-box;
+          -webkit-transition: all 0.55s ease-out;
+          -moz-transition: all 0.55s ease-out;
+          -ms-transition: all 0.55s ease-out;
+          -o-transition: all 0.55s ease-out;
+          transition: all 0.55s ease-out;
+          color: #333;
+
+          input {
+            position: absolute;
+            display: block;
+            top: 0;
+            left: 0;
+            width: 1px;
+            height: 1px;
+            right: -999px;
+            z-index: -1;
+          }
+        }
+        label[for='__radio-gender-component-male']::before {
+          position: absolute;
+          top: -2px;
+          content: "남";
+          text-indent: 21px;
+          display: block;
+        }
+        label[for='__radio-gender-component-female']::before {
+          position: absolute;
+          top: -2px;
+          content: "여";
+          text-indent: 21px;
+          display: block;
+        }
+
+      }
+      .__select-radio-button:nth-of-type(2) {
+        margin-right: 60px;
+      }
+      .__select-radio-button:nth-of-type(3) {
+        margin-right: 130px;
+      }
+
+      .birthdate--input-box {
+
+        display: table;
+        table-layout: fixed;
+        width: 224px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        text-align: center;
+        vertical-align: middle;
+
+        input {
+          float: left;
+          width: 74px;
+        }
+
+      }
+      //birthdate--input-box
+
+    }
+    //container
+    .blood-type-box {
+      .__select-radio-button {
+        margin-right: 38px;
+      }
+      label[for='blood-type-a']::before {
+        position: absolute;
+        top: -2px;
+        content: "A";
+        text-indent: 21px;
+        display: block;
+      }
+      label[for='blood-type-b']::before {
+        position: absolute;
+        top: -2px;
+        content: "B";
+        text-indent: 21px;
+        display: block;
+      }
+      label[for='blood-type-o']::before {
+        position: absolute;
+        top: -2px;
+        content: "O";
+        text-indent: 21px;
+        display: block;
+      }
+      label[for='blood-type-ab']::before {
+        position: absolute;
+        top: -2px;
+        content: "AB";
+        text-indent: 21px;
+        display: block;
+      }
+    }
+
+  }
+
+}
+
+//alarm-modal-component
+
+/*스크린 블락(본문 컨텐츠 클릭을 막는 요소)*/
+.modal-screen-block {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 8;
+  background-color: #000000;
+  opacity: .3;
+}
+
+@media only screen and (max-width: 640px) {
+  .alarm-modal-component .baby-register-form {
+    padding: 27px 15px;
+  }
+  .alarm-modal-component {
+    width: 310px;
+  }
+  .alarm-modal-component--head--title {
+    font-size: 16px;
+  }
+  .alarm-modal-component--text--paragraph {
+    font-size: 13px;
+  }
+  .alarm-modal-component--buttons button {
+    font-size: 13px;
+  }
+  .alarm-modal-component--buttons .__cancel-modal-button {
+    margin-right: 175px;
+  }
+  .alarm-modal-component .baby-register-form--container .__default-label-component {
+    width: 60px;
+  }
+  .alarm-modal-component .baby-register-form--container .__default-input-component {
+    width: 200px;
+  }
+  .alarm-modal-component .baby-register-form--container .__select-radio-button:nth-of-type(3) {
+    margin-right: 100px;
+  }
+  .alarm-modal-component .baby-register-form .blood-type-box .__select-radio-button {
+    margin-right: 30px;
+  }
+  .alarm-modal-component .baby-register-form--container .birthdate--input-box input {
+    width: 66px;
+  }
+  .alarm-modal-component .baby-register-form--container .birthdate--input-box {
+    width: 200px;
+    margin-left: 10px;
+  }
+  .alarm-modal-component .baby-register-form--warn {
+    padding-left: 8px;
+  }
+  .alarm-modal-component--buttons .__baby-delete-button {
+    margin-right: 194px;
+  }
+  .alarm-modal-component .__close-modal-form {
+    right: -6px;
+  }
+  .alarm-modal-component--buttons .default-cancel {
+    margin-right: 117px;
+  }
+  .alarm-modal-component--buttons .default-delete{
+    margin-right: 117px;
+  }
+
+}
+
+@media only screen and (max-width: 320px) {
+  .alarm-modal-component {
+    width: 280px;
+  }
+  .alarm-modal-component .__close-modal-form {
+    right: -6px;
+  }
+  .alarm-modal-component--head--title {
+    font-size: 14px;
+  }
+  .alarm-modal-component--text--paragraph {
+    font-size: 12px;
+  }
+  .alarm-modal-component--buttons button {
+    font-size: 12px;
+  }
+  .alarm-modal-component .baby-register-form--thumb-box img {
+    width: 80px;
+    height: 80px;
+  }
+  .alarm-modal-component .baby-register-form--thumb-box .__find-picture {
+    width: 60px;
+    height: 22px;
+    line-height: 22px;
+    font-size: 10px;
+  }
+  .alarm-modal-component .baby-register-form--thumb-box .__remove-baby-thumbnail {
+    width: 40px;
+    height: 22px;
+    font-size: 10px;
+  }
+  .alarm-modal-component .baby-register-form--container .__default-label-component {
+    width: 45px;
+    font-size: 11px;
+  }
+  .alarm-modal-component .baby-register-form--container .__default-input-component {
+    width: 186px;
+    height: 32px;
+    font-size: 10px;
+  }
+  .alarm-modal-component .baby-register-form {
+    padding: 25px 12px;
+  }
+  .alarm-modal-component .baby-register-form--container .__select-radio-button label:before {
+    font-size: 11px;
+  }
+  .alarm-modal-component .baby-register-form--container .birthdate--input-box input {
+    width: 62px;
+  }
+  .alarm-modal-component .baby-register-form--container .birthdate--input-box {
+    width: 186px;
+    margin-left: 13px;
+  }
+  .alarm-modal-component--buttons .__baby-delete-button {
+    margin-right: 170px;
+  }
+  .alarm-modal-component--buttons .default-cancel {
+    margin-right: 92px;
+  }
+  .alarm-modal-component--buttons .default-delete{
+    margin-right: 92px;
+  }
+
+}
+
+/*ie10+css핵*/
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  /* IE10+ specific styles go here */
+  .alarm-modal-component .baby-register-form--container .__select-radio-button:nth-of-type(2) {
+    margin-right: 40px;
+  }
+  .alarm-modal-component .baby-register-form .blood-type-box .__select-radio-button {
+    margin-right: 33px;
+  }
+  .alarm-modal-component .baby-register-form .blood-type-box label {
+  }
+  .alarm-modal-component .baby-register-form .blood-type-box label::before {
+  }
+  .alarm-modal-component .baby-register-form--container .birthdate--input-box {
+    margin-left: 0;
+  }
+}

@@ -2,6 +2,10 @@
 const SET_SIGN_UP_EMAIL_REQUEST = 'SET_SIGN_UP_EMAIL_REQUEST';
 const SET_SIGN_UP_EMAIL_SUCCESS = 'SET_SIGN_UP_EMAIL_SUCCESS';
 const SET_SIGN_UP_EMAIL_FAILURE = 'SET_SIGN_UP_EMAIL_FAILURE';
+//이메일 중복 여부 처리 액션
+const SET_SIGN_UP_EMAIL_DUPLICATE_TRUE = 'SET_SIGN_UP_EMAIL_DUPLICATE_TRUE';
+const SET_SIGN_UP_EMAIL_DUPLICATE_FALSE = 'SET_SIGN_UP_EMAIL_DUPLICATE_FALSE';
+
 /*비밀번호 액션*/
 const SET_SIGN_UP_PASSWORD_REQUEST = 'SET_SIGN_UP_PASSWORD_REQUEST';
 const SET_SIGN_UP_PASSWORD_SUCCESS = 'SET_SIGN_UP_PASSWORD_SUCCESS';
@@ -14,15 +18,14 @@ const SET_SIGN_UP_TERMS_FAILURE = 'SET_SIGN_UP_TERMS_FAILURE';
 const SET_SIGN_UP_COMPLETE_REQUEST = 'SET_SIGN_UP_COMPLETE_REQUEST';
 const SET_SIGN_UP_COMPLETE_SUCCESS = 'SET_SIGN_UP_COMPLETE_SUCCESS';
 const SET_SIGN_UP_COMPLETE_FAILURE = 'SET_SIGN_UP_COMPLETE_FAILURE';
-
-
 /*초기화*/
-const SET_SIGN_UP_INIT = 'SET_SIGN_UP_INIT';
+const SET_SIGN_UP_INIT_REQUEST = 'SET_SIGN_UP_INIT_REQUEST';
+const SET_SIGN_UP_INIT_SUCCESS = 'SET_SIGN_UP_INIT_SUCCESS';
+const SET_SIGN_UP_INIT_FAILURE = 'SET_SIGN_UP_INIT_FAILURE';
 
 
 const initialState = {
     loading: false,
-    error: null,
     form: {
         email: null,
         password: null,
@@ -30,30 +33,29 @@ const initialState = {
         date: new Date()
     },
     validate: {
-        email: false,
-        password: false,
-        terms: false
-    },
-    result: {
-        loading: false,
-        error: null,
-        response: {
+        email: {
             success: false,
-            redirectUrl: null,
             duplicate: false
+        },
+        password: {
+            success: null
+        },
+        terms: {
+            success: null,
         }
-    }
-
+    },
+    redirectUrl: null
 };
 
 
 export function clientSignUpReducer(state = initialState, action) {
     switch (action.type) {
         case SET_SIGN_UP_EMAIL_REQUEST:
-            return {...state, loading: true, error: null};
+            return {...state, loading: true};
         case SET_SIGN_UP_EMAIL_SUCCESS:
             return {
-                ...state, loading: false, error: null,
+                ...state,
+                loading: false,
                 form: {
                     email: action.email,
                     password: state.form.password,
@@ -61,24 +63,51 @@ export function clientSignUpReducer(state = initialState, action) {
                     date: new Date()
                 },
                 validate: {
-                    email: true,
+                    email: {
+                        success: true,
+                        duplicate: state.validate.email.duplicate
+                    },
                     password: state.validate.password,
                     terms: state.validate.terms
                 }
             };
         case SET_SIGN_UP_EMAIL_FAILURE:
-            return {...state, loading: false, error: action.error};
-        case SET_SIGN_UP_PASSWORD_REQUEST:
-            return {...state, loading: true, error: null};
-        case SET_SIGN_UP_PASSWORD_SUCCESS:
             return {
-                ...state, loading: false, error: null,
+                ...state,
+                loading: false,
                 form: {
-                    email: state.form.email, password: action.password, terms: state.form.terms, date: new Date()
+                    email: null,
+                    password: state.form.password,
+                    terms: state.form.terms,
+                    date: new Date()
                 },
                 validate: {
-                    email: state.validate.email,
-                    password: true,
+                    email: {
+                        success: false,
+                        duplicate: state.validate.email.duplicate
+                    },
+                    password: state.validate.password,
+                    terms: state.validate.terms
+                }
+            };
+        case SET_SIGN_UP_PASSWORD_REQUEST:
+            return {...state, loading: true};
+        case SET_SIGN_UP_PASSWORD_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                form: {
+                    email: action.email,
+                    password: state.form.password,
+                    terms: state.form.terms,
+                    date: new Date()
+                },
+                validate: {
+                    email: {
+                        success: true,
+                        duplicate: state.validate.email.duplicate
+                    },
+                    password: state.validate.password,
                     terms: state.validate.terms
                 }
             };
@@ -128,8 +157,32 @@ export function clientSignUpReducer(state = initialState, action) {
                     }
                 }
             };
-        case SET_SIGN_UP_INIT:
-            return {...state, initialState};
+        case SET_SIGN_UP_EMAIL_DUPLICATE_TRUE:
+            return {
+                ...state,
+                validate: {
+                    email: {
+                        success: state.validate.email.success,
+                        duplicate: true
+                    },
+                    password: state.validate.password,
+                    terms: state.validate.terms
+                }
+            };
+        case SET_SIGN_UP_EMAIL_DUPLICATE_FALSE:
+            return {
+                ...state,
+                validate: {
+                    email: {
+                        success: state.validate.email.success,
+                        duplicate: false
+                    },
+                    password: state.validate.password,
+                    terms: state.validate.terms
+                }
+            };
+        case SET_SIGN_UP_INIT_SUCCESS:
+            return initialState;
         default:
             return state;
     }
