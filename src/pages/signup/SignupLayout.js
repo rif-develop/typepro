@@ -19,9 +19,6 @@ class SignupLayout extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            modal: false
-        }
     }
 
     componentDidMount() {
@@ -30,17 +27,24 @@ class SignupLayout extends React.Component {
 
     componentWillUnmount() {
         store.dispatch({
-            type:"SET_SIGN_UP_INIT_REQUEST"
+            type: "SET_SIGN_UP_INIT_REQUEST"
         });
     }
 
     render() {
-        const {language, terms, setEmail, setTerms, setPassword, sendData, emailCheck, passwordCheck, termsCheck,duplicatedEmail} = this.props;
+        const {language, terms, setEmail, modalOpen, result, redirectUrl, modalType, setPassword, sendData, emailCheck, passwordCheck, termsCheck, duplicatedEmail} = this.props;
         return (
             <Fragment>
                 <Head title={'리틀원 - 회원가입'} description={'리틀원에 회원가입하고 다양한 육아정보를 얻어보세요.'} language={language}/>
                 <Header/>
-                {this.state.modal ? <ModalComponent/> : null}
+                {modalOpen && modalType === 'notEmail' ? <ModalComponent subject={'알림'} desc={'이메일을 입력해 주세요.'}/> : null}
+                {modalOpen && modalType === 'notPassword' ? <ModalComponent subject={'알림'} desc={'비밀번호를 입력해 주세요.'}/> : null}
+                {modalOpen && modalType === 'notTerms' ? <ModalComponent subject={'알림'} desc={'약관에 동의해 주세요.'}/> : null}
+                {modalOpen && modalType === 'server' ? <ModalComponent subject={'알림'} desc={'서버 에러'}/> : null}
+                {/*회원가입 완료시*/}
+                {result ? <ModalComponent subject={'성공'} desc={'회원가입이 완료되었습니다.'} action={()=>{
+                    this.props.history.push(redirectUrl)
+                }}/> : null}
                 <section className={styles['client-join-section']}>
                     <div className={styles['client-join-section--logo']}>
                         리틀원의 회원가입 섹션의 로고입니다.
@@ -54,10 +58,14 @@ class SignupLayout extends React.Component {
                         <form className={styles['client-join-section--form']} id="client-join-section--form" role="form">
                             <fieldset form="client-join-section--form">
                                 <legend>리틀원의 회원가입 폼입니다.</legend>
-                                <InputEmailComponent action={setEmail} duplicatedEmail={duplicatedEmail} emailCheck={emailCheck}/>
+                                <InputEmailComponent action={setEmail} duplicatedEmail={duplicatedEmail}/>
                                 <InputPasswordComponent action={setPassword}/>
-                                <InputTermsagreeComponent terms={terms} action={setTerms}/>
-                                <InputSubmitComponent action={sendData} emailCheck={emailCheck} passwordCheck={passwordCheck} termsCheck={termsCheck}/>
+                                <InputTermsagreeComponent terms={terms}/>
+                                <InputSubmitComponent action={sendData}
+                                                      emailCheck={emailCheck}
+                                                      passwordCheck={passwordCheck}
+                                                      termsCheck={termsCheck}
+                                                      duplicatedEmail={duplicatedEmail}/>
                             </fieldset>
                         </form>
                         {/*<div className={styles['client-join-section-horizontal-line']}>*/}
@@ -72,6 +80,7 @@ class SignupLayout extends React.Component {
         )
     }
 }
+
 //왠만하면 자식 컴포넌트들이 전달받아서 shouldcomponentupdate 할 수 있도록  밖에서 넘겨주자
 const mapStateToProps = (state) => {
     return {
@@ -81,6 +90,10 @@ const mapStateToProps = (state) => {
         emailCheck: state.clientSignUpReducer.validate.email.success,
         passwordCheck: state.clientSignUpReducer.validate.password.success,
         termsCheck: state.clientSignUpReducer.validate.terms.success,
+        modalType: state.modalReducer.modal.type,
+        modalOpen: state.modalReducer.modal.open,
+        result: state.clientSignUpReducer.result.success,
+        redirectUrl: state.clientSignUpReducer.result.redirectUrl,
     }
 };
 const mapDispatchToProps = (dispatch) => {
@@ -92,9 +105,6 @@ const mapDispatchToProps = (dispatch) => {
         setPassword: (password) => dispatch({
             type: 'SET_SIGN_UP_PASSWORD_REQUEST',
             password
-        }),
-        setTerms: () => dispatch({
-            type: 'SET_SIGN_UP_TERMS_REQUEST',
         }),
         sendData: () => dispatch({
             type: 'SET_SIGN_UP_COMPLETE_REQUEST',

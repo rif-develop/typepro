@@ -21,7 +21,6 @@ class IndexLayout extends React.Component {
         this.state = {
             data:null
         }
-        this.callBackendAPI = this.callBackendAPI.bind(this);
     }
 
 
@@ -50,15 +49,15 @@ class IndexLayout extends React.Component {
         // .catch( response => { console.log(response) } );
     }
 
-    callBackendAPI = async () => {
-        const response = await fetch('/express_backend');
-        const body = await response.json();
-
-        if (response.status !== 200) {
-            throw Error(body.message)
-        }
-        return body;
-    };
+    // callBackendAPI = async () => {
+    //     const response = await fetch('/express_backend');
+    //     const body = await response.json();
+    //
+    //     if (response.status !== 200) {
+    //         throw Error(body.message)
+    //     }
+    //     return body;
+    // };
 
     render() {
         const {language} = this.props;

@@ -1,11 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {HelmetProvider} from "react-helmet-async";
-import {applyMiddleware, createStore, compose} from 'redux';
-import {Route, BrowserRouter as Router, HashRouter, Switch, Redirect, } from "react-router-dom";
+import {Route, BrowserRouter as Router, HashRouter, Switch, Redirect,} from "react-router-dom";
 import {Provider} from 'react-redux';
-import createSagaMiddleware from "redux-saga";
-import reducer from "./reducers/index";
 import rootSaga from "./sagas";
 
 import {CheckWebBrowser} from "./lib/script";
@@ -27,14 +24,6 @@ import {sagaMiddleware, store} from './store/StoreComponent'
 
 const root = document.getElementById('app');
 
-
-/*미들웨어 구동*/
-sagaMiddleware.run(rootSaga);
-/*상태 변화시 마다 log 출력*/
-store.subscribe(function (e) {
-    console.log(store.getState());
-});
-
 /*IE버젼 체커*/
 const ieVersion = CheckWebBrowser();
 
@@ -48,6 +37,16 @@ const LauchableVersion = {
     safari: '',
 };
 
+/*미들웨어 구동*/
+sagaMiddleware.run(rootSaga);
+
+/*상태 변화시 마다 log 출력*/
+if (process.env.MODE === 'development') {
+    console.log('개발모드에서 작업 중입니다.');
+    store.subscribe(function (e) {
+        console.log(store.getState());
+    });
+}
 
 //화면 사이즈 저장
 window.addEventListener('resize', function () {

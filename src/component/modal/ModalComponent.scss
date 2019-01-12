@@ -101,10 +101,11 @@
       -o-transition: all 0.25s ease-out;
       transition: all 0.25s ease-out;
     }
-    button:hover, button:focus {
+    button:hover {
       color: #ff5274;
       opacity: .666;
     }
+
 
     /*삭제*/
     .__baby-delete-button {
@@ -128,6 +129,9 @@
       -ms-transform: translateX(-50%);
       -o-transform: translateX(-50%);
       transform: translateX(-50%);
+      &:focus{
+        outline: none;
+      }
     }
 
     /*아이 정보*/

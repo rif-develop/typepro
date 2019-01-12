@@ -67,11 +67,8 @@ function* signUpinit() {
     }
 }
 
-
-/*회원가입*/
-function* signUpSubmit() {
-
-    axios({
+function requestJoin() {
+    return axios({
         method: 'post',
         url: '/request/signup',
         data: {
@@ -79,29 +76,27 @@ function* signUpSubmit() {
             password: store.getState().clientSignUpReducer.form.password,
             terms: store.getState().clientSignUpReducer.form.terms
         }
-    }).then((res) => {
-        console.log(res);
-    }).catch((error) => {
-        console.log(error);
     });
+}
 
-    // try {
-    //     const result = yield call(axiosSaga);
-    //     const response = result.data;
-    //
-    //     if (result.data.success === true) {
-    //
-    //     }
-    //
-    //     yield put({
-    //         type: 'SET_SIGN_UP_COMPLETE_SUCCESS',
-    //         response
-    //     })
-    // } catch (error) {
-    //     yield put({
-    //         type: 'SET_SIGN_UP_COMPLETE_FAILURE',
-    //         error
-    //     })
-    // }
+/*회원가입*/
+function* signUpSubmit() {
+
+    try {
+        const result = yield call(requestJoin);
+        const response = result.data;
+        if (response.success) {
+            yield put({
+                type: 'SET_SIGN_UP_COMPLETE_SUCCESS',
+                response
+            })
+        } else {
+            yield put({
+                type: 'SET_SIGN_UP_COMPLETE_FAILURE'
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
 
 }

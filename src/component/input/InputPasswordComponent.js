@@ -5,6 +5,7 @@ import classnames from 'classnames';
 const cx = classnames.bind(styles);
 import {Validations} from "../../lib/validation";
 import {checkAnimation} from "../../lib/script";
+import {store} from "../../store/StoreComponent";
 
 class InputPasswordComponent extends React.Component {
 
@@ -25,7 +26,7 @@ class InputPasswordComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            error: false,
+            validation: null,
             checkAni: false,
             removeBtn: false
         };
@@ -46,33 +47,41 @@ class InputPasswordComponent extends React.Component {
 
         if (val.length === 0) {
             this.setState({
-                error: false,
+                validation: null,
                 checkAni: false,
                 removeBtn: false
             });
             return;
         }//end if
 
+        //유효성 검사에 통과시
         if (result) {
             this.setState({
-                error: false,
+                validation: null,
                 checkAni: true
             });
             checkAnimation(this.check.current);
-            this.props.action(this.inputComponent.current.value);
+            //
+            store.dispatch({
+                type:"SET_SIGN_UP_PASSWORD_SUCCESS",
+                password:this.inputComponent.current.value
+            })
 
         } else {
-
+            //유효성 검사 실패시
             this.setState({
-                error: true,
-                checkAni: false
+                validation: 'validationFail',
+                checkAni: false,
+                removeBtn:false
             });
 
             this.inputComponent.current.value = null;
             this.inputComponent.current.focus();
-            /*빈값을 디스패치*/
-            this.props.action(this.inputComponent.current.value);
 
+            /*빈값을 디스패치*/
+            store.dispatch({
+                type:"SET_SIGN_UP_PASSWORD_FAILURE",
+            })
         }//end if~else
 
     }
@@ -82,7 +91,7 @@ class InputPasswordComponent extends React.Component {
         const isLen = val.length > 0;
         isLen ? this.setState({
             removeBtn: true,
-            error: false
+            validation: null
         }) : this.setState({
             removeBtn: false
         });
@@ -96,8 +105,10 @@ class InputPasswordComponent extends React.Component {
             checkAni: false
         });
         ref.focus();
-        /*빈 값을 리덕스로 디스패치*/
-        this.props.action(ref.value);
+        /*빈값을 디스패치*/
+        store.dispatch({
+            type:"SET_SIGN_UP_PASSWORD_FAILURE",
+        })
     }
 
 
@@ -125,8 +136,7 @@ class InputPasswordComponent extends React.Component {
                            className={styles['__default-input-component']}
                            ref={this.inputComponent}
                            onBlur={this.onBlurHandler}
-                           onKeyDown={this.onKeyHandler}
-                           onKeyUp={this.onKeyHandler}
+                           onChange={this.onKeyHandler}
                            onFocus={this.onFocusHandler}/>
                     <div className={cx(styles['__remove-input-button'], this.state.removeBtn ? styles['active'] : null)}
                          ref={this.removeBtn}
@@ -144,7 +154,7 @@ class InputPasswordComponent extends React.Component {
                     </svg>
                 </div>
                 <div className={styles['client-join-section--form--warning']}>
-                    <em>{this.state.error ? InputPasswordComponent.defaultState.validationError : null}</em>
+                    <em>{this.state.validation === 'validationFail' ? '알파벳, 숫자, 특수문자로 조합된 8~20자 사이로 입력해주세요' : null}</em>
                 </div>
             </div>
         )

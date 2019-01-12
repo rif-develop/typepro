@@ -19,9 +19,7 @@ const SET_SIGN_UP_COMPLETE_REQUEST = 'SET_SIGN_UP_COMPLETE_REQUEST';
 const SET_SIGN_UP_COMPLETE_SUCCESS = 'SET_SIGN_UP_COMPLETE_SUCCESS';
 const SET_SIGN_UP_COMPLETE_FAILURE = 'SET_SIGN_UP_COMPLETE_FAILURE';
 /*초기화*/
-const SET_SIGN_UP_INIT_REQUEST = 'SET_SIGN_UP_INIT_REQUEST';
 const SET_SIGN_UP_INIT_SUCCESS = 'SET_SIGN_UP_INIT_SUCCESS';
-const SET_SIGN_UP_INIT_FAILURE = 'SET_SIGN_UP_INIT_FAILURE';
 
 
 const initialState = {
@@ -38,13 +36,16 @@ const initialState = {
             duplicate: false
         },
         password: {
-            success: null
+            success: false
         },
         terms: {
-            success: null,
+            success: false,
         }
     },
-    redirectUrl: null
+    result: {
+        success: false,
+        redirectUrl: null
+    }
 };
 
 
@@ -88,7 +89,7 @@ export function clientSignUpReducer(state = initialState, action) {
                     },
                     password: state.validate.password,
                     terms: state.validate.terms
-                }
+                },
             };
         case SET_SIGN_UP_PASSWORD_REQUEST:
             return {...state, loading: true};
@@ -97,22 +98,43 @@ export function clientSignUpReducer(state = initialState, action) {
                 ...state,
                 loading: false,
                 form: {
-                    email: action.email,
-                    password: state.form.password,
+                    email: state.form.email,
+                    password: action.password,
                     terms: state.form.terms,
                     date: new Date()
                 },
                 validate: {
                     email: {
-                        success: true,
+                        success: state.validate.email.success,
                         duplicate: state.validate.email.duplicate
                     },
-                    password: state.validate.password,
+                    password: {
+                        success: true
+                    },
                     terms: state.validate.terms
-                }
+                },
             };
         case SET_SIGN_UP_PASSWORD_FAILURE:
-            return {...state, loading: false, error: action.error};
+            return {
+                ...state,
+                loading: false,
+                form: {
+                    email: state.form.email,
+                    password: null,
+                    terms: state.form.terms,
+                    date: new Date()
+                },
+                validate: {
+                    email: {
+                        success: state.validate.email.success,
+                        duplicate: state.validate.email.duplicate
+                    },
+                    password: {
+                        success: false
+                    },
+                    terms: state.validate.terms
+                },
+            };
         case SET_SIGN_UP_TERMS_REQUEST:
             return {...state, loading: true, error: null};
         case SET_SIGN_UP_TERMS_SUCCESS:
@@ -124,7 +146,9 @@ export function clientSignUpReducer(state = initialState, action) {
                 validate: {
                     email: state.validate.email,
                     password: state.validate.password,
-                    terms: !state.validate.terms
+                    terms: {
+                        success: !state.validate.terms.success
+                    }
                 }
             };
         case SET_SIGN_UP_TERMS_FAILURE:
@@ -138,23 +162,14 @@ export function clientSignUpReducer(state = initialState, action) {
             };
         case SET_SIGN_UP_COMPLETE_SUCCESS:
             return {
-                ...state, result: {
-                    loading: true,
-                    error: null,
-                    response: action.response
-                }
+                ...state, result: action.response
             };
 
         case SET_SIGN_UP_COMPLETE_FAILURE:
             return {
                 ...state, result: {
-                    loading: false,
-                    error: action.error,
-                    response: {
-                        success: false,
-                        redirectUrl: null,
-                        duplicate: false
-                    }
+                    success: false,
+                    redirectUrl: null
                 }
             };
         case SET_SIGN_UP_EMAIL_DUPLICATE_TRUE:

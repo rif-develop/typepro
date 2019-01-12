@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import styles from "../../pages/signup/SignupLayout.scss";
 import classnames from 'classnames';
 import {checkAnimation} from "../../lib/script";
-import {connect} from "react-redux";
+import {store} from "../../store/StoreComponent";
 
 const cx = classnames.bind(styles);
 
@@ -15,9 +15,13 @@ class InputTermsagreeComponent extends React.Component {
         this.onChangeHandler = this.onChangeHandler.bind(this);
     }
 
-    onChangeHandler(e){
-        this.props.action()
-        checkAnimation(this.check.current);
+    onChangeHandler(e) {
+        store.dispatch({
+            type: 'SET_SIGN_UP_TERMS_SUCCESS'
+        });
+        if (!this.props.terms) {
+            checkAnimation(this.check.current);
+        }
     }
 
 
