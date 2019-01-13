@@ -11,14 +11,35 @@ import {connect} from "react-redux";
 import Footer from "../../component/footer/Footer";
 import InputLoginEmailComponent from "../../component/input/InputLoginEmailComponent";
 import InputLoginPasswordComponent from "../../component/input/InputLoginPasswordComponent";
+import axios from 'axios';
 
 const cx = classnames.bind(styles);
 
 class LoginLayout extends React.Component {
 
-    componentDidMount() {
-        document.body.scrollTo(0,0);
 
+    constructor(props){
+        super(props);
+
+        this.longinHandler = this.longinHandler.bind(this);
+    }
+    componentDidMount() {
+        document.body.scrollTo(0, 0);
+    }
+
+    longinHandler() {
+        axios({
+            method:'post',
+            url: "/login",
+            data: {
+                email: 'test@naver.com',
+                password: '123a123a!'
+            }
+        }).then((res) => {
+            console.log(res);
+        }).catch((err) => {
+            console.log(err);
+        })
     }
 
     render() {
@@ -32,7 +53,7 @@ class LoginLayout extends React.Component {
                         리틀원 로그인 섹션의 기업로고입니다.
                     </div>
                     <div className={styles['login-section-form']}>
-                        <form method="post" action="/login" role="form" id="littleone-login-form">
+                        <form method="post" role="form" id="littleone-login-form">
                             <fieldset form={'littleone-login-form'}>
                                 <legend>리틀원의 로그인 페이지입니다. 아이디 비밀번호 입력 후 로그인 하실 수 있습니다.</legend>
                                 <InputLoginEmailComponent/>
@@ -40,7 +61,10 @@ class LoginLayout extends React.Component {
                                 <div className={styles['login-section-warning-text']}></div>
                                 <div className={styles['login-section-captcha-area']} id="gcaptcha_div"></div>
                                 <div className={styles['login-section-form--submit']}>
-                                    <button type="submit" className={styles['__login-button']} role="button">로그인</button>
+                                    <button type="submit" className={styles['__login-button']} role="button" onClick={(e)=>{
+                                        e.preventDefault();
+                                        this.longinHandler();
+                                    }}>로그인</button>
                                 </div>
                                 <div className={styles['login-section-find-action-box']}>
                                     <AutoLogin/>
@@ -54,8 +78,8 @@ class LoginLayout extends React.Component {
                         </form>
                     </div>
                     {/*<div className={styles['login-section-horizontal-line']}>*/}
-                        {/*<em>OR</em>*/}
-                        {/*<span className={styles['login-section-horizontal-line--bar']}></span>*/}
+                    {/*<em>OR</em>*/}
+                    {/*<span className={styles['login-section-horizontal-line--bar']}></span>*/}
                     {/*</div>*/}
                     {/*<SocialSignButton/>*/}
                     <div className={styles['login-section-join']}>

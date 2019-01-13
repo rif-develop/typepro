@@ -70,7 +70,7 @@ function* signUpinit() {
 function requestJoin() {
     return axios({
         method: 'post',
-        url: '/request/signup',
+        url: '/signup/signup',
         data: {
             email: store.getState().clientSignUpReducer.form.email,
             password: store.getState().clientSignUpReducer.form.password,

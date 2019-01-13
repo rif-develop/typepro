@@ -83,7 +83,7 @@ class InputEmailComponent extends React.Component {
         //아이디 중복 검사
         axios({
             method: 'post',
-            url: '/emailcheck',
+            url: '/signup/emailcheck',
             data: {
                 email: val
             }

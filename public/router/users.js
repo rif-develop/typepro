@@ -29,7 +29,7 @@ router.post('/emailcheck', (req, res) => {
 
 
 /*회원가입 요청*/
-router.post('/request/signup', [
+router.post('/signup', [
     check('email')
         .isEmail()
         .matches(/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/),
