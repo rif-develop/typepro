@@ -84,6 +84,8 @@
     "firebase": "^5.7.2",
     "fs": "0.0.1-security",
     "fullpage.js": "^3.0.4",
+    "jquery-ajax": "^2.1.4",
+    "multer": "^1.4.1",
     "nexmo": "^2.4.0",
     "pm2": "^3.2.7",
     "react-anime": "^2.2.0",

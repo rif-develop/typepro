@@ -13,6 +13,8 @@ import Footer from "../../component/footer/Footer";
 import Header from "../../component/header/Header";
 import {connect} from "react-redux";
 import axios from 'axios';
+import {getSessionAxios} from "../../action/session/sessionAxios";
+import {store} from "../../store/StoreComponent";
 
 class IndexLayout extends React.Component {
 
@@ -23,6 +25,19 @@ class IndexLayout extends React.Component {
         }
     }
 
+    componentWillMount() {
+        //세션을 받아와서 상태 갱신
+        getSessionAxios().then((res)=>{
+            console.log(res);
+            if(res.data.isSession){
+                store.dispatch({
+                    type:'WEB_LOGIN_REQUEST'
+                });
+            } else {
+                console.log('세션 없음');
+            }
+        });
+    }
 
     componentWillReceiveProps(nextProps, nextContext) {
     }
@@ -38,26 +53,9 @@ class IndexLayout extends React.Component {
 
     componentDidMount() {
         document.body.scrollTo(0,0);
-        // this.callBackendAPI()
-        //     .then(res => this.setState({ data: res.express }))
-        //     .catch(err => console.log(err));
-        //
-        // axios.get('/user', {
-        //     params: { id: 'velopert' }
-        // })
-        //     .then( response => { console.log(response) } )
-        // .catch( response => { console.log(response) } );
+
     }
 
-    // callBackendAPI = async () => {
-    //     const response = await fetch('/express_backend');
-    //     const body = await response.json();
-    //
-    //     if (response.status !== 200) {
-    //         throw Error(body.message)
-    //     }
-    //     return body;
-    // };
 
     render() {
         const {language} = this.props;

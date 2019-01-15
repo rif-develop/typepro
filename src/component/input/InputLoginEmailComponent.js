@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from "../../pages/login/Login.scss";
 import classnames from 'classnames';
+import {store} from "../../store/StoreComponent";
 
 const cx = classnames.bind(styles);
 
@@ -21,11 +22,23 @@ class InputLoginEmailComponent extends React.Component {
 
     onKeyHandler(ref) {
         const val = ref.value.length;
-        val > 0 ? this.setState({
-            removeBtn: true
-        }) : this.setState({
-            removeBtn: false
-        })
+        if (val > 0) {
+            this.setState({
+                removeBtn: true
+            });
+            store.dispatch({
+                type: 'SET_LOGIN_EMAIL_REQUEST',
+                email: ref.value
+            });
+        } else {
+            this.setState({
+                removeBtn: false
+            });
+            store.dispatch({
+                type: 'SET_LOGIN_EMAIL_REQUEST',
+                email: null
+            });
+        }
     }
 
     removeHandler(ref) {
@@ -33,8 +46,13 @@ class InputLoginEmailComponent extends React.Component {
         this.setState({
             removeBtn: false
         });
+        store.dispatch({
+            type: 'SET_LOGIN_EMAIL_REQUEST',
+            email: null
+        });
         ref.focus();
     }
+
 
     render() {
         return (
@@ -48,12 +66,14 @@ class InputLoginEmailComponent extends React.Component {
                        autoCapitalize={'off'}
                        placeholder={'이메일(아이디)'}
                        ref={this.loginInput}
-                       onKeyDown={(e) => {
+                       onChange={(e) => {
+                           e.preventDefault();
                            this.onKeyHandler(this.loginInput.current);
                        }}
-                       onKeyUp={(e) => {
-                           this.onKeyHandler(this.loginInput.current);
-                       }}/>
+                       onBlur={(e) => {
+                           e.preventDefault();
+                           this.onKeyHandler(this.loginInput.current)
+                       }} defaultValue={'test@naver.com'}/>
                 <div className={cx(styles['__remove-component'], this.state.removeBtn ? styles['active'] : null)} role="button" onClick={() => {
                     this.removeHandler(this.loginInput.current);
                 }}>닫기

@@ -19,13 +19,13 @@ const userSchema = new Schema({
             type: String,
             required: false,
             unique: false,
-            default:null
+            default: null
         },
         last: {
             type: String,
             required: false,
             unique: false,
-            default:null
+            default: null
 
         }
     },
@@ -73,6 +73,17 @@ const userSchema = new Schema({
         enum: ['personal', 'enterprise', 'social'],
         default: 'personal'
     },
+    grade: {
+        type: Number,
+        required: false,
+        enum: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+        default: 0
+    },
+    point:{
+        type: Number,
+        required: false,
+        default: 1000
+    },
     status: {
         visit: {
             type: Number,
@@ -94,6 +105,11 @@ const userSchema = new Schema({
             required: false,
             default: new Date()
 
+        },
+        lastModifiedPw:{
+          type:Date,
+          required:false,
+          default:new Date()
         },
         signupDate: {
             type: Date,

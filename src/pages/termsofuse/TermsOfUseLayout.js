@@ -31,8 +31,25 @@ import TermsComponent24 from '../../component/terms/_TermsComponent24';
 import Head from "../../component/head/head";
 import Header from "../../component/header/Header";
 import Footer from "../../component/footer/Footer";
+import {getSessionAxios} from "../../action/session/sessionAxios";
+import {store} from "../../store/StoreComponent";
 
 class TermsOfUseLayout extends React.Component {
+
+    componentWillMount() {
+        getSessionAxios().then((res)=>{
+            console.log(res);
+            if(res.data.isSession){
+                store.dispatch({
+                    type:'WEB_LOGIN_REQUEST'
+                });
+            } else {
+                console.log('세션 없음');
+            }
+        });
+    }
+
+
     render() {
         const {language} = this.props;
         return (

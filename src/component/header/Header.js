@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {Link} from "react-router-dom";
 import styles from './Header.scss';
 import classnames from 'classnames';
@@ -6,8 +6,6 @@ import {connect} from "react-redux";
 import HeaderAlarm from "../headerAlarm/HeaderAlarm";
 import ClientInfo from "../clientInfo/ClientInfo";
 import MobileMenu from "../mobileMenu/MobileMenu";
-import DefaultLoading from '../loading/DefaultLoading'
-import Anime from 'react-anime';
 import SubLink from "../sublink/SubLink";
 
 const cx = classnames.bind(styles);
@@ -82,15 +80,7 @@ class Header extends React.Component {
 
     render() {
 
-        const {loading, error, alarmList, clientMenu, mobileMenu, onClickClientHandler, onClickAlarmHandler, onClickMobileHandler} = this.props;
-
-        let openanimeState = {
-            opacity: [0.7, 1],
-            height: ['0%', '100%'],
-            duration: 600,
-            easing: 'easeInSine'
-        };
-
+        const {loading, error, alarmList, clientMenu, isLogin, mobileMenu, onClickClientHandler, onClickAlarmHandler, onClickMobileHandler} = this.props;
 
         return (
             <header className={styles['header']} id={'header-component'} onMouseLeave={this.onMouseLeaveHandler}>
@@ -148,24 +138,26 @@ class Header extends React.Component {
                     </nav>
                     <div className={styles['header--menu']}>
                         {/*로그인*/}
-                        <div className={styles['header--menu__login']}>
-                            <Link to="/login">
-                                로그인
-                            </Link>
-                        </div>
-                        {/*알람*/}
-                        {/*<div className={styles['header--menu__alarm']} role="graphics-object" onClick={onClickAlarmHandler}>*/}
-                        {/*<div className={styles['header--menu__alarm__notification']}></div>*/}
-                        {/*<HeaderAlarm active={alarmList}/>*/}
-                        {/*</div>*/}
-                        {/*유저정보*/}
-                        {/*<div className={styles['header--menu__client-info']} role="graphics-symbol" onClick={onClickClientHandler}>*/}
-                        {/*<a href="javascript:void(0)">*/}
-                        {/*<img src={require('./icon-144.png')} alt={'client-thumbnail'}/>*/}
-                        {/*</a>*/}
-                        {/*/!*유저 정보 창 들어올 곳*!/*/}
-                        {/*<ClientInfo active={clientMenu}/>*/}
-                        {/*</div>*/}
+                        {
+                            !isLogin ?
+                                <div className={styles['header--menu__login']}>
+                                    <Link to="/login">
+                                        로그인
+                                    </Link>
+                                </div> :
+                                <Fragment>
+                                    <div className={styles['header--menu__alarm']} role="graphics-object" onClick={onClickAlarmHandler}>
+                                        <div className={styles['header--menu__alarm__notification']}></div>
+                                        <HeaderAlarm active={alarmList}/>
+                                    </div>
+                                    <div className={styles['header--menu__client-info']} role="graphics-symbol" onClick={onClickClientHandler}>
+                                        <a href="javascript:void(0)">
+                                            <img src={require('./icn-no-baby@2x.png')} alt={'client-thumbnail'}/>
+                                        </a>
+                                        <ClientInfo active={clientMenu}/>
+                                    </div>
+                                </Fragment>
+                        }
                     </div>
                     {/*모바일용 메뉴*/}
                     <div className={styles['header--hamburger']} onClick={this.onClickMobileMenuHandler}>
@@ -177,7 +169,7 @@ class Header extends React.Component {
                     </div>
                 </div>
                 {/*모바일 슬라이더 메뉴*/}
-                <MobileMenu active={this.state.mobileMenu}/>
+                <MobileMenu active={this.state.mobileMenu} isLogin={isLogin}/>
                 {/*서브링크(제품)*/}
                 <SubLink active={this.state.subMenu}/>
             </header>
@@ -190,7 +182,8 @@ const mapStateToProps = state => {
         loading: state.headerReducer.loading,
         alarmList: state.headerReducer.alarmList,
         clientMenu: state.headerReducer.clientMenu,
-        error: state.headerReducer.error
+        error: state.headerReducer.error,
+        isLogin:state.clientStatusReducer.login.isLogin
     }
 };
 const mapDispatchToProps = (dispatch) => {
@@ -205,4 +198,4 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header)
+export default  connect(mapStateToProps, mapDispatchToProps)(Header)

@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from "../../pages/login/Login.scss";
 import classnames from 'classnames';
+import {store} from "../../store/StoreComponent";
 
 const cx = classnames.bind(styles);
 
@@ -24,13 +25,25 @@ class InputLoginPasswordComponent extends React.Component {
 
     onKeyHandler(ref) {
         const val = ref.value.length;
-        val > 0 ? this.setState({
-            removeBtn: true,
-        }) : this.setState({
-            removeBtn: false,
-            visiblePassword: false,
-            inputType:false
-        })
+        if(val > 0){
+            this.setState({
+                removeBtn:true
+            });
+            store.dispatch({
+                type:"SET_LOGIN_PASSWORD_REQUEST",
+                password:ref.value
+            });
+        } else {
+            this.setState({
+                removeBtn: false,
+                visiblePassword: false,
+                inputType:false
+            });
+            store.dispatch({
+                type:"SET_LOGIN_PASSWORD_REQUEST",
+                password:null
+            });
+        }
     }
 
     removeHandler(ref) {
@@ -39,7 +52,12 @@ class InputLoginPasswordComponent extends React.Component {
             removeBtn: false,
             visiblePassword: false
         });
+        store.dispatch({
+            type:"SET_LOGIN_PASSWORD_REQUEST",
+            password:null
+        });
         ref.focus();
+
     }
 
     visiblePassword() {
@@ -64,9 +82,12 @@ class InputLoginPasswordComponent extends React.Component {
                     placeholder={'비밀번호'}
                     onKeyDown={() => {
                         this.onKeyHandler(this.passwordInput.current);
-                    }} onKeyUp={() => {
-                    this.onKeyHandler(this.passwordInput.current);
-                }}/>
+                    }}
+                    onBlur={()=>{
+                        this.onKeyHandler(this.passwordInput.current);
+                    }}
+                    defaultValue={'123a123a!'}
+                />
                 <div className={cx(styles['__remove-component'], this.state.removeBtn ? styles['active'] : null)} role="button"
                      onClick={() => {
                          this.removeHandler(this.passwordInput.current);

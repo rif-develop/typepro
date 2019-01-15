@@ -38,9 +38,6 @@ export function execDaumPostcode(zipcode, address1, address2) {
                 // 커서를 상세주소 필드로 이동한다.
                 document.getElementById(address2).focus();
 
-                /*zipcode 부모의 포커스 active 삭제*/
-                var target = document.querySelector('div[data-input-component=zipcode]');
-                target.classList.remove('active');
             }
         }).open();
     });//주소 동적 로딩

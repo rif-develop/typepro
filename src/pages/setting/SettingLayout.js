@@ -9,10 +9,30 @@ import AlarmMenu from "./menu/AlarmMenu";
 import MeasureMenu from "./menu/MeasureMenu";
 import SubscribeMenu from "./menu/SubscribeMenu";
 import WithdrawalMenu from "./menu/WithdrawalMenu";
+import {getSessionAxios} from "../../action/session/sessionAxios";
+import {store} from "../../store/StoreComponent";
 
 const cx = classnames.bind(styles);
 
 class SettingLayout extends React.Component {
+
+    constructor(props){
+        super(props);
+    }
+
+    componentWillMount() {
+        getSessionAxios().then((res)=>{
+            console.log(res);
+            if(res.data.isSession){
+                store.dispatch({
+                    type:'WEB_LOGIN_REQUEST'
+                });
+            } else {
+                console.log('세션 없음');
+            }
+        });
+    }
+
     render() {
         const {language, error, loading, menu,onClickHandler} = this.props;
         return (

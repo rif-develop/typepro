@@ -375,15 +375,23 @@
 
   }
   //login-section-join
-
+  .login-section-warning-text.active{
+    padding: 24px 0;
+    p{
+      color:#ff1a6f;
+    }
+  }
   .login-section-warning-text {
-
-    padding: 18px 0;
+    padding: 17px 0;
     text-align: center;
+    -webkit-transition: all 0.25s ease-out;
+    -moz-transition: all 0.25s ease-out;
+    -ms-transition: all 0.25s ease-out;
+    -o-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
 
     p {
-      display: inline-block;
-      color: #ff1a6f;
+      color: #fff;
       letter-spacing: -0.5px;
       font-size: 14px;
       font-weight: 300;

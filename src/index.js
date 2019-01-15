@@ -74,9 +74,9 @@ if (ieVersion < LauchableVersion.ie) {
                         <Route exact path={'/device/smartpeepee'} component={PeepeeLayout}/>
                         <Route exact path={'/device/smarttemp'} component={TempLayout}/>
                         <Route exact path={'/mypage/setting'} component={SettingLayout}/>
+                        <Route exact path={'/mypage/address'} component={AddressLayout}/>
                         <Route exact path={'/privacypolicy'} component={PrivacypolicyLayout}/>
                         <Route exact path={'/termsofuse'} component={TermsOfUseLayout}/>
-                        <Route exact path={'/mypage/address'} component={AddressLayout}/>
                         <Route exact path={'/signup'} component={SignupLayout}/>
                         <Route exact path={'/findid'} component={FindClientIdLayout}/>
                         <Route exact path={'/findpassword'} component={FindClientPasswordLayout}/>

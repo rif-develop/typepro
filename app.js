@@ -1,6 +1,5 @@
 const path = require('path');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const express = require('express');
 const session = require('express-session');
@@ -11,6 +10,7 @@ const redisOption = require('./public/middleware/Redis');
 mongoose.Promise = global.Promise;
 const userRouter = require('./public/router/users');
 const loginRouter = require('./public/router/login');
+const addressRouter = require('./public/router/AddressRouter');
 
 /*환경변수 불러오기*/
 const envResult = require('dotenv').config({
@@ -27,10 +27,11 @@ console.log(`${process.env.WHO_IS_DEVELOPER}님이 어플리케이션 서버를 
 
 /*미들웨어*/
 app.use(cookieParser());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+//json parser
 app.use(express.json());
-//redis 사용
+app.use(express.urlencoded({extended: false}));
+
+//session redis 사용
 app.use(session(redisOption));
 
 //라우터
@@ -39,6 +40,9 @@ app.use('/images', express.static(__dirname + '/dist/images'));
 app.use('/signup', userRouter);
 // 로그인 라우터
 app.use(loginRouter);
+//배송지 관리 라우터
+app.use('/address', addressRouter);
+
 //배포용 파일 경로
 app.use('/dist', express.static(__dirname + '/dist'));
 
@@ -49,17 +53,32 @@ app.use('/', express.static(__dirname));
 app.get('*', (req, res) => {
     console.log('### 요청에 의한 페이지 렌더링 ###');
 
-    console.log('session id:', req.session.key)
     const sessionKey = `sess:${req.session.key}`;
 
     client.get(sessionKey, (err, data) => {
-        console.log('session data in redis:', data)
+        console.log('레디스에 있는 세션:', data)
     });
     res.sendFile(path.resolve(__dirname, 'index.html'))
 });
+//세션 넘겨주기
+app.use('/getsession', (req, res, next) => {
+    console.log('#세션이 있습니다.');
+    if (req.session.key) {
+        res.json({
+            isSession:true,
+            session:req.session.key
+        });
+    } else{
+        res.json({
+            isSession:false,
+            session:req.session.key
+        });
+
+    }
+});
 
 client.keys("sess:*", (err, keys) => {
-    console.log(keys.length);
+    console.log('#'+ keys.length+'2개의 세션이 구동 중입니다.');
 });
 
 
