@@ -22,6 +22,7 @@
     height: 100px;
     background: url("./littleone.svg") no-repeat center/contain;
   }
+
   //delivery-manage-section--logo
 
   .delivery-manage-section-horizontal-bar {
@@ -32,6 +33,7 @@
     background-color: #000;
 
   }
+
   //delivery-manage-section-horizontal-bar
 
   .delivery-manage-section--desc {
@@ -57,11 +59,13 @@
     }
 
   }
+
   //delivery-manage-section--desc
 
   .delivery-manage-section--button-box {
     padding: 26px 0 10px 0;
     text-align: right;
+
     .__register-address-btn {
       display: inline-block;
       border: none;
@@ -83,15 +87,18 @@
       -o-transition: all 0.4s ease-out;
       transition: all 0.4s ease-out;
     }
+
     .active {
       background-color: #19ebdd;
       cursor: pointer;
     }
+
     .__register-address-btn:hover {
       opacity: .666;
       color: #fafafa;
     }
   }
+
   //delivery-manage-section--button-box
 
   .delivery-manage-section--list {
@@ -112,9 +119,11 @@
       padding: 77px 0;
 
     }
+
     //none-address
 
   }
+
   //delivery-manage-section--list
 
   .delivery-manage-section--list--info {
@@ -128,10 +137,29 @@
     box-sizing: border-box;
     margin-bottom: 10px;
 
+    .delivery-manage-section--list--info--head.active {
+      background-color: #19ebdd;
+      padding: 16px;
+
+      h2{
+        font-size: 1.25em;
+      }
+
+      span{
+        font-size: 1.25em;
+
+      }
+    }
+
     .delivery-manage-section--list--info--head {
       padding: 10px 18px;
       background-color: #e8ecf5;
       text-align: left;
+      -webkit-transition: all 0.3s ease-out;
+      -moz-transition: all 0.3s ease-out;
+      -ms-transition: all 0.3s ease-out;
+      -o-transition: all 0.3s ease-out;
+      transition: all 0.3s ease-out;
 
       h2 {
         display: inline-block;
@@ -151,6 +179,7 @@
       }
 
     }
+
     //delivery-manage-section--list--info--head
 
     .delivery-manage-section--list--info--desc {
@@ -172,6 +201,7 @@
           -ms-word-wrap: break-word;
           word-wrap: break-word;
         }
+
         > div:nth-of-type(2) {
           display: inline-block;
           width: 95%;
@@ -184,18 +214,22 @@
           width: 80px;
 
         }
+
         //client-delivery-info
       }
+
       .__last-components {
         padding-bottom: 0;
       }
 
     }
+
     //delivery-manage-section--list--info--desc
 
     .delivery-manage-section--list--info--button-box {
       padding: 7px 14px 14px 14px;
       text-align: right;
+
       button {
         cursor: pointer;
         display: inline-block;
@@ -217,14 +251,17 @@
         -o-transition: all 0.45s ease-out;
         transition: all 0.45s ease-out;
       }
+
       button:hover {
         opacity: 0.66;
       }
 
     }
+
     //delivery-manage-section--list--info--button-box
 
   }
+
   //delivery-manage-section--list--info
 
 }
@@ -248,10 +285,12 @@
   }
   .delivery-manage-section .delivery-manage-section--desc {
     margin-top: 18px;
+
     h1 {
       font-size: 18px;
       letter-spacing: -0.5px;
     }
+
     p {
       margin-top: 18px;
       font-size: 10px;

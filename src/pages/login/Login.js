@@ -31,28 +31,34 @@ class LoginLayout extends React.Component {
 
     componentDidMount() {
         document.body.scrollTo(0, 0);
+        if(this.props.isLogin){
+            alert('이미 로그인 되어 있습니다.');
+            this.props.history.push('/');
+        }
     }
 
     componentWillMount() {
 
         //세션 가져오기
-        getSessionAxios().then((res)=>{
-            console.log(res);
-            if(res.data.isSession){
-                //리덕스에 로그인상태로 디스패치
+        //세션을 받아와서 상태 갱신
+        getSessionAxios().then((res) => {
+            //isSession이 트루면 로그인 된 삳ㅇ태
+            if (res.data.isSession) {
                 store.dispatch({
-                    type:'WEB_LOGIN_REQUEST'
+                    type: 'WEB_LOGIN_REQUEST',
+                    session: res.data.session
                 });
-            } else{
+            } else {
                 console.log('세션 없음');
             }
+        }).catch((err) => {
+            console.log(err);
+            store.dispatch({
+                type: 'WEB_LOGOUT_REQUEST',
+            });
+        })
 
-        });
 
-        if(this.props.isLogin){
-            alert('이미 로그인 되어 있습니다.');
-            this.props.history.push('/');
-        }
 
 
     }
@@ -66,7 +72,8 @@ class LoginLayout extends React.Component {
                 this.props.history.push('/');
                 //리덕스에 로그인 상태로 갱신
                 store.dispatch({
-                    type:'WEB_LOGIN_REQUEST'
+                    type:'WEB_LOGIN_REQUEST',
+                    session:res.data.key
                 })
             } else if (!data.success) {
                 this.setState({

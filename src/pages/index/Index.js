@@ -21,22 +21,28 @@ class IndexLayout extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            data:null
+            data: null
         }
     }
 
     componentWillMount() {
         //세션을 받아와서 상태 갱신
-        getSessionAxios().then((res)=>{
-            console.log(res);
-            if(res.data.isSession){
+        getSessionAxios().then((res) => {
+            //isSession이 트루면 로그인 된 삳ㅇ태
+            if (res.data.isSession) {
                 store.dispatch({
-                    type:'WEB_LOGIN_REQUEST'
+                    type: 'WEB_LOGIN_REQUEST',
+                    session: res.data.session
                 });
             } else {
                 console.log('세션 없음');
             }
-        });
+        }).catch((err) => {
+            console.log(err);
+            store.dispatch({
+                type: 'WEB_LOGOUT_REQUEST',
+            });
+        });//axios
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
@@ -52,7 +58,7 @@ class IndexLayout extends React.Component {
     }
 
     componentDidMount() {
-        document.body.scrollTo(0,0);
+        document.body.scrollTo(0, 0);
 
     }
 
@@ -90,9 +96,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
     return {
-        onClickHandler: () => dispatch({
-
-        })
+        onClickHandler: () => dispatch({})
     }
 };
 

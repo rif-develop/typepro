@@ -6,7 +6,7 @@ import {watcherAutoLogin} from "./autoLoginSaga";
 import {wathcerAlarmHeader, wathcerClientInfoHeader, watcherMobileMenu} from './headerSaga';
 import {wathcerWindowWidth} from "./clientStatusAction";
 import {watcherSetting} from "./settingAction";
-import {watcherAddress} from './addressAction';
+import {watcherAddress, watcherAddressList, watcherAddressRemove, watcherSetDefaultAddress} from './addressAction';
 import {wathcerPhoneAuth} from "./phoneAuthAction";
 import {wathcerSignup} from './clientSingUpAction'
 
@@ -23,7 +23,10 @@ export default function* rootSaga() {
         fork(watcherSetting),
         fork(watcherAddress),
         fork(wathcerPhoneAuth),
-        fork(wathcerSignup)
+        fork(wathcerSignup),
+        fork(watcherAddressList),
+        fork(watcherAddressRemove),
+        fork(watcherSetDefaultAddress)
     ]);
 }
 

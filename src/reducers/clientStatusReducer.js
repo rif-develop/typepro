@@ -21,7 +21,37 @@ const initialState = {
         window.innerWidth ||
         document.documentElement.clientWidth ||
         document.getElementsByTagName('body')[0].clientWidth,
-    session: null,
+    session: {
+        _id:null,
+        type:null,
+        email:null,
+        country:null,
+        birth:{
+            year:null,
+            month:null,
+            date:null
+        },
+        gender:null,
+        grade:null,
+        point:null,
+        name:{
+            first:null,
+            last:null
+        },
+        nickname:null,
+        phone:null,
+        status:{
+            admin:null,
+            visit:null,
+            token:null,
+            lastFindId:null,
+            lastFindPw:null,
+            lastModifiedPw:null,
+            lastVisit:null,
+            signupDate:null,
+            social:[]
+        }
+    },
     login: {
         email: null,
         password: null,
@@ -61,20 +91,24 @@ export function clientStatusReducer(state = initialState, action) {
         case WEB_LOGIN_REQUEST: //로그인 요청 하기
             return {
                 ...state,
-                session: state.session,
+                loading:state.loading,
+                width:state.width,
+                session: action.session,
                 login: {
                     email: state.login.email,
                     password: state.login.password,
                     isLogin: true
                 }
             };
-        case WEB_LOGOUT_REQUEST: //로그인 요청 하기
+        case WEB_LOGOUT_REQUEST: //로그아웃 요청하기
             return {
                 ...state,
-                session: state.session,
+                loading:state.loading,
+                width:state.width,
+                session: null,
                 login: {
-                    email: state.login.email,
-                    password: state.login.password,
+                    email: null,
+                    password: null,
                     isLogin: false
                 }
             };

@@ -30,10 +30,24 @@ const userSchema = new Schema({
         }
     },
     birth: {
-        type: Number,
-        required: false,
-        unique: false,
-        default: null
+        year:{
+            type: Number,
+            required: false,
+            unique: false,
+            default: null
+        },
+        month:{
+            type: Number,
+            required: false,
+            unique: false,
+            default: null
+        },
+        date:{
+            type: Number,
+            required: false,
+            unique: false,
+            default: null
+        }
 
     },
     gender: {
@@ -93,28 +107,28 @@ const userSchema = new Schema({
         lastVisit: {
             type: Date,
             required: false,
-            default: new Date()
+            default: Date.now
         },
         lastFindId: {
             type: Date,
             required: false,
-            default: new Date()
+            default: Date.now
         },
         lastFindPw: {
             type: Date,
             required: false,
-            default: new Date()
+            default: Date.now
 
         },
         lastModifiedPw:{
           type:Date,
           required:false,
-          default:new Date()
+          default:Date.now
         },
         signupDate: {
             type: Date,
             required: false,
-            default: new Date()
+            default: Date.now
         },
         admin: {
             type: Boolean,

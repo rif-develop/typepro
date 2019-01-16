@@ -55,43 +55,40 @@ router.post('/login', (req, res, next) => {
                     if (user) {
                         console.log('# 일치하는 계정을 찾았습니다.');
 
-                        //1시간
-                        const hour = 3600000;
-                        // const min = 60000; //1min
-
                         //REDIS DB에 세션을 저장시킨다.
                         req.session.key = {
                             _id: user._id,
-                            grade:user.grade,
-                            point:user.point,
+                            grade: user.grade,
+                            point: user.point,
                             email: req.body.email,
-                            password: encrytedPw,
                             name: {
                                 first: user.name.first,
                                 last: user.name.last
                             },
-                            birth:user.birth,
-                            gender:user.gender,
-                            nickname:user.nickname,
-                            country:user.country,
-                            phone:user.phone,
-                            type:user.type,
-                            status:{
-                                visit:user.status.visit,
-                                lastVisit:user.status.lastVisit,
+                            birth: {
+                                year: user.birth.year,
+                                month: user.birth.month,
+                                data: user.birth.data,
+                            },
+                            gender: user.gender,
+                            nickname: user.nickname,
+                            country: user.country,
+                            phone: user.phone,
+                            type: user.type,
+                            status: {
+                                visit: user.status.visit,
+                                lastVisit: user.status.lastVisit,
                                 lastFindId: user.status.lastFindId,
-                                lastFindPw:user.status.lastFindPw,
-                                lastModifiedPw:user.status.lastModifiedPw,
-                                signupDate:user.status.signupDate,
-                                admin:user.status.admin,
-                                token:user.status.token,
-                                social:user.status.social
+                                lastFindPw: user.status.lastFindPw,
+                                lastModifiedPw: user.status.lastModifiedPw,
+                                signupDate: user.status.signupDate,
+                                admin: user.status.admin,
+                                token: user.status.token,
+                                social: user.status.social
                             }
-
-
                         };
 
-                        // 클라이언트에 전달;
+                        // 클라이언트에 유저의 세션 전달;
                         res.json({
                             key: req.session.key,
                             idx: user._id,

@@ -9,7 +9,7 @@ class AddressInputComponent extends React.Component {
 
     static defaultState = {
         id: 'default-id',
-        type:'text',
+        type: 'text',
         title: '타이틀을 설정해주세요.',
         placeholder: '플레이스홀더를 입력해주세요.',
         maxLength: 30,
@@ -19,13 +19,16 @@ class AddressInputComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            removeBtn: false
+            removeBtn: false,
+            default: this.props.addressList === 0 ? true : false,
+            length:null
         };
         //ref
         this.addressName = React.createRef();
         //func
         this.onInputHandler = this.onInputHandler.bind(this);
         this.onRemoveHandler = this.onRemoveHandler.bind(this);
+        this.checkBoxHandler = this.checkBoxHandler.bind(this);
     }
 
     onInputHandler() {
@@ -33,22 +36,29 @@ class AddressInputComponent extends React.Component {
 
         if (val.length > 0) {
             this.setState({
-                removeBtn:true
+                removeBtn: true
             });
-        } else{
+        } else {
             this.setState({
-                removeBtn:false
+                removeBtn: false
             });
         }
     }
 
-    onRemoveHandler(){
+    onRemoveHandler() {
         this.addressName.current.value = null;
         this.setState({
-            removeBtn:false
+            removeBtn: false
         });
         this.addressName.current.focus();
     }
+
+    checkBoxHandler() {
+        this.setState({
+            default: !this.state.default
+        })
+    }
+
 
     render() {
         return (
@@ -65,14 +75,16 @@ class AddressInputComponent extends React.Component {
                            onChange={this.onInputHandler}
                            onBlur={this.onInputHandler}/>
                     <div className={cx(styles['__remove-txt-button'], this.state.removeBtn ? styles['active'] : null)} role={'button'} onClick={this.onRemoveHandler}>지우기</div>
+                    {this.state.length}
                 </div>
                 {
                     this.props.long ?
                         null :
-                        <div className={styles['__set-default-delivery-address']}>
+                        <div className={cx(styles['__set-default-delivery-address'], this.state.default ? styles['active'] : null)} onClick={this.props.addressList <1 ? null : this.checkBoxHandler}>
                             <span><svg></svg></span>
                             <label>기본배송지
-                                <input type="checkbox" name="default" defaultValue={false}/>
+                                <input type={'checkbox'} defaultChecked={this.state.default}/>
+                                <input type="hidden" name="default" defaultValue={this.state.default}/>
                             </label>
                         </div>
                 }

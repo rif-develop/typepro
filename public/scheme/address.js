@@ -18,7 +18,6 @@ const addressSchema = new Schema({
         default: {
             type: Boolean,
             required: true,
-            default: false
         },
         recipient: {
             type: String,
@@ -47,8 +46,12 @@ const addressSchema = new Schema({
             required: false,
             default: null
         }
+    },
+    created:{
+        type:Date,
+        default:Date.now
     }
-
+    //Date.now()를 쓰면 모든 스키마의 시간이 똑같다;
 });
 
 module.exports = mongoose.model('Address', addressSchema);

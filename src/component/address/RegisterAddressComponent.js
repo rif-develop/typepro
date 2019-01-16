@@ -2,7 +2,6 @@ import React, {Fragment} from 'react';
 import styles from './AddressComponent.scss';
 import classnames from 'classnames';
 import Proptypes from 'prop-types';
-import {execDaumPostcode} from "../../api/daumPostCode";
 import {innerCenter} from "../../lib/script";
 import ScreenBlockComponent from "../screenblock/ScreenBlockComponent";
 import {connect} from "react-redux";
@@ -20,7 +19,6 @@ class RegisterAddressComponent extends React.Component {
 
         this.state = {};
 
-        this.onSubmitHandler = this.onSubmitHandler.bind(this);
         this.modalRepositioning = this.modalRepositioning.bind(this);
         this.modal = React.createRef();
         this.form = React.createRef();
@@ -37,43 +35,19 @@ class RegisterAddressComponent extends React.Component {
         innerCenter(this.modal.current);
     }
 
-    onSubmitHandler(e) {
-
-        e.preventDefault();
-        const formData = new FormData(this.form.current);
-
-        axios({
-            url: '/address/register',
-            method: 'POST',
-            data: {
-                idx:formData.get('idx'),
-                addressName: formData.get('addressName'),
-                recipientName: formData.get('recipientName'),
-                recipientPhone: formData.get('recipientPhone'),
-                otherPhone: formData.get('otherPhone'),
-                zipcode: formData.get('zipcode'),
-                address1: formData.get('address1'),
-                address2: formData.get('address2'),
-                default: formData.get('default') || false,
-            },
-            processData: false,
-            contentType: false,
-            cache: false
-        }).then((res) => {
-            console.log(res);
-        });
-    }
-
     componentWillUnmount() {
         window.removeEventListener('resize', this.modalRepositioning)
     }
 
     render() {
+        const {setAddress, addressList} = this.props;
+
+        if(!this.props.isLogin){
+            return false;
+        }
         return (
             <Fragment>
-                <ScreenBlockComponent action={() => {
-                    this.props.action('add')
-                }}/>
+                <ScreenBlockComponent action={this.props.onClick}/>
                 <div className={styles['delivery-add-modal']} ref={this.modal}>
                     <div className={styles['delivery-add-modal--logo']}>리틀원의 배송지 추가 로고입니다.</div>
                     <div className={styles['delivery-add-modal--bar']}></div>
@@ -93,7 +67,8 @@ class RegisterAddressComponent extends React.Component {
                                                    title={'배송지 이름'}
                                                    name={'addressName'}
                                                    maxLength={30}
-                                                   long={false}/>
+                                                   long={false}
+                                                   addressList={addressList.length}/>
                             <AddressInputComponent id={'recipient-name'}
                                                    type={'text'}
                                                    placeholder={'받으시는 분의 전체 성함을 입력하세요.'}
@@ -118,17 +93,17 @@ class RegisterAddressComponent extends React.Component {
                             <AddressDeliveryInputComponent language={this.props.language}/>
                         </fieldset>
                         <div className={styles['delivery-add-modal--form--submit']}>
-                            <button type="reset" className={styles['__cancel-delivery-button']} onClick={() => {
-                                this.props.action('add');
-                            }}>취소
+                            <button type="reset" className={styles['__cancel-delivery-button']} onClick={this.props.onClick}>취소</button>
+                            <button type="submit" className={styles['__add-delivery-button']} onClick={(e) => {
+                                e.preventDefault();
+                                const formData = new FormData(this.form.current);
+                                setAddress(formData);
+                                this.props.onClick();
+                            }}>확인
                             </button>
-                            <button type="submit" className={styles['__add-delivery-button']} onClick={this.onSubmitHandler}>확인</button>
                         </div>
                     </form>
-                    <button type="button" className={styles['__close-modal-form']} onClick={() => {
-                        this.props.action('add');
-                    }}>close
-                    </button>
+                    <button type="button" className={styles['__close-modal-form']} onClick={this.props.onClick}>닫기</button>
                 </div>
             </Fragment>
         )
@@ -136,4 +111,23 @@ class RegisterAddressComponent extends React.Component {
 }
 
 
-export default RegisterAddressComponent;
+const mapStateToProps = (state) => {
+    return {
+        addressList: state.addressReducer.data//배송지 목록
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getAddressList: () => dispatch({
+            type: 'GET_ADDRESS_LIST_REQUEST',
+        }),
+        setAddress: (formData) => dispatch({
+            type: 'SET_ADDRESS_REQUEST',
+            formData
+        })
+    }
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterAddressComponent);

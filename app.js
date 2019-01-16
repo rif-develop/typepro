@@ -11,6 +11,7 @@ mongoose.Promise = global.Promise;
 const userRouter = require('./public/router/users');
 const loginRouter = require('./public/router/login');
 const addressRouter = require('./public/router/AddressRouter');
+const Address = require('./public/scheme/address');
 
 /*환경변수 불러오기*/
 const envResult = require('dotenv').config({
@@ -63,22 +64,24 @@ app.get('*', (req, res) => {
 //세션 넘겨주기
 app.use('/getsession', (req, res, next) => {
     console.log('#세션이 있습니다.');
+    //req.session.key 즉, 세션이 있으면
     if (req.session.key) {
         res.json({
-            isSession:true,
-            session:req.session.key
+            isSession: true,
+            session: req.session.key
         });
-    } else{
+    } else {
         res.json({
-            isSession:false,
-            session:req.session.key
+            isSession: false,
+            session: req.session.key
         });
 
     }
 });
 
+
 client.keys("sess:*", (err, keys) => {
-    console.log('#'+ keys.length+'2개의 세션이 구동 중입니다.');
+    console.log('#' + keys.length + '2개의 세션이 구동 중입니다.');
 });
 
 
