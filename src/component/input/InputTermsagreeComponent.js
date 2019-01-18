@@ -16,9 +16,7 @@ class InputTermsagreeComponent extends React.Component {
     }
 
     onChangeHandler(e) {
-        store.dispatch({
-            type: 'SET_SIGN_UP_TERMS_SUCCESS'
-        });
+        this.props.action();
         if (!this.props.terms) {
             checkAnimation(this.check.current);
         }
@@ -43,7 +41,7 @@ class InputTermsagreeComponent extends React.Component {
                         및
                         <Link to="/termsofuse" role="link" target="_blank"> 모든 약관</Link>
                         에 동의합니다.
-                        <input type="checkbox" name="terms" id="term-check-input-component" role="checkbox" defaultChecked={this.props.terms} onChange={this.onChangeHandler}/>
+                        <input type="checkbox" name="terms" id="term-check-input-component" defaultValue={this.props.terms} role="checkbox" defaultChecked={this.props.terms} onChange={this.onChangeHandler}/>
                     </label>
                 </div>
                 <div className={styles['client-join-section--form--warning']}>

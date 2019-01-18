@@ -19,7 +19,7 @@ class InputNameComponent extends React.Component {
         autoCapitalize: 'off',
         autoComplete: 'off',
         title: '사용자님의 실명을 입력해주세요.',
-        validationError: '잘못된 입력입니다. 다시 확인해 주세요.'
+        validationError: '문자만 입력해주세요.'
     };
 
     constructor(props) {
@@ -115,6 +115,7 @@ class InputNameComponent extends React.Component {
                            autoComplete={InputNameComponent.defaultState.autoComplete}
                            maxLength={InputNameComponent.defaultState.maxLength}
                            className={styles['__default-input-component']}
+                           defaultValue={this.props.clientName}
                            ref={this.inputComponent}
                            onBlur={this.onBlurHandler}
                            onKeyDown={this.onKeyHandler}

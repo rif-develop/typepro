@@ -5,6 +5,7 @@ import classnames from 'classnames';
 const cx = classnames.bind(styles);
 import {Validations} from "../../lib/validation";
 import {checkAnimation} from "../../lib/script";
+import {checkDuplicatedNickname} from "../../action/duplicatedCheck/duplicatedCheckAxios";
 
 class InputNicknameComponent extends React.Component {
 
@@ -53,22 +54,44 @@ class InputNicknameComponent extends React.Component {
             return;
         }
 
-        if (result) {
-            this.setState({
-                error: false,
-                checkAni: true
-            });
-            checkAnimation(this.check.current);
-        } else {
+
+        //닉네임 중복 여부 검사
+        checkDuplicatedNickname(val).then((res) => {
+            // 중복된 닉네임이라면
+            if (res.data.isDuplicated) {
+                this.setState({
+                    error: 'duplicated'
+                });
+                this.inputComponent.current.focus();
+
+            } else if (!res.data.isDuplicated && result) {
+                //중복되지 않았고 유효성도 통과했을 경우
+                this.setState({
+                    error: false,
+                    checkAni: true
+                });
+                checkAnimation(this.check.current);
+            } else {
+
+                this.setState({
+                    error: 'validation',
+                    checkAni: false,
+                    removeBtn: false
+                });
+                this.inputComponent.current.value = '';
+                this.inputComponent.current.focus();
+            }
+        }).catch((err)=>{
 
             this.setState({
-                error: true,
-                checkAni: false
+                error: 'server',
+                checkAni: false,
+                removeBtn: false
             });
-
-            this.inputComponent.current.value = '';
             this.inputComponent.current.focus();
-        }
+
+        })
+
     }
 
     onKeyHandler(e) {
@@ -76,7 +99,7 @@ class InputNicknameComponent extends React.Component {
         const isLen = val.length > 0;
         isLen ? this.setState({
             removeBtn: true,
-            error:false
+            error: false
         }) : this.setState({
             removeBtn: false
         });
@@ -113,11 +136,11 @@ class InputNicknameComponent extends React.Component {
                            autoCapitalize={InputNicknameComponent.defaultState.autoCapitalize}
                            autoComplete={InputNicknameComponent.defaultState.autoComplete}
                            maxLength={InputNicknameComponent.defaultState.maxLength}
+                           defaultValue={this.props.clientNickName}
                            className={styles['__default-input-component']}
                            ref={this.inputComponent}
                            onBlur={this.onBlurHandler}
-                           onKeyDown={this.onKeyHandler}
-                           onKeyUp={this.onKeyHandler}
+                           onChange={this.onKeyHandler}
                            onFocus={this.onFocusHandler}/>
                     <div className={cx(styles['__remove-input-button'], this.state.removeBtn ? styles['active'] : null)}
                          ref={this.removeBtn}
@@ -135,7 +158,11 @@ class InputNicknameComponent extends React.Component {
                     </svg>
                 </div>
                 <div className={styles['client-join-section--form--warning']}>
-                    <em>{this.state.error ? InputNicknameComponent.defaultState.validationError : null}</em>
+                    <em>
+                        {this.state.error === 'validation' ? InputNicknameComponent.defaultState.validationError : null}
+                        {this.state.error === 'duplicated' ? '중복된 닉네임입니다.' : null}
+                        {this.state.error === 'server' ? '서버에러. 관리자에게 문의해주세요.' : null}
+                    </em>
                 </div>
             </div>
         )

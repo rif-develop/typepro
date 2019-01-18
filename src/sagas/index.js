@@ -6,9 +6,10 @@ import {watcherAutoLogin} from "./autoLoginSaga";
 import {wathcerAlarmHeader, wathcerClientInfoHeader, watcherMobileMenu} from './headerSaga';
 import {wathcerWindowWidth} from "./clientStatusAction";
 import {watcherSetting} from "./settingAction";
-import {watcherAddress, watcherAddressList, watcherAddressRemove, watcherSetDefaultAddress} from './addressAction';
+import {watcherAddress, watcherAddressList, watcherAddressRemove, watcherSetDefaultAddress,watcherUpdateAddress} from './addressAction';
 import {wathcerPhoneAuth} from "./phoneAuthAction";
-import {wathcerSignup} from './clientSingUpAction'
+import {watcherSignup} from './clientSingUpAction'
+import {watcherPasswordCheck} from "./mypageAction";
 
 export default function* rootSaga() {
     yield all([
@@ -23,10 +24,12 @@ export default function* rootSaga() {
         fork(watcherSetting),
         fork(watcherAddress),
         fork(wathcerPhoneAuth),
-        fork(wathcerSignup),
+        fork(watcherSignup),
         fork(watcherAddressList),
         fork(watcherAddressRemove),
-        fork(watcherSetDefaultAddress)
+        fork(watcherSetDefaultAddress),
+        fork(watcherUpdateAddress),
+        fork(watcherPasswordCheck)
     ]);
 }
 

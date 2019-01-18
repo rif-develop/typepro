@@ -21,7 +21,7 @@ class AddressInputComponent extends React.Component {
         this.state = {
             removeBtn: false,
             default: this.props.addressList === 0 ? true : false,
-            length:null
+            length: null
         };
         //ref
         this.addressName = React.createRef();
@@ -73,18 +73,18 @@ class AddressInputComponent extends React.Component {
                            id={this.props.id || AddressInputComponent.defaultState.id} autoComplete={'off'} autoCapitalize={'off'}
                            placeholder={this.props.placeholder || AddressInputComponent.defaultState.placeholder}
                            onChange={this.onInputHandler}
-                           onBlur={this.onInputHandler}/>
+                           onBlur={this.onInputHandler} defaultValue={this.props.update ? this.props.originValue : null}/>
                     <div className={cx(styles['__remove-txt-button'], this.state.removeBtn ? styles['active'] : null)} role={'button'} onClick={this.onRemoveHandler}>지우기</div>
                     {this.state.length}
                 </div>
                 {
-                    this.props.long ?
+                    this.props.long || this.props.update?
                         null :
-                        <div className={cx(styles['__set-default-delivery-address'], this.state.default ? styles['active'] : null)} onClick={this.props.addressList <1 ? null : this.checkBoxHandler}>
+                        <div className={cx(styles['__set-default-delivery-address'], this.state.default ? styles['active'] : null)} onClick={this.props.addressList < 1 ? null : this.checkBoxHandler}>
                             <span><svg></svg></span>
                             <label>기본배송지
-                                <input type={'checkbox'} defaultChecked={this.state.default}/>
-                                <input type="hidden" name="default" defaultValue={this.state.default}/>
+                                <input type={'checkbox'} defaultChecked={this.props.defaultCheck ? true : this.state.default}/>
+                                <input type="hidden" name="default" defaultValue={this.props.defaultCheck ? true : this.state.default}/>
                             </label>
                         </div>
                 }

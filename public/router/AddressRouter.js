@@ -7,18 +7,21 @@ const router = express.Router();
 
 //배송지 등록
 router.post('/register', [
-    check('addressName').isLength({min: 1, max: 30}).exists().withMessage('addressName'),
-    check('recipientPhone').exists().withMessage('recipientPhone'),
-    check('recipientName').isLength({min: 1, max: 30}).exists().withMessage('recipientName'),
-    check('zipcode').isNumeric().exists().withMessage('zipcode'),
-    check('address1').exists().withMessage('address1'),
-    check('address2').exists().withMessage('address2'),
-    check('default').exists().isBoolean().withMessage('default')
+    check('addressName').isLength({min: 1, max: 30}).exists(),
+    check('recipientPhone').isNumeric().exists(),
+    check('recipientName').isString().isLength({min: 1, max: 30}).exists(),
+    check('zipCode').isNumeric().exists(),
+    check('address1').exists(),
+    check('address2').exists(),
+    check('default').exists()
 ], async (req, res) => {
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.json({errors: errors.array()});
+        return res.json({
+            error:true,
+            type:'required'
+        });
     }
 
     if (req.body) {
@@ -32,7 +35,7 @@ router.post('/register', [
                 default: req.body.default || false,
                 recipient: req.body.recipientName,
                 phone: [req.body.recipientPhone, req.body.otherPhone],
-                zipCode: req.body.zipcode,
+                zipCode: req.body.zipCode,
                 address1: req.body.address1,
                 address2: req.body.address2
             }
@@ -57,7 +60,8 @@ router.post('/register', [
                 //에러
                 if (err) {
                     res.json({
-                        error: true
+                        error: true,
+                        type:'server'
                     })
                 }
             });
@@ -65,7 +69,8 @@ router.post('/register', [
         } catch (e) {
             console.log('#배송지 저장 처리 과정에서 서버 에러가 발생했습니다.');
             res.json({
-                error: true
+                error: true,
+                type:'server'
             })
 
         }
@@ -74,10 +79,89 @@ router.post('/register', [
 
 });//
 
-//수정,
-router.post('/modify', (req, res) => {
+//# 배송지 수정,
+router.post('/modify', [
+    check('addressName').isLength({min: 1, max: 30}).exists(),
+    check('recipientPhone').isNumeric().exists(),
+    check('recipientName').isString().isLength({min: 1, max: 30}).exists(),
+    check('zipCode').isNumeric().exists(),
+    check('address1').exists(),
+    check('address2').exists(),
+], async (req, res) => {
 
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.json({
+            error:true,
+            type:'required'
+        });
+    }
+
+    console.log('#배송지 수정을 시작합니다.');
+    console.log('# ..들어온 값');
     console.log(req.body);
+
+
+    try {
+        await Address.updateMany({
+                writer: req.body.writerIdx,
+                _id: req.body.docsIdx
+            },
+            {
+                $set: {
+                    "address.name": req.body.addressName,
+                    "address.recipient": req.body.recipientName,
+                    "address.phone.0": req.body.recipientPhone,
+                    "address.phone.1": req.body.otherPhone,
+                    "address.zipCode": req.body.zipCode,
+                    "address.address1": req.body.address1,
+                    "address.address2": req.body.address2,
+                    "created": Date.now()
+                }
+            }, {
+                new: true
+            }
+        ).lean().exec((err, docs) => {
+
+            if (docs) {
+                console.log('# 배송지 수정에 성공하였습니다.');
+                console.log(docs);
+
+                Address.find({
+                    writer: req.body.writerIdx,
+                }).limit(3).lean().exec((err, docs) => {
+                    if (docs.length >= 0) {
+                        console.log('#서버로 리턴합니다.');
+                        res.json(docs);
+                    }
+
+                    if (err) {
+                        console.log('문서 삭제후 갱신을 위한 데이터 검색중에 에러가 발생했습니다.');
+                        res.json({
+                            error: true,
+                            type:'server'
+                        })
+                    }
+                });
+            }
+
+            if (err) {
+                console.log('# 배송지 수정에 실패했습니다.');
+                res.json({
+                    error: true,
+                    type:'server'
+                })
+            }
+
+        })
+
+    } catch (err) {
+        res.json({
+            error: true,
+            type:'server'
+        })
+    }
+
 });
 
 //삭제
@@ -108,7 +192,10 @@ router.post('/remove', (req, res) => {
 
                 if (err) {
                     console.log('문서 삭제후 갱신을 위한 데이터 검색중에 에러가 발생했습니다.');
-                    res.json(err)
+                    res.json({
+                        error: true,
+                        type:'server'
+                    })
                 }
 
 
@@ -118,6 +205,10 @@ router.post('/remove', (req, res) => {
 
         if (err) {
             console.log('# 삭제 중에 에러가 일어났습니다.');
+            res.json({
+                error: true,
+                type:'server'
+            })
         }
     })
 
@@ -136,7 +227,8 @@ router.post('/getaddress', (req, res) => {
         //에러
         if (err) {
             res.json({
-                success: false
+                error: true,
+                type:'server'
             })
         }
     });
@@ -153,7 +245,7 @@ router.post('/default', (req, res) => {
     console.log(req.body.docsIdx);
 
     //다른 배송지의  default값은 false로 설정한다.
-    Address.update({_id: {$ne: req.body.docsIdx},},
+    Address.update({_id: {$ne: req.body.docsIdx}},
         {$set: {'address.default': false}},
         {multi: true}
     ).then(() => {
@@ -163,7 +255,10 @@ router.post('/default', (req, res) => {
 
                 if (err) {
                     console.log('#기본 배송지 설정하는 과정에서 에러 발생');
-                    res.json(err);
+                    res.json({
+                        error: true,
+                        type:'server'
+                    })
                 }
 
                 if (docs) {
@@ -190,5 +285,33 @@ router.post('/default', (req, res) => {
 
 });
 
+//수정할 배송지 데이터 가져오기
+
+router.post('/fetchingdata', async (req, res) => {
+    console.log('# 수정할 데이터를 가져옵니다.');
+    try {
+        await Address.findOne({
+            _id: req.body.docsIdx,
+            writer: req.body.writerIdx
+        }).lean().exec((err, docs) => {
+
+            if (docs) {
+                res.json(docs);
+            }
+
+            if (err) {
+                res.json({
+                    error: true,
+                    type: 'server'
+                })
+            }
+        });
+    } catch (e) {
+        res.json({
+            error: true,
+            type: 'server'
+        })
+    }
+});
 
 module.exports = router;

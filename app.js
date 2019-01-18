@@ -8,10 +8,10 @@ const redis = require('redis');
 const client = redis.createClient();
 const redisOption = require('./public/middleware/Redis');
 mongoose.Promise = global.Promise;
-const userRouter = require('./public/router/users');
+const userRouter = require('./public/router/UserRouter');
 const loginRouter = require('./public/router/login');
 const addressRouter = require('./public/router/AddressRouter');
-const Address = require('./public/scheme/address');
+const mypageRouter = require('./public/router/MypageRouter');
 
 /*환경변수 불러오기*/
 const envResult = require('dotenv').config({
@@ -43,12 +43,14 @@ app.use('/signup', userRouter);
 app.use(loginRouter);
 //배송지 관리 라우터
 app.use('/address', addressRouter);
-
+//마이페이지 라우터
+app.use('/mypage', mypageRouter);
 //배포용 파일 경로
 app.use('/dist', express.static(__dirname + '/dist'));
 
 /*인덱스 페이지 경로*/
 app.use('/', express.static(__dirname));
+
 
 //새로고침시 페이지 뜰 수 있게 하기.
 app.get('*', (req, res) => {

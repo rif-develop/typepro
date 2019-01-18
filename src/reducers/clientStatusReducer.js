@@ -12,6 +12,8 @@ const WEB_LOGIN_REQUEST = 'WEB_LOGIN_REQUEST';
 //로그]아웃 요청 액션
 const WEB_LOGOUT_REQUEST = 'WEB_LOGOUT_REQUEST';
 
+//세션 갱신 액션 디스패치
+const REFRESH_SESSION_REQUEST = 'REFRESH_SESSION_REQUEST';
 //
 //session 설정
 const initialState = {
@@ -22,34 +24,34 @@ const initialState = {
         document.documentElement.clientWidth ||
         document.getElementsByTagName('body')[0].clientWidth,
     session: {
-        _id:null,
-        type:null,
-        email:null,
-        country:null,
-        birth:{
-            year:null,
-            month:null,
-            date:null
+        _id: null,
+        type: null,
+        email: null,
+        country: null,
+        birth: {
+            year: null,
+            month: null,
+            date: null,
         },
-        gender:null,
-        grade:null,
-        point:null,
-        name:{
-            first:null,
-            last:null
+        gender: null,
+        grade: null,
+        point: null,
+        name: {
+            first: null,
+            last: null
         },
-        nickname:null,
-        phone:null,
-        status:{
-            admin:null,
-            visit:null,
-            token:null,
-            lastFindId:null,
-            lastFindPw:null,
-            lastModifiedPw:null,
-            lastVisit:null,
-            signupDate:null,
-            social:[]
+        nickname: null,
+        phone: null,
+        status: {
+            admin: null,
+            visit: null,
+            token: null,
+            lastFindId: null,
+            lastFindPw: null,
+            lastModifiedPw: null,
+            lastVisit: null,
+            signupDate: null,
+            social: []
         }
     },
     login: {
@@ -68,6 +70,8 @@ export function clientStatusReducer(state = initialState, action) {
             return {...state, loading: false, width: action.width}
         case SET_WINDOW_WIDTH_FAILURE:
             return {...state, loading: false, error: action.error};
+        case REFRESH_SESSION_REQUEST:
+            return {...state, loading:false, session:action.session }
         case SET_LOGIN_EMAIL_REQUEST: //로그인 할 떄 이메일 입력 값
             return {
                 ...state,
@@ -91,8 +95,8 @@ export function clientStatusReducer(state = initialState, action) {
         case WEB_LOGIN_REQUEST: //로그인 요청 하기
             return {
                 ...state,
-                loading:state.loading,
-                width:state.width,
+                loading: state.loading,
+                width: state.width,
                 session: action.session,
                 login: {
                     email: state.login.email,
@@ -103,9 +107,39 @@ export function clientStatusReducer(state = initialState, action) {
         case WEB_LOGOUT_REQUEST: //로그아웃 요청하기
             return {
                 ...state,
-                loading:state.loading,
-                width:state.width,
-                session: null,
+                loading: state.loading,
+                width: state.width,
+                session: {
+                    _id: null,
+                    type: null,
+                    email: null,
+                    country: null,
+                    birth: {
+                        year: null,
+                        month: null,
+                        date: null
+                    },
+                    gender: null,
+                    grade: null,
+                    point: null,
+                    name: {
+                        first: null,
+                        last: null
+                    },
+                    nickname: null,
+                    phone: null,
+                    status: {
+                        admin: null,
+                        visit: null,
+                        token: null,
+                        lastFindId: null,
+                        lastFindPw: null,
+                        lastModifiedPw: null,
+                        lastVisit: null,
+                        signupDate: null,
+                        social: []
+                    }
+                },
                 login: {
                     email: null,
                     password: null,

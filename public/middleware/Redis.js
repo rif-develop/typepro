@@ -4,6 +4,9 @@ const client = redis.createClient();
 const RedisStore = require('connect-redis')(session);
 require('dotenv').config();
 
+let time = new Date();
+time.setTime(time.getTime() + (1 * 3600 * 1000));
+
 const redisOption = {
     store: new RedisStore({
         host: process.env.REDIS_HOST,
@@ -13,15 +16,15 @@ const redisOption = {
         ttl: 3600,
         logErrors: true
     }),
-    resave: false,
+    resave: true,
     saveUninitialized: false,
     secret: process.env.REDIS_SECRET,
     name: 'session-info',
-    cookie:{
-        secure:false,
+    cookie: {
+        secure: false,
         httpOnly: true,
-        path:'/',
-        expires:new Date(Date.now()+3600000)
+        path: '/',
+        expires: time
     }
 };
 

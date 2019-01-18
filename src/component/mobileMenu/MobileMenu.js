@@ -114,7 +114,7 @@ class MobileMenu extends React.Component {
                                 </div>
                                 <ul className={styles['mobile-menu-component--nav__client-info__list']}>
                                     <li>
-                                        <Link to="/mypage/modify">회원정보 수정</Link>
+                                        <Link to="/mypage/auth">회원정보 수정</Link>
                                     </li>
                                     <li>
                                         <Link to="/mypage/password">비밀번호 변경</Link>

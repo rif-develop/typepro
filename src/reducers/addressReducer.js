@@ -27,9 +27,15 @@ const SET_DEFAULT_ADDRESS_REQUEST = 'SET_DEFAULT_ADDRESS_REQUEST';
 const SET_DEFAULT_ADDRESS_SUCCESS = 'SET_DEFAULT_ADDRESS_SUCCESS';
 const SET_DEFAULT_ADDRESS_FAILURE = 'SET_DEFAULT_ADDRESS_FAILURE';
 
+//모달창 닫기
+const CLOSE_ERROR_MODAL = 'CLOSE_ERROR_MODAL';
+
 const initialState = {
     loading: false,
-    error: null,
+    error: {
+        isError: false,
+        type: null
+    },
     registerModal: false,
     modifyModal: false,
     data: [],
@@ -46,7 +52,7 @@ export function addressReducer(state = initialState, action) {
         case GET_ADDRESS_LIST_SUCCESS:
             return {...state, loading: false, error: state.error, data: action.data, registerModal: state.registerModal, modifyModal: state.modifyModal};
         case GET_ADDRESS_LIST_FAILURE:
-            return {...state, loading: false, error: action.e, data: null, registerModal: state.registerModal, modifyModal: state.modifyModal};
+            return {...state, loading: false, error: action.error, data: null, registerModal: state.registerModal, modifyModal: state.modifyModal};
         case SET_ADDRESS_REQUEST: {
             return {...state, loading: true, error: state.error, data: state.data, registerModal: state.registerModal, modifyModal: state.modifyModal};
         }
@@ -54,7 +60,7 @@ export function addressReducer(state = initialState, action) {
             return {...state, loading: false, error: state.error, data: action.data, registerModal: state.registerModal, modifyModal: state.modifyModal};
         }
         case SET_ADDRESS_FAILURE: {
-            return {...state, loading: false, error: action.error, data: null}
+            return {...state, loading: false, error: action.error}
         }
         case DELETE_ADDRESS_REQUEST: {
             return {...state, loading: true, error: state.error, data: state.data, registerModal: state.registerModal, modifyModal: state.modifyModal};
@@ -65,14 +71,32 @@ export function addressReducer(state = initialState, action) {
         case DELETE_ADDRESS_FAILURE: {
             return {...state, loading: false, error: action.error, data: null}
         }
-        case SET_DEFAULT_ADDRESS_REQUEST:{
+        case SET_DEFAULT_ADDRESS_REQUEST: {
             return {...state, loading: true, error: state.error, data: state.data, registerModal: state.registerModal, modifyModal: state.modifyModal};
         }
-        case SET_DEFAULT_ADDRESS_SUCCESS:{
+        case SET_DEFAULT_ADDRESS_SUCCESS: {
             return {...state, loading: false, error: state.error, data: action.data, registerModal: state.registerModal, modifyModal: state.modifyModal};
         }
-        case SET_DEFAULT_ADDRESS_FAILURE:{
+        case SET_DEFAULT_ADDRESS_FAILURE: {
             return {...state, loading: false, error: action.error, data: null}
+        }
+        case UPDATE_ADDRESS_REQUEST: {
+            return {...state, loading: true, error: state.error, data: state.data, registerModal: state.registerModal, modifyModal: state.modifyModal};
+        }
+        case UPDATE_ADDRESS_SUCCESS: {
+            return {...state, loading: false, error: state.error, data: action.data, registerModal: state.registerModal, modifyModal: state.modifyModal};
+        }
+        case UPDATE_ADDRESS_FAILURE: {
+            return {...state, loading: false, error: action.error, data: state.data}
+        }
+        case CLOSE_ERROR_MODAL: {
+            return {
+                ...state, loading: false,
+                error: {
+                    isError: false,
+                    type: null
+                }
+            }
         }
         default:
             return state;

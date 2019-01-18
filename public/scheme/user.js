@@ -31,19 +31,19 @@ const userSchema = new Schema({
     },
     birth: {
         year:{
-            type: Number,
+            type: String,
             required: false,
             unique: false,
             default: null
         },
         month:{
-            type: Number,
+            type: String,
             required: false,
             unique: false,
             default: null
         },
         date:{
-            type: Number,
+            type: String,
             required: false,
             unique: false,
             default: null

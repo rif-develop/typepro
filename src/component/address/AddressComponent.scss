@@ -442,6 +442,17 @@
   .delivery-add-modal--form--container .__set-default-delivery-address label {
     line-height: 20px;
     height: 20px;
+    margin-left: 2px;
+  }
+  .delivery-add-modal .__close-modal-form{
+    display: none;
+  }
+  .delivery-add-modal--form--container .__set-default-delivery-address span{
+    margin-left: 4px;
+  }
+  .delivery-add-modal--form--container--input-box .__remove-txt-button{
+    top: 5px;
+    right: 5px;
   }
   .delivery-add-modal--form--submit button {
     width: 96px;

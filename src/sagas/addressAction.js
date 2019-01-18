@@ -3,7 +3,7 @@ import axios from "axios";
 import {store} from "../store/StoreComponent";
 
 export function* watcherAddress() {
-    yield takeLatest('SET_ADDRESS_REQUEST', setAddressSaga);
+    yield takeEvery('SET_ADDRESS_REQUEST', setAddressSaga);
 }
 
 export function* watcherAddressList() {
@@ -16,6 +16,10 @@ export function* watcherAddressRemove() {
 
 export function* watcherSetDefaultAddress() {
     yield takeEvery('SET_DEFAULT_ADDRESS_REQUEST', defaultSaga);
+}
+
+export function* watcherUpdateAddress() {
+    yield takeEvery('UPDATE_ADDRESS_REQUEST', updateSaga)
 }
 
 //어드레스 저장하기 비동기 통신
@@ -31,7 +35,7 @@ function setAddressAxios({formData}) {
             recipientName: formData.get('recipientName'),
             recipientPhone: formData.get('recipientPhone'),
             otherPhone: formData.get('otherPhone'),
-            zipcode: formData.get('zipcode'),
+            zipCode: formData.get('zipcode'),
             address1: formData.get('address1'),
             address2: formData.get('address2'),
             default: formData.get('default') || false,
@@ -47,10 +51,15 @@ function* setAddressSaga(formData) {
     try {
         const response = yield call(setAddressAxios, formData);
 
-        yield put({
-            type: "SET_ADDRESS_SUCCESS",
-            data: response.data
-        });
+        if (response.data.error) {
+            throw response.data
+        } else {
+            yield put({
+                type: "SET_ADDRESS_SUCCESS",
+                data: response.data
+            });
+        }
+
     } catch (e) {
         yield put({
             type: 'SET_ADDRESS_FAILURE',
@@ -96,7 +105,7 @@ function* getListSaga() {
         console.log('//배송지 주소를 가져오는데 실패했습니다.');
         yield put({
             type: 'GET_ADDRESS_LIST_FAILURE',
-            e
+            error: e
         });
     }
 }
@@ -173,4 +182,61 @@ function* defaultSaga(request) {
             error: e
         });
     }
+}
+
+
+//배송지 수정
+
+function updateAddressAxios({formData}) {
+
+    console.log('배송지 수정 비동기 통신 시작...');
+
+    return axios({
+        url: '/address/modify',
+        method: 'POST',
+        data: {
+            writerIdx: formData.get('writerIdx'),
+            docsIdx: formData.get('docsIdx'),
+            addressName: formData.get('addressName'),
+            recipientName: formData.get('recipientName'),
+            recipientPhone: formData.get('recipientPhone'),
+            otherPhone: formData.get('otherPhone'),
+            zipCode: formData.get('zipcode'),
+            address1: formData.get('address1'),
+            address2: formData.get('address2'),
+            default: formData.get('default') || false,
+        },
+        processData: false,
+        contentType: false,
+        cache: false
+    });
+}
+
+function* updateSaga(formData) {
+
+    try {
+        const response = yield call(updateAddressAxios, formData);
+
+        console.log(response.data);
+
+        if (response.data.error) {
+            //catch 블록으로 에러 던짐
+            throw response.data;
+
+        } else {
+            yield put({
+                type: 'UPDATE_ADDRESS_SUCCESS',
+                data: response.data
+            })
+        }
+
+
+    } catch (e) {
+        yield put({
+            type: 'UPDATE_ADDRESS_FAILURE',
+            error: e
+        });
+    }
+
+
 }

@@ -1,32 +1,3 @@
-// 넘어 온 값이 빈값인지 체크하는 함수입니다.
-// !value 하면 생기는 논리적 오류를 제거하기 위해 명시적으로 value === 사용
-// [], {} 도 빈값으로 처리, 공백과 space한칸도 빈값으로 처리하였음.
-export function isEmpty(value) {
-    const check = value === "" || value === " " || value === null || value === undefined || (value !== null && typeof value === "object" && !Object.keys(value).length);
-    return check;
-} // isEmpty function
-
-
-/*input태그의 plcaholder value값 처리 이벤트*/
-function placeholderHandler(cssSelector) {
-    /*disabled된 input 태그라면 return 시킨다.*/
-    var isDisabled = $(cssSelector).is(':disabled');
-
-    if (isDisabled) {
-        return false;
-    }
-    /*PLACEHOLDER의 값을 담을 변수*/
-    var placeholderValue;
-
-    /*타겟에 FOCUS시*/
-    $(cssSelector).on("focus", function () {
-        placeholderValue = $(this).attr("placeholder");
-        $(this).attr("placeholder", "");
-    }).on("blur", function () {
-        $(this).attr("placeholder", placeholderValue);
-    });
-}// function placeholderHandler
-
 
 /*연락처 정규식 검사*/
 function telValidationCheck(cssSelector) {
@@ -69,13 +40,6 @@ function telValidationCheck(cssSelector) {
     });//전화번호 정규식 검사
 
 } //function telValidationCheck
-
-/*Html태그 제거 함수*/
-export function removeHtmlTag(text) {
-    text = text.replace(/<br\/>/ig, "\n");
-    text = text.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
-    return text;
-}
 
 export class Validations {
 
@@ -131,6 +95,12 @@ export class Validations {
     static checkFloatDoublePoint(value){
         const regExp = /^(\d{1,3}([.]\d{0,2})?)?$/;
         return regExp.test(value);
+    }
+
+    //빈값인지 확인
+    static isEmpty(value) {
+        const check = value === "" || value === " " || value === null || value === undefined || (value !== null && typeof value === "object" && !Object.keys(value).length);
+      return check;
     }
 
 }

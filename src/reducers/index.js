@@ -8,6 +8,7 @@ import {phoneAuthReducer} from './phoneAuthReducer';
 import {clientSignUpReducer} from "./clientSignupReducer";
 import {autologinReducer} from "./autoLoginReducer";
 import {modalReducer} from "./modalReducer";
+import {mypageReducer} from "./mypageReducer";
 
 export default combineReducers({
     clientStatusReducer,
@@ -18,5 +19,6 @@ export default combineReducers({
     phoneAuthReducer,
     clientSignUpReducer,
     autologinReducer,
-    modalReducer
+    modalReducer,
+    mypageReducer
 });

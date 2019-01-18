@@ -74,6 +74,7 @@ class AddressDeliveryInputComponent extends React.Component {
                                autoCapitalize={'off'}
                                readOnly={this.props.language === 'ko'}
                                placeholder={'우편번호'}
+                               defaultValue={this.props.zipCode}
                                onChange={() => {
                                    this.onChangeHandler(this.zipCode.current)
                                }}
@@ -103,6 +104,7 @@ class AddressDeliveryInputComponent extends React.Component {
                                autoCapitalize={'off'}
                                readOnly={this.props.language === 'ko'}
                                placeholder={'도로명 주소'}
+                               defaultValue={this.props.address1}
                                onChange={() => {
                                    this.onChangeHandler(this.firstAddress.current)
                                }}
@@ -126,6 +128,7 @@ class AddressDeliveryInputComponent extends React.Component {
                                maxLength="36"
                                autoComplete="off"
                                autoCapitalize={'off'}
+                               defaultValue={this.props.address2}
                                placeholder="상세 주소를 기입하세요."
                                onChange={() => {
                                    this.onChangeHandler(this.secondAddress.current)

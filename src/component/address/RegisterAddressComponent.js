@@ -7,9 +7,8 @@ import ScreenBlockComponent from "../screenblock/ScreenBlockComponent";
 import {connect} from "react-redux";
 import AddressInputComponent from "./input/AddressInputComponent";
 import AddressDeliveryInputComponent from "./input/AddressDeliveryInputComponent";
-import axios from 'axios';
+import axios from 'axios'
 
-global.$ = require('jquery-ajax');
 const cx = classnames.bind(styles);
 
 class RegisterAddressComponent extends React.Component {
@@ -17,7 +16,15 @@ class RegisterAddressComponent extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {};
+        this.state = {
+            addressName: null,
+            recipient: null,
+            phone: null,
+            otherPhone: null,
+            zipCode: null,
+            address1: null,
+            address2: null,
+        };
 
         this.modalRepositioning = this.modalRepositioning.bind(this);
         this.modal = React.createRef();
@@ -42,7 +49,7 @@ class RegisterAddressComponent extends React.Component {
     render() {
         const {setAddress, addressList} = this.props;
 
-        if(!this.props.isLogin){
+        if (!this.props.isLogin) {
             return false;
         }
         return (
@@ -59,8 +66,8 @@ class RegisterAddressComponent extends React.Component {
                           className={styles['delivery-add-modal--form']}
                           ref={this.form}>
                         <fieldset form="delivery-add-form">
-                            <legend>배송지를 추가할 수 있는 모달폼 입니다.(최대 3개까지 추가 가능합니다.)</legend>
-                            <input type={'hidden'} name={'idx'} defaultValue={this.props.idx || '5c3c1f60a7c05b351efae09c'}/>
+                            <legend>배송지를 추가할 수 있는 모달폼 입니다.(최대 3개까지 추가 가능합니다.</legend>
+                            <input type={'hidden'} name={'idx'} defaultValue={this.props.idx}/>
                             <AddressInputComponent id={'address-name'}
                                                    type={'text'}
                                                    placeholder={'배송지 이름을 입력하세요.'}
@@ -68,28 +75,32 @@ class RegisterAddressComponent extends React.Component {
                                                    name={'addressName'}
                                                    maxLength={30}
                                                    long={false}
-                                                   addressList={addressList.length}/>
+                                                   addressList={addressList.length}
+                                                />
                             <AddressInputComponent id={'recipient-name'}
                                                    type={'text'}
                                                    placeholder={'받으시는 분의 전체 성함을 입력하세요.'}
                                                    title={'이름'}
                                                    name={'recipientName'}
                                                    maxLength={30}
-                                                   long={true}/>
+                                                   long={true}
+                                                  />
                             <AddressInputComponent id={'recipient-phone'}
                                                    type={'tel'}
                                                    placeholder={' - 없이 연락처를 입력하세요.'}
                                                    title={'휴대전화'}
                                                    name={'recipientPhone'}
                                                    maxLength={20}
-                                                   long={true}/>
+                                                   long={true}
+                                                />
                             <AddressInputComponent id={'other-recipient-phone'}
                                                    type={'tel'}
                                                    placeholder={' - 없이 연락처를 입력하세요.'}
                                                    title={'기타 연락처'}
                                                    name={'otherPhone'}
                                                    maxLength={20}
-                                                   long={true}/>
+                                                   long={true}
+                                                  />
                             <AddressDeliveryInputComponent language={this.props.language}/>
                         </fieldset>
                         <div className={styles['delivery-add-modal--form--submit']}>

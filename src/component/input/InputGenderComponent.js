@@ -9,7 +9,7 @@ class InputGenderComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            gender: 'f'
+            gender: this.props.clientGender || 'f'
         };
 
         this.onChangeHandler = this.onChangeHandler.bind(this);

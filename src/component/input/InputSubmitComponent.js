@@ -16,32 +16,35 @@ class InputSubmitComponent extends React.Component {
 
     onSubmitHandler(e) {
         e.preventDefault();
-        if (this.props.emailCheck && this.props.passwordCheck && this.props.termsCheck && !this.props.duplicatedEmail) {
-            this.props.action()
-        } else if (!this.props.emailCheck) {
-            store.dispatch({
-                type: 'SET_MODAL_OPEN_REQUEST',
-                desc: 'notEmail'
+
+        if (this.props.validatedEmail && this.props.validatedPassword && this.props.validatedTerms && !this.props.isEmailDuplicated) {
+            const target = document.getElementById('client-join-section--form');
+            const form = new FormData(target);
+            this.props.action(form);
+        } else if (!this.props.validatedEmail) {
+            this.props.failAction({
+                error: true,
+                type: 'email'
             });
-        } else if (!this.props.passwordCheck) {
-            store.dispatch({
-                type: 'SET_MODAL_OPEN_REQUEST',
-                desc: 'notPassword'
+        } else if (!this.props.validatedPassword) {
+            this.props.failAction({
+                error: true,
+                type: 'password'
             });
-        } else if (!this.props.termsCheck) {
-            store.dispatch({
-                type: 'SET_MODAL_OPEN_REQUEST',
-                desc: 'notTerms'
+        } else if (!this.props.validatedTerms) {
+            this.props.failAction({
+                error: true,
+                type: 'terms'
             });
-        } else if(this.props.duplicatedEmail){
-            store.dispatch({
-                type: 'SET_SIGN_UP_EMAIL_DUPLICATE_TRUE',
+        } else if (this.props.isEmailDuplicated) {
+            this.props.failAction({
+                error: true,
+                type: 'duplicated'
             });
-        }
-        else {
-            store.dispatch({
-                type: 'SET_MODAL_OPEN_REQUEST',
-                desc: 'server'
+        } else {
+            this.props.failAction({
+                error: true,
+                type: 'server'
             });
         }
 

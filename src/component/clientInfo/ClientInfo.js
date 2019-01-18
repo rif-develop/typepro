@@ -40,7 +40,7 @@ class ClientInfo extends React.Component {
 
         let items = [
             {
-                url: '/mypage/modify',
+                url: '/mypage/auth',
                 boardName: '회원정보 수정'
             },
             {

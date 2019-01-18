@@ -68,7 +68,7 @@ router.post('/login', (req, res, next) => {
                             birth: {
                                 year: user.birth.year,
                                 month: user.birth.month,
-                                data: user.birth.data,
+                                date: user.birth.data,
                             },
                             gender: user.gender,
                             nickname: user.nickname,

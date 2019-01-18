@@ -138,6 +138,7 @@ class InputBirthdateComponent extends React.Component {
                            min={this.state.minYear}
                            max={this.state.maxYear}
                            maxLength={4}
+                           defaultValue={this.props.year}
                            ref={this.year}
                            onBlur={() => {
                                this.onBlurHandler(this.year.current);
@@ -162,6 +163,7 @@ class InputBirthdateComponent extends React.Component {
                            min={1}
                            max={12}
                            maxLength={2}
+                           defaultValue={this.props.month}
                            ref={this.month}
                            onBlur={() => {
                                this.onBlurHandler(this.month.current);
@@ -185,6 +187,7 @@ class InputBirthdateComponent extends React.Component {
                            min={1}
                            max={31}
                            maxLength={2}
+                           defaultValue={this.props.date}
                            ref={this.date}
                            onBlur={() => {
                                this.onBlurHandler(this.date.current);

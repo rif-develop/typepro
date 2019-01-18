@@ -61,27 +61,22 @@ class InputPasswordComponent extends React.Component {
                 checkAni: true
             });
             checkAnimation(this.check.current);
-            //
-            store.dispatch({
-                type:"SET_SIGN_UP_PASSWORD_SUCCESS",
-                password:this.inputComponent.current.value
-            })
+            //유효성 스테이트 변경
+            this.props.action(true)
 
         } else {
             //유효성 검사 실패시
             this.setState({
                 validation: 'validationFail',
                 checkAni: false,
-                removeBtn:false
+                removeBtn: false
             });
 
             this.inputComponent.current.value = null;
             this.inputComponent.current.focus();
 
-            /*빈값을 디스패치*/
-            store.dispatch({
-                type:"SET_SIGN_UP_PASSWORD_FAILURE",
-            })
+            //유효성 스테이트 변경
+            this.props.action(false)
         }//end if~else
 
     }
@@ -106,9 +101,8 @@ class InputPasswordComponent extends React.Component {
         });
         ref.focus();
         /*빈값을 디스패치*/
-        store.dispatch({
-            type:"SET_SIGN_UP_PASSWORD_FAILURE",
-        })
+        //유효성 스테이트 변경
+        this.props.action(false)
     }
 
 

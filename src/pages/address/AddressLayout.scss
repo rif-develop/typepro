@@ -141,11 +141,11 @@
       background-color: #19ebdd;
       padding: 16px;
 
-      h2{
+      h2 {
         font-size: 1.25em;
       }
 
-      span{
+      span {
         font-size: 1.25em;
 
       }
@@ -250,9 +250,14 @@
         -ms-transition: all 0.45s ease-out;
         -o-transition: all 0.45s ease-out;
         transition: all 0.45s ease-out;
+        margin-right: 5px;
       }
 
-      button:hover {
+      button:last-child {
+        margin-right: 0;
+      }
+
+      button:hover, button:focus {
         opacity: 0.66;
       }
 

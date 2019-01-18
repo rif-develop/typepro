@@ -21,6 +21,8 @@ import SignupLayout from "./pages/signup/SignupLayout";
 import FindClientIdLayout from "./pages/find/FindClientIdLayout";
 import FindClientPasswordLayout from "./pages/find/FindClientPasswordLayout";
 import {sagaMiddleware, store} from './store/StoreComponent'
+import MypageLayout from "./pages/mypage/MypageLayout";
+import MypageUpdateLayout from "./pages/mypage/MypageUpdateLayout";
 
 const root = document.getElementById('app');
 
@@ -80,6 +82,8 @@ if (ieVersion < LauchableVersion.ie) {
                         <Route exact path={'/signup'} component={SignupLayout}/>
                         <Route exact path={'/findid'} component={FindClientIdLayout}/>
                         <Route exact path={'/findpassword'} component={FindClientPasswordLayout}/>
+                        <Route exact path={'/mypage/auth'} component={MypageLayout}/>
+                        <Route exact path={'/mypage/auth/modify'} component={MypageUpdateLayout}/>
                         <Redirect from="*" to="/404error"/>
                         <Redirect to={'/login'}/>
                     </Switch>

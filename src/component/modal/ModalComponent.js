@@ -51,6 +51,7 @@ class ModalComponent extends React.Component {
     }
 
     cancelModal() {
+
         store.dispatch({
             type:'SET_MODAL_CLOSE_REQUEST'
         });

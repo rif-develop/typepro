@@ -5,8 +5,7 @@ import classnames from 'classnames';
 const cx = classnames.bind(styles);
 import {Validations} from "../../lib/validation";
 import {checkAnimation} from "../../lib/script";
-import {store} from "../../store/StoreComponent";
-import axios from 'axios';
+import {checkDuplicatedEmail} from "../../action/duplicatedCheck/duplicatedCheckAxios";
 
 class InputEmailComponent extends React.Component {
 
@@ -29,7 +28,7 @@ class InputEmailComponent extends React.Component {
         this.state = {
             checkAni: false,
             removeBtn: false,
-            validation:null
+            validation: null,
         };
 
         this.inputComponent = React.createRef();
@@ -43,6 +42,17 @@ class InputEmailComponent extends React.Component {
         this.onFocusHandler = this.onFocusHandler.bind(this);
     }
 
+    componentWillMount() {
+        if (this.props.clientEmail) {
+            this.setState({
+                checkAni: true
+            })
+        }
+    }
+
+    componentDidMount() {
+        checkAnimation(this.check.current);
+    }
 
     onBlurHandler() {
         const val = this.inputComponent.current.value;
@@ -53,8 +63,9 @@ class InputEmailComponent extends React.Component {
             this.setState({
                 checkAni: false,
                 removeBtn: false,
-                validation:null
+                validation: null
             });
+            this.props.action(true)
             return;
         }
 
@@ -62,18 +73,13 @@ class InputEmailComponent extends React.Component {
         if (!result) {
             this.setState({
                 checkAni: false,
-                validation:'validationFail',
-                removeBtn:false
+                validation: 'validationFail',
+                removeBtn: false
             });
             this.inputComponent.current.value = null;
-            //실패했음을 스토어에 액션
-            store.dispatch({
-                type: 'SET_SIGN_UP_EMAIL_FAILURE'
-            });
-            //중복 여부도 초기
-            store.dispatch({
-                type: 'SET_SIGN_UP_EMAIL_DUPLICATE_FALSE'
-            });
+
+            //중복 여부도 초기화, 유효성 초기화
+            this.props.action(true);
             /*다시 인풋에 포커스*/
             this.inputComponent.current.focus();
 
@@ -81,16 +87,10 @@ class InputEmailComponent extends React.Component {
         }
 
         //아이디 중복 검사
-        axios({
-            method: 'post',
-            url: '/signup/emailcheck',
-            data: {
-                email: val
-            }
-        }).then((response) => {
+        checkDuplicatedEmail(val).then((res) => {
             //중복되지 않은 이메일이라면
-            console.log(response.data);
-            if (!response.data.duplicate && result) {
+
+            if (!res.data.duplicate && result) {
                 //중복되지 않았으니 체크 애니메이션
 
                 this.setState({
@@ -98,40 +98,33 @@ class InputEmailComponent extends React.Component {
                 });
 
                 checkAnimation(this.check.current);
-                /*리덕스에 디스패치 중복 되지 않았다고 액션 디스패치*/
-                store.dispatch({
-                    type: 'SET_SIGN_UP_EMAIL_DUPLICATE_FALSE'
-                });
-                //리덕스 스토어에 성공했음을 알리는 액션 디스패치
-                store.dispatch({
-                    type: 'SET_SIGN_UP_EMAIL_SUCCESS',
-                    email: response.data.verifiedId
-                })
+                /*성공한 state로 변경*/
+                this.props.action(false);
+
 
             } else {
                 //중복된 이메일이라면
                 this.setState({
                     checkAni: false,
-                    removeBtn:false,
-                    validation:'duplicated'
+                    removeBtn: false,
+                    validation: 'duplicated'
                 });
-                /*밸류를 초기화 한 후에 REDUX를 원래대로 한다.*/
+                /*밸류를 초기화.*/
                 this.inputComponent.current.value = null;
 
-                //중복 되었다고 스토어 갱신
-                store.dispatch({
-                    type: 'SET_SIGN_UP_EMAIL_DUPLICATE_TRUE'
-                });
-
-                store.dispatch({
-                    type: 'SET_SIGN_UP_EMAIL_FAILURE'
-                });
+                /*실패한 스테이트로 변경*/
+                this.props.action(true);
 
                 /*다시 인풋에 포커스*/
                 this.inputComponent.current.focus();
             }
         }).catch((error) => {
             console.log(error);
+            this.setState({
+                validation: 'server'
+            });
+            /*실패한 스테이트로 변경*/
+            this.props.action(true);
         });
     }
 
@@ -140,7 +133,7 @@ class InputEmailComponent extends React.Component {
         const isLen = val.length > 0;
         isLen ? this.setState({
             removeBtn: true,
-            validation:null
+            validation: null
         }) : this.setState({
             removeBtn: false
         });
@@ -152,12 +145,8 @@ class InputEmailComponent extends React.Component {
             removeBtn: false,
             checkAni: false,
         });
-        store.dispatch({
-            type: 'SET_SIGN_UP_EMAIL_DUPLICATE_FALSE'
-        });
-        store.dispatch({
-            type: 'SET_SIGN_UP_EMAIL_FAILURE'
-        });
+        /*실패한 state로 변경*/
+        this.props.action(true);
 
         ref.focus();
     }
@@ -187,7 +176,9 @@ class InputEmailComponent extends React.Component {
                            ref={this.inputComponent}
                            onBlur={this.onBlurHandler}
                            onChange={this.onKeyHandler}
-                           onFocus={this.onFocusHandler}/>
+                           onFocus={this.onFocusHandler}
+                           defaultValue={this.props.clientEmail}
+                           disabled={this.props.clientEmail}/>
                     <div className={cx(styles['__remove-input-button'], this.state.removeBtn ? styles['active'] : null)}
                          ref={this.removeBtn}
                          onClick={() => {
@@ -207,6 +198,7 @@ class InputEmailComponent extends React.Component {
                     <em ref={this.error}>
                         {this.state.validation === 'duplicated' ? '중복된 이메일입니다.' : null}
                         {this.state.validation === 'validationFail' ? '잘못된 형식입니다. 이메일 주소를 다시 입력해 주세요.' : null}
+                        {this.state.validation === 'server' ? '서버 통신에 실패하였습니다. 관리자에게 문의해주세요.' : null}
                     </em>
                 </div>
             </div>
