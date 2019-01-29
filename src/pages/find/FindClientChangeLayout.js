@@ -13,6 +13,7 @@ import InputPasswordComponent from "../../component/input/InputPasswordComponent
 import {connect} from "react-redux";
 import ModalComponent from "../../component/modal/ModalComponent";
 
+//이메일 인증을 통한 비밀번호 변경
 class FindClientChangeLayout extends React.Component {
 
 
@@ -125,11 +126,23 @@ class FindClientChangeLayout extends React.Component {
                     <div className={styles['littleone-common-section--desc']}>
                         <h1>비밀번호 변경</h1>
                     </div>
-                    <form className={styles['littleone-common-section--form']} id="password-change-form" role="form" ref={this.form}>
+                    <form className={styles['littleone-common-section--form']} tabIndex={0} id="password-change-form" role="form" ref={this.form} onKeyDown={(e) => {
+                        if (e.keyCode === 13) {
+                            e.preventDefault();
+                            return false;
+                        }
+                    }}>
                         <fieldset form="password-change-form">
                             <legend>리틀원 비밀번호 변경 폼 입니다.</legend>
-                            <InputPasswordComponent action={this.stateHandler}/>
-                            <button type="submit" role="button" className={styles['__submit-btn']} onClick={this.state.validPassword ? this.onClickSubmit : null}>확인</button>
+                            <InputPasswordComponent action={this.stateHandler} tabIndex={1} />
+                            <button tabIndex={2} type="submit" role="button" className={styles['__submit-btn']}
+                                    onClick={this.state.validPassword ? this.onClickSubmit : null}
+                                    onKeyDown={this.state.validPassword ? (e) => {
+                                        if (e.keyCode === 13) {
+                                            this.onClickSubmit(e);
+                                        }
+                                    } : null}>확인
+                            </button>
                         </fieldset>
                     </form>
                 </section>

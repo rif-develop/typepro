@@ -1,3 +1,6 @@
+
+let mode = process.env.NODE_ENV;
+
 module.exports = finPasswordTemplate = (token, email) => {
     return `<div class="find-password-section section" style="position:relative; width: 100%; margin: 0; padding: 0; font-family:Noto Sans, '맑은고딕','NanumGothic','MalgunGothic', dotum, 돋움, Sans-Serif;">
     <div class="find-password-section--outer" style="background-image:url('https://s3.ap-northeast-2.amazonaws.com/littleone/etc/mailing-password-bg%402x.png'); border: 1px solid #ccc; background-repeat: no-repeat; background-size: 100% auto;  width: 600px; max-width: 100%; margin: 0 auto; text-align: center; display: table; height: 680px; ">
@@ -12,7 +15,7 @@ module.exports = finPasswordTemplate = (token, email) => {
                     <p style="font-size: 1em; font-weight: normal; line-height:1.36; margin: 0; padding: 0;">아래 버튼은 비밀번호 찾기를 신청한 후 30분이 지나면 유효하지 않습니다.</p>
                 </div>
                 <div class="find-password-section--centered--box" style="font-size: 14px; margin: 31px auto 0; text-align: center">
-                    <a href="http://localhost:8080/email/passwordchange?token=${token}&email=${email}" style="display: inline-block; vertical-align: middle; text-align: center;">
+                    <a href="${mode === 'development' ? 'http://localhost:8080':'http://www.cizz3007.com'}/email/passwordchange?token=${token}&email=${email}" style="display: inline-block; vertical-align: middle; text-align: center;">
                         <div style="display:inline-block; width: 160px; height: 36px; line-height: 36px; background-image: url('https://s3.ap-northeast-2.amazonaws.com/littleone/etc/mailing-password-btn.png'); background-size: 160px 36px; background-repeat: no-repeat;  font-size: 13px; color:#fff; font-style: normal; text-decoration: none; font-weight: 700;">비밀번호 변경하기</div>
                     </a>
                 </div>

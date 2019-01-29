@@ -136,7 +136,9 @@ class InputPasswordComponent extends React.Component {
                            ref={this.inputComponent}
                            onBlur={this.onBlurHandler}
                            onChange={this.onKeyHandler}
-                           onFocus={this.onFocusHandler}/>
+                           onFocus={this.onFocusHandler}
+                           tabIndex={this.props.tabIndex || null}
+                    />
                     <div className={cx(styles['__remove-input-button'], this.state.removeBtn ? styles['active'] : null)}
                          ref={this.removeBtn}
                          onClick={() => {

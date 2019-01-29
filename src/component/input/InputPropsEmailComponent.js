@@ -162,6 +162,7 @@ class InputPropsEmailComponent extends React.Component {
                            maxLength={InputPropsEmailComponent.defaultState.maxLength}
                            className={styles['__default-input-component']}
                            ref={this.inputComponent}
+                           tabIndex={1}
                            onBlur={this.onBlurHandler}
                            onChange={this.onKeyHandler}
                            onFocus={this.onFocusHandler}
