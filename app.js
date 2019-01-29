@@ -6,12 +6,20 @@ const session = require('express-session');
 const app = express();
 const redis = require('redis');
 const client = redis.createClient();
+
 const redisOption = require('./public/middleware/Redis');
+//몽구스 프라미스 설정
 mongoose.Promise = global.Promise;
+
 const userRouter = require('./public/router/UserRouter');
 const loginRouter = require('./public/router/login');
 const addressRouter = require('./public/router/AddressRouter');
 const mypageRouter = require('./public/router/MypageRouter');
+const nexmoRouter = require('./public/router/NexmoPhoneRouter');
+const emailRouter = require('./public/router/EmailRouter');
+const imageRouter = require('./public/router/ImageUploadRouter');
+//앱 라우터
+const appRouter =require('./public/router/EchoTestRouter');
 
 /*환경변수 불러오기*/
 const envResult = require('dotenv').config({
@@ -30,10 +38,16 @@ console.log(`${process.env.WHO_IS_DEVELOPER}님이 어플리케이션 서버를 
 app.use(cookieParser());
 //json parser
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({limit:'4mb',extended: true, parameterLimit: 1000000}));
 
 //session redis 사용
 app.use(session(redisOption));
+
+//배포용 파일 경로
+app.use('/dist', express.static(__dirname + '/dist'));
+/*인덱스 페이지 경로*/
+app.use('/', express.static(__dirname));
+
 
 //라우터
 app.use('/images', express.static(__dirname + '/dist/images'));
@@ -45,13 +59,18 @@ app.use(loginRouter);
 app.use('/address', addressRouter);
 //마이페이지 라우터
 app.use('/mypage', mypageRouter);
-//배포용 파일 경로
-app.use('/dist', express.static(__dirname + '/dist'));
 
-/*인덱스 페이지 경로*/
-app.use('/', express.static(__dirname));
+//넥스모 핸드폰 인증 라우터
+app.use('/nexmo', nexmoRouter);
 
+//이메일 템플릿 라우터
+app.use('/find', emailRouter);
 
+//이미지 업로드 라우터
+app.use('/upload', imageRouter);
+
+//앱 테스트 라우터
+app.use('/app', appRouter);
 //새로고침시 페이지 뜰 수 있게 하기.
 app.get('*', (req, res) => {
     console.log('### 요청에 의한 페이지 렌더링 ###');
@@ -63,22 +82,33 @@ app.get('*', (req, res) => {
     });
     res.sendFile(path.resolve(__dirname, 'index.html'))
 });
+
 //세션 넘겨주기
-app.use('/getsession', (req, res, next) => {
-    console.log('#세션이 있습니다.');
+app.use('/getSession', async (req, res) => {
     //req.session.key 즉, 세션이 있으면
-    if (req.session.key) {
-        res.json({
-            isSession: true,
-            session: req.session.key
-        });
-    } else {
-        res.json({
+    try {
+        if (req.session.key) {
+            console.log('#세션이 있습니다.');
+            return res.json({
+                isSession: true,
+                session: req.session.key
+            });
+        } else {
+            console.log('#세션이 없습니다.');
+
+            return res.json({
+                isSession: false,
+                session: req.session.key
+            });
+        }
+    } catch (e) {
+        console.log('#세션을 가져오는 중에 에러 발생.');
+        return res.json({
             isSession: false,
             session: req.session.key
         });
-
     }
+
 });
 
 

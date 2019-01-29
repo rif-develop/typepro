@@ -56,7 +56,9 @@ class InputNicknameComponent extends React.Component {
 
 
         //닉네임 중복 여부 검사
-        checkDuplicatedNickname(val).then((res) => {
+
+        const clientIdx = this.props.clientIdx;
+        checkDuplicatedNickname(val, clientIdx).then((res) => {
             // 중복된 닉네임이라면
             if (res.data.isDuplicated) {
                 this.setState({
@@ -81,7 +83,7 @@ class InputNicknameComponent extends React.Component {
                 this.inputComponent.current.value = '';
                 this.inputComponent.current.focus();
             }
-        }).catch((err)=>{
+        }).catch((err) => {
 
             this.setState({
                 error: 'server',

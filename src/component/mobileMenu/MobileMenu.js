@@ -45,37 +45,15 @@ class MobileMenu extends React.Component {
         })
     }
 
-    logoutHandler(){
-        axios({
-            method:'post',
-            url:'/logout',
-        }).then((res)=>{
-            console.log(res.data);
-            const data = res.data;
-
-            //로그 아웃 성공시에
-            if(data.success){
-                window.location.replace('/');
-                store.dispatch({
-                    type:'WEB_LOGOUT_REQUEST'
-                });
-
-            } else {
-                //로그 아웃 실패시에
-                store.dispatch({
-                    type:'WEB_LOGOUT_REQUEST'
-                });
-
-                this.props.history.push('/404error');
-            }
-        }).catch((err)=>{
-            console.log(err)
-        })
+    logoutHandler(e){
+        e.preventDefault();
+        this.props.logout();
     }
 
 
     render() {
         const {isLogin} = this.props;
+
         return (
             <div className={cx(styles['mobile-menu-component'], (this.props.active && this.state.width <= 768) ? styles['active'] : null)} ref={this.myRef} id={'mobile-menu'}>
                 {/*네비*/}
@@ -99,12 +77,12 @@ class MobileMenu extends React.Component {
                         {
                             isLogin ? <Fragment>
                                 <div className={styles['mobile-menu-component--nav__client-info__status']}>
-                                    <img src={"#"} alt={'ㅁㅁㅁ님의 썸네일 이미지입니다. 정말 이쁜 사진이에요.'}/>
+                                    <img src={this.props.thumbnail || require('../header/icn-no-baby@2x.png')} alt={'ㅁㅁㅁ님의 썸네일 이미지입니다. 정말 이쁜 사진이에요.'}/>
                                     <div className={styles['mobile-menu-component--nav__client-info__status__desc']}>
                                         <p>닉네임<span>님</span></p>
                                         <div>
-                                            <span>등급 : 골드</span>
-                                            <span>포인트 : 2,340 P</span>
+                                            <span>등급 : {this.props.grade === 0 ? '일반':'??'}</span>
+                                            <span>포인트 : {this.props.point} P</span>
                                         </div>
                                     </div>
                                     <div className={styles['mobile-menu-component--nav__client-info__status__more']}>
@@ -132,10 +110,7 @@ class MobileMenu extends React.Component {
 
                         <div className={styles['mobile-menu-component--nav__client-info__sign']}>
                             {
-                                isLogin ?   <Link to="/logout" onClick={(e)=>{
-                                e.preventDefault();
-                                this.logoutHandler();}
-                                }>로그아웃</Link>:<Link to="/login">로그인・회원가입</Link>
+                                isLogin ?   <Link to="/logout" onClick={this.logoutHandler}>로그아웃</Link>:<Link to="/login">로그인・회원가입</Link>
                             }
                         </div>
                     </div>

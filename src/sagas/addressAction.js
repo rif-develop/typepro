@@ -72,8 +72,6 @@ function* setAddressSaga(formData) {
 //서버와 통신해서 배송지 리스트를 불러오는 비동기 통신
 function getAddressListAxios(id) {
 
-    console.log('배송지 불러오기 비동기 통신 시작..');
-
     return axios({
         url: '/address/getaddress',
         method: 'POST',
@@ -94,8 +92,7 @@ function* getListSaga() {
         //인자와 함수를 불리해서 넣어라; 안 그러면
         //uncaught at check call: argument [object Promise] is not a function 에러가 뜬다.
         const response = yield call(getAddressListAxios, userIdx);
-        console.log('getListSaga');
-        console.log(response);
+
         //payload의 이름은 리듀서에서의 이름과 같아야 한다.
         yield put({
             type: 'GET_ADDRESS_LIST_SUCCESS',

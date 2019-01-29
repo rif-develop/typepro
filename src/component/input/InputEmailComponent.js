@@ -65,7 +65,9 @@ class InputEmailComponent extends React.Component {
                 removeBtn: false,
                 validation: null
             });
-            this.props.action(true)
+            if (this.props.action) {
+                this.props.action(true);
+            }
             return;
         }
 
@@ -79,53 +81,64 @@ class InputEmailComponent extends React.Component {
             this.inputComponent.current.value = null;
 
             //중복 여부도 초기화, 유효성 초기화
-            this.props.action(true);
+            if (this.props.action) {
+                this.props.action(true);
+            }
             /*다시 인풋에 포커스*/
             this.inputComponent.current.focus();
 
             return;
         }
+        //checkDuplicated값이 없을 떄만 중복검사를 실행한다.
+        if (this.props.checkDuplicated) {
 
-        //아이디 중복 검사
-        checkDuplicatedEmail(val).then((res) => {
-            //중복되지 않은 이메일이라면
+            //아이디 중복 검사
+            checkDuplicatedEmail(val).then((res) => {
+                //중복되지 않은 이메일이라면
 
-            if (!res.data.duplicate && result) {
-                //중복되지 않았으니 체크 애니메이션
+                if (!res.data.duplicate && result) {
+                    //중복되지 않았으니 체크 애니메이션
 
+                    this.setState({
+                        checkAni: true
+                    });
+
+                    checkAnimation(this.check.current);
+                    /*성공한 state로 변경*/
+                    if (this.props.action) {
+                        this.props.action(false);
+                    }
+
+
+                } else {
+                    //중복된 이메일이라면
+                    this.setState({
+                        checkAni: false,
+                        removeBtn: false,
+                        validation: 'duplicated'
+                    });
+                    /*밸류를 초기화.*/
+                    this.inputComponent.current.value = null;
+
+                    /*실패한 스테이트로 변경*/
+                    if (this.props.action) {
+                        this.props.action(true);
+                    }
+
+                    /*다시 인풋에 포커스*/
+                    this.inputComponent.current.focus();
+                }
+            }).catch((error) => {
+                console.log(error);
                 this.setState({
-                    checkAni: true
+                    validation: 'server'
                 });
-
-                checkAnimation(this.check.current);
-                /*성공한 state로 변경*/
-                this.props.action(false);
-
-
-            } else {
-                //중복된 이메일이라면
-                this.setState({
-                    checkAni: false,
-                    removeBtn: false,
-                    validation: 'duplicated'
-                });
-                /*밸류를 초기화.*/
-                this.inputComponent.current.value = null;
-
                 /*실패한 스테이트로 변경*/
-                this.props.action(true);
-
-                /*다시 인풋에 포커스*/
-                this.inputComponent.current.focus();
-            }
-        }).catch((error) => {
-            console.log(error);
-            this.setState({
-                validation: 'server'
+                if (this.props.action) {
+                    this.props.action(true);
+                }
             });
-            /*실패한 스테이트로 변경*/
-            this.props.action(true);
-        });
+        }
     }
 
     onKeyHandler(e) {
@@ -146,7 +159,9 @@ class InputEmailComponent extends React.Component {
             checkAni: false,
         });
         /*실패한 state로 변경*/
-        this.props.action(true);
+        if (this.props.action) {
+            this.props.action(true);
+        }
 
         ref.focus();
     }
@@ -161,11 +176,11 @@ class InputEmailComponent extends React.Component {
         return (
             <div>
                 <div className={styles['client-join-section--form--box']}>
-                    <label htmlFor={InputEmailComponent.defaultState.id} className={styles['email-icon']}
-                           title={InputEmailComponent.defaultState.title}></label>
+                    <label htmlFor={this.props.id || InputEmailComponent.defaultState.id} className={styles['email-icon']}
+                           title={this.props.title || InputEmailComponent.defaultState.title}></label>
                     <input type={InputEmailComponent.defaultState.type}
-                           name={InputEmailComponent.defaultState.name}
-                           id={InputEmailComponent.defaultState.id}
+                           name={this.props.name || InputEmailComponent.defaultState.name}
+                           id={this.props.id || InputEmailComponent.defaultState.id}
                            required={InputEmailComponent.defaultState.required}
                            placeholder={InputEmailComponent.defaultState.placeholder}
                            aria-placeholder={InputEmailComponent.defaultState.placeholder}

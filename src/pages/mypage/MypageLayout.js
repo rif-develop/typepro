@@ -5,7 +5,6 @@ import Header from "../../component/header/Header";
 import Head from "../../component/head/head";
 import {connect} from "react-redux";
 import Footer from "../../component/footer/Footer";
-import {getSessionAxios} from "../../action/session/sessionAxios";
 import classnames from 'classnames';
 import {Validations} from "../../lib/validation";
 
@@ -34,25 +33,7 @@ class MypageLayout extends React.Component {
 
     componentWillMount() {
         //세션 정보 불러들이기.
-        getSessionAxios()
-            .then((res) => {
-                //isSession이 트루면 로그인 된 삳ㅇ태
-                if (res.data.isSession) {
-
-                    //로그인 되었으니 세션갱신
-                    this.props.webLoginRequest(res.data.session);
-
-                } else {
-                    //세션이 없으면 issession이 false라면 에러 처리
-                    throw "no session";
-                }
-            }).catch((err) => {
-            console.log(err);
-            //일단 로그아웃 처리;
-            this.props.webLogoutRequest();
-            //인덱스 페이지로 이동
-            this.props.history.push('/');
-        });//axios
+       this.props.getSession();
     }
 
 
@@ -206,6 +187,9 @@ const mapDispatchToProps = (dispatch) => {
             email: email,
             password: password
         }),
+        getSession: () => dispatch({
+            type: 'REFRESH_SESSION_REQUEST'
+        })
     }
 };
 export default connect(mapStateToProp, mapDispatchToProps)(MypageLayout);

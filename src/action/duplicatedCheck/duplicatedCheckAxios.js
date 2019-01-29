@@ -15,12 +15,13 @@ export const checkDuplicatedEmail = (email) => {
 //닉네임 중복 여부를 검사한다.
 //isDuplicated: false => 중복 아닌 상태
 //isDuplicated: true => 중복인 상태
-export const checkDuplicatedNickname = (value) => {
+export const checkDuplicatedNickname = (value, clientIdx) => {
     return axios({
         method: 'POST',
         url: '/signup/nicknamecheck',
         data: {
-            nickname: value
+            nickname: value,
+            clientIdx: clientIdx
         }
     });
 };

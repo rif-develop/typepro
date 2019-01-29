@@ -23,6 +23,10 @@ import FindClientPasswordLayout from "./pages/find/FindClientPasswordLayout";
 import {sagaMiddleware, store} from './store/StoreComponent'
 import MypageLayout from "./pages/mypage/MypageLayout";
 import MypageUpdateLayout from "./pages/mypage/MypageUpdateLayout";
+import PasswordChangeLayout from "./pages/password/PasswordChangeLayout";
+import FindClientChangeLayout from "./pages/find/FindClientChangeLayout";
+import NotValidPage from "./pages/error/NotValidPage";
+import PasswordChangeByPhoneLayout from "./pages/password/PasswordChangeByPhoneLayout";
 
 const root = document.getElementById('app');
 
@@ -72,6 +76,7 @@ if (ieVersion < LauchableVersion.ie) {
                         <Route exact path={"/"} component={IndexLayout}/>
                         <Route path={"/login"} component={LoginLayout}/>
                         <Route path="/404error" component={ErrorPage} notFound/>
+                        <Route path="/notvalid" component={NotValidPage} notFound/>
                         <Route exact path={'/device/smartbottle'} component={BottleLayout}/>
                         <Route exact path={'/device/smartpeepee'} component={PeepeeLayout}/>
                         <Route exact path={'/device/smarttemp'} component={TempLayout}/>
@@ -84,6 +89,9 @@ if (ieVersion < LauchableVersion.ie) {
                         <Route exact path={'/findpassword'} component={FindClientPasswordLayout}/>
                         <Route exact path={'/mypage/auth'} component={MypageLayout}/>
                         <Route exact path={'/mypage/auth/modify'} component={MypageUpdateLayout}/>
+                        <Route exact path={'/mypage/password'} component={PasswordChangeLayout}/>
+                        <Route exact path={'/email/passwordchange'} component={FindClientChangeLayout}/>
+                        <Route exact path={'/phone/passwordchange'} component={PasswordChangeByPhoneLayout}/>
                         <Redirect from="*" to="/404error"/>
                         <Redirect to={'/login'}/>
                     </Switch>

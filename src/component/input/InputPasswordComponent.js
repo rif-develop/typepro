@@ -5,7 +5,6 @@ import classnames from 'classnames';
 const cx = classnames.bind(styles);
 import {Validations} from "../../lib/validation";
 import {checkAnimation} from "../../lib/script";
-import {store} from "../../store/StoreComponent";
 
 class InputPasswordComponent extends React.Component {
 
@@ -62,7 +61,9 @@ class InputPasswordComponent extends React.Component {
             });
             checkAnimation(this.check.current);
             //유효성 스테이트 변경
-            this.props.action(true)
+            if (this.props.action) {
+                this.props.action(true)
+            }
 
         } else {
             //유효성 검사 실패시
@@ -76,7 +77,9 @@ class InputPasswordComponent extends React.Component {
             this.inputComponent.current.focus();
 
             //유효성 스테이트 변경
-            this.props.action(false)
+            if (this.props.action) {
+                this.props.action(false)
+            }
         }//end if~else
 
     }
@@ -102,7 +105,9 @@ class InputPasswordComponent extends React.Component {
         ref.focus();
         /*빈값을 디스패치*/
         //유효성 스테이트 변경
-        this.props.action(false)
+        if(this.props.action){
+            this.props.action(false)
+        }
     }
 
 
@@ -116,17 +121,17 @@ class InputPasswordComponent extends React.Component {
         return (
             <div>
                 <div className={styles['client-join-section--form--box']}>
-                    <label htmlFor={InputPasswordComponent.defaultState.id} className={styles['password-icon']}
-                           title={InputPasswordComponent.defaultState.title}></label>
+                    <label htmlFor={this.props.id || InputPasswordComponent.defaultState.id} className={styles['password-icon']}
+                           title={this.props.title || InputPasswordComponent.defaultState.title}></label>
                     <input type={InputPasswordComponent.defaultState.type}
-                           name={InputPasswordComponent.defaultState.name}
-                           id={InputPasswordComponent.defaultState.id}
-                           required={InputPasswordComponent.defaultState.required}
-                           placeholder={InputPasswordComponent.defaultState.placeholder}
-                           aria-placeholder={InputPasswordComponent.defaultState.placeholder}
+                           name={this.props.name || InputPasswordComponent.defaultState.name}
+                           id={this.props.id || InputPasswordComponent.defaultState.id}
+                           required={this.props.required || InputPasswordComponent.defaultState.required}
+                           placeholder={this.props.placeholder || InputPasswordComponent.defaultState.placeholder}
+                           aria-placeholder={this.props.placeholder || InputPasswordComponent.defaultState.placeholder}
                            autoCapitalize={InputPasswordComponent.defaultState.autoCapitalize}
                            autoComplete={InputPasswordComponent.defaultState.autoComplete}
-                           maxLength={InputPasswordComponent.defaultState.maxLength}
+                           maxLength={this.props.maxLength || InputPasswordComponent.defaultState.maxLength}
                            className={styles['__default-input-component']}
                            ref={this.inputComponent}
                            onBlur={this.onBlurHandler}

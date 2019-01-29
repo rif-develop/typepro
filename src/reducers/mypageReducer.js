@@ -9,6 +9,12 @@ const UPDATE_CLIENT_INFO_REQUEST = 'UPDATE_CLIENT_INFO_REQUEST';
 const UPDATE_CLIENT_INFO_SUCCESS = 'UPDATE_CLIENT_INFO_SUCCESS';
 const UPDATE_CLIENT_INFO_FAILURE = 'UPDATE_CLIENT_INFO_FAILURE';
 
+
+//비밀번호 변경 액션
+const API_PASSWORD_CHANGE_REQUEST = 'API_PASSWORD_CHANGE_REQUEST';
+const API_PASSWORD_CHANGE_SUCCESS = 'API_PASSWORD_CHANGE_SUCCESS';
+const API_PASSWORD_CHANGE_FAILURE = 'API_PASSWORD_CHANGE_FAILURE';
+
 //페이지 초기화
 const API_MYPAGE_UPDATE_INIT = 'API_MYPAGE_UPDATE_INIT';
 
@@ -19,7 +25,15 @@ const initialState = {
         type: null
     },
     isChecked: false, //false면 페이지 리턴.true면 페이지 이동,
-    success: false //회원정보 수정에 성공시 success:true
+    success: false, //회원정보 수정에 성공시 success:true,
+    passwordChange: { //비밀번호 변경
+        loading: false,
+        error: {
+            error: false,
+            type: null
+        },
+        success: false
+    }
 };
 
 export function mypageReducer(state = initialState, action) {
@@ -31,15 +45,45 @@ export function mypageReducer(state = initialState, action) {
         case API_PASSWORD_CHECK_FAILURE:
             return {...state, loading: false, error: action.error, isChecked: false};
         case API_PASSWORD_CHECK_INIT:
-            return {...state, loading:false, error:{error:false, type:null}, isChecked:state.isChecked, success:false};
+            return {...state, loading: false, error: {error: false, type: null}, isChecked: state.isChecked, success: false};
         case API_MYPAGE_UPDATE_INIT:
             return initialState;
         case UPDATE_CLIENT_INFO_REQUEST:
-            return {...state, loading: true, error: state.error, isChecked: state.isChecked, success: state.success}
+            return {...state, loading: true, error: state.error, isChecked: state.isChecked, success: state.success};
         case UPDATE_CLIENT_INFO_SUCCESS:
-            return {...state, loading: false, error: state.error, isChecked: state.isChecked, success: true}
+            return {...state, loading: false, error: state.error, isChecked: state.isChecked, success: true};
         case UPDATE_CLIENT_INFO_FAILURE:
-            return {...state, loading: false, error: action.error, isChecked: state.isChecked, success: false}
+            return {...state, loading: false, error: action.error, isChecked: state.isChecked, success: false};
+        case API_PASSWORD_CHANGE_REQUEST:
+            return {
+                ...state, passwordChange: {
+                    loading: true,
+                    error: {
+                        error: state.passwordChange.error.error,
+                        type: state.passwordChange.error.type
+                    },
+                    success: false
+                }
+            };
+        case API_PASSWORD_CHANGE_SUCCESS:
+            return {
+                ...state, passwordChange: {
+                    loading: false,
+                    error: {
+                        error: state.passwordChange.error.error,
+                        type: state.passwordChange.error.type
+                    },
+                    success: true
+                }
+            };
+        case API_PASSWORD_CHANGE_FAILURE:
+            return {
+                ...state, passwordChange: {
+                    loading: false,
+                    error: action.error,
+                    success: false
+                }
+            };
         default:
             return state;
     }

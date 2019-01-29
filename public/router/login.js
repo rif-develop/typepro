@@ -9,7 +9,7 @@ const router = express.Router();
 * 세션을 redis서버에 저장한다.
 *`
 * */
-router.post('/login', (req, res, next) => {
+router.post('/login', async (req, res) => {
     console.log(`# ${req.body.email}의 로그인 시도`);
     /*
     * 아이디와 비밀번호가 일치하는 지 확인한다.
@@ -21,100 +21,78 @@ router.post('/login', (req, res, next) => {
 
 
     console.log('-------');
+    console.log(req.body.email);
+    console.log(req.body.password);
+    console.log('-------');
 
     //먼저 아이디가 있는지  확인 -> 계정이 없습니다
     // 있으면 비밀번호를 해쉬화 해서 -> 비밀번호가 틀렸습니다.
     // 쿼리를 실행시킴 -> 계정이 없습니다.
 
+    try {
+        console.log('# 로그인 처리 시작');
+        await User.findOne().where('email').equals(req.body.email).exec((err, user) => {
 
-    User.findOne().where('email').equals(req.body.email).exec((err, user) => {
+            //이 에러가 뜬다면 서버에러라고 가정한다.
+            if (err) {
+                console.log('# 에러' + err);
+                throw err;
+            } //end if
 
-        //이 에러가 뜬다면 서버에러라고 가정한다.
-        if (err) {
-            console.log('# 에러' + err);
-            res.json({
-                success: false,
-                type: 'server'
-            });
-        } //end if
+            //찾고자 하는 아이디가 있다면
+            if (user) {
+                //암호화 방식 그대로 다시 암호화해서 비밀번호가 일치하는지 먼저 찾아낸다.
+                crypto.pbkdf2(req.body.password, process.env.SECURITY_SALT, 77655, 64, process.env.SECURITY_HASH, (err, password) => {
+                    const encrytedPw = password.toString(process.env.SECURITY_DIGEST);
 
-        //찾고자 하는 아이디가 있다면
-        if (user) {
-            //암호화 방식 그대로 다시 암호화해서 비밀번호가 일치하는지 먼저 찾아낸다.
-            crypto.pbkdf2(req.body.password, process.env.SECURITY_SALT, 77655, 64, process.env.SECURITY_HASH, (err, password) => {
-                const encrytedPw = password.toString(process.env.SECURITY_DIGEST);
-                User.findOne().where('email').equals(req.body.email).where('password').equals(encrytedPw).exec((err, user) => {
-                    if (err) {
-                        console.log('# 에러' + err);
-                        res.json({
-                            success: false,
-                            type: 'server'
-                        });
-                    }
-                    //findeOne이면 1개니까 user 그 외에 find면은 user.length> 0 , user[0]._id이런식
-                    if (user) {
-                        console.log('# 일치하는 계정을 찾았습니다.');
+                    User.findOne().where('email').equals(req.body.email).where('password').equals(encrytedPw).exec((err, user) => {
+                        if (err) {
+                            console.log('# 에러' + err);
+                            throw err;
+                        }
+                        //findeOne이면 1개니까 user 그 외에 find면은 user.length> 0 , user[0]._id이런식
+                        if (user) {
+                            console.log('# 일치하는 계정을 찾았습니다.');
 
-                        //REDIS DB에 세션을 저장시킨다.
-                        req.session.key = {
-                            _id: user._id,
-                            grade: user.grade,
-                            point: user.point,
-                            email: req.body.email,
-                            name: {
-                                first: user.name.first,
-                                last: user.name.last
-                            },
-                            birth: {
-                                year: user.birth.year,
-                                month: user.birth.month,
-                                date: user.birth.data,
-                            },
-                            gender: user.gender,
-                            nickname: user.nickname,
-                            country: user.country,
-                            phone: user.phone,
-                            type: user.type,
-                            status: {
-                                visit: user.status.visit,
-                                lastVisit: user.status.lastVisit,
-                                lastFindId: user.status.lastFindId,
-                                lastFindPw: user.status.lastFindPw,
-                                lastModifiedPw: user.status.lastModifiedPw,
-                                signupDate: user.status.signupDate,
-                                admin: user.status.admin,
-                                token: user.status.token,
-                                social: user.status.social
-                            }
-                        };
+                            //REDIS DB에 세션을 저장시킨다.
+                            req.session.key = user;
 
-                        // 클라이언트에 유저의 세션 전달;
-                        res.json({
-                            key: req.session.key,
-                            idx: user._id,
-                            success: true
-                        });
+                            // 클라이언트에 유저의 세션 전달;
+                            return res.json({
+                                success: true,
+                                session: req.session.key,
+                            });
 
-                    } else {
-                        console.log('# 일치하는 계정의 비밀번호가 틀렸습니다.');
-                        //아이디가 없다고 클라이언트에 전달
+                        } else {
+                            console.log('# 일치하는 계정의 비밀번호가 틀렸습니다.');
+                            //아이디가 없다고 클라이언트에 전달
 
-                        res.json({
-                            success: false,
-                            type: 'password',
-                        });
-                    }
+                            return res.json({
+                                error: true,
+                                type: 'password',
+                            });
+                        }
+                    });
                 });
-            });
-        } else {
-            console.log('##로그인을 시도하려는 아이디를 찾을 수가 없습니다.');
+            } else {
+                console.log('##로그인을 시도하려는 아이디를 찾을 수가 없습니다.');
 
-            res.json({
-                success: false,
-                type: 'account',
-            });
-        }
-    });
+                return res.json({
+                    error: true,
+                    type: 'account',
+                });
+            }
+        })
+    } catch (e) {
+        console.log(e);
+        return res.json({
+            error: true,
+            type: 'server'
+        });
+
+    } finally {
+        console.log('#로그인 처리 끝');
+    }//try~catch
 });//end router
 
 

@@ -111,7 +111,7 @@ class SignupLayout extends React.Component {
                         <form className={styles['client-join-section--form']} id="client-join-section--form" role="form">
                             <fieldset form="client-join-section--form">
                                 <legend>리틀원의 회원가입 폼입니다.</legend>
-                                <InputEmailComponent action={this.emailDuplicatedCheck}/>
+                                <InputEmailComponent action={this.emailDuplicatedCheck} checkDuplicated={true}/>
                                 <InputPasswordComponent action={this.passwordValidationHandler}/>
                                 <InputTermsagreeComponent action={this.termsStateHandler} terms={this.state.validatedTerms}/>
                                 <InputSubmitComponent action={requestSignUp}

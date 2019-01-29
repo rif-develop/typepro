@@ -5,6 +5,7 @@ import axios from 'axios';
 export function* watcherPasswordCheck() {
     yield takeEvery('API_PASSWORD_CHECK_REQUEST', passwordSaga);
     yield takeEvery('UPDATE_CLIENT_INFO_REQUEST', updateSaga);
+    yield takeEvery('API_PASSWORD_CHANGE_REQUEST', passwordUpdateSaga);
 }
 
 //비밀번호 체크 비동기 통신
@@ -110,4 +111,46 @@ function* updateSaga(formData) {
     }
 
 
+}
+
+
+//비밀번호 수정 비동기 통신
+
+function passwordUpdateAxios({formData}) {
+    return axios({
+        method: 'POST',
+        url: '/mypage/passwordupdate',
+        data: {
+            clientIdx: formData.get('clientIdx'),
+            password: formData.get('password'),
+            newPassword: formData.get('new-password'),
+        }
+    })
+}
+
+//비밀번호 수정 사가
+
+function* passwordUpdateSaga(formData) {
+
+    try {
+
+        const response = yield call(passwordUpdateAxios, formData);
+
+        if (response.data.success) {
+            yield put({
+                type: 'API_PASSWORD_CHANGE_SUCCESS'
+            })
+        } else {
+            throw response.data
+        }
+
+
+    } catch (e) {
+        console.log(e);
+
+        yield put({
+            type: 'API_PASSWORD_CHANGE_FAILURE',
+            error: e
+        })
+    }
 }

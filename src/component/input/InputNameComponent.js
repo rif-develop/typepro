@@ -103,7 +103,7 @@ class InputNameComponent extends React.Component {
         return (
             <div>
                 <div className={styles['client-join-section--form--box']}>
-                    <label htmlFor={InputNameComponent.defaultState.id} className={styles['nickname-icon']}
+                    <label htmlFor={InputNameComponent.defaultState.id} className={styles['family-name-icon']}
                            title={InputNameComponent.defaultState.title}></label>
                     <input type={InputNameComponent.defaultState.type}
                            name={InputNameComponent.defaultState.name}

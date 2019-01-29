@@ -12,9 +12,6 @@ import Section08 from "./section08/Section08";
 import Footer from "../../component/footer/Footer";
 import Header from "../../component/header/Header";
 import {connect} from "react-redux";
-import axios from 'axios';
-import {getSessionAxios} from "../../action/session/sessionAxios";
-import {store} from "../../store/StoreComponent";
 
 class IndexLayout extends React.Component {
 
@@ -27,22 +24,7 @@ class IndexLayout extends React.Component {
 
     componentWillMount() {
         //세션을 받아와서 상태 갱신
-        getSessionAxios().then((res) => {
-            //isSession이 트루면 로그인 된 삳ㅇ태
-            if (res.data.isSession) {
-                store.dispatch({
-                    type: 'WEB_LOGIN_REQUEST',
-                    session: res.data.session
-                });
-            } else {
-                console.log('세션 없음');
-            }
-        }).catch((err) => {
-            console.log(err);
-            store.dispatch({
-                type: 'WEB_LOGOUT_REQUEST',
-            });
-        });//axios
+        this.props.getSession();
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
@@ -67,9 +49,9 @@ class IndexLayout extends React.Component {
         const {language} = this.props;
         return (
             <Fragment>
+                <Head title={'리틀원'} desc={'육아의 넘버원 리틀원'} language={language}/>
+                <Header/>
                 <main>
-                    <Head title={'LITTLEONE'} language={language}/>
-                    <Header/>
                     <Section01/>
                     {this.state.data}
                     <Section02/>
@@ -96,7 +78,10 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
     return {
-        onClickHandler: () => dispatch({})
+        onClickHandler: () => dispatch({}),
+        getSession: () => dispatch({
+            type: 'REFRESH_SESSION_REQUEST'
+        })
     }
 };
 

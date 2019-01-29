@@ -30,19 +30,19 @@ const userSchema = new Schema({
         }
     },
     birth: {
-        year:{
+        year: {
             type: String,
             required: false,
             unique: false,
             default: null
         },
-        month:{
+        month: {
             type: String,
             required: false,
             unique: false,
             default: null
         },
-        date:{
+        date: {
             type: String,
             required: false,
             unique: false,
@@ -93,7 +93,7 @@ const userSchema = new Schema({
         enum: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
         default: 0
     },
-    point:{
+    point: {
         type: Number,
         required: false,
         default: 1000
@@ -118,12 +118,11 @@ const userSchema = new Schema({
             type: Date,
             required: false,
             default: Date.now
-
         },
-        lastModifiedPw:{
-          type:Date,
-          required:false,
-          default:Date.now
+        lastModifiedPw: {
+            type: Date,
+            required: false,
+            default: Date.now
         },
         signupDate: {
             type: Date,
@@ -144,8 +143,19 @@ const userSchema = new Schema({
             type: Array,
             default: null,
             unique: false
+        },
+        lastModifiedThumbnail: {
+            type: Date,
+            default: Date.now,
+            required: false
         }
     },
+    thumbnail: {
+        type: String,
+        default: null,
+        unique: false,
+        required: false
+    }
 
 
 });

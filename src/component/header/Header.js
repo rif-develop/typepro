@@ -80,7 +80,7 @@ class Header extends React.Component {
 
     render() {
 
-        const {loading, error, alarmList, clientMenu, isLogin, mobileMenu, onClickClientHandler, onClickAlarmHandler, onClickMobileHandler} = this.props;
+        const {loading, error, alarmList, thumbnail, point, grade, clientMenu, isLogin, mobileMenu, onClickClientHandler, onClickAlarmHandler, onClickMobileHandler, logoutRequest} = this.props;
 
         return (
             <header className={styles['header']} id={'header-component'} onMouseLeave={this.onMouseLeaveHandler}>
@@ -152,9 +152,9 @@ class Header extends React.Component {
                                     </div>
                                     <div className={styles['header--menu__client-info']} role="graphics-symbol" onClick={onClickClientHandler}>
                                         <a href="javascript:void(0)">
-                                            <img src={require('./icn-no-baby@2x.png')} alt={'client-thumbnail'}/>
+                                            <img src={thumbnail || require('./icn-no-baby@2x.png')} alt={'client-thumbnail'}/>
                                         </a>
-                                        <ClientInfo active={clientMenu}/>
+                                        <ClientInfo active={clientMenu} logout={logoutRequest} thumbnail={thumbnail} point={point} grade={grade}/>
                                     </div>
                                 </Fragment>
                         }
@@ -169,7 +169,7 @@ class Header extends React.Component {
                     </div>
                 </div>
                 {/*모바일 슬라이더 메뉴*/}
-                <MobileMenu active={this.state.mobileMenu} isLogin={isLogin}/>
+                <MobileMenu active={this.state.mobileMenu} isLogin={isLogin} grade={grade} point={point} logout={logoutRequest} thumbnail={thumbnail}/>
                 {/*서브링크(제품)*/}
                 <SubLink active={this.state.subMenu}/>
             </header>
@@ -183,7 +183,10 @@ const mapStateToProps = state => {
         alarmList: state.headerReducer.alarmList,
         clientMenu: state.headerReducer.clientMenu,
         error: state.headerReducer.error,
-        isLogin:state.clientStatusReducer.login.isLogin
+        isLogin: state.clientStatusReducer.login.isLogin,
+        thumbnail: state.clientStatusReducer.session.thumbnail,
+        point: state.clientStatusReducer.session.point,
+        grade: state.clientStatusReducer.session.grade,
     }
 };
 const mapDispatchToProps = (dispatch) => {
@@ -194,8 +197,11 @@ const mapDispatchToProps = (dispatch) => {
         onClickAlarmHandler: () => dispatch({
             type: 'HEADER_ALARM_ACTIVE_REQUEST'
         }),
+        logoutRequest: () => dispatch({
+            type: 'API_WEB_LOGOUT_REQUEST'
+        })
     }
 };
 
 
-export default  connect(mapStateToProps, mapDispatchToProps)(Header)
+export default connect(mapStateToProps, mapDispatchToProps)(Header)

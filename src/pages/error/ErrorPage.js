@@ -10,7 +10,7 @@ class ErrorPage extends React.Component {
                 <Head title={'LITTLEONE 404ERROR'}/>
                 <div>
                     <div className={styles['error-section-type']}>
-                        <h3>404ERROR</h3>
+                        <h3>{this.props.desc || '404ERROR'}</h3>
                     </div>
                     <Link to="/" className={styles['__link-return-home']}></Link>
                 </div>

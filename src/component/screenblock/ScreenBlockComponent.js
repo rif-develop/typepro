@@ -8,7 +8,7 @@ class ScreenBlockComponent extends React.Component{
     }
     render(){
         return(
-            <div className={styles['screen-block-component']} onClick={this.props.action}></div>
+            <div className={styles['screen-block-component']} style={this.props.zIndex} onClick={this.props.action}></div>
         )
     }
 }

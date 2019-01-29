@@ -37,9 +37,8 @@ class ModalComponent extends React.Component {
 
     componentWillUnmount() {
         window.removeEventListener('resize', this.rePositionModal);
-        store.dispatch({
-            type:'SET_MODAL_CLOSE_REQUEST'
-        });
+        //init을 리덕스 디스패치를 권장
+        this.props.action();
     }
 
     rePositionModal() {
@@ -51,13 +50,10 @@ class ModalComponent extends React.Component {
     }
 
     cancelModal() {
-
-        store.dispatch({
-            type:'SET_MODAL_CLOSE_REQUEST'
-        });
+        this.props.action();
     }
     onKeyHandler(e){
-        const k = e.keyCode
+        const k = e.keyCode;
         if (k===9){
             e.stopPropagation();
             e.preventDefault();

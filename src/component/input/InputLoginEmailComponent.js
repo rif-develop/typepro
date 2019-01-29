@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from "../../pages/login/Login.scss";
 import classnames from 'classnames';
-import {store} from "../../store/StoreComponent";
 
 const cx = classnames.bind(styles);
 
@@ -26,17 +25,9 @@ class InputLoginEmailComponent extends React.Component {
             this.setState({
                 removeBtn: true
             });
-            store.dispatch({
-                type: 'SET_LOGIN_EMAIL_REQUEST',
-                email: ref.value
-            });
         } else {
             this.setState({
                 removeBtn: false
-            });
-            store.dispatch({
-                type: 'SET_LOGIN_EMAIL_REQUEST',
-                email: null
             });
         }
     }
@@ -45,10 +36,6 @@ class InputLoginEmailComponent extends React.Component {
         ref.value = '';
         this.setState({
             removeBtn: false
-        });
-        store.dispatch({
-            type: 'SET_LOGIN_EMAIL_REQUEST',
-            email: null
         });
         ref.focus();
     }

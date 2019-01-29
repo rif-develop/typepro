@@ -6,19 +6,33 @@ import classnames from 'classnames';
 import Head from "../../component/head/head";
 import Header from "../../component/header/Header";
 import Footer from "../../component/footer/Footer";
+import NexmoVerifyComponent from "../../component/modal/NexmoVerifyComponent";
 
 const cx = classnames.bind(styles);
 
 class FindClientIdLayout extends React.Component {
 
-    componentDidMount() {
-        document.body.scrollTo(0,0);
+    componentWillMount() {
+        this.props.getSession();
     }
+
+    componentDidMount() {
+        document.body.scrollTo(0, 0);
+    }
+
     render() {
-        const {language} = this.props;
+        const {language, openModalRequest, modalOpen, email, isLogin} = this.props;
+        //로그인한 유저는 접근할 수 없는 페이지
+        if (isLogin) {
+            window.location.replace('/');
+            return false;
+        }
         return (
             <Fragment>
-                <Head title={'리틀원 - 아이디 찾기'} desc={'휴대폰 인증을 통하여 회원님의 아이디를 찾을 수 있는 페이지입니다.'} language={language}/>
+                {
+                    modalOpen ? <NexmoVerifyComponent actionType={'findEmail'} toggle={openModalRequest}/> : null
+                }
+                <Head title={'리틀원 - 아이디 찾기'} desc={'핸드폰 인증을 통해 아이디를 찾아보실 수 있습니다.'} language={language}/>
                 <Header/>
                 <section className={styles['client-join-section']}>
                     <div className={styles['client-join-section--logo']}>
@@ -30,22 +44,23 @@ class FindClientIdLayout extends React.Component {
                         <p id="find_id_result"></p>
                         <p>휴대폰 인증을 통해 이메일 아이디를 찾아보실 수 있습니다.</p>
                     </div>
-                    <div id="find-result-box">
-                        <p>등록된 아이디가 없습니다.</p>
-                        <Link to={'/login'}>
-                            로그인 화면으로
-                        </Link>
-                    </div>
+                    {
+                        email ? <div id="find-result-box">
+                            <p>{email}</p>
+                            <Link to={'/login'}>
+                                로그인 화면으로
+                            </Link>
+                        </div> : null
+                    }
                     <div>
-                        <form className="client-join-section--form" id="client-join-section--form" role="form" action="/find_email" method="POST">
+                        <form className={styles['client-join-section--form']} id="client-join-section--form" role="form">
                             <fieldset form="client-join-section--form">
                                 <legend>리틀원의 아이디 찾기 폼입니다.</legend>
                                 <div className={styles['client-join-section--form--authorization-box']}>
-                                    <a href="javascript:void(0)" className={styles['__auth-client-phone-button']} role="button" id="buttons">
-                                        <span className={styles['--mobile-icon']}>휴대폰 인증</span>
-                                        <input type="hidden" name="phone"/>
-                                        <span className={styles['__authorization']}></span>
-                                    </a>
+                                    <div id={'client-id'}></div>
+                                    <div className={styles['client-join-section--form--select-box']}>
+                                        <button type="button" role="button" className={styles['__auth-client-phone-button']} onClick={openModalRequest}>휴대폰 인증으로 찾기</button>
+                                    </div>
                                 </div>
                                 <div className={styles['client-join-section--form--warning']}>
                                     <em></em>
@@ -62,7 +77,20 @@ class FindClientIdLayout extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        language:state.languageReducer.language
+        language: state.languageReducer.language,
+        modalOpen: state.phoneAuthReducer.open,
+        email: state.phoneAuthReducer.findResult.email,
+        isLogin: state.clientStatusReducer.login.isLogin
     }
 };
-export default connect(mapStateToProps)(FindClientIdLayout);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        openModalRequest: () => dispatch({
+            type: 'SET_PHONE_AUTH_MODAL_OPEN_TOGGLE'
+        }),
+        getSession: () => dispatch({
+            type: 'REFRESH_SESSION_REQUEST'
+        })
+    }
+};
+export default connect(mapStateToProps, mapDispatchToProps)(FindClientIdLayout);

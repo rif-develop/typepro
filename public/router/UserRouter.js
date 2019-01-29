@@ -107,6 +107,7 @@ router.post('/nicknamecheck', async (req, res) => {
     if (req.body.nickname) {
         console.log('#닉네임 체크 값이 들어왔습니다.');
         console.log(`요청 : ${req.body.nickname}`);
+        console.log(`요청자 _id: ${req.body.clientIdx}`);
 
         try {
             //닉네임 유효성 검사
@@ -117,7 +118,10 @@ router.post('/nicknamecheck', async (req, res) => {
 
                 //닉네임 검색
                 await User.findOne({
-                    nickname: req.body.nickname
+                    nickname: req.body.nickname,
+                    _id:{
+                        $ne:req.body.clientIdx
+                    }
                 }).lean().exec((err, docs) => {
 
                     console.log('## 결과 : '+docs);

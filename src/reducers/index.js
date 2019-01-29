@@ -9,6 +9,9 @@ import {clientSignUpReducer} from "./clientSignupReducer";
 import {autologinReducer} from "./autoLoginReducer";
 import {modalReducer} from "./modalReducer";
 import {mypageReducer} from "./mypageReducer";
+import {findAccountReducer} from "./findReducer";
+import {passwordChangeReducer} from "./passwordChangeReducer";
+import {cropperReducer} from "./cropperReducer";
 
 export default combineReducers({
     clientStatusReducer,
@@ -20,5 +23,8 @@ export default combineReducers({
     clientSignUpReducer,
     autologinReducer,
     modalReducer,
-    mypageReducer
+    mypageReducer,
+    findAccountReducer,
+    passwordChangeReducer,
+    cropperReducer
 });

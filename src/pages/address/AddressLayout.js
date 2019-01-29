@@ -9,9 +9,7 @@ import RegisterAddressComponent from "../../component/address/RegisterAddressCom
 
 const cx = classnames.bind(styles);
 import {loadScript} from "../../lib/script";
-import {getSessionAxios} from "../../action/session/sessionAxios";
 import {store} from "../../store/StoreComponent";
-import axios from 'axios';
 import ModifyAddressComponent from "../../component/address/ModifyAddressComponent";
 import ModalComponent from "../../component/modal/ModalComponent";
 
@@ -21,42 +19,18 @@ class AddressLayout extends React.Component {
         super(props);
         this.state = {
             arrayLen: 0,
-            modifyDocsId:null
+            modifyDocsId: null
         };
-        this.onModifyHandler = this.onModifyHandler.bind(this);
-
     }
 
     componentWillMount() {
         //새션은 컴포넌트가 마운트 되기 전에 가저오기
         //세션을 받아와서 상태 갱신
-        getSessionAxios()
-            .then((res) => {
-                //isSession이 트루면 로그인 된 삳ㅇ태
-                if (res.data.isSession) {
 
-                    //로그인 되었으니 세션갱신
-                    store.dispatch({
-                        type: 'WEB_LOGIN_REQUEST',
-                        session: res.data.session
-                    });
-                } else {
-                    console.log('세션 없음');
-                    this.props.history.push('/');
-
-                }
-            })
-            .then(() => {
-                //배송지 목록 가져오기
-                this.props.getAddressList();
-
-            }).catch((err) => {
-            console.log(err);
-            //에러일 경우
-            store.dispatch({
-                type: 'WEB_LOGOUT_REQUEST',
-            })
-        });//axios
+        this.props.getSession();
+        setTimeout(()=>{
+            this.props.getAddressList();
+        },30)
 
     }
 
@@ -65,14 +39,11 @@ class AddressLayout extends React.Component {
         //유저의 배송지 목록을 불러온다.(나중에 리덕스 사가로 바꾸자.);
     }
 
-    //수정창 열기
-    onModifyHandler(id) {
-        console.log(id);
-
+    componentWillUpdate(nextProps, nextState, nextContext) {
     }
 
     render() {
-        const {onClickModalOpener, error,closeModal, onClickUpdateModalOpener, clientIdx, registerModal, modifyModal, language, addressList, isLogin, onClickRemoveList, setDefaultAddress} = this.props;
+        const {onClickModalOpener, error, closeModal, onClickUpdateModalOpener, clientIdx, registerModal, modifyModal, language, addressList, isLogin, onClickRemoveList, setDefaultAddress} = this.props;
 
         //로그인 되어 있지 않으면 리턴 시키기, 여러번 렌더링 막음;
         if (!isLogin) {
@@ -82,7 +53,7 @@ class AddressLayout extends React.Component {
             <Fragment>
 
                 {
-                    error.error && error.type==='required' ? <ModalComponent action={closeModal} subject={'알림'} desc={'필수 입력 사항들을 입력해주세요.'}/>:null
+                    error.error && error.type === 'required' ? <ModalComponent action={closeModal} subject={'알림'} desc={'필수 입력 사항들을 입력해주세요.'}/> : null
                 }
                 {/*배송지 등록 모달*/}
                 {
@@ -133,7 +104,7 @@ class AddressLayout extends React.Component {
                                         </div>
                                         <div className={styles['__last-components']}>
                                             <div className={styles['client-delivery-info']}>기타 연락처</div>
-                                            <div className={styles['client-delivery-other']}>{ele.address.phone[1] ? ele.address.phone[1]:'미등록'}</div>
+                                            <div className={styles['client-delivery-other']}>{ele.address.phone[1] ? ele.address.phone[1] : '미등록'}</div>
                                         </div>
                                     </div>
                                     <div className={styles['delivery-manage-section--list--info--button-box']}>
@@ -144,13 +115,14 @@ class AddressLayout extends React.Component {
                                             }
                                             }>기본 배송지로 설정</button>
                                         }
-                                        <button type="button" className={styles['__modify-delivery-btn']} onClick={(e)=>{
+                                        <button type="button" className={styles['__modify-delivery-btn']} onClick={(e) => {
                                             e.preventDefault();
                                             this.setState({
-                                                modifyDocsId:ele._id
+                                                modifyDocsId: ele._id
                                             });
                                             onClickUpdateModalOpener();
-                                        }}>수정</button>
+                                        }}>수정
+                                        </button>
                                         <button type="button" className={styles['__remove-delivery-btn']} onClick={(e) => {
                                             e.preventDefault();
                                             onClickRemoveList(ele._id);
@@ -177,7 +149,7 @@ const mapStateToProps = (state) => {
         registerModal: state.addressReducer.registerModal,
         modifyModal: state.addressReducer.modifyModal,
         language: state.languageReducer.language,
-        clientIdx:state.clientStatusReducer.session._id,
+        clientIdx: state.clientStatusReducer.session._id,
         isLogin: state.clientStatusReducer.login.isLogin, //로그인 여부
         addressList: state.addressReducer.data,//배송지 목록
     }
@@ -202,8 +174,11 @@ const mapDispatchToProps = (dispatch) => {
             type: 'SET_DEFAULT_ADDRESS_REQUEST',
             docsIdx: docsIdx
         }),
-        closeModal:()=> dispatch({
-            type:'CLOSE_ERROR_MODAL'
+        closeModal: () => dispatch({
+            type: 'CLOSE_ERROR_MODAL'
+        }),
+        getSession: () => dispatch({
+            type: 'REFRESH_SESSION_REQUEST'
         })
     }
 };

@@ -127,8 +127,6 @@ router.post('/updateclient', async (req, res) => {
                 });
 
 
-
-
             }
             if (err) {
                 throw '# 서버 에러 발생'
@@ -144,6 +142,144 @@ router.post('/updateclient', async (req, res) => {
     }
 
 
+});
+
+
+//사용자 비밀번호 업데이트 라우터
+router.post('/passwordupdate', async (req, res) => {
+    console.log('#사용자 비밀번호 업데이트 요청이 들어왔습니다.');
+    console.log(req.body);
+
+    //빈값인지 확인
+    const isEmptyPw = validations.isEmpty(req.body.password);
+    const isEmptyNewPw = validations.isEmpty(req.body.newPassword);
+    const isClientIdx = validations.isEmpty(req.body.clientIdx);
+
+    //유효성 테스트
+    const isValidPw = validations.checkPassword(req.body.password);
+    const isValidNewPw = validations.checkPassword(req.body.newPassword);
+
+    console.log(`비밀번호가 빔 : ${isEmptyPw}, 새 비밀번호가 빔 : ${isEmptyNewPw}, 클라이언트 아이디가 빔 : ${isClientIdx},  유효한 비밀번호 : ${isValidPw},  유효한 새 비밀번호 : ${isValidNewPw}`)
+
+    //모든 유효성을 통과하면
+    if (!isEmptyNewPw && !isEmptyPw && !isClientIdx && isValidPw && isValidNewPw) {
+        console.log('# 유효성을 모두 통과했습니다..데이터베이스 처리를 시작합니다.');
+        try {
+
+            // #1 기존 사용하던 비밀번호가 일치하는 지 확인
+            await crypto.pbkdf2(req.body.password, process.env.SECURITY_SALT, 77655, 64, process.env.SECURITY_HASH, (err, password) => {
+                //에러 발생시 핸들링
+                if (err) {
+                    throw err;
+                }
+                //비밀번호 암호화
+                const encryptedPw = password.toString(process.env.SECURITY_DIGEST);
+
+                console.log(encryptedPw);
+
+                //비밀번호가 일치하는 지 확인하는 쿼리
+                User.find({_id: req.body.clientIdx, password: encryptedPw}).lean().exec((err, docs) => {
+
+                    //에러 발생시 핸들링
+                    if (err) {
+                        throw err;
+                    }
+
+                    //문서를 찾으면
+                    if (docs.length > 0) {
+                        console.log(docs.length);
+                        console.log('# 일치하는 계정을 찾았습니다.');
+                        console.log(docs);
+
+                        //#2 비밀번호 암호화 업데이트
+                        crypto.pbkdf2(req.body.newPassword, process.env.SECURITY_SALT, 77655, 64, process.env.SECURITY_HASH, (err, password) => {
+
+                            //에러
+                            if (err) {
+                                throw err;
+                            }
+
+                            //암호화 처리된 비밀번호
+                            const encryptedPw = password.toString(process.env.SECURITY_DIGEST);
+
+                            console.log('# 생성된 비밀번호' + encryptedPw);
+
+                            console.log('# 데이터베이스에 비밀번호 업데이트..');
+
+                            User.findByIdAndUpdate({
+                                    _id: req.body.clientIdx,
+                                },
+                                {
+                                    $set: {
+                                        password: encryptedPw,
+                                        "status.lastModifiedPw": Date.now()
+                                    }
+                                },
+                                {
+                                    new: true,
+                                    multi:true
+                                }
+                            ).lean().exec((err, docs) => {
+                                if (docs) {
+                                    console.log('#데이터 베이스 처리 결과');
+                                    console.log(docs);
+                                    //비밀번호 변경 성공시 true반환
+                                    req.session.key = docs;
+                                    return res.json({
+                                        success: true
+                                    })
+                                }
+
+                                if (err) {
+
+                                    console.log('# 에러 ' + err);
+
+                                    throw err;
+                                }
+
+                            })
+                        });
+                    } else {
+                        console.log('#비밀번호가 일치하는 계정이 없습니다.');
+                        //문서를 찾지 못했을 경우
+                        return res.json({
+                            error: true,
+                            type: 'password'
+                        });
+                    }
+                });//end query
+            });//end crypto
+
+        } catch (e) {
+
+            console.log(e);
+
+            return res.json({
+                error: true,
+                type: 'server'
+            });
+        }
+
+
+    } else if(!isValidPw || isEmptyPw){
+
+        res.json({
+            error:true,
+            type:'passwordValidation',
+        });
+
+    } else if(!isValidNewPw || isEmptyNewPw){
+
+        res.json({
+            error:true,
+            type:'newPasswordValidation',
+        });
+    } else{
+        res.json({
+            error:true,
+            type:'required',
+        });
+    }
 });
 
 
