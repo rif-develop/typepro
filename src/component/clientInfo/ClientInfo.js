@@ -42,7 +42,7 @@ class ClientInfo extends React.Component {
 
 
         return (
-            <div className={cx(styles['client-info-component'], {active: this.props.active})}>
+            <div className={cx(styles['client-info-component'], this.props.active && styles['active'])}>
                 <div className={styles['client-info-component--triangle']}></div>
                 <div className={styles['client-info-component--head']}>
                     <img src={this.props.thumbnail || require('./icn-no-baby@2x.png')} alt={'고객님의 썸네일 이미지입니다.'}/>

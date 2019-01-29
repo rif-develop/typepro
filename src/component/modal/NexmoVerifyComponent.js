@@ -128,7 +128,7 @@ class NexmoVerifyComponent extends React.Component {
                     <div className={styles['phone-auth-modal--container']}>
                         {
                             nextStep ? <form id={'phone-auth-form'} role={'form'}>
-                                    <h1 className={'phone-auth-modal--container--title'}>리틀원 전화번호 인증</h1>
+                                    <h1 className={styles['phone-auth-modal--container--title']}>리틀원 전화번호 인증</h1>
                                     <fieldset form={'phone-auth-form'}>
                                         <legend>리틀원 전화번호를 인증 폼</legend>
                                         <div className={styles['phone-auth-modal--container--process-text']}>
@@ -139,7 +139,7 @@ class NexmoVerifyComponent extends React.Component {
                                             </div>
                                         </div>
                                         {loading ? '처리중..' : null}
-                                        <div className={'phone-text-field'}>
+                                        <div className={styles['phone-text-field']}>
                                             <label className={this.state.inputFocus ? styles['active'] : null} htmlFor={'code-component'}>4자리 코드</label>
                                             <input type={'number'}
                                                    name={'code'}
@@ -152,7 +152,7 @@ class NexmoVerifyComponent extends React.Component {
                                                    onBlur={this.inputBlur}
                                                    onChange={this.onChangeCodeHandler}/>
                                         </div>
-                                        <div className={'phone-error-field'}>
+                                        <div className={styles['phone-error-field']}>
                                             <p></p>
                                         </div>
                                         <div className={styles['phone-auth-modal--container--button-box']}>
@@ -162,10 +162,10 @@ class NexmoVerifyComponent extends React.Component {
                                     </fieldset>
                                 </form> :
                                 <form id={'phone-auth-form'} role={'form'}>
-                                    <h1 className={'phone-auth-modal--container--title'}>리틀원 전화번호 인증</h1>
+                                    <h1 className={styles['phone-auth-modal--container--title']}>리틀원 전화번호 인증</h1>
                                     <fieldset form={'phone-auth-form'}>
                                         <legend>리틀원 전화번호를 인증 폼</legend>
-                                        <div className={"language-selector-container"}>
+                                        <div className={styles['language-selector-container']}>
                                             {
                                                 countryList ? <PhoneAuthCountrySelector action={this.onClickCountrySelector}/> : null
                                             }
@@ -197,7 +197,7 @@ class NexmoVerifyComponent extends React.Component {
                                                                                 selectedCountry === 'tw' ? 886 : null}</span>
                                         </button>
 
-                                        <div className={'phone-text-field'}>
+                                        <div className={styles['phone-text-field']}>
                                             <label className={this.state.inputFocus ? styles['active'] : null} htmlFor={'phone-number'}>전화번호</label>
                                             <input type={'tel'} name={'request-phone'}
                                                    autoCapitalize={'off'}
@@ -208,7 +208,7 @@ class NexmoVerifyComponent extends React.Component {
                                                    onBlur={this.inputBlur}
                                                    onChange={this.onChangeHandler}/>
                                         </div>
-                                        <div className={'phone-error-field'}>
+                                        <div className={styles['phone-error-field']}>
                                             <p>{this.state.error ? '통신에 실패했습니다.' : null}</p>
                                         </div>
                                         <div className={styles['phone-auth-modal--container--button-box']}>
