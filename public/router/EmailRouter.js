@@ -20,7 +20,7 @@ const findPasswordTemplate = require('../emailTemplate/findPassword');
 
 const transporter = nodemailer.createTransport(sesTransport({
     accessKeyId: process.env.AWS_ACCESS_KEY,
-    secretAccessKey: process.env.AWS_SCRET_ACCESS_KEY,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
     region: process.env.AWS_SES_REGION,
     rateLimit: 5
 }));

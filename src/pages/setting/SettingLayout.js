@@ -30,8 +30,7 @@ class SettingLayout extends React.Component {
     selectMenu(menu){
         this.setState({
             menu:menu
-        })
-
+        });
     }
 
     render() {
@@ -44,16 +43,16 @@ class SettingLayout extends React.Component {
                     <div className={styles['mobile-header']}>환경 설정</div>
                     <div className={cx(styles['web-setting-section--container'], styles['menu-=list'])}>
                         <ul className={styles['web-setting-section--container--menu']}>
-                            <li className={cx(styles['default-list'], 'alarm' === menu ? styles['active'] : null)} onClick={() => {this.selectMenu('alarm');}}>
+                            <li className={cx(styles['default-list'], 'alarm' === this.state.menu && styles['active'])} onClick={() => {this.selectMenu('alarm');}}>
                                 <a href="javascript:void(0)" className={styles['__alarm']} data-link="notification"><span></span>알람</a><span className={styles['vertical-bar']}>│</span>
                             </li>
-                            <li className={cx(styles['default-list'], 'measure' === menu ? styles['active'] : null)} onClick={() => {this.selectMenu('measure');}}>
+                            <li className={cx(styles['default-list'], 'measure' === this.state.menu && styles['active'])} onClick={() => {this.selectMenu('measure');}}>
                                 <a href="javascript:void(0)" className={styles['__measure']} data-link="measure"><span></span>단위</a><span className={styles['vertical-bar']}>│</span>
                             </li>
-                            <li className={cx(styles['default-list'], 'subscription' === menu ? styles['active'] : null)} onClick={() => {this.selectMenu('subscription');}}>
+                            <li className={cx(styles['default-list'], 'subscription' === this.state.menu && styles['active'])} onClick={() => {this.selectMenu('subscription');}}>
                                 <a href="javascript:void(0)" className={styles['__subscribe']} data-link="subscribe"><span></span>구독</a><span className={styles['vertical-bar']}>│</span>
                             </li>
-                            <li className={cx(styles['default-list'], 'withdrawal' === menu ? styles['active'] : null)} onClick={() => {this.selectMenu('withdrawal');}}>
+                            <li className={cx(styles['default-list'], 'withdrawal' === this.state.menu && styles['active'])} onClick={() => {this.selectMenu('withdrawal');}}>
                                 <a href="javascript:void(0)" className={styles['__leave']} data-link="withdrawal"><span></span>회원 탈퇴</a><span className={styles['vertical-bar']}>│</span>
                             </li>
                         </ul>
