@@ -1,4 +1,3 @@
-
 /*연락처 정규식 검사*/
 function telValidationCheck(cssSelector) {
     $(cssSelector).on('keydown', function (e) {
@@ -43,7 +42,7 @@ function telValidationCheck(cssSelector) {
 
 export class Validations {
 
-    static checkPhoneKr(value){
+    static checkPhoneKr(value) {
         const regExp = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})([0-9]{3,4})([0-9]{4})$/;
         return regExp.test(value);
     }
@@ -53,46 +52,47 @@ export class Validations {
         return regExp.test(value);
     }
 
-    static checkEmail(value){
+    static checkEmail(value) {
         const regExp = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
         return regExp.test(value);
     }
 
-    static checkPassword(value){
+    static checkPassword(value) {
         const regExp = /^.*(?=.{8,20})(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[\s!@#$%^&*()_+=-`~\\\]\[{}|';:/.,?><]).*$/;
         return regExp.test(value);
     }
 
-    static checkNumber(value){
+    static checkNumber(value) {
         const regExp = /^[0-9]*$/gi;
         return regExp.test(value);
     }
 
     //스페이스는 허용한다.
-    static checkString(value){
+    static checkString(value) {
         const regExp = /^[가-힣|a-z|A-Z|\*\s]+$/;
         return regExp.test(value);
     }
 
     //닉네임은 한글 1~8자, 영문 1~16자
-    static checkNickname(value){
+    static checkNickname(value) {
         const regExp = /^[가-힣|a-z|A-Z|0-9|\*]+$/;
         return regExp.test(value);
     }
 
     //파일명 체크 (특수문자는 -, _, @만 허용)
-    static checkFilename(value){
+    static checkFilename(value) {
         const regExp = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|\-_@]+$/;
         return regExp.test(value);
     }
 
     //숫자 소수점 확인
-    static checkFloat(value){
+    static checkFloat(value) {
         const regExp = /^([0-9]*)[\.]?([0-9])?$/;
         return regExp.test(value);
     }
+
     //정수 1~3자리 확인, 소수점 2자리까지 확인
-    static checkFloatDoublePoint(value){
+    static checkFloatDoublePoint(value) {
         const regExp = /^(\d{1,3}([.]\d{0,2})?)?$/;
         return regExp.test(value);
     }
@@ -100,12 +100,51 @@ export class Validations {
     //빈값인지 확인
     static isEmpty(value) {
         const check = value === "" || value === " " || value === null || value === undefined || (value !== null && typeof value === "object" && !Object.keys(value).length);
-      return check;
+        return check;
+    }
+
+    static handleKeyDown(e) {
+        let key;
+        if (window.event)
+            key = window.event.keyCode; //IE
+        else
+            key = e.which; //firefox
+        let event;
+        if (key === 0 || key === 8 || key === 46 || key === 9) {
+            event = e || window.event;
+            if (typeof event.stopPropagation !== "undefined") {
+                event.stopPropagation();
+            } else {
+                event.cancelBubble = true;
+            }
+            return;
+        }
+        if (key < 48 || (key > 57 && key < 96) || key > 105 || e.shiftKey) {
+            e.preventDefault ? e.preventDefault() : e.returnValue = false;
+        }
+    }
+
+    static handleKeyUp(e) {
+        let key;
+        if (window.event)
+            key = window.event.keyCode; //IE
+        else
+            key = e.which; //firefox
+        let event;
+        event = e || window.event;
+        if (key === 8 || key === 46 || key === 37 || key === 39) {
+            return;
+
+        } else {
+            event.target.value = event.target.value.replace(/[^0-9]/g, "");
+
+        }
+    }
+
+    static handleBlur(ele){
+        ele.value = ele.value.replace(/[^0-9]/g, "");
+
     }
 
 }
-
-
-
-
 

@@ -17,12 +17,12 @@ const redisOption = {
         logErrors: true
     }),
     resave: true,
-    saveUninitialized: false,
+    saveUninitialized: true,
     secret: process.env.REDIS_SECRET,
     name: 'session-info',
     cookie: {
         secure: false,
-        httpOnly: true,
+        httpOnly: false,
         path: '/',
         expires: time
     }

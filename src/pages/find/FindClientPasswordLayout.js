@@ -87,16 +87,16 @@ class FindClientPasswordLayout extends React.Component {
                     loading && <DefaultLoading/>
                 }
                 {
-                    success && email ? <ModalComponent subject={'성공'} desc={'해당 이메일로 비밀번호 변경 링크를 전송했습니다.'} action={findInit}/> : null
+                    success && email && <ModalComponent subject={'성공'} desc={'해당 이메일로 비밀번호 변경 링크를 전송했습니다.'} action={findInit}/>
                 }
                 {
-                    error.error && error.type === 'noResult' ? <ModalComponent subject={'알림'} desc={'리틀원에 가입된 이메일이 아닙니다.'} action={findInit}/> : null
+                    (error.error && error.type === 'noResult')  && <ModalComponent subject={'알림'} desc={'리틀원에 가입된 이메일이 아닙니다.'} action={findInit}/>
                 }
                 {
-                    error.error && error.type === 'required' ? <ModalComponent subject={'알림'} desc={'이메일을 입력해주세요.'} action={findInit}/> : null
+                    (error.error && error.type === 'required') && <ModalComponent subject={'알림'} desc={'이메일을 입력해주세요.'} action={findInit}/>
                 }
                 {
-                    error.error && error.type === 'server' ? <ModalComponent subject={'서버'} desc={'서버 에러 입니다.'} action={findInit}/> : null
+                    (error.error && error.type === 'server') && <ModalComponent subject={'서버'} desc={'서버 에러 입니다.'} action={findInit}/>
                 }
                 {/*핸드폰 인증 모달*/}
                 {

@@ -33,6 +33,7 @@ class NexmoVerifyComponent extends React.Component {
         this.phoneModal = React.createRef();
         this.phone = React.createRef();
         this.codeInput = React.createRef();
+        this.nextBtn = React.createRef();
 
         //bind
         this.onProcessPhoneAuth = this.onProcessPhoneAuth.bind(this);
@@ -42,6 +43,9 @@ class NexmoVerifyComponent extends React.Component {
         this.onClickCountrySelector = this.onClickCountrySelector.bind(this);
         this.checkDigitCode = this.checkDigitCode.bind(this);
         this.onChangeCodeHandler = this.onChangeCodeHandler.bind(this);
+        this.blockEnter = this.blockEnter.bind(this);
+        this.onKeyDownNextStep = this.onKeyDownNextStep.bind(this);
+        this.onClickCancelNext = this.onClickCancelNext.bind(this);
     }
 
     componentDidMount() {
@@ -82,13 +86,15 @@ class NexmoVerifyComponent extends React.Component {
         const country = this.props.selectedCountry;
         const phone = this.props.phoneNumber;
         this.props.nexmoVerifyRequest(country, phone);
+        this.phone.current.value = null;
+
     }
 
 
-    inputFocus() {
+    inputFocus(e) {
         this.setState({
             inputFocus: true
-        })
+        });
     }
 
     inputBlur() {
@@ -110,6 +116,39 @@ class NexmoVerifyComponent extends React.Component {
     onChangeCodeHandler() {
         const ref = this.codeInput.current.value;
         this.props.digitCodeHandler(ref);
+    }
+
+    blockEnter(e) {
+        if (e.keyCode === 13) {
+            e.preventDefault();
+            this.nextBtn.current.click();
+        }
+
+    }
+
+    componentWillReceiveProps(nextProps, nextContext) {
+        // if(nextProps.nextStep){
+        //     setTimeout(()=>{
+        //         this.codeInput.current.focus();
+        //     },400);
+        // }
+    }
+
+
+    onKeyDownNextStep(e) {
+
+
+    }
+
+    onClickCancelNext() {
+        try {
+            this.phone.current.focus();
+            //인풋의 값을 다 지워준다.
+            this.props.onClickCancelNextStep();
+        } catch (e) {
+            this.phone.current.focus();
+        }
+
     }
 
     render() {
@@ -141,6 +180,7 @@ class NexmoVerifyComponent extends React.Component {
                                         {loading ? '처리중..' : null}
                                         <div className={styles['phone-text-field']}>
                                             <label className={this.state.inputFocus ? styles['active'] : null} htmlFor={'code-component'}>4자리 코드</label>
+                                            <input type={'hidden'} name={'request-phone'}/>
                                             <input type={'number'}
                                                    name={'code'}
                                                    id={'code-component'}
@@ -156,7 +196,7 @@ class NexmoVerifyComponent extends React.Component {
                                             <p></p>
                                         </div>
                                         <div className={styles['phone-auth-modal--container--button-box']}>
-                                            <button type={'reset'} tabIndex={0} className={cx(styles['__request-verify-btn'], styles['cancel-btn'])} onClick={onClickCancelNextStep}>취소</button>
+                                            <button type={'reset'} tabIndex={0} className={cx(styles['__request-verify-btn'], styles['cancel-btn'])} onClick={this.onClickCancelNext}>취소</button>
                                             <button type={'submit'} tabIndex={1} onClick={this.checkDigitCode} className={styles['__request-verify-btn']}>인증 완료</button>
                                         </div>
                                     </fieldset>
@@ -206,13 +246,13 @@ class NexmoVerifyComponent extends React.Component {
                                                    id={'phone-number'}
                                                    onFocus={this.inputFocus}
                                                    onBlur={this.inputBlur}
-                                                   onChange={this.onChangeHandler}/>
+                                                   onChange={this.onChangeHandler} onKeyDown={this.blockEnter} tabIndex={1}/>
                                         </div>
                                         <div className={styles['phone-error-field']}>
                                             <p>{this.state.error ? '통신에 실패했습니다.' : null}</p>
                                         </div>
                                         <div className={styles['phone-auth-modal--container--button-box']}>
-                                            <button type={'button'} tabIndex={1} onClick={selectedCountry && phoneNumber ? this.onProcessPhoneAuth : null} className={styles['__request-verify-btn']}>인증</button>
+                                            <button type={'button'} tabIndex={2} ref={this.nextBtn} onClick={selectedCountry && phoneNumber ? this.onProcessPhoneAuth : null} className={styles['__request-verify-btn']}>인증</button>
                                         </div>
                                     </fieldset>
                                 </form>

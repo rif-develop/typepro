@@ -10,11 +10,22 @@ const nexmo = new Nexmo({
     debug: true
 });
 
+const dev = process.env.NODE_ENV === 'development';
 //핸드폰 인증 요청
 router.post('/request', async (req, res) => {
     let verifyRequestId = null; // use in the check process
 
     try {
+        //개발용 모드
+        if (dev) {
+            console.log('#현재 개발 모드로 진행 중.');
+            return res.json({
+                success: true,
+                requestId: 123456
+            });
+        }
+
+
         const reqIsEmpty = Validations.isEmpty(req.body.phone) || Validations.isEmpty(req.body.country);
         //둘 중 하나라도 값ㄷ이 비어있다면
         if (reqIsEmpty) {
@@ -27,33 +38,77 @@ router.post('/request', async (req, res) => {
         const clientPhone = req.body.phone;
         let clientCountry = req.body.country;
 
-        console.log(clientCountry);
-        console.log(clientPhone);
-
-
         if (clientCountry === 'ko') {
             clientCountry = {
                 prefix: '82',
                 brand: '육아의 넘버원 리틀원',
-                country: 'KO',
+                country: 'KR',
                 lg: 'ko-kr'
             };
         } else if (clientCountry === 'us') {
             clientCountry = {
                 prefix: '1',
+                brand: '육아의 넘버원 리틀원',
                 country: 'US',
                 lg: 'en-us'
             };
         } else if (clientCountry === 'ca') {
             clientCountry = {
                 prefix: '1',
+                brand: '육아의 넘버원 리틀원',
                 country: 'CA',
                 lg: 'en-ca'
             };
+        } else if (clientCountry === 'ja') {
+            clientCountry = {
+                prefix: '81',
+                brand: '육아의 넘버원 리틀원',
+                country: 'JP',
+                lg: 'ja-jp'
+            };
+        } else if (clientCountry === 'zh') {
+            clientCountry = {
+                prefix: '86',
+                brand: '육아의 넘버원 리틀원',
+                country: 'CN',
+                lg: 'zh-cn'
+            };
+        } else if (clientCountry === 'tw') {
+            clientCountry = {
+                prefix: '886',
+                brand: '육아의 넘버원 리틀원',
+                country: 'TW',
+                lg: 'zh-tw'
+            };
+        } else if (clientCountry === 'au') {
+            clientCountry = {
+                prefix: '61',
+                brand: '육아의 넘버원 리틀원',
+                country: 'AU',
+                lg: 'en-au'
+            };
+        } else if (clientCountry === 'nz') {
+            clientCountry = {
+                prefix: '64',
+                brand: '육아의 넘버원 리틀원',
+                country: 'NZ',
+                lg: 'en-nz'
+            };
+        } else if (clientCountry === 'uk') {
+            clientCountry = {
+                prefix: '44',
+                brand: '육아의 넘버원 리틀원',
+                country: 'GB',
+                lg: 'en-gb'
+            };
+        } else if (clientCountry === 'sp') {
+            clientCountry = {
+                prefix: '65',
+                brand: '육아의 넘버원 리틀원',
+                country: 'SG',
+                lg: 'en-sg'
+            };
         }
-
-        console.log(clientCountry);
-
 
         nexmo.verify.request({
             number: clientCountry.prefix + clientPhone,
@@ -91,6 +146,16 @@ router.post('/request', async (req, res) => {
 router.post('/codecheck', async (req, res) => {
     console.log('# 핸드폰 인증번호 처리를 시작합니다.');
     try {
+
+        //개발용 모드
+        if (dev) {
+            console.log('#현재 개발 모드로 진행 중.');
+            return res.json({
+                success: true,
+                msg: '개발용'
+            });
+        }
+
         console.log('# ----- 받은 값 ------  ');
 
         const requestId = req.body.requestId;
@@ -238,6 +303,7 @@ router.post('/phone/password', async (req, res) => {
                             console.log(docs);
                             return res.json({
                                 success: true, //비밀번호 변경 단계로 페이지 변경
+                                email: docs.email
                             });
                         } else {
                             console.log('# 일치하는 계정을 찾지 못했습니다.');
@@ -295,14 +361,22 @@ router.post('/phone/password', async (req, res) => {
 
 });
 
-//전화번호 인증 후 아이디 찾기 핸들링 라우터
+//전화번호 인증 후 아이디 찾기 핸들링 라우터(아이디 찾기)
 
 router.post('/phone/id', async (req, res) => {
     console.log('#아이디를 찾기 요청 시작.');
     console.log(req.body);
+    //개발용
 
     try {
-
+        console.log(process.env.NODE_ENV);
+        console.log(dev);
+        if (dev) {
+            return res.json({
+                success: true,
+                email:'dev@dev.com'
+            });
+        }
         const phone = req.body.phone;
         const requestId = req.body.requestId;
         const code = req.body.code;
@@ -332,7 +406,7 @@ router.post('/phone/id', async (req, res) => {
                     // 인증 받은 전화번호를 가지고 있는 아이디가 있는지 찾아서 리턴
                     User.findOne({
                         phone: phone,
-                        country:country
+                        country: country
                     }).lean().exec((err, docs) => {
                         if (err) {
                             throw err;
@@ -399,18 +473,141 @@ router.post('/phone/id', async (req, res) => {
 
 });//아이디 찾기 라우터
 
-//넥스모 문자 보내기
-router.post('/sendsms', async (req, res) => {
-    nexmo.message.sendSms(
-        YOUR_VIRTUAL_NUMBER, '01083963007', '리틀원에서 김창현님이 이병규님에게 메시지를 보냈습니다.',
-        (err, responseData) => {
-            if (err) {
-                console.log(err);
-            } else {
-                console.dir(responseData);
-            }
+//넥스모 인증 번호 재전송
+router.post('/resend', async (req, res) => {
+    console.log('#넥스모 전화인증 재전송 요청 시작');
+    console.log(req.body);
+
+    try {
+        let verifyRequestId = null;
+
+        const requestId = req.body.requestId;
+        let clientCountry = req.body.country;
+        const clientPhone = req.body.phone;
+
+        const isEmptyRequestId = Validations.isEmpty(requestId);
+        // 1. 먼저 기존에 보냈던 요청을 취소시킨다.
+
+        if (clientCountry === 'ko') {
+            clientCountry = {
+                prefix: '82',
+                brand: '육아의 넘버원 리틀원',
+                country: 'KR',
+                lg: 'ko-kr'
+            };
+        } else if (clientCountry === 'us') {
+            clientCountry = {
+                prefix: '1',
+                brand: '육아의 넘버원 리틀원',
+                country: 'US',
+                lg: 'en-us'
+            };
+        } else if (clientCountry === 'ca') {
+            clientCountry = {
+                prefix: '1',
+                brand: '육아의 넘버원 리틀원',
+                country: 'CA',
+                lg: 'en-ca'
+            };
+        } else if (clientCountry === 'ja') {
+            clientCountry = {
+                prefix: '81',
+                brand: '육아의 넘버원 리틀원',
+                country: 'JP',
+                lg: 'ja-jp'
+            };
+        } else if (clientCountry === 'zh') {
+            clientCountry = {
+                prefix: '86',
+                brand: '육아의 넘버원 리틀원',
+                country: 'CN',
+                lg: 'zh-cn'
+            };
+        } else if (clientCountry === 'tw') {
+            clientCountry = {
+                prefix: '886',
+                brand: '육아의 넘버원 리틀원',
+                country: 'TW',
+                lg: 'zh-tw'
+            };
+        } else if (clientCountry === 'au') {
+            clientCountry = {
+                prefix: '61',
+                brand: '육아의 넘버원 리틀원',
+                country: 'AU',
+                lg: 'en-au'
+            };
+        } else if (clientCountry === 'nz') {
+            clientCountry = {
+                prefix: '64',
+                brand: '육아의 넘버원 리틀원',
+                country: 'NZ',
+                lg: 'en-nz'
+            };
+        } else if (clientCountry === 'uk') {
+            clientCountry = {
+                prefix: '44',
+                brand: '육아의 넘버원 리틀원',
+                country: 'GB',
+                lg: 'en-gb'
+            };
+        } else if (clientCountry === 'sp') {
+            clientCountry = {
+                prefix: '65',
+                brand: '육아의 넘버원 리틀원',
+                country: 'SG',
+                lg: 'en-sg'
+            };
+        }//end if~else
+
+
+        if (isEmptyRequestId) {
+            throw 'required';
+        } else {
+            await nexmo.verify.control({
+                request_id: requestId,
+                cmd: 'cancel'
+            }, (err, result) => {
+                if (err) {
+                    throw err;
+                } else {
+                    console.log('# 기존 요청 취소가 완료되었습니다.');
+                    console.log(result);
+                }
+            });//nexmo verify
+
+            await nexmo.verify.request({
+                number: clientCountry.prefix + clientPhone,
+                brand: clientCountry.brand || 'LITTLEONE',
+                country: clientCountry.country,
+                lg: clientCountry.lg //en-us, ja-jp, ko-kr, zh-cn
+            }, (err, result) => {
+                if (err) {
+                    throw err;
+                } else {
+                    verifyRequestId = result.request_id;
+                    console.log('request_id', verifyRequestId);
+                    console.log('#재전송 요청 완료');
+                    return res.json({
+                        success: true,
+                        requestId: verifyRequestId
+                    });
+                }
+            });
         }
-    );
+
+
+    } catch (e) {
+        console.log(e);
+
+        return res.json({
+            error: true,
+            type: e
+        })
+    } finally {
+        console.log('#넥스모 전화 번호 재전송 요청 끝');
+    }
+
 });
 
 module.exports = router;

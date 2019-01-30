@@ -34,7 +34,7 @@ class PhoneAuthCountrySelector extends React.Component {
                                     ele === 'us' ? '미국 +1' :
                                         ele === 'uk' ? '영국 +44' :
                                             ele === 'ca' ? '캐나다 +1' :
-                                                ele === 'au' ? '호주 +1' :
+                                                ele === 'au' ? '호주 +61' :
                                                     ele === 'nz' ? '뉴질랜드 +64' :
                                                         ele === 'sp' ? '싱가포르 +65' :
                                                             ele === 'ja' ? '일본 +81' :

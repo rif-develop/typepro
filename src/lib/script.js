@@ -98,8 +98,6 @@ export function acceptOnlyNumber(e) {
     const key = (event.which) ? event.which : event.keyCode;
     const keyBoard = (key >= 48 && key <= 57) || (key >= 96 && key <= 105) || key === 8 || key === 46 || key === 37 || key === 39;
     return keyBoard;
-
-
 }
 
 //url에서 파라미터를 얻는 함수

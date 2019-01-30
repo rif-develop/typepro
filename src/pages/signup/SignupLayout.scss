@@ -42,10 +42,21 @@
   }
 
   /*아이디 찾기 박스*/
-  #find-result-box {
+  &--result-box{
     margin-top: 83px;
-    display: none;
     text-align: center;
+    display: none;
+    opacity: 0;
+    -webkit-transition: all 0.25s ease-out;
+    -moz-transition: all 0.25s ease-out;
+    -ms-transition: all 0.25s ease-out;
+    -o-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
+
+    &.active{
+      display: block;
+      opacity: 1;
+    }
 
     p {
       font-size: 26px;
@@ -982,14 +993,14 @@
     margin-right: 3px;
   }
 
-  .client-join-section #find-result-box {
+  .client-join-section .client-join-section--result-box {
     margin-top: 40px;
   }
-  .client-join-section #find-result-box p {
-    font-size: 18px;
+  .client-join-section .client-join-section--result-box p {
+    font-size: 15px;
     letter-spacing: -0.5px;
   }
-  .client-join-section #find-result-box a {
+  .client-join-section.client-join-section--result-box a {
     margin-top: 52px;
     width: 260px;
     height: 36px;

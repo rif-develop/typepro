@@ -115,7 +115,6 @@ class InputBirthdateComponent extends React.Component {
         if (len > maxLen) {
             ref.value = ref.value.slice(0, maxLen);
         }
-
     }
 
 
