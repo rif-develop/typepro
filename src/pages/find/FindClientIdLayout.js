@@ -45,12 +45,12 @@ class FindClientIdLayout extends React.Component {
                         <p>휴대폰 인증을 통해 이메일 아이디를 찾아보실 수 있습니다.</p>
                     </div>
                     {
-                        email ? <div id="find-result-box">
+                        email && <div id="find-result-box">
                             <p>{email}</p>
                             <Link to={'/login'}>
                                 로그인 화면으로
                             </Link>
-                        </div> : null
+                        </div>
                     }
                     <div>
                         <form className={styles['client-join-section--form']} id="client-join-section--form" role="form">

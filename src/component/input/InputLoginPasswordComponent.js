@@ -62,7 +62,7 @@ class InputLoginPasswordComponent extends React.Component {
                     ref={this.passwordInput}
                     type={this.state.inputType ? 'text':'password'}
                     name="password"
-                    id="user_password"
+                    id={styles['user_password']}
                     required={true}
                     autoCapitalize="off"
                     maxLength="20"
@@ -75,13 +75,13 @@ class InputLoginPasswordComponent extends React.Component {
                     }}
                     defaultValue={'123a123a!'}
                 />
-                <div className={cx(styles['__remove-component'], this.state.removeBtn ? styles['active'] : null)} role="button"
+                <div className={cx(styles['__remove-component'], this.state.removeBtn && styles['active'])} role="button"
                      onClick={() => {
                          this.removeHandler(this.passwordInput.current);
                      }}>닫기
                 </div>
                 <div
-                    className={cx(styles['__check-client-password-num'], this.state.visiblePassword ? styles['visible']:null)}
+                    className={cx(styles['__check-client-password-num'], this.state.visiblePassword && styles['visible'])}
                     role="button"
                     onClick={this.visiblePassword}>
                 </div>

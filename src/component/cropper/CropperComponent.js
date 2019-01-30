@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './CropperComponent.scss';
 import Cropper from 'react-cropper';
-import './cropper.scss';
+import styles2 from './cropper.scss';
 
 /**
  * @param {File} image - Image File Object
@@ -69,7 +69,7 @@ class CropperComponent extends React.PureComponent {
                         <button type="button"
                                 role="button"
                                 aria-selected="true"
-                                id="__crop-button" onClick={this.afterCrop}>썸네일 이미지 자르기
+                                id={'__crop-button'} className={styles['__crop-button']} onClick={this.afterCrop}>썸네일 이미지 자르기
                         </button>
                     </div>
                 </div>

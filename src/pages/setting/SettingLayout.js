@@ -24,7 +24,7 @@ class SettingLayout extends React.Component {
     }
 
     componentWillMount() {
-
+        this.props.getSession();
     }
 
     selectMenu(menu){
@@ -95,6 +95,9 @@ const mapDispatchToProps = (dispatch) => {
         onClickHandler: (data) => dispatch({
             type: 'SET_MENU_REQUEST',
             data
+        }),
+        getSession: () => dispatch({
+            type: 'REFRESH_SESSION_REQUEST'
         })
     }
 };

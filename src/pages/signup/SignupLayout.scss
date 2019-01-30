@@ -967,11 +967,14 @@
 
 @media only screen and (max-width: 640px) {
   .client-join-section--form--select-box {
-    a {
-      width: 126px;
+    .border-button {
+      width: 95%;
       font-size: 12px;
       padding: 11px 0;
       max-height: 36px;
+      &:first-child{
+        margin-bottom: 10px;
+      }
     }
   }
 
@@ -1127,8 +1130,10 @@
     margin-left: 14px;
   }
   .client-join-section--form--authorization-box .__auth-client-phone-button {
-    height: 36px;
     font-size: 14px;
+    padding: 9px 0;
+    width: 100%;
+    height: auto;
   }
   .client-join-section--form--authorization-box .__auth-client-phone-button.active .--mobile-icon {
     background-size: 10px 15px;
@@ -1207,6 +1212,8 @@
     width: 10px;
     height: 8px;
   }
-
+  .client-join-section--form--select-box button:nth-of-type(1){
+    margin-right: 0;
+  }
 }
 

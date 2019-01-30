@@ -31,6 +31,7 @@
     transition: all 0.25s ease-out;
 
   }
+
   //login-section--logo
 
   .login-section-form {
@@ -52,10 +53,12 @@
         display: inline-block;
         cursor: pointer;
       }
+
       .client-email {
         background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAyMCAxNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTkuODI0IDFjLjExLjIyOC4xNzYuNDguMTc2Ljc1djEwLjVjMCAuMjctLjA2Ny41MjItLjE3Ni43NWwtNi4wNjYtNiA2LjA2Ni02em0tMS41ODItMWMuMjcgMCAuNTI0LjA2Ni43NTMuMTc1bC03Ljc1MiA3LjY4Yy0uNjg2LjY4Mi0xLjguNjgyLTIuNDg2IDBMMS4wMDUuMTc1QzEuMjM0LjA2NiAxLjQ4NyAwIDEuNzU4IDBoMTYuNDg0ek0uMTc2IDFsNi4wNjYgNi02LjA2NiA2QTEuNzIzIDEuNzIzIDAgMCAxIDAgMTIuMjVWMS43NWMwLS4yNy4wNjctLjUyMi4xNzYtLjc1ek0xMi45MyA3LjgyNWw2LjA2NSA2Yy0uMjI5LjEwOS0uNDgyLjE3NS0uNzUzLjE3NUgxLjc1OGMtLjI3IDAtLjUyNC0uMDY2LS43NTMtLjE3NWw2LjA2NS02IC44NTkuODU0YTIuOTQyIDIuOTQyIDAgMCAwIDQuMTQyIDBsLjg1OS0uODU0eiIgZmlsbD0iIzE4MTgxOCIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+) no-repeat center/20px 14px;
 
       }
+
       .client_password {
         background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxNCAxOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTIuNzg2IDYuODQ0Yy42NjcgMCAxLjIxLjUyOSAxLjIxNCAxLjE3NXY4LjgwMmMwIC42NS0uNTQzIDEuMTc5LTEuMjEgMS4xNzlIMS4yMUMuNTQzIDE4IDAgMTcuNDcxIDAgMTYuODJ2LTguOGMwLS42NTEuNTQzLTEuMTggMS4yMS0xLjE4aC42NzVWNC45ODFDMS44ODUgMi4yMzcgNC4xNzcgMCA2Ljk5NiAwYzIuODIgMCA1LjExMiAyLjIzNyA1LjExMiA0Ljk4NXYxLjg1OWguNjc4ek0zLjQyMyA0Ljk4djEuODU1aDcuMTQ3VjQuOTgxQzEwLjU3IDMuMDYgOC45NjggMS41IDYuOTk2IDEuNWMtMS45NzEgMC0zLjU3MyAxLjU2MS0zLjU3MyAzLjQ4MnpNNyAxNWMuNTU0IDAgMS0uMjkyIDEtLjY1NXYtMS42OUM4IDEyLjI5MiA3LjU1NCAxMiA3IDEycy0xIC4yOTItMSAuNjU1djEuNjljMCAuMzYuNDQ2LjY1NSAxIC42NTV6IiBmaWxsPSIjMTgxODE4IiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48L3N2Zz4=) no-repeat center/14px 18px;
 
@@ -72,6 +75,7 @@
         letter-spacing: -0.2px;
         color: #333;
       }
+
       input[type='password'] {
         width: 215px;
         font-size: 18px;
@@ -82,6 +86,7 @@
         font-size: 14px;
 
       }
+
       input::-moz-placeholder {
         color: #b8bcc9;
         font-size: 14px;
@@ -91,6 +96,7 @@
         color: #b8bcc9;
         font-size: 14px;
       }
+
       input:-ms-input-placeholder {
         color: #b8bcc9;
         font-size: 14px;
@@ -121,18 +127,22 @@
         background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxNCAxNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTEuOTUyIDIuMDQ4YTcuMDExIDcuMDExIDAgMCAwLTkuOTA0IDAgNy4wMTEgNy4wMTEgMCAwIDAgMCA5LjkwNCA3LjAxIDcuMDEgMCAwIDAgOS45MDQgMCA3LjAxMSA3LjAxMSAwIDAgMCAwLTkuOTA0em0tMi4xOSA3LjcxNGEuNTM5LjUzOSAwIDAgMS0uNzYyIDBsLTItMi0yLjA5NSAyLjA5NWEuNTM5LjUzOSAwIDEgMS0uNzYyLS43NjJMNi4yMzggN2wtMi0yQS41MzkuNTM5IDAgMSAxIDUgNC4yMzhsMiAyIDEuOTA1LTEuOTA0YS41MzkuNTM5IDAgMSAxIC43NjEuNzYxTDcuNzYyIDdsMiAyYy4yMS4yMS4yMS41NTEgMCAuNzYyeiIgZmlsbD0iI0I4QkNDOSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PC9zdmc+) no-repeat center/14px 14px;
         display: inline-block;
       }
+
       .__remove-component.active {
         visibility: visible;
         opacity: 1;
         cursor: pointer;
 
       }
+
       .__email {
 
       }
+
       .__password {
 
       }
+
       .__check-client-password-num {
         position: absolute;
         top: 50%;
@@ -153,11 +163,13 @@
         cursor: pointer;
         background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAyMCAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTIuNjMzIDUuODE5Yy40NTQuNjIuNyAxLjM4LjcgMi4xOCAwIDEuOTYxLTEuNDk1IDMuNTU2LTMuMzMzIDMuNTU2LS43NSAwLTEuNDYzLS4yNjItMi4wNDQtLjc0N0w2LjM1IDEyLjUyMWMxLjIwOS41NCAyLjQzMy44MTIgMy42NS44MTIgNC4xMiAwIDguMDMtNC4xODYgOS4wMjMtNS4zMzQtLjYzLS43MjUtMi40MjUtMi42NjQtNC42OTUtMy45ODhsLTEuNjk1IDEuODA4em0tNC4wODIgNC4zNTRjLjQyLjMyLjkyMi40OTMgMS40NDkuNDkzIDEuMzc4IDAgMi41LTEuMTk2IDIuNS0yLjY2NyAwLS41NjItLjE2Mi0xLjA5Ny0uNDYyLTEuNTQ1bC0zLjQ4NyAzLjcyem0tMi44MzQgMy4wMjNMMy4yMTEgMTUuODdhLjQwMi40MDIgMCAwIDEtLjI5NC4xMy40MDYuNDA2IDAgMCAxLS4yOTUtLjEzLjQ2Ni40NjYgMCAwIDEgMC0uNjI5bDExLjMyNS0xMi4wOGEuNDI5LjQyOSAwIDAgMSAuMDItLjAyMkwxNi43ODguMTNhLjM5OS4zOTkgMCAwIDEgLjU5IDAgLjQ2Ni40NjYgMCAwIDEgMCAuNjI4bC0yLjQzNyAyLjZjMi44NSAxLjcyNSA0Ljg3IDQuMjQyIDQuOTYgNC4zNTRhLjQ2Ny40NjcgMCAwIDEgMCAuNTc1Yy0uMTkyLjI0Mi00Ljc2NyA1LjkzNS05LjkgNS45MzUtMS40MzQgMC0yLjg3My0uMzQ0LTQuMjg0LTEuMDI2em00Ljg2NC04LjY5Yy4yMjYuMDQyLjM3Ny4yNzMuMzM3LjUxNC0uMDQuMjQtLjI2LjQwOC0uNDgyLjM2QTIuMzQyIDIuMzQyIDAgMCAwIDEwIDUuMzMzYy0xLjM3OCAwLTIuNSAxLjE5Ni0yLjUgMi42NjYgMCAuMTYuMDIuMzE0LjA0NS40NjUuMDQuMjQxLS4xMTIuNDcyLS4zMzcuNTE1YS4zNDcuMzQ3IDAgMCAxLS4wNzQuMDA3LjQyNi40MjYgMCAwIDEtLjQwOS0uMzY3IDMuNzA0IDMuNzA0IDAgMCAxLS4wNTgtLjYyYzAtMS45NiAxLjQ5NS0zLjU1NSAzLjMzMy0zLjU1NS4xOTggMCAuMzkyLjAyNi41OC4wNjF6bTIuMTUzLTIuMjE3Yy4yMTkuMDc4LjMzNS4zMy4yNjIuNTYzLS4wNzMuMjM0LS4zMS4zNjItLjUyOC4yNzktLjg2MS0uMzA5LTEuNjkyLS40NjUtMi40NjgtLjQ2NS00LjE1IDAtOC4wODYgNC4yNDYtOS4wNDUgNS4zNTcuNDUuNjExIDEuNjUgMi4xMTIgMy40MDMgMy4zNTZhLjQ2Mi40NjIgMCAwIDEgLjExNi42MTVjLS4wOC4xMy0uMjEyLjItLjM0Ni4yYS4zOTEuMzkxIDAgMCAxLS4yMy0uMDc1QzEuNTEgMTAuNDI4LjEzMyA4LjM0Mi4wNzUgOC4yNTRhLjQ2OC40NjggMCAwIDEgLjAyMy0uNTQyQy4yOTEgNy40NyA0Ljg2NiAxLjc3NyAxMCAxLjc3N2MuODY2IDAgMS43ODYuMTcyIDIuNzM0LjUxMnoiIGZpbGw9IiMxODE4MTgiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==) no-repeat center /20px 16px;
       }
+
       .__check-client-password-num.visible {
         background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCAyMCAxMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTkuOTI2IDUuNzU3YS40MzguNDM4IDAgMCAxLS4wMjUuNTJDMTkuNzEgNi41MSAxNS4xMzQgMTIgMTAgMTIgNC44NjYgMTIgLjI5IDYuNTEuMDk4IDYuMjc3YS40NC40NCAwIDAgMSAwLS41NTRDLjI5MSA1LjQ5IDQuODY2IDAgMTAgMGM1Ljk4MyAwIDkuNzY4IDUuNTIgOS45MjYgNS43NTd6TTEwIDExLjE0M2M0LjE1IDAgOC4wODYtNC4wOTYgOS4wNDUtNS4xNjYtLjgzLTEuMDg5LTQuMjMtNS4xMi05LjA0NS01LjEyQzUuODc4Ljg1NyAxLjk2OSA0Ljg5My45NzYgNmMuOTk1IDEuMTA2IDQuOTA4IDUuMTQzIDkuMDI0IDUuMTQzem0wLTguNTcyYzEuODM4IDAgMy4zMzMgMS41MzggMy4zMzMgMy40MjkgMCAxLjg5LTEuNDk1IDMuNDI5LTMuMzMzIDMuNDI5QzguMTYgOS40MjkgNi42NjYgNy44OSA2LjY2NiA2YzAtMS44OSAxLjQ5NS0zLjQyOSAzLjMzNC0zLjQyOXptMCA2YzEuMzc4IDAgMi41LTEuMTUzIDIuNS0yLjU3MSAwLTEuNDE4LTEuMTIyLTIuNTcxLTIuNS0yLjU3MUM4LjYyIDMuNDI5IDcuNSA0LjU4MiA3LjUgNmMwIDEuNDE4IDEuMTIxIDIuNTcxIDIuNSAyLjU3MXoiIGZpbGw9IiMxODE4MTgiIGZpbGwtcnVsZT0ibm9uemVybyIvPjwvc3ZnPg==) no-repeat center /20px 16px;
       }
 
     }
+
     //login-section-form--box
 
     .login-section-form--box:nth-of-type(2) {
@@ -187,14 +199,17 @@
         transition: all 0.3s ease-out;
 
       }
+
       button:hover, button:focus {
         opacity: .666;
       }
 
     }
+
     //login-section-form--submit
 
   }
+
   //login-section-form
 
   .login-section-find-action-box {
@@ -207,6 +222,7 @@
       height: 0;
       opacity: 0;
     }
+
     .__set-auto-login {
       font-size: 14px;
       font-weight: 300;
@@ -226,6 +242,7 @@
       color: #ff5274;
       opacity: .666;
     }
+
     //__set-auto-login
     .__check-box-pointer {
 
@@ -251,6 +268,7 @@
       }
 
     }
+
     //__check-box-pointer
     .__check-box-pointer.active {
       span {
@@ -273,6 +291,7 @@
       transition: all 0.3s ease-out;
       vertical-align: baseline;
     }
+
     .__find-account:hover, .__find-password:hover, .__find-account:focus, .__find-password:focus {
       opacity: .666;
       color: #ff5274;
@@ -296,12 +315,15 @@
         margin: 0 16px;
 
       }
+
       //login-section-find-action-box--find-section--vertical-bar
 
     }
+
     //login-section-find-action-box--find-section
 
   }
+
   //login-section-find-action-box
 
   .login-section-horizontal-line {
@@ -336,13 +358,16 @@
       background-color: #b8bcc9;
       z-index: 0;
     }
+
     //login-section-horizontal-line--bar
 
   }
+
   //login-section-horizontal-line
 
   .login-section-join {
     margin-top: 50px;
+
     p {
       font-size: 16px;
       -ms-word-break: keep-all;
@@ -355,6 +380,7 @@
       display: inline-block;
       opacity: .85;
     }
+
     a {
       font-size: 16px;
       font-weight: 500;
@@ -368,19 +394,23 @@
       -o-transition: all 0.3s ease-out;
       transition: all 0.3s ease-out;
     }
+
     a:hover, a:focus {
       opacity: .666;
       color: #ff5274;
     }
 
   }
+
   //login-section-join
-  .login-section-warning-text.active{
+  .login-section-warning-text.active {
     padding: 24px 0;
-    p{
-      color:#ff1a6f;
+
+    p {
+      color: #ff1a6f;
     }
   }
+
   .login-section-warning-text {
     padding: 17px 0;
     text-align: center;
@@ -402,8 +432,10 @@
       line-height: normal;
     }
   }
+
   .login-section-captcha-area {
     position: relative;
+
     > div {
       width: 100% !important;
       margin-bottom: 30px;
@@ -465,10 +497,9 @@
   }
   .login-section .login-section-warning-text {
     padding: 14px 0;
+
     p {
       font-size: 10px;
-      width: 67%;
-      min-width: 175px;
     }
   }
   .login-section .login-section-find-action-box .__set-auto-login {
@@ -508,22 +539,22 @@
     width: 16px;
     height: 14px;
     background-size: 13px 12px;
-    vertical-align:top;
+    vertical-align: top;
 
   }
   .login-section .login-section-social-media .__access-google-account span {
     width: 16px;
     height: 14px;
     background-size: 14px 14px;
-    vertical-align:top;
+    vertical-align: top;
   }
   .login-section .login-section-social-media .__access-kakao-account span {
     width: 16px;
     height: 14px;
     background-size: 16px 14px;
-    vertical-align:top;
+    vertical-align: top;
   }
-  .login-section .login-section-social-media a em{
+  .login-section .login-section-social-media a em {
     padding-left: 3px;
   }
 
@@ -545,6 +576,16 @@
 
   .login-section .login-section-form .login-section-form--box #user_password {
     width: 190px;
+  }
+  .login-section .login-section-warning-text.active {
+    padding: 14px 0;
+  }
+  .login-section .login-section-form .login-section-form--box input[type='password'] {
+    font-size: 14px;
+    line-height: 14px;
+  }
+  .login-section .login-section-form .login-section-form--box .__check-client-password-num.visible {
+    background-size: 16px 12px;
   }
 
 }

@@ -62,7 +62,7 @@ class AddressDeliveryInputComponent extends React.Component {
     render() {
         return (
             <Fragment>
-                <div className="delivery-add-modal--form--container">
+                <div className={styles['delivery-add-modal--form--container']}>
                     <label htmlFor="zipcode" className={styles['delivery-add-modal--form--container--info']}>{this.props.titleText || AddressDeliveryInputComponent.defaultState.titleText}<span>*</span></label>
                     <div className={cx(styles['delivery-add-modal--form--container--input-box'], this.props.language === 'ko' ? styles['short'] : styles['long'])}>
                         <input type="text"

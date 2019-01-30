@@ -81,10 +81,10 @@ class FindClientPasswordLayout extends React.Component {
             <Fragment>
                 {/*핸듷폰 인증 성공시에 비밀번호 변경 페이지로 이동*/}
                 {
-                    phoneAuthSuccess ? <Redirect to={'/phone/passwordchange'}/> : null
+                    phoneAuthSuccess && <Redirect to={'/phone/passwordchange'}/>
                 }
                 {
-                    loading ? <DefaultLoading/> : null
+                    loading && <DefaultLoading/>
                 }
                 {
                     success && email ? <ModalComponent subject={'성공'} desc={'해당 이메일로 비밀번호 변경 링크를 전송했습니다.'} action={findInit}/> : null
@@ -99,7 +99,9 @@ class FindClientPasswordLayout extends React.Component {
                     error.error && error.type === 'server' ? <ModalComponent subject={'서버'} desc={'서버 에러 입니다.'} action={findInit}/> : null
                 }
                 {/*핸드폰 인증 모달*/}
-                {modalOpen ? <NexmoVerifyComponent actionType={'findPassword'} toggle={openModalRequest}/> : null}
+                {
+                    modalOpen && <NexmoVerifyComponent actionType={'findPassword'} toggle={openModalRequest}/>
+                }
                 <Head title={'리틀원 - 비밀번호 찾기'} desc={'휴대폰 인증을 통하여 회원님의 아이디를 찾을 수 있는 페이지입니다.'} language={language}/>
                 <Header/>
                 <section className={styles['client-join-section']}>
@@ -134,12 +136,12 @@ class FindClientPasswordLayout extends React.Component {
                                 <legend>리틀원의 비밀번호 찾기 입력 폼입니다.</legend>
                                 <InputPropsEmailComponent title={'찾으시려는 이메일을 입력해주세요.'} onChangeEmail={onChangeEmail} error={error} parentState={this.onChangeEmailHandler}/>
                                 <div className={styles['client-join-section--form--select-box']}>
-                                    <button type={'button'} ref={this.emailBtn} role="button" tabIndex={2} onClick={this.state.isValidEmail ? this.findByEmail : null} onKeyDown={this.state.isValidEmail ? (e)=>{
+                                    <button type={'button'} ref={this.emailBtn} role="button" className={styles['border-button']} tabIndex={2} onClick={this.state.isValidEmail ? this.findByEmail : null} onKeyDown={this.state.isValidEmail ? (e)=>{
                                         if(e.keyCode===13){
                                             this.findByEmail()
                                         }
                                     }:null}>이메일로 찾기</button>
-                                    <button type={'button'} ref={this.phoneBtn} role="button" tabIndex={3} onClick={this.state.isValidEmail ? openModalRequest : null} onKeyDown={this.state.isValidEmail ? (e)=>{
+                                    <button type={'button'} ref={this.phoneBtn} role="button" className={styles['border-button']} tabIndex={3} onClick={this.state.isValidEmail ? openModalRequest : null} onKeyDown={this.state.isValidEmail ? (e)=>{
                                         if(e.keyCode===13){
                                             openModalRequest();
                                         }

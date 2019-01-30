@@ -31,6 +31,7 @@
       letter-spacing: -0.6px;
       color: #333;
     }
+
     &--buttons {
       position: absolute;
       top: 16px;
@@ -63,18 +64,19 @@
       button:nth-of-type(1) {
         margin-right: 10px;
         background: #b8bcc9 url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAMAAAC7IEhfAAAADFBMVEUAAAD///////////84wDuoAAAAA3RSTlMAogKISXuZAAAAfElEQVR4Ae3VQQqAMAxE0XZ6/ztrVyOBD/8AdhU6D6pR43pX9s7C1TT7HJZNb8Wy6a1YpumtUKZp4VfWFYbliKYkNzfQgVSb/hh94boVsc2dDiW4Sucq2VU6V8nOQ3+0vBnfHt9w+wjVS/F/Ryxtc/3Y04NUj2Y/7OXv4wHBzghZRzmAewAAAABJRU5ErkJggg==) no-repeat center/20px 20px;
+
         &:hover {
           background-size: 26px 26px;
         }
       }
 
-      #__crop-button {
+      .__crop-button {
         background: #19ebdd url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAAAoCAMAAACGsik5AAAAolBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////8ELnaCAAAANXRSTlMA+gr89+M1J/TxLiAQv4RcSkMZBu7s6d3X0sy5s6t8a2FYUz8UAeffxZyWkYx2cGZPTjsjAl4vjXsAAAEsSURBVHjandVnj4JAEIDhoSsgiDQVsPfe9v//tcsd2eGyCuz4foPJE0oIA6TWhxmQOzDNp5ojY0yb08yJ/aYsKMZjZcqdYniFtJmgyUJZc0bTU2XN5QszRbOTNlc0Y1fWzL4wvsbNSNrMK7OSNQuFm6G0uVVmIGv6aFLRqG6d0bnZOqLpjT5fOkBjvBvGUueDWXbQPIVRmP2dtkDsgWZjiSYvB7EpDMwuN4looOCjblBjYrvhBel3qLIjfjqyGx9X8SsT4w2Y8CkzYrwplFlJncHsBNWkNBt+3HlAXZaB6rQGeBpollCfk6Lavxw0egBNDYao8m2bwVZjJqb0oS13J5obtKdmjEf4z6s5CsJGCQs0hN312nM0o+zUY2muQMr7/wlS9tAFyHlnaOsHVXlfPDPIBPkAAAAASUVORK5CYII=) no-repeat center/26px 20px;
 
         &:hover {
           background-size: 32px 26px;
         }
-      }
+      }//자르기 버튼
 
     }
   }
@@ -150,12 +152,14 @@
   }
   .crop-image-modal--container--buttons button:nth-of-type(1) {
     background-size: 16px 16px;
+
     &:hover {
       background-size: 20px 20px;
     }
   }
   .crop-image-modal--container--buttons #__crop-button {
     background-size: 18px 14px;
+
     &:hover {
       background-size: 22px 18px;
     }
@@ -176,12 +180,14 @@
   }
   .crop-image-modal--container--buttons button:nth-of-type(1) {
     background-size: 12px 12px;
+
     &:hover {
       background-size: 16px 16px;
     }
   }
   .crop-image-modal--container--buttons #__crop-button {
     background-size: 14px 10px;
+
     &:hover {
       background-size: 20px 16px;
     }
