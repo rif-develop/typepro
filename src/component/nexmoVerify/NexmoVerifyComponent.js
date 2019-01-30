@@ -36,7 +36,6 @@ class NexmoVerifyComponent extends React.Component {
         return (
             <Fragment>
                 <ScreenBlockComponent action={this.props.toggle}/>
-
                 <div className={styles['phone-auth-modal']} ref={this.phoneModal}>
                     {
                         loading && <PinkSpinnerComponent/>

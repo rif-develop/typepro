@@ -308,8 +308,8 @@ router.post('/phone/password', async (req, res) => {
                         } else {
                             console.log('# 일치하는 계정을 찾지 못했습니다.');
                             return res.json({
-                                error: true,
-                                type: 'notFound'
+                                success:false,
+                                email:false//이메일을 null에서 false로해서 상태 변화주기
                             });
                         }
                     })
@@ -374,7 +374,7 @@ router.post('/phone/id', async (req, res) => {
         if (dev) {
             return res.json({
                 success: true,
-                email:'dev@dev.com'
+                email: 'dev@dev.com'
             });
         }
         const phone = req.body.phone;

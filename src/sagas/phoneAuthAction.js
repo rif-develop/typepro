@@ -169,9 +169,16 @@ function* findIdSaga(obj) {
         const response = yield call(findIdAxios, object);
 
         if (response.data.success) {
+            //인증 성공 및 아이디를 찾았을 경우
             yield put({
                 type: 'API_FIND_ID_BY_PHONE_SUCCESS',
-                email:response.data.email
+                email: response.data.email
+            });
+        } else if (!response.data.success) {
+            //인증하였으나 해당 번호로 등록된 이메일을 찾지 못하였을 경우
+            yield put({
+                type: 'API_FIND_ID_BY_PHONE_SUCCESS',
+                email: false
             });
         } else {
             throw response.data

@@ -25,7 +25,7 @@ class FindClientIdLayout extends React.Component {
     }
 
     render() {
-        const {language, openModalRequest, modalOpen, email, isLogin} = this.props;
+        const {language, openModalRequest, modalOpen, email, isLogin,error} = this.props;
         //로그인한 유저는 접근할 수 없는 페이지
         if (isLogin) {
             window.location.replace('/');
@@ -49,10 +49,15 @@ class FindClientIdLayout extends React.Component {
                         <p>{email ? '고객님의 이메일은 다음과 같습니다.' : '휴대폰 인증을 통해 이메일 아이디를 찾아보실 수 있습니다.'}</p>
                     </div>
                     <div id="find-result-box" className={cx(styles['client-join-section--result-box'], email && styles['active'])}>
-                        <p>{email ? email.toString() : '해당 번호로 가입된 이메일이 없습니다.'}</p>
-                        {email && <Link to={'/login'}>
-                            로그인 화면으로
-                        </Link>}
+                        <p>
+                            {email ? email.toString() : '해당 번호로 가입된 이메일이 없습니다.'}
+                        </p>
+                        {
+                            email && <Link to={'/login'}>
+                                로그인 화면으로
+                            </Link>
+                        }
+
                     </div>
                     {
                         email === null ? <div>
@@ -84,6 +89,7 @@ const mapStateToProps = (state) => {
         language: state.languageReducer.language,
         modalOpen: state.phoneAuthReducer.open,
         email: state.phoneAuthReducer.findResult.email,
+        error: state.phoneAuthReducer.error,
         isLogin: state.clientStatusReducer.login.isLogin
     }
 };
@@ -95,8 +101,8 @@ const mapDispatchToProps = (dispatch) => {
         getSession: () => dispatch({
             type: 'REFRESH_SESSION_REQUEST'
         }),
-        phoneAuthInit:()=>dispatch({
-            type:'API_PHONE_AUTH_INIT'
+        phoneAuthInit: () => dispatch({
+            type: 'API_PHONE_AUTH_INIT'
         })
     }
 };

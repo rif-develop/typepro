@@ -1,0 +1,99 @@
+
+.language-selector-container--list {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%);
+  left: 16px;
+  padding: 10px 0;
+  background-color: #fff;
+
+  &__selector {
+    display: block;
+    width: 100%;
+    border: none;
+    background-color: #fff;
+    -webkit-transition: all 0.25s ease-out;
+    -moz-transition: all 0.25s ease-out;
+    -ms-transition: all 0.25s ease-out;
+    -o-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
+    height: 40px;
+    cursor: pointer;
+    line-height: 40px;
+
+    > div {
+      display: table-cell;
+      font-size: 16px;
+      font-weight: 500;
+      color: #333;
+    }
+
+    .flag-icon {
+      overflow: hidden;
+      text-indent: -999px;
+      width: 76px;
+      min-height: 20px;
+      filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.54))
+    }
+
+    &:hover, &:focus {
+      background-color: rgba(158, 158, 158, 0.2);
+      letter-spacing: 0.7px;
+      outline: 0;
+    }
+
+    //국기 모양
+    .--us {
+      background: url("../../component/selector/United-States-of-America (1).png") no-repeat center/24px auto;
+    }
+
+    .--uk {
+      background: url("../../component/selector/United-Kingdom (1).png") no-repeat center/24px auto;
+    }
+
+    .--ja {
+      background: url("../../component/selector/Japan (1).png") no-repeat center/24px auto;
+    }
+
+    .--ko {
+      background: url("../../component/selector/Korea,-South (1).png") no-repeat center/24px auto;
+    }
+
+    .--zh {
+      background: url("../../component/selector/China (1).png") no-repeat center/24px auto;
+    }
+
+    .--ca {
+      background: url("../../component/selector/Canada (1).png") no-repeat center/24px auto;
+    }
+
+    .--tw {
+      background: url("../../component/selector/Taiwan (1).png") no-repeat center/24px auto;
+
+    }
+
+    .--au {
+      background: url("../../component/selector/Australia (1).png") no-repeat center/24px auto;
+
+    }
+
+    .--sp {
+      background: url("../../component/selector/Singapore (1).png") no-repeat center/24px auto;
+
+    }
+
+    //.--hk{
+    //  background: url("../../component/selector/") no-repeat center/24px auto;
+    //}
+
+    .--nz {
+      background: url("../../component/selector/New-Zealand (1).png") no-repeat center/24px auto;
+    }
+
+  }
+}

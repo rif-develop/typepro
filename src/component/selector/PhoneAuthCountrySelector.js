@@ -1,7 +1,6 @@
 import React from 'react';
-import styles from "../modal/PhoneAuthModalComponent.scss";
+import styles from "./PhoneAuthCountrySelector.scss";
 import classnames from 'classnames';
-
 const cx = classnames.bind(styles);
 
 class PhoneAuthCountrySelector extends React.Component {
@@ -20,7 +19,6 @@ class PhoneAuthCountrySelector extends React.Component {
     render() {
         return (
             <div className={styles['language-selector-container--list']}>
-
                 {
                     this.state.countryList.map((ele, key) => {
                         return <button type={'button'}
