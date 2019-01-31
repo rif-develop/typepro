@@ -1,0 +1,45 @@
+{
+  "nexmo": {
+    "string": {
+      "01": "Littleone phone number verification",
+      "02": "Phone number",
+      "03": "Verify",
+      "04": "Littleone phone number verification form",
+      "05": "4-digit code to",
+      "06": "re-send",
+      "07": "4-digit code",
+      "08": "Cancel",
+      "09": "Verified",
+      "10": "National flag",
+      "11": "혹시 받지 못하셨나요 ?"
+    },
+    "country": {
+      "us": "US +1",
+      "ko": "Korea +82",
+      "uk": "UK +44",
+      "ca": "Canada +1",
+      "ja": "Japan +81",
+      "zh": "China +86",
+      "nz": "New Zealand +64",
+      "au": "Australia +61",
+      "sp": "Singapore +65",
+      "tw": "Chinese Taipei +886"
+    },
+    "error": {
+      "01": "No phone number value.",
+      "02": "No request value.",
+      "03": "Please enter 4-digit code.",
+      "04": "Please select country.",
+      "05": "Code does not match.",
+      "06": "requested code too many times. Please try again later.",
+      "07": "This session is no longer valid. Please start again.",
+      "08": "Server Error"
+    },
+    "placeholder": {
+      "01": "Please do not input - dash."
+    },
+    "description": {
+      "01": "Requesting country list."
+    }
+  }
+}

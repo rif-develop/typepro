@@ -7,6 +7,7 @@ import {connect} from "react-redux";
 import NexmoVerifyStep from "./NexmoVerifyStep";
 import NexmoRequestStep from "./NexmoRequestStep";
 import PinkSpinnerComponent from "../loading/PinkSpinnerComponent";
+import {getCookie} from "../../action/cookie/Cookie";
 
 const cx = classnames.bind(styles);
 
@@ -16,6 +17,12 @@ class NexmoVerifyComponent extends React.Component {
         super(props);
         //ref
         this.phoneModal = React.createRef();
+        this.state = {
+            language: getCookie('lange') === 'ko' ? require('../../language/korean/nexmo') :
+                      getCookie('lang') === 'en' ? require('../../language/english/nexmo') :
+                      getCookie('lang') === 'zh' ? require('../../language/chinese/nexmo') :
+                      getCookie('lang') === 'ja' ? require('../../language/korean/nexmo') : require('../../language/korean/nexmo')
+        }
     }
 
     componentDidMount() {
@@ -37,6 +44,8 @@ class NexmoVerifyComponent extends React.Component {
             digitCodeHandler, nexmoFindId, onChangePhone, nexmoFindPassword, nexmoVerifyRequest, nexmoClientUpdateRequest,
             countrySelector, backPage
         } = this.props;
+
+        const locale = this.state.language.nexmo;
 
         return (
             <Fragment>
@@ -67,7 +76,7 @@ class NexmoVerifyComponent extends React.Component {
                                                  requestId={requestId}
                                                  country={country}
                                                  error={error}
-                                                 backPage={backPage}/> :
+                                                 backPage={backPage} locale={locale}/> :
                                 <NexmoRequestStep country={country}
                                                   countryList={countryList}
                                                   openCountryList={openCountryList}
@@ -75,7 +84,7 @@ class NexmoVerifyComponent extends React.Component {
                                                   onChangePhone={onChangePhone}
                                                   nexmoVerifyRequest={nexmoVerifyRequest}
                                                   countrySelector={countrySelector}
-                                                  error={error}/>
+                                                  error={error} locale={locale}/>
                         }
 
                     </div>

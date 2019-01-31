@@ -1,9 +1,9 @@
 import styles from "./PhoneAuthModalComponent.scss";
 import React from "react";
 import classnames from 'classnames';
-import {acceptOnlyNumber, removeChar} from "../../lib/script";
 import {Validations} from "../../lib/validation";
 import PinkSpinnerComponent from "../loading/PinkSpinnerComponent";
+import {getCookie} from "../../action/cookie/Cookie";
 
 const cx = classnames.bind(styles);
 
@@ -98,21 +98,31 @@ class NexmoVerifyStep extends React.PureComponent {
     }
 
     render() {
+        const {locale} = this.props;
+
+        let style = null;
+        if (getCookie('lang') === 'en') {
+            style = {'fontSize': '16px'};
+        }
         return (
             <form id={'phone-auth-form'} role={'form'}>
-                <h1 className={styles['phone-auth-modal--container--title']}>리틀원 전화번호 인증</h1>
+                <h1 className={styles['phone-auth-modal--container--title']} style={style}>{locale.string['01']}</h1>
                 <fieldset form={'phone-auth-form'}>
-                    <legend>리틀원 전화번호를 인증 폼</legend>
+                    <legend>{locale.string['04']}</legend>
                     <div className={styles['phone-auth-modal--container--process-text']}>
-                        <p><em>{this.props.phoneNumber || '123455667'}</em>으로 4자리 코드를 보냈습니다.</p>
+                        {
+                            getCookie('lang') === 'en' ? <p>{locale.string['05']}<em>{this.props.phoneNumber}</em></p>
+                                : <p><em>{this.props.phoneNumber || '123455667'}</em>{locale.string['05']}</p>
+
+                        }
                         <div>
-                            <span>혹시 받지 못하셨나요 ? </span>
-                            <button type={'button'} tabIndex={4} role={'button'}>재전송</button>
+                            <span>{locale.string['11']}</span>
+                            <button type={'button'} tabIndex={4} role={'button'}>{locale.string['06']}</button>
                         </div>
                     </div>
                     {this.props.loading && <PinkSpinnerComponent/>}
                     <div className={styles['phone-text-field']}>
-                        <label className={this.state.inputFocus ? styles['active'] : undefined} htmlFor={'code-component'}>4자리 코드</label>
+                        <label className={this.state.inputFocus ? styles['active'] : undefined} htmlFor={'code-component'}>{locale.string['07']}</label>
                         <input type={'number'}
                                name={'code'}
                                id={'code-component'}
@@ -127,19 +137,19 @@ class NexmoVerifyStep extends React.PureComponent {
                     </div>
                     <div className={styles['phone-error-field']}>
                         <p>
-                            {this.props.error.error && this.props.error.type === 'emptyPhone' ? '입력받은 전화값이 없습니다.' : undefined}
-                            {this.props.error.error && this.props.error.type === 'emptyRequestId' ? '리퀘스트 값이 없습니다.' : undefined}
-                            {this.props.error.error && this.props.error.type === 'emptyCode' ? '4자리 코드를 입력해주세요.' : undefined}
-                            {this.props.error.error && this.props.error.type === 'emptyCountry' ? '국가를 선택하지 않으셨습니다.' : undefined}
-                            {this.props.error.error && this.props.error.type === 'server' ? '서버 에러' : undefined}
-                            {this.props.error.error && this.props.error.type === 'wrongCode' ? '코드가 일치하지 않습니다.' : undefined}
-                            {this.props.error.error && this.props.error.type === 'manyRequest' ? '과다한 잘못된 요청으로 인증절차를 종료했습니다.' : undefined}
-                            {this.props.error.error && this.props.error.type === 'requestExpired' ? '더이상 유효하지 않은 세션입니다. 다시 시작해주세요.' : undefined}
+                            {this.props.error.error && this.props.error.type === 'emptyPhone' ? locale.error['01'] : undefined}
+                            {this.props.error.error && this.props.error.type === 'emptyRequestId' ? locale.error['02'] : undefined}
+                            {this.props.error.error && this.props.error.type === 'emptyCode' ? locale.error['03'] : undefined}
+                            {this.props.error.error && this.props.error.type === 'emptyCountry' ? locale.error['04'] : undefined}
+                            {this.props.error.error && this.props.error.type === 'wrongCode' ? locale.error['05'] : undefined}
+                            {this.props.error.error && this.props.error.type === 'manyRequest' ? locale.error['06'] : undefined}
+                            {this.props.error.error && this.props.error.type === 'requestExpired' ? locale.error['07'] : undefined}
+                            {this.props.error.error && this.props.error.type === 'server' ? locale.error['08'] : undefined}
                         </p>
                     </div>
                     <div className={styles['phone-auth-modal--container--button-box']}>
-                        <button type={'reset'} tabIndex={3} className={cx(styles['__request-verify-btn'], styles['cancel-btn'])} onClick={this.backToRequestStep}>취소</button>
-                        <button type={'submit'} tabIndex={2} onClick={this.checkDigitCode} className={styles['__request-verify-btn']}>인증 완료</button>
+                        <button type={'reset'} tabIndex={3} className={cx(styles['__request-verify-btn'], styles['cancel-btn'])} onClick={this.backToRequestStep}>{locale.string['08']}</button>
+                        <button type={'submit'} tabIndex={2} onClick={this.checkDigitCode} className={styles['__request-verify-btn']}>{locale.string['09']}</button>
                     </div>
                 </fieldset>
             </form>
