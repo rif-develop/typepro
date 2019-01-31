@@ -31,7 +31,7 @@ router.post('/emailcheck', (req, res) => {
 /*회원가입 요청*/
 router.post('/requestsignup', (req, res) => {
     //유효성 통과하지 못했을 경우
-    console.log(req.body.terms)
+    console.log(req.body.terms);
     console.log(req.body.email);
     console.log(req.body.password);
     User.findOne({email: req.body.email}, (err, docs) => {
@@ -45,18 +45,7 @@ router.post('/requestsignup', (req, res) => {
             })
         } else {
             //암호화한 후에 저장한다.
-            // 
-            // 
-            // '/#s/a/l/t#/' ,77655,64,'sha512'
-            /*
-            * 설명 : salt 와 encoding방법은 "절대" 바뀌면 안된다. 
-            * 암호화 방식 : pbkdf2
-            * 솔트 : .env파일 안에
-            * 솔트 삽입 횟수 : 77655,
-            * 삽입될 비밀번호 길이 : 64,
-            * 해쉬 : .env파일 안에
-            * 
-            * */
+
             crypto.pbkdf2(req.body.password, process.env.SECURITY_SALT, 77655, 64, process.env.SECURITY_HASH, (err, password) => {
                 /*key를 base64로 인코딩*/
                 const encryptedPw = password.toString(process.env.SECURITY_DIGEST);
@@ -85,7 +74,7 @@ router.post('/requestsignup', (req, res) => {
                         error: true,
                         type: 'server'
                     })
-                })
+                });//db query
 
             });
 

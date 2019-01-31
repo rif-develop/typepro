@@ -8,10 +8,16 @@ const initialState = {
         error: false,
         type: null
     },
-    alarm: {},
-    standardUnit: 'si', //si :미터법, usa: 미국식 도량형
-    subscribe: {
-        email: false //이메일링 구독
+    option: {
+        memberActivityAlarm: true,
+        likeAlarm: true,
+        replyAlarm: true,
+        invitationAlarm: true,
+        birthdayAlarm: true,
+        scheduleAlarm: true,
+        connectedDeviceAlarm: true,
+        unit: 'si',
+        emailSubscription: true
     },
     withdrawal: {
         success: false //회원 탈퇴
@@ -21,11 +27,11 @@ const initialState = {
 export function settingReducer(state = initialState, action) {
     switch (action.type) {
         case SET_MENU_REQUEST:
-            return {...state, loading: true, error: null};
+            return {...state, loading: true, error: initialState.error, option:state.option, withdrawal: initialState.withdrawal};
         case SET_MENU_SUCCESS:
-            return {...state, loading: false, error: null, menu: action.menu};
+            return {...state, loading: false, error: initialState.error, option:action.option, withdrawal: initialState.withdrawal};
         case SET_MENU_FAILURE:
-            return {...state, loading: false, error: action.error};
+            return {...state, loading: false, error: action.error, option:state.option, withdrawal: initialState.withdrawal};
         default :
             return state;
     }

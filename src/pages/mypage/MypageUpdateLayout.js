@@ -1,7 +1,6 @@
 import React, {Fragment} from 'react';
 import styles from '../signup/SignupLayout.scss';
 import classnames from 'classnames';
-import {Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import Head from "../../component/head/head";
 import Header from "../../component/header/Header";
@@ -14,9 +13,10 @@ import InputBirthdateComponent from "../../component/input/InputBirthdateCompone
 import InputUpdateSubmitComponent from "../../component/input/InputUpdateSubmitComponent";
 import ModalComponent from "../../component/modal/ModalComponent";
 import InputPhoneAuthComponent from "../../component/input/InputPhoneAuthComponent";
-import PhoneAuthModalComponent from "../../component/modal/PhoneAuthModalComponent";
 import InputThumbnailFileComponent from "../../component/input/InputThumbnailFileComponent";
 import CropperComponent from "../../component/cropper/CropperComponent";
+import NexmoVerifyComponent from "../../component/nexmoVerify/NexmoVerifyComponent";
+import InputPhoneComponent from "../../component/input/InputPhoneComponent";
 
 const cx = classnames.bind(styles);
 
@@ -45,11 +45,11 @@ class MypageUpdateLayout extends React.Component {
 
     componentDidMount() {
         // 페이지에 접근할 수 있는 상태인지 확인한다.
-        if (!this.props.isChecked) {
-            console.log('접근 권한이 없습니다.');
-            //돌려보낸다.
-            this.props.history.push('/')
-        }
+        // if (!this.props.isChecked) {
+        //     console.log('접근 권한이 없습니다.');
+        //     //돌려보낸다.
+        //     this.props.history.push('/')
+        // }
     }
 
     componentWillUnmount() {
@@ -64,7 +64,14 @@ class MypageUpdateLayout extends React.Component {
 
 
     render() {
-        const {language, updateClientRequest, thumbnailRemove, clientIdx, success, clientStatus, isLogin, toggleCropper, cropperOpen, fileInfo, setFileInfo, cropperBlobSend, thumbnail, cropperInit} = this.props;
+        const {
+            language, updateClientRequest,
+            thumbnailRemove, clientIdx, success,
+            clientStatus, isLogin, toggleCropper,
+            cropperOpen, fileInfo, setFileInfo,
+            cropperBlobSend, thumbnail, cropperInit,
+            modalOpen, openModalRequest, phoneVerified, clientPhone
+        } = this.props;
 
         if (!isLogin) {
             return false
@@ -81,12 +88,17 @@ class MypageUpdateLayout extends React.Component {
                                                subject={'성공'}
                                                desc={'회원님의 정보가 수정되었습니다.'}/>
                 }
+
                 {
                     cropperOpen && <CropperComponent cropperBlobSend={cropperBlobSend} toggle={toggleCropper} fileInfo={fileInfo} clientIdx={clientIdx} init={cropperInit}/>
                 }
+
+
                 {
-                    this.state.phoneModal && <PhoneAuthModalComponent toggle={this.nexmoAuthProcess} clientIdx={clientIdx}/>
+                    modalOpen ? <NexmoVerifyComponent actionType={'updatePhone'} toggle={openModalRequest}/> : null
                 }
+
+
                 <section className={styles['client-join-section']}>
                     <div className={styles['client-join-section--desc']}>
                         <h1>회원 정보 수정</h1>
@@ -102,7 +114,10 @@ class MypageUpdateLayout extends React.Component {
                                 <InputNameComponent clientName={clientStatus.name.first}/>
                                 <InputGenderComponent clientGender={clientStatus.gender}/>
                                 <InputBirthdateComponent year={clientStatus.birth.year} month={clientStatus.birth.month} date={clientStatus.birth.date}/>
-                                <InputPhoneAuthComponent toggle={this.nexmoAuthProcess}/>
+                                <InputPhoneAuthComponent toggle={openModalRequest} phoneVerified={phoneVerified} clientPhone={clientPhone}/>
+                                {
+                                    clientPhone ? <InputPhoneComponent clientPhone={clientPhone}/> : undefined
+                                }
                                 <InputUpdateSubmitComponent clientIdx={clientIdx} form={'client-update-form'} action={updateClientRequest}/>
                             </fieldset>
                         </form>
@@ -118,13 +133,16 @@ const mapStateToProps = (state) => {
     return {
         language: state.languageReducer.language,
         clientIdx: state.clientStatusReducer.session._id,
+        clientPhone: state.clientStatusReducer.session.phone,
         success: state.mypageReducer.success,
         isChecked: state.mypageReducer.isChecked,
         clientStatus: state.clientStatusReducer.session,
         isLogin: state.clientStatusReducer.login.isLogin,
         cropperOpen: state.cropperReducer.open,
         fileInfo: state.cropperReducer.file,
-        thumbnail: state.clientStatusReducer.session.thumbnail
+        thumbnail: state.clientStatusReducer.session.thumbnail,
+        modalOpen: state.phoneAuthReducer.open,
+        phoneVerified: state.phoneAuthReducer.updateResult
     }
 };
 
@@ -165,10 +183,13 @@ const mapDispatchToProps = (dispatch) => {
             type: 'API_CROPPER_THUMBNAIL_SEND_REQUEST',
             formData
         }),
-        thumbnailRemove:(formData)=> dispatch({
-            type:'API_THUMBNAIL_REMOVE_REQUEST',
+        thumbnailRemove: (formData) => dispatch({
+            type: 'API_THUMBNAIL_REMOVE_REQUEST',
             formData
-        })
+        }),
+        openModalRequest: () => dispatch({
+            type: 'SET_PHONE_AUTH_MODAL_OPEN_TOGGLE'
+        }),
     }
 };
 

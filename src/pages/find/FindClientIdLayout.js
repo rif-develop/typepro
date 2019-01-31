@@ -21,11 +21,11 @@ class FindClientIdLayout extends React.Component {
     }
 
     componentWillUnmount() {
-        this.props.phoneAuthInit();
+        this.props.pageInit();
     }
 
     render() {
-        const {language, openModalRequest, modalOpen, email, isLogin,error} = this.props;
+        const {language, openModalRequest, modalOpen, email, isLogin, pageInit} = this.props;
         //로그인한 유저는 접근할 수 없는 페이지
         if (isLogin) {
             window.location.replace('/');
@@ -48,17 +48,28 @@ class FindClientIdLayout extends React.Component {
                         <p id="find_id_result"></p>
                         <p>{email ? '고객님의 이메일은 다음과 같습니다.' : '휴대폰 인증을 통해 이메일 아이디를 찾아보실 수 있습니다.'}</p>
                     </div>
-                    <div id="find-result-box" className={cx(styles['client-join-section--result-box'], email && styles['active'])}>
-                        <p>
-                            {email ? email.toString() : '해당 번호로 가입된 이메일이 없습니다.'}
-                        </p>
-                        {
-                            email && <Link to={'/login'}>
+                    {
+
+                      email ?  <div id="find-result-box" className={cx(styles['client-join-section--result-box'], email !== null ? styles['active'] : undefined)}>
+                            <p>
+                                {email.toString()}
+                            </p>
+                            <Link to={'/login'}>
                                 로그인 화면으로
                             </Link>
-                        }
+                        </div>:<div id="find-result-box" className={cx(styles['client-join-section--result-box'], email !== null ? styles['active'] : undefined)}>
+                          <p>
+                              해당 전화번호로 가입된 이메일이 없습니다.
+                          </p>
+                          <Link to={'/findid'} onClick={(e)=>{
+                              e.preventDefault();
+                              pageInit()
+                          }}>
+                              다시 찾기
+                          </Link>
+                      </div>
+                    }
 
-                    </div>
                     {
                         email === null ? <div>
                             <form className={styles['client-join-section--form']} id="client-join-section--form" role="form">
@@ -103,6 +114,9 @@ const mapDispatchToProps = (dispatch) => {
         }),
         phoneAuthInit: () => dispatch({
             type: 'API_PHONE_AUTH_INIT'
+        }),
+        pageInit:()=> dispatch({
+            type:'SET_FIND_ID_PAGE_INIT'
         })
     }
 };

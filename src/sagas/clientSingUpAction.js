@@ -8,9 +8,6 @@ export function* watcherSignup() {
 
 function requestJoin({formData}) {
 
-    console.log(formData.get('email'));
-    console.log(formData.get('password'));
-    console.log(formData.get('terms'));
     return axios({
         method: 'post',
         url: '/signup/requestsignup',
@@ -24,12 +21,10 @@ function requestJoin({formData}) {
 
 /*회원가입*/
 function* signUpSubmit(formData) {
-    console.log(formData)
 
     try {
         const response = yield call(requestJoin, formData);
 
-        console.log(response.data);
         if (response.data.success) {
             yield put({
                 type: 'API_SIGN_UP_COMPLETE_SUCCESS'

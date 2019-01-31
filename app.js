@@ -18,8 +18,10 @@ const mypageRouter = require('./public/router/MypageRouter');
 const nexmoRouter = require('./public/router/NexmoPhoneRouter');
 const emailRouter = require('./public/router/EmailRouter');
 const imageRouter = require('./public/router/ImageUploadRouter');
+const settingRouter = require('./public/router/SettingRouter');
+const deviceRouter = require('./public/router/DeviceRouter');
 //앱 라우터
-const appRouter =require('./public/router/EchoTestRouter');
+const appRouter = require('./public/router/EchoTestRouter');
 
 /*환경변수 불러오기*/
 const envResult = require('dotenv').config({
@@ -38,7 +40,7 @@ console.log(`${process.env.WHO_IS_DEVELOPER}님이 어플리케이션 서버를 
 app.use(cookieParser());
 //json parser
 app.use(express.json());
-app.use(express.urlencoded({limit:'4mb',extended: true, parameterLimit: 1000000}));
+app.use(express.urlencoded({limit: '4mb', extended: true, parameterLimit: 1000000}));
 
 //session redis 사용
 app.use(session(redisOption));
@@ -50,6 +52,7 @@ app.use('/', express.static(__dirname));
 
 
 //라우터
+
 app.use('/images', express.static(__dirname + '/dist/images'));
 /*회원가입 라우터*/
 app.use('/signup', userRouter);
@@ -69,11 +72,19 @@ app.use('/find', emailRouter);
 //이미지 업로드 라우터
 app.use('/upload', imageRouter);
 
+//사용자 환경설정 라우터
+app.use('/setting', settingRouter);
+
+//디바이스 라우터
+app.use('/app/device',deviceRouter);
+
 //앱 테스트 라우터
 app.use('/app', appRouter);
 //새로고침시 페이지 뜰 수 있게 하기.
 app.get('*', (req, res) => {
     console.log('### 요청에 의한 페이지 렌더링 ###');
+    //header 설정
+    console.log('요청 값');
 
     const sessionKey = `sess:${req.session.key}`;
 

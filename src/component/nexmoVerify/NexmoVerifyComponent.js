@@ -3,7 +3,6 @@ import styles from './PhoneAuthModalComponent.scss';
 import classnames from 'classnames';
 import ScreenBlockComponent from "../screenblock/ScreenBlockComponent";
 import {innerCenter} from "../../lib/script";
-import axios from 'axios'
 import {connect} from "react-redux";
 import NexmoVerifyStep from "./NexmoVerifyStep";
 import NexmoRequestStep from "./NexmoRequestStep";
@@ -23,14 +22,20 @@ class NexmoVerifyComponent extends React.Component {
         innerCenter(this.phoneModal.current);
     }
 
+    componentWillUnmount() {
+        //리덕스 스토어 초기화
+        this.props.componentInit();
+
+    }
+
     render() {
         const {
             countryList, openCountryList,
             country, phoneNumber, email,
-            requestId, code, nextStep,
+            requestId, code, nextStep, error,
             clientIdx, loading, onClickCancelNextStep,
-            digitCodeHandler, nexmoFindId, onChangePhone,
-            nexmoVerifyCheck, nexmoFindPassword,nexmoVerifyRequest,countrySelector
+            digitCodeHandler, nexmoFindId, onChangePhone, nexmoFindPassword, nexmoVerifyRequest, nexmoClientUpdateRequest,
+            countrySelector, backPage
         } = this.props;
 
         return (
@@ -50,8 +55,8 @@ class NexmoVerifyComponent extends React.Component {
                             nextStep ?
                                 <NexmoVerifyStep digitCodeHandler={digitCodeHandler}
                                                  onClickCancelNextStep={onClickCancelNextStep}
-                                                 nexmoVerifyCheck={nexmoVerifyCheck}
                                                  nexmoFindPassword={nexmoFindPassword}
+                                                 nexmoClientUpdateRequest={nexmoClientUpdateRequest}
                                                  nexmoFindId={nexmoFindId}
                                                  phoneNumber={phoneNumber}
                                                  loading={loading}
@@ -60,13 +65,17 @@ class NexmoVerifyComponent extends React.Component {
                                                  clientIdx={clientIdx}
                                                  email={email}
                                                  requestId={requestId}
-                                                 country={country}/> :
+                                                 country={country}
+                                                 error={error}
+                                                 backPage={backPage}/> :
                                 <NexmoRequestStep country={country}
                                                   countryList={countryList}
                                                   openCountryList={openCountryList}
                                                   phoneNumber={phoneNumber}
                                                   onChangePhone={onChangePhone}
-                                                  nexmoVerifyRequest={nexmoVerifyRequest} countrySelector={countrySelector}/>
+                                                  nexmoVerifyRequest={nexmoVerifyRequest}
+                                                  countrySelector={countrySelector}
+                                                  error={error}/>
                         }
 
                     </div>
@@ -87,6 +96,7 @@ const mapStateToProps = (state) => {
         code: state.phoneAuthReducer.auth.code,
         clientIdx: state.clientStatusReducer.session._id,
         email: state.phoneAuthReducer.auth.email,
+        error: state.phoneAuthReducer.error
     }
 };
 
@@ -112,17 +122,17 @@ const mapDispatchToProps = (dispatch) => {
             type: 'SET_PHONE_AUTH_DIGIT_CODE_REQUEST',
             code: digitCode
         }),
-        nexmoVerifyCheck: (phone, code, requestId, country, clientIdx) => dispatch({
-            type: 'API_PHONE_AUTH_VERIFY_CODE_REQUEST',
+        nexmoFindPassword: (object) => dispatch({
+            type: 'API_FIND_BY_PHONE_REQUEST',
+            object
+        }),
+        nexmoClientUpdateRequest: (phone, code, requestId, country, clientIdx) => dispatch({
+            type: 'API_UPDATE_INFO_BY_PHONE_REQUEST',
             phone: phone,
             code: code,
             requestId: requestId,
             country: country,
             clientIdx: clientIdx
-        }),
-        nexmoFindPassword: (object) => dispatch({
-            type: 'API_FIND_BY_PHONE_REQUEST',
-            object
         }),
         onClickCancelNextStep: () => dispatch({
             type: 'SET_PHONE_AUTH_CANCEL_NEXT_STEP_REQUEST'
@@ -130,7 +140,12 @@ const mapDispatchToProps = (dispatch) => {
         nexmoFindId: (object) => dispatch({
             type: 'API_FIND_ID_BY_PHONE_REQUEST',
             object
-
+        }),
+        backPage: () => dispatch({
+            type: 'API_PHONE_AUTH_FIRST_PHASE'
+        }),
+        componentInit: () => dispatch({
+            type: 'API_PHONE_AUTH_INIT'
         })
     }
 };

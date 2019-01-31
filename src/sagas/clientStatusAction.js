@@ -16,7 +16,7 @@ function webLoginAxios({formData}) {
         data: {
             email: formData.get('email'),
             password: formData.get('password')
-        }
+        },
     });
 }
 
@@ -56,14 +56,14 @@ function logoutAxios() {
 
 //로그아웃 요청 처리 리덕스 사가
 
-function* logoutSaga(){
-    try{
+function* logoutSaga() {
+    try {
 
         const response = yield call(logoutAxios);
 
-        if(response.data.success){
+        if (response.data.success) {
             window.location.replace('/');
-        } else{
+        } else {
             throw response.data;
         }
 

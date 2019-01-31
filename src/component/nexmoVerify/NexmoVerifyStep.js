@@ -46,7 +46,7 @@ class NexmoVerifyStep extends React.PureComponent {
     }
 
     backToRequestStep() { //이전 단계로 (전화 번호 입력후 인증번호 요청단계)
-        this.props.onClickCancelNextStep();
+        this.props.backPage();
     }
 
     onChangeCodeHandler(e) { //코드를 리덕스 스토어에 디스패치
@@ -84,7 +84,7 @@ class NexmoVerifyStep extends React.PureComponent {
 
         if (this.props.actionType === 'updatePhone') {
             //유저정보에 핸드폰 번호를 업데이트 한다.(update)
-            this.props.nexmoVerifyCheck(phone, code, requestId, country, clientIdx);
+            this.props.nexmoClientUpdateRequest(phone, code, requestId, country, clientIdx);
         } else if (this.props.actionType === 'findPassword') {
             //비밀번호를 찾는다.
             console.log('# 비밀번호 찾기 요청');
@@ -126,7 +126,16 @@ class NexmoVerifyStep extends React.PureComponent {
                                onChange={this.onChangeCodeHandler} onKeyDown={this.onKeyDownHandler}/>
                     </div>
                     <div className={styles['phone-error-field']}>
-                        <p></p>
+                        <p>
+                            {this.props.error.error && this.props.error.type === 'emptyPhone' ? '입력받은 전화값이 없습니다.' : undefined}
+                            {this.props.error.error && this.props.error.type === 'emptyRequestId' ? '리퀘스트 값이 없습니다.' : undefined}
+                            {this.props.error.error && this.props.error.type === 'emptyCode' ? '4자리 코드를 입력해주세요.' : undefined}
+                            {this.props.error.error && this.props.error.type === 'emptyCountry' ? '국가를 선택하지 않으셨습니다.' : undefined}
+                            {this.props.error.error && this.props.error.type === 'server' ? '서버 에러' : undefined}
+                            {this.props.error.error && this.props.error.type === 'wrongCode' ? '코드가 일치하지 않습니다.' : undefined}
+                            {this.props.error.error && this.props.error.type === 'manyRequest' ? '과다한 잘못된 요청으로 인증절차를 종료했습니다.' : undefined}
+                            {this.props.error.error && this.props.error.type === 'requestExpired' ? '더이상 유효하지 않은 세션입니다. 다시 시작해주세요.' : undefined}
+                        </p>
                     </div>
                     <div className={styles['phone-auth-modal--container--button-box']}>
                         <button type={'reset'} tabIndex={3} className={cx(styles['__request-verify-btn'], styles['cancel-btn'])} onClick={this.backToRequestStep}>취소</button>

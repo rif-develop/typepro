@@ -1,4 +1,4 @@
-import {put, takeEvery, call} from "redux-saga/effects";
+import {put, takeEvery, call, all} from "redux-saga/effects";
 import axios from 'axios'
 
 export function* watcherPhoneAuth() {
@@ -6,6 +6,7 @@ export function* watcherPhoneAuth() {
     yield takeEvery('API_PHONE_AUTH_REQUEST', nexmoVerifyRequestSaga); //인증 요청
     yield takeEvery('API_PHONE_AUTH_VERIFY_CODE_REQUEST', nexmoDigitVerifyCheck);//인증 확인 요청
     yield takeEvery('API_FIND_ID_BY_PHONE_REQUEST', findIdSaga); //아이디 찾기
+    yield takeEvery('API_UPDATE_INFO_BY_PHONE_REQUEST', clientInfoUpdateSaga)//사용자 정보 업데이트
 }
 
 
@@ -47,8 +48,6 @@ function* nexmoVerifyRequestSaga(req) {
 //넥스모 인증번호 검증 요청 비동기 처리 액션
 function nexmoDigitVerifyRequest(obj) {
 
-    console.log(obj);
-
     const phone = obj.phone;
     const country = obj.country;
     const code = obj.code;
@@ -76,8 +75,6 @@ function* nexmoDigitVerifyCheck(value) {
         code: value.code,
         country: value.country
     };
-
-    console.log(obj);
 
     try {
         const response = yield call(nexmoDigitVerifyRequest, obj);
@@ -170,11 +167,12 @@ function* findIdSaga(obj) {
 
         if (response.data.success) {
             //인증 성공 및 아이디를 찾았을 경우
+            console.log(response.data);
             yield put({
                 type: 'API_FIND_ID_BY_PHONE_SUCCESS',
                 email: response.data.email
             });
-        } else if (!response.data.success) {
+        } else if (response.data.success === false) {
             //인증하였으나 해당 번호로 등록된 이메일을 찾지 못하였을 경우
             yield put({
                 type: 'API_FIND_ID_BY_PHONE_SUCCESS',
@@ -185,10 +183,71 @@ function* findIdSaga(obj) {
         }
 
     } catch (e) {
-        console.log(e);
         yield put({
             type: 'API_FIND_ID_BY_PHONE_FAILURE',
             error: e
         })
     }
+}
+
+//사용자 정보 업데이트 비동기 통신
+function clientInfoUpdateAxios(obj) {
+
+    const phone = obj.phone;
+    const country = obj.country;
+    const code = obj.code;
+    const requestId = obj.requestId;
+    const clientIdx = obj.clientIdx;
+
+    return axios({
+        method: 'POST',
+        url: '/nexmo/clientupdate',
+        data: {
+            phone: phone,
+            country: country,
+            code: code,
+            requestId: requestId,
+            clientIdx: clientIdx
+        }
+    });
+}
+
+function* clientInfoUpdateSaga(value) {
+
+    const obj = {
+        phone: value.phone,
+        requestId: value.requestId,
+        code: value.code,
+        country: value.country,
+        clientIdx: value.clientIdx
+    };
+    try {
+        const response = yield call(clientInfoUpdateAxios, obj);
+
+        if (response.data.success) {
+            //성공 디스패치 및 세션 갱신
+            yield all([
+                put({
+                    type: 'API_UPDATE_INFO_BY_PHONE_SUCCESS'
+                }),
+                put({
+                    type: 'REFRESH_SESSION_REQUEST'
+                })
+            ]);
+
+        } else {
+            throw response.data
+        }
+    } catch (e) {
+        if (process.env.MODE === 'development') {
+            console.log(e);
+        }// end if
+
+        yield put({
+            type: 'API_UPDATE_INFO_BY_PHONE_FAILURE',
+            error: e
+        });
+    }
+
+
 }

@@ -3,7 +3,6 @@ import styles from "./PhoneAuthModalComponent.scss";
 import classnames from 'classnames';
 import PhoneAuthCountrySelector from "../selector/PhoneAuthCountrySelector";
 import {Validations} from "../../lib/validation";
-import {acceptOnlyNumber, removeChar} from "../../lib/script";
 
 const cx = classnames.bind(styles);
 
@@ -137,7 +136,7 @@ class NexmoRequestStep extends React.PureComponent {
                            tabIndex={1}/>
                 </div>
                 <div className={styles['phone-error-field']}>
-                    <p>{this.state.error ? '통신에 실패했습니다.' : null}</p>
+                    <p></p>
                 </div>
                 <div className={styles['phone-auth-modal--container--button-box']}>
                     <button type={'button'} tabIndex={2} ref={this.nextBtn} onClick={country && phoneNumber ? this.onProcessPhoneAuth : null} className={styles['__request-verify-btn']}>인증</button>

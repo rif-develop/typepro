@@ -142,19 +142,10 @@ router.post('/request', async (req, res) => {
 
 });
 
-//핸드폰 인증 요청 처리
-router.post('/codecheck', async (req, res) => {
+//핸드폰 인증 요청 처리 후 데이터베이스에 사용자의 핸드폰 번호와 국가를 저장하는 라우
+router.post('/clientupdate', async (req, res) => {
     console.log('# 핸드폰 인증번호 처리를 시작합니다.');
     try {
-
-        //개발용 모드
-        if (dev) {
-            console.log('#현재 개발 모드로 진행 중.');
-            return res.json({
-                success: true,
-                msg: '개발용'
-            });
-        }
 
         console.log('# ----- 받은 값 ------  ');
 
@@ -164,81 +155,112 @@ router.post('/codecheck', async (req, res) => {
         const phone = req.body.phone;
         const clientIdx = req.body.clientIdx;
 
-        console.log(requestId);
-        console.log(code);
-        console.log(country);
-        console.log(phone);
-        console.log(clientIdx);
+        console.log(req.body);
         console.log('# -----------------------');
 
         const isEmptyRequestId = Validations.isEmpty(requestId);
         const isEmptyCode = Validations.isEmpty(code) && code.length <= 4;
+        const isEmptyPhone = Validations.isEmpty(phone);
+        const isEmptyCountry = Validations.isEmpty(country);
 
         const acceptableCountry = ['us', 'ko', 'ja', 'zh', 'hk', 'sp', 'nz', 'au', 'ca', 'uk', 'tw'];
 
         const isCountry = acceptableCountry.indexOf(country) !== -1;
 
-        console.log(isCountry);
         const isPhone = Validations.checkNumber(phone);
 
-        if (!isEmptyRequestId && !isEmptyCode && isCountry && isPhone) {
+        if (!isEmptyRequestId && !isEmptyCode && isCountry && isPhone && !isEmptyCountry && !isEmptyPhone) {
             //넥스모 코드 인증
 
             console.log('# 코드 인증 중..');
-            nexmo.verify.check({
+            await nexmo.verify.check({
                 request_id: requestId,
                 code: code
             }, (err, result) => {
                 if (err) {
                     throw err
                 } else {
-                    console.log('#핸드폰 인증에 성공하였습니다.');
+                    console.log('#핸드폰 인증 처리 결과');
 
-                    console.log(result);
+                    console.log('# 스테이터스 값');
+                    console.log(result.status);
 
-
-                    //디비에 핸드폰 인증 관련 정보 업데이트
-
-                    console.log('#데이터 베이스 업데이틑 시작합니다.');
-                    User.findByIdAndUpdate({
-                        _id: clientIdx
-                    }, {
-                        $set: {
-                            phone: phone,
-                            country: country
-                        }
-                    }, {
-                        new: true,
-                        upsert: true,
-                        setDefaultsOnInsert: true
-
-                    }).lean().exec((err, docs) => {
-                        if (docs) {
-                            console.log(docs);
-                            console.log('# 데이터베이스 업데이트에 성공했습니다.');
-
-                            //세션 갱신시켜주기
-
-                            return res.json({
-                                success: true,
+                    //에러 핸들링
+                    if (result.status === '16') {
+                        return res.json({
+                            error: true,
+                            type: 'wrongCode'
+                        })
+                    } else if (result.status === '17') {
+                        return res.json({
+                            error: true,
+                            type: 'manyRequest'
+                        })
+                    } else if (result.status === '6') {
+                        return res.json({
+                            error: true,
+                            type: 'requestExpired'
+                        });
+                    } else if (result.status === '0') {
+                        console.log('# 데이터 베이스 업데이트를 시작합니다.');
+                        //디비에 핸드폰 인증 관련 정보 업데이트
+                        User.findByIdAndUpdate({
+                            _id: clientIdx
+                        }, {
+                            $set: {
                                 phone: phone,
-                                country: country,
-                                clientIdx: clientIdx
-                            });
-                        }
+                                country: country
+                            }
+                        }, {
+                            new: true,
+                            upsert: true,
+                            setDefaultsOnInsert: true
 
-                        if (err) {
-                            throw err
-                        }
-                    });
-                }
+                        }).lean().exec((err, docs) => {
+                            if (docs) {
+                                console.log(docs);
+
+                                console.log('# 데이터베이스 업데이트에 성공했습니다.');
+
+                                //세션 갱신
+                                req.session.key = docs;
+
+                                return res.json({
+                                    success: true,
+                                });
+                            }
+
+                            if (err) {
+                                throw err
+                            }
+                        });
+                    } //end if~else
+                }//if~else
             });//nexmo
-        } else {
+        } else if (isEmptyPhone) {
+            console.log('#전화번호가 비었음');
             return res.json({
-                success: false,
                 error: true,
-                type: 'required'
-            })
+                type: 'emptyPhone'
+            });
+        } else if (isEmptyRequestId) {
+            console.log('# 리퀘스트 아이디가 빔');
+            return res.json({
+                error: true,
+                type: 'emptyRequestId'
+            });
+        } else if (isEmptyCode) {
+            console.log('# 코드가 빔');
+            return res.json({
+                error: true,
+                type: 'emptyCode'
+            });
+        } else if (isEmptyCountry) {
+            console.log('# 국가가 빔');
+            return res.json({
+                error: true,
+                type: 'emptyCountry'
+            });
         }
 
 
@@ -246,7 +268,8 @@ router.post('/codecheck', async (req, res) => {
         console.log('# 에러 핸들링');
         console.log(e);
         return res.json({
-            success: false,
+            error: true,
+            type: 'server'
         })
     } finally {
         console.log('처리 끝')
@@ -277,7 +300,7 @@ router.post('/phone/password', async (req, res) => {
 
             console.log('# 모든 값들이 있음');
 
-            nexmo.verify.check({
+            await nexmo.verify.check({
                 request_id: requestId,
                 code: code
             }, (err, result) => {
@@ -286,35 +309,56 @@ router.post('/phone/password', async (req, res) => {
                     console.log('# 인증과정에서 에러');
                     throw err
                 } else {
-                    console.log('#핸드폰 인증에 성공하였습니다.');
+                    console.log('#핸드폰 인증 결과');
                     console.log(result);
-                    console.log('#해당 이메일, 전화번호, 국가로 일치하는 유저가 있는지 확인합니다.');
-
-                    User.findOne({
-                        email: email,
-                        phone: phone,
-                        country: country
-                    }).lean().exec((err, docs) => {
-                        if (err) {
-                            throw err;
-                        }
-                        if (docs) {
-                            console.log('#일치하는 계정을 찾았습니다.');
-                            console.log(docs);
-                            return res.json({
-                                success: true, //비밀번호 변경 단계로 페이지 변경
-                                email: docs.email
-                            });
-                        } else {
-                            console.log('# 일치하는 계정을 찾지 못했습니다.');
-                            return res.json({
-                                success:false,
-                                email:false//이메일을 null에서 false로해서 상태 변화주기
-                            });
-                        }
-                    })
 
 
+                    console.log('# 스테이터스 값');
+                    console.log(result.status);
+
+                    //에러 핸들링
+                    if (result.status === '16') {
+                        return res.json({
+                            error: true,
+                            type: 'wrongCode'
+                        })
+                    } else if (result.status === '17') {
+                        return res.json({
+                            error: true,
+                            type: 'manyRequest'
+                        })
+                    } else if (result.status === '6') {
+                        return res.json({
+                            error: true,
+                            type: 'requestExpired'
+                        });
+                    } else if (result.status === '0') {
+                        console.log('#해당 이메일, 전화번호, 국가로 일치하는 유저가 있는지 확인합니다.');
+
+                        User.findOne({
+                            email: email,
+                            phone: phone,
+                            country: country
+                        }).lean().exec((err, docs) => {
+                            if (err) {
+                                throw err;
+                            }
+                            if (docs) {
+                                console.log('#일치하는 계정을 찾았습니다.');
+                                console.log(docs);
+                                return res.json({
+                                    success: true, //비밀번호 변경 단계로 페이지 변경
+                                    email: docs.email
+                                });
+                            } else {
+                                console.log('# 일치하는 계정을 찾지 못했습니다.');
+                                return res.json({
+                                    success: false,
+                                    email: false//이메일을 null에서 false로해서 상태 변화주기
+                                });
+                            }
+                        });//데이터베이스 쿼리
+                    } // end if~else
                 } //end if~else
 
             });//nexmo check
@@ -364,19 +408,12 @@ router.post('/phone/password', async (req, res) => {
 //전화번호 인증 후 아이디 찾기 핸들링 라우터(아이디 찾기)
 
 router.post('/phone/id', async (req, res) => {
-    console.log('#아이디를 찾기 요청 시작.');
+    console.log('# 아이디 찾기 요청 시작.');
     console.log(req.body);
     //개발용
 
     try {
-        console.log(process.env.NODE_ENV);
-        console.log(dev);
-        if (dev) {
-            return res.json({
-                success: true,
-                email: 'dev@dev.com'
-            });
-        }
+
         const phone = req.body.phone;
         const requestId = req.body.requestId;
         const code = req.body.code;
@@ -387,11 +424,13 @@ router.post('/phone/id', async (req, res) => {
         const isEmptyCode = Validations.isEmpty(code);
         const isEmptyCountry = Validations.isEmpty(country);
 
+        console.log(isEmptyPhone, isEmptyRequestId, isEmptyCode, isEmptyCountry);
+
         if (!isEmptyPhone && !isEmptyRequestId && !isEmptyCountry && !isEmptyCode) {
             console.log('# 전화번호가 있습니다.');
 
             //인증번호 확인
-            nexmo.verify.check({
+            await nexmo.verify.check({
                 request_id: requestId,
                 code: code
             }, (err, result) => {
@@ -402,33 +441,57 @@ router.post('/phone/id', async (req, res) => {
                 } else {
                     console.log('#핸드폰 인증에 성공하였습니다.');
                     console.log(result);
+                    //status 16 wrong code, status 17 잘못된 코드로 너무 많은 인증을 시도할 경우, 0은 인증 성공하였을 경우
 
-                    // 인증 받은 전화번호를 가지고 있는 아이디가 있는지 찾아서 리턴
-                    User.findOne({
-                        phone: phone,
-                        country: country
-                    }).lean().exec((err, docs) => {
-                        if (err) {
-                            throw err;
-                        }
+                    console.log('# 스테이터스 값');
+                    console.log(result.status);
 
-                        if (docs) {
-                            console.log('#찾은 아이디가 있습니다.');
-                            console.log(docs);
+                    //에러 핸들링
+                    if (result.status === '16') {
+                        return res.json({
+                            error: true,
+                            type: 'wrongCode'
+                        })
+                    } else if (result.status === '17') {
+                        return res.json({
+                            error: true,
+                            type: 'manyRequest'
+                        })
+                    } else if (result.status === '6') {
+                        return res.json({
+                            error: true,
+                            type: 'requestExpired'
+                        });
+                    } else if (result.status === '0') {
+                        console.log('#핸드폰 인증에 성공하였습니다.');
+                        // 인증 받은 전화번호를 가지고 있는 아이디가 있는지 찾아서 리턴
+                        User.findOne({
+                            phone: phone,
+                            country: country
+                        }).lean().exec((err, docs) => {
+                            if (err) {
+                                throw err;
+                            }
 
-                            return res.json({
-                                success: true,
-                                email: docs.email
-                            });
+                            if (docs) {
+                                console.log('#찾은 아이디가 있습니다.');
+                                console.log(docs.email);
 
-                        } else {
-                            console.log('#아이디가 없습니다.');
-                            return res.json({
-                                error: true,
-                                type: 'notFound'
-                            });
-                        }
-                    });//query
+                                return res.json({
+                                    success: true,
+                                    email: docs.email
+                                });
+
+                            } else {
+                                console.log('#아이디가 없습니다.');
+                                return res.json({
+                                    success: false,
+                                    email: false
+                                });
+                            }
+                        });//query
+                    }
+
 
                 } //end if~else
 
