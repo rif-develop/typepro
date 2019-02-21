@@ -122,13 +122,18 @@ app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'index.html'))
 });
 
+
+
+
 //세션 넘겨주기
 app.use('/getSession', async (req, res) => {
     //req.session.key 즉, 세션이 있으면
-    console.log(req.session.id);
+    console.log(req.headers.cookie);
     try {
         if (req.session.key) {
             console.log('#세션이 있습니다.');
+            //세션 ttl 갱신
+            // req.session.touch();
             return res.json({
                 isSession: true,
                 session: req.session.key

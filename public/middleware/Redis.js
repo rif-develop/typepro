@@ -24,13 +24,14 @@ const redisOption = {
         secure: false,
         httpOnly: false,
         path: '/',
-        expires: time,
+        expires: 3600000,
+        maxAge:86400000,
     } : {
         secure: false,
         httpOnly: false,
         path: '/',
-        expires: time,
-        domain: 'www.cizz3007.com'
+        expires: 3600000,
+        maxAge:86400000,
     }
 
 };
