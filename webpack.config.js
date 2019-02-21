@@ -26,9 +26,9 @@ module.exports  = {
         open:true,
         hot:true,
         inline:true,
-        proxy:{
-            '*':'http://localhost:80'
-        }
+        // proxy:{
+        //     '*':'http://localhost:80'
+        // }
     },
     module: {
         rules: [
@@ -91,7 +91,8 @@ module.exports  = {
         }),
         new webpack.DefinePlugin({
            'process.env':{
-               'MODE':`"${process.env.NODE_ENV}"`
+               'MODE':`"${process.env.NODE_ENV}"`,
+               'SERVER_IP':`"${process.env.AWS_EC2_IP}"`
            }
         }),
         new webpack.HotModuleReplacementPlugin()

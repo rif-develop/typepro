@@ -15,7 +15,6 @@ import SmartbottleWidgetComponent from "../../component/widget/SmartbottleWidget
 import SmartpeepeeWidgetComponent from "../../component/widget/SmartpeepeeWidgetComponent";
 import SmartTempWidgetComponent from "../../component/widget/SmartTempWidgetComponent";
 import {socket} from "../../action/socket";
-import {pckry} from "../../action/packery";
 
 class DashboardLayout extends React.Component {
 
@@ -42,10 +41,6 @@ class DashboardLayout extends React.Component {
     componentDidMount() {
         //화면 맨위로
         document.body.scrollTo(0, 0);
-
-
-
-
 
         //대쉬보드에 들어왔을 경우 소켓을 켜서 데이터를 받을 준비가 됐다고 서버에 알린다.
         const clientIdx = this.props.clientIdx;
