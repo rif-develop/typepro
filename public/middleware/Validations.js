@@ -57,7 +57,7 @@ const validation = class Validations {
 
     //빈값인지 확인
     static isEmpty(value) {
-        const check = value === "" || value === " " || value === null || value === undefined || (value !== null && typeof value === "object" && !Object.keys(value).length);
+        const check = value === "" || value === " " || value === 'null' || value === 'undefined' || value === null || value === undefined || (value !== null && typeof value === "object" && !Object.keys(value).length);
         return check;
     }
 

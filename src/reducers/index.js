@@ -12,6 +12,7 @@ import {mypageReducer} from "./mypageReducer";
 import {findAccountReducer} from "./findReducer";
 import {passwordChangeReducer} from "./passwordChangeReducer";
 import {cropperReducer} from "./cropperReducer";
+import {babyInfoReducer} from "./babyInfoReducer";
 
 export default combineReducers({
     clientStatusReducer,
@@ -26,5 +27,6 @@ export default combineReducers({
     mypageReducer,
     findAccountReducer,
     passwordChangeReducer,
-    cropperReducer
+    cropperReducer,
+    babyInfoReducer
 });

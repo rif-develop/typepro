@@ -2,10 +2,8 @@ const express = require('express');
 const aws = require('aws-sdk');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
-const path = require('path');
 const generateHashToken = require('../middleware/generateHashToken');
 const router = express.Router();
-const fs = require('fs');
 const User = require('../scheme/user');
 const Validation = require('../middleware/Validations');
 //AWS 설정
@@ -15,14 +13,12 @@ const s3 = new aws.S3({
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
     region: process.env.AWS_S3_REGION,
 });
+
 aws.config.update({
     accessKeyId: process.env.AWS_ACCESS_KEY,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
     region: process.env.AWS_S3_REGION,
 });
-
-
-const acceptableFormat = ['image/jpg', 'image/jpeg', 'image/svg', 'image/png', 'image/gif'];
 
 const upload = multer({
     storage: multerS3({
@@ -57,6 +53,111 @@ const upload = multer({
     })
 });
 
+const babyUpload = multer({
+    storage: multerS3({
+        s3: s3,
+        bucket: process.env.AWS_BABY_THUMBNAIL_BUCKET,
+        acl: 'public-read',
+        key: function (req, file, cb) {
+            let ext = file.mimetype;
+            console.log(file);
+            if (ext === 'image/png') {
+                ext = 'png';
+            } else if (ext === 'image/jpeg') {
+                ext = 'jpeg';
+
+            } else if (ext === 'image/jpg') {
+                ext = 'jpg';
+
+            } else if (ext === 'image/svg') {
+                ext = 'svg';
+
+            } else if (ext === 'image/gif') {
+                ext = 'gif';
+
+            } else {
+                ext = 'png';
+            }
+            generateHashToken().then((res) => {
+                cb(null, `${Date.now()}_${res}_${file.originalname}.${ext}`); //use Date.now() for unique file keys
+            });
+        },
+
+    })
+});
+
+
+//아기 썸네일 등록 및 수정 처리 라우터
+router.post('/temp/thumbnail', babyUpload.single('image'), async (req, res) => {
+    console.log('# 아기 썸네일 이미지 임시 저장 처리 시작');
+
+    try {
+
+        console.log(req.file);
+        console.log(`아이의 임시 썸네일 키 값 : ${req.file.location}`);
+
+        return res.json({
+            success: true,
+            src: req.file.location
+        })
+
+
+    } catch (e) {
+        return res.send({
+            error: true
+        })
+
+    } finally {
+        console.log('# 아기 썸네일 이미지 임시 저장 처리 종료');
+    }
+
+});
+
+//아기 등록과정 중에 취소시 썸네일 삭제 처리 라우터
+
+router.post('/temp/deleteThumbnail', async (req, res) => {
+    try {
+        console.log('# 아기의 썸네일 삭제요청이 들어왔습니다.');
+        console.log(req.body);
+
+        const key = req.body.key;
+
+        console.log(key);
+
+        const isEmptyKey = Validation.isEmpty(key);
+        if (isEmptyKey) {
+            return res.json({
+                error: true,
+                type: 'required'
+            });
+        }
+
+        //s3 url에서 키 값만 잘라내기
+        const s3Key = key.substring(key.lastIndexOf('/') + 1, key.length);
+
+        console.log(`삭제할 키 값 : ${s3Key}`);
+
+        const params = {Bucket: process.env.AWS_BABY_THUMBNAIL_BUCKET, Key: s3Key};
+
+        await s3.deleteObject(params, (err, data) => {
+            if (err) {
+                console.log(err, err.stack);
+                throw 'server';
+            }  // error
+            else {
+                console.log('#삭제가 완료 되었습니다.');
+                console.log(data);
+            }                // deleted
+        });//se deleteobject
+
+    } catch (e) {
+
+    } finally {
+
+    }
+});
+
+//사용자 썸네일 등록 처리 라우터
 router.post('/image', upload.single('image'), async (req, res) => {
     console.log('# 이미지 업로드 요청 시작');
     try {
@@ -87,6 +188,7 @@ router.post('/image', upload.single('image'), async (req, res) => {
                     const key = docs.thumbnail;
                     const s3Key = key.substring(key.lastIndexOf('/') + 1, key.length);
                     console.log(`삭제할 키 값 : ${key}`);
+
                     const params = {Bucket: process.env.AWS_THUMBNAIL_BUCKET, Key: s3Key};
 
                     s3.deleteObject(params, function (err, data) {
@@ -177,6 +279,7 @@ router.post('/image/delete', async (req, res) => {
                 }  // error
                 else {
                     console.log('#삭제가 완료 되었습니다.');
+                    console.log(data);
                     //데이터 베이스 유저 갱신 및 세션 갱신;
 
                     User.findOneAndUpdate({

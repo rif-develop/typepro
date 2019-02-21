@@ -1,10 +1,10 @@
-import {put, takeEvery, call} from "redux-saga/effects";
+import {put, takeEvery, call, all} from "redux-saga/effects";
 import axios from "axios";
 
 export function* watcherWebLogin() {
     yield takeEvery('API_WEB_LOGIN_REQUEST', webLoginRequestSaga);
     yield takeEvery('API_WEB_LOGOUT_REQUEST', logoutSaga);
-    yield takeEvery('REFRESH_SESSION_REQUEST', sessionRequestSaga)
+    yield takeEvery('REFRESH_SESSION_REQUEST', sessionRequestSaga);
 }
 
 //로그인 요청처리  비동기 통신
@@ -82,16 +82,25 @@ function sessionAxios() {
     });
 }
 
+//세션 요청 처리 사가
 function* sessionRequestSaga() {
     try {
         //cookie에 저장되어 있는 세션데이터와 레디스 서버에 저장되어 있는 서버데이터를 조회 있으면 success:ture
         const response = yield call(sessionAxios);
 
         if (response.data.isSession) {
+            const babies = response.data.session.babies;
             yield put({
                 type: 'API_WEB_LOGIN_SUCCESS',
                 session: response.data.session
             });
+            //아이가 존재한다면 아이 리듀서도 갱신
+            if (babies.length > 1) {
+                yield put({
+                    type: 'SET_FIRST_BABY_INFO',
+                    baby: babies[0]
+                });
+            }
         } else {
             throw response.data;
         }
@@ -104,3 +113,5 @@ function* sessionRequestSaga() {
         })
     }
 }
+
+

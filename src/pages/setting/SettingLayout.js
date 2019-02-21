@@ -1,4 +1,5 @@
 import React, {Fragment} from 'react';
+import {Redirect} from "react-router-dom";
 import styles from './SettingLayout.scss';
 import classnames from 'classnames';
 import Footer from "../../component/footer/Footer";
@@ -12,21 +13,63 @@ import WithdrawalMenu from "./menu/WithdrawalMenu";
 
 const cx = classnames.bind(styles);
 
+
+
+const mapStateToProps = (state) => {
+    return {
+        loading: state.settingReducer.loading,
+        error: state.settingReducer.error,
+        menu: state.settingReducer.menu,
+        language: state.languageReducer.language,
+        clientIdx: state.clientStatusReducer.session._id,
+        isLogin: state.clientStatusReducer.login.isLogin,
+        //옵션
+        memberActivityAlarm: state.clientStatusReducer.session.option.memberActivityAlarm,
+        likeAlarm: state.clientStatusReducer.session.option.likeAlarm,
+        replyAlarm: state.clientStatusReducer.session.option.replyAlarm,
+        invitationAlarm: state.clientStatusReducer.session.option.invitationAlarm,
+        scheduleAlarm: state.clientStatusReducer.session.option.scheduleAlarm,
+        birthdayAlarm: state.clientStatusReducer.session.option.birthdayAlarm,
+        connectedDeviceAlarm: state.clientStatusReducer.session.option.connectedDeviceAlarm,
+        unit: state.clientStatusReducer.session.option.unit,
+        emailSubscription: state.clientStatusReducer.session.option.emailSubscription,
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getSession: () => dispatch({
+            type: 'REFRESH_SESSION_REQUEST'
+        }),
+        setOptionRequest: (formData) => dispatch({
+            type: 'API_CLIENT_SETTING_INFO_REQUEST',
+            formData
+        }),
+    }
+};
+
+
 class SettingLayout extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            menu: 'alarm'
+            menu: 'alarm',
         };
 
         this.selectMenu = this.selectMenu.bind(this);
     }
 
     componentWillMount() {
+        //세션을 가져옴
         this.props.getSession();
     }
 
+    componentWillReceiveProps(nextProps, nextContext) {
+        console.log(`기분 팍 상해버렿쓰~${nextProps.isLogin}`);
+    }
+
+    //메뉴 선택하는 함수
     selectMenu(menu) {
         this.setState({
             menu: menu
@@ -39,7 +82,6 @@ class SettingLayout extends React.Component {
             error,
             loading,
             menu,
-            onClickHandler,
             memberActivityAlarm,
             likeAlarm,
             replyAlarm,
@@ -49,15 +91,18 @@ class SettingLayout extends React.Component {
             connectedDeviceAlarm,
             unit,
             emailSubscription,
-            withdrawalSuccess,
-            setOptionRequest
+            setOptionRequest,
+            clientIdx,
+            isLogin
         } = this.props;
-
 
         return (
             <Fragment>
-                <Head title={'리틀원 - 환경설정'} language={language}/>
+                <Head title={'리틀원 - 환경설정'} desc={'리틀원 웹 어플리케이션의 사용자 환경설정을 변경할 수 있는 페이지입니다.'} language={language}/>
                 <Header/>
+                {
+                    !isLogin && isLogin !== null && <Redirect to={'/login'}/>
+                }
                 <section className={styles['web-setting-section']}>
                     <div className={styles['mobile-header']}>환경 설정</div>
                     <div className={cx(styles['web-setting-section--container'], styles['menu-=list'])}>
@@ -95,16 +140,16 @@ class SettingLayout extends React.Component {
                                                                           birthdayAlarm={birthdayAlarm}
                                                                           scheduleAlarm={scheduleAlarm}
                                                                           connectedDeviceAlarm={connectedDeviceAlarm}
-                                                                          setOptionRequest={setOptionRequest}/>
+                                                                          setOptionRequest={setOptionRequest} clientIdx={clientIdx}/>
                             }
                             {
-                                this.state.menu === 'measure' && <MeasureMenu unit={unit}/>
+                                this.state.menu === 'measure' && <MeasureMenu unit={unit} clientIdx={clientIdx}/>
                             }
                             {
-                                this.state.menu === 'subscription' && <SubscribeMenu emailSubscription={emailSubscription}/>
+                                this.state.menu === 'subscription' && <SubscribeMenu emailSubscription={emailSubscription} clientIdx={clientIdx}/>
                             }
                             {
-                                this.state.menu === 'withdrawal' && <WithdrawalMenu/>
+                                this.state.menu === 'withdrawal' && <WithdrawalMenu clientIdx={clientIdx}/>
                             }
                         </div>
                     </div>
@@ -112,43 +157,7 @@ class SettingLayout extends React.Component {
                 <Footer/>
             </Fragment>
         )
+
     }
 }
-
-const mapStateToProps = (state) => {
-    return {
-        loading: state.settingReducer.loading,
-        error: state.settingReducer.error,
-        menu: state.settingReducer.menu,
-        language: state.languageReducer.language,
-        //옵션
-        memberActivityAlarm: state.settingReducer.option.memberActivityAlarm,
-        likeAlarm: state.settingReducer.option.likeAlarm,
-        replyAlarm: state.settingReducer.option.replyAlarm,
-        invitationAlarm: state.settingReducer.option.invitationAlarm,
-        scheduleAlarm: state.settingReducer.option.scheduleAlarm,
-        birthdayAlarm: state.settingReducer.option.birthdayAlarm,
-        connectedDeviceAlarm: state.settingReducer.option.connectedDeviceAlarm,
-        unit: state.settingReducer.option.unit,
-        emailSubscription: state.settingReducer.option.emailSubscription,
-        withdrawalSuccess: state.settingReducer.withdrawal.success,
-    }
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onClickHandler: (data) => dispatch({
-            type: 'SET_MENU_REQUEST',
-            data
-        }),
-        getSession: () => dispatch({
-            type: 'REFRESH_SESSION_REQUEST'
-        }),
-        setOptionRequest:(option)=> dispatch({
-            type:'SET_MENU_REQUEST',
-            option
-        })
-    }
-};
-
 export default connect(mapStateToProps, mapDispatchToProps)(SettingLayout);

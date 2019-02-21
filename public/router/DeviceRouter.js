@@ -1,7 +1,9 @@
 const express = require('express');
-
 const router = express.Router();
-
+const app = express();
+//socket.io
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 
 router.post('/smartpeepee',async (req,res)=>{
 
@@ -16,6 +18,7 @@ router.post('/smartpeepee',async (req,res)=>{
                 msg:'접근이 허락되지 않은 요청입니다.'
             });
         }//end if
+
 
         console.log(req.body);
         return res.json({

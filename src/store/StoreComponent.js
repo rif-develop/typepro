@@ -7,9 +7,7 @@ export const sagaMiddleware = createSagaMiddleware();
 //크롬 리덕스 데브툴
 const reduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
 
-
 let mode = process.env.MODE;
-console.log(mode);
 
 export const store = createStore(
     reducer,

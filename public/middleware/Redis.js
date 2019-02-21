@@ -5,8 +5,9 @@ const RedisStore = require('connect-redis')(session);
 require('dotenv').config();
 
 let time = new Date();
-time.setTime(time.getTime() + (1 * 3600 * 1000));
+time.setTime(time.getTime() + (1 * 3600 * 1000)); //1시간
 
+console.log(process.env.NODE_ENV);
 const redisOption = {
     store: new RedisStore({
         host: process.env.REDIS_HOST,
@@ -16,16 +17,23 @@ const redisOption = {
         ttl: 3600,
         logErrors: true
     }),
-    resave: true,
+    resave: false,
     saveUninitialized: true,
     secret: process.env.REDIS_SECRET,
     name: 'session-info',
-    cookie: {
+    cookie: process.env.NODE_ENV === 'development' ? {
         secure: false,
         httpOnly: false,
         path: '/',
-        expires: time
+        expires: time,
+    } : {
+        secure: false,
+        httpOnly: false,
+        path: '/',
+        expires: time,
+        domain: 'www.cizz3007.com'
     }
+
 };
 
 

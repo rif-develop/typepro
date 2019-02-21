@@ -5,7 +5,7 @@
       "02": "Phone number",
       "03": "Verify",
       "04": "Littleone phone number verification form",
-      "05": "4-digit code to",
+      "05": "4-digit code sent to",
       "06": "re-send",
       "07": "4-digit code",
       "08": "Cancel",
@@ -36,7 +36,7 @@
       "08": "Server Error"
     },
     "placeholder": {
-      "01": "Please do not input - dash."
+      "01": "Numbers only"
     },
     "description": {
       "01": "Requesting country list."

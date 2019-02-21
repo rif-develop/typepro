@@ -1,0 +1,289 @@
+@import '../../lib/base';
+
+.dashboard-layout-container {
+  background-color: #6f68be;
+}
+
+.dashboard-component {
+  position: relative;
+  width: 70%;
+  height: 100vw;
+  margin: 0 auto;
+  padding-bottom: 100px;
+  -webkit-transition: all 0.25s ease-out;
+  -moz-transition: all 0.25s ease-out;
+  -ms-transition: all 0.25s ease-out;
+  -o-transition: all 0.25s ease-out;
+  transition: all 0.25s ease-out;
+
+  .widget-info {
+    position: absolute;
+    bottom: 20px;
+    display: block;
+    font-size: 10px;
+    text-align: center;
+    font-weight: 500;
+    color: #523ed9;
+    width: 60px;
+    height: 24px;
+    line-height: 23px;
+    -webkit-border-radius: 32px;
+    -moz-border-radius: 32px;
+    border-radius: 32px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  /*현재정보버튼*/
+  .today {
+    background-color: $white;
+    left: 20px;
+    border: 1px solid $sapphire;
+  }
+
+  .all {
+    background-color: #523ed9;
+    color: $white;
+    right: 20px;
+  }
+
+  /*모든정보 버튼*/
+
+  &--list {
+    position: absolute;
+    top: 0;
+    left: 41%;
+    float: left;
+    width: 318px;
+    height: 370px;
+    max-height: 370px;
+    background-color: #fff;
+    -webkit-box-sizing: padding-box;
+    -moz-box-sizing: padding-box;
+    box-sizing: padding-box;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+
+    &--widget {
+      padding: 32px 40px 32px;
+
+      li:hover {
+        background-color: #e0ddfc;
+        cursor: pointer;
+      }
+
+      &--title {
+        font-size: 22px;
+        font-weight: bold;
+        color: $sapphire;
+      }
+
+      &--icon {
+        position: relative;
+        margin: 0 auto;
+        width: 180px;
+        height: 180px;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        text-align: center;
+        overflow: hidden;
+        text-indent: -9999px;
+
+      }
+
+      &--baby-thumbnail {
+        position: relative;
+        margin: 0 auto;
+        width: 180px;
+        height: 180px;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        overflow: hidden;
+        background-color: #fafafa;
+        text-align: center;
+        vertical-align: middle;
+
+        img {
+          max-width: 100px;
+          max-height: 100px;
+          margin-top: 40px;
+          position: relative;
+          display: inline-block;
+          width: 100px;
+          height: auto;
+          -webkit-border-radius: 50%;
+          -moz-border-radius: 50%;
+          border-radius: 50%;
+        }
+      }
+
+      p {
+        margin-top: 12px;
+        margin-bottom: 10px;
+        text-align: center;
+        color: $sapphire;
+      }
+
+      &--data {
+        display: block;
+        color: $sapphire;
+        font-size: 36px;
+        text-align: center;
+        line-height: normal;
+        letter-spacing: normal;
+        font-family: 'fontopo-regular';
+      }
+
+      //dashboard--list--widget--title
+
+      span {
+        color: $sapphire;
+        display: inline-block;
+        font-size: 12px;
+      }
+
+      &--baby-info {
+        text-align: center;
+        margin-top: 15px;
+        margin-bottom: 13px;
+
+        h2 {
+          font-size: 18px;
+          font-weight: 500;
+          color: $sapphire;
+          display: inline-block;
+        }
+
+        div {
+          margin-bottom: 11px;
+
+          .__gender {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+            overflow: hidden;
+            -webkit-transition: all 0.25s ease-out;
+            -moz-transition: all 0.25s ease-out;
+            -ms-transition: all 0.25s ease-out;
+            -o-transition: all 0.25s ease-out;
+            transition: all 0.25s ease-out;
+            margin-left: 6px;
+          }
+
+          .__gender:focus {
+            -webkit-transform: rotate(360deg);
+            -moz-transform: rotate(360deg);
+            -ms-transform: rotate(360deg);
+            -o-transform: rotate(360deg);
+            transform: rotate(360deg);
+          }
+
+        }
+
+        span {
+          display: block;
+          color: $sapphire;
+          font-size: 11px;
+          line-height: normal;
+          letter-spacing: normal;
+        }
+
+      }
+
+      //--baby-info
+
+    }
+
+    //widget
+    .baby-feeding-widget {
+      .dashboard--list--widget--icon {
+        background: #fafafa url("/images/dashboard/card-feeding-icn-smart-bottle.svg") no-repeat center/48% auto;
+      }
+    }
+
+    //체온 위젯 밑에 아이콘 이미지
+    .defecation-widget {
+      .dashboard--list--widget--icon {
+        background: #fafafa url("/images/dashboard/card-pooing-icn-diaper.svg") no-repeat center/48% auto;
+      }
+    }
+
+    .temperature-widget {
+      .dashboard--list--widget--icon {
+        background: #fafafa url("/images/dashboard/card-temp-icn-temperature.svg") no-repeat 57px center/48% auto;
+      }
+    }
+
+    .babybook-widget {
+      .dashboard--list--widget--icon {
+        background: #fafafa url("/images/dashboard/card-group-icn-diary.svg") no-repeat center/48% auto;
+      }
+    }
+
+    .baby-info-widget {
+      .dashboard--list--widget--button-container {
+        text-align: center;
+      }
+
+      .__more-info {
+        border: none;
+        width: 60px;
+        height: 24px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        -webkit-border-radius: 32px;
+        background-color: #523ed9;
+        -moz-border-radius: 32px;
+        border-radius: 32px;
+        color: #fff;
+        line-height: 23px;
+        cursor: pointer;
+        font-size: 10px;
+        font-weight: 500;
+      }
+    }
+
+  }
+
+  //list
+
+  /*드래그 할 때*/
+  .dashboard--list.is-dragging, .dashboard--list.is-positioning-post-drag {
+    background: $pantone_3242_c_blur;
+    z-index: 2; /*드래그 할 때의 zindex*/
+    opacity: .6;
+
+  }
+
+  /*드래그 placeholder*/
+  .packery-drop-placeholder {
+    outline: 2px dashed $pantone_3242_c;
+    outline-offset: -6px;
+    -webkit-transition: all 0.25s ease-out;
+    -moz-transition: all 0.25s ease-out;
+    -ms-transition: all 0.25s ease-out;
+    -o-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
+    -webkit-animation: dashboard-placeholderAni 1s linear infinite alternate;
+    -o-animation: dashboard-placeholderAni 1s linear infinite alternate;
+    animation: dashboard-placeholderAni 1s linear infinite alternate;
+  }
+
+}
+
+@media only screen and (max-width: 640px) {
+  .dashboard-component {
+    width: 90%;
+  }
+  .dashboard-component .dashboard-component--widget {
+    width: 100%;
+  }
+}

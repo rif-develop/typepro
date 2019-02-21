@@ -81,9 +81,11 @@ class Header extends React.Component {
     render() {
 
         const {loading, error, alarmList, thumbnail, point, grade, clientMenu, isLogin, mobileMenu, onClickClientHandler, onClickAlarmHandler, onClickMobileHandler, logoutRequest} = this.props;
-
+        const dashboardStyle = {
+            position:'relative'
+        }
         return (
-            <header className={styles['header']} id={'header-component'} onMouseLeave={this.onMouseLeaveHandler}>
+            <header className={styles['header']} id={'header-component'} style={this.props.dashboard ? dashboardStyle : undefined} onMouseLeave={this.onMouseLeaveHandler}>
                 <div>
                     {/*로고*/}
                     <div className={styles['header--logo']}>

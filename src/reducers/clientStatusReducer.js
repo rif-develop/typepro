@@ -12,7 +12,13 @@ const API_WEB_LOGOUT_REQUEST = 'API_WEB_LOGOUT_REQUEST';
 // 세션 갱신 액션 디스패치
 const REFRESH_SESSION_REQUEST = 'REFRESH_SESSION_REQUEST';
 
-// 아이디 비밀번호 검사 요청 액션
+//사용자 환경설정 (session.option) 가져오기 요청 액션
+const API_CLIENT_SETTING_INFO_REQUEST = 'API_CLIENT_SETTING_INFO_REQUEST';
+const API_CLIENT_SETTING_INFO_SUCCESS = 'API_CLIENT_SETTING_INFO_SUCCESS';
+const API_CLIENT_SETTING_INFO_FAILURE = 'API_CLIENT_SETTING_INFO_FAILURE';
+
+//아이 썸네일 등록 요청 액션
+
 
 //session 설정
 const initialState = {
@@ -50,10 +56,23 @@ const initialState = {
             lastModifiedPw: null,
             lastVisit: null,
             signupDate: null,
-            lastModifiedThumbnail:null,
+            lastModifiedThumbnail: null,
             social: []
         },
-        thumbnail:null
+        option: {
+            memberActivityAlarm: null,
+            likeAlarm: null,
+            replyAlarm: null,
+            invitationAlarm: null,
+            birthdayAlarm: null,
+            scheduleAlarm: null,
+            connectedDeviceAlarm: null,
+            unit: 'si',
+            emailSubscription: null
+        },
+        thumbnail: null,
+        babies: [],
+        addresses: [],
     },
     login: {
         loading: false,
@@ -61,9 +80,12 @@ const initialState = {
             error: false,
             type: null
         },
-        isLogin: false //false 면 로그인 되어 있지 않은 상태, true로그인
+        isLogin: null //false 면 로그인 되어 있지 않은 상태, true로그인, null이면 기본값
+    },
+    error: {
+        error: false,
+        type: null
     }
-
 };
 
 export function clientStatusReducer(state = initialState, action) {
@@ -94,7 +116,7 @@ export function clientStatusReducer(state = initialState, action) {
                         error: false,
                         type: null
                     },
-                    isLogin: false //false 면 로그인 되어 있지 않은 상태, true로그인
+                    isLogin: null //false 면 로그인 되어 있지 않은 상태, true면 로그인되어 있는 상태처리, null 기본 값
                 }
             };
         case API_WEB_LOGIN_SUCCESS: //로그인 요청 성공시 서버에서 세션을 가져와서 리덕스 스토어에 저장
@@ -109,7 +131,7 @@ export function clientStatusReducer(state = initialState, action) {
                         error: false,
                         type: null
                     },
-                    isLogin: true
+                    isLogin: true//false 면 로그인 되어 있지 않은 상태, true면 로그인되어 있는 상태처리, null 기본 값
                 }
             };
         case API_WEB_LOGIN_FAILURE: //로그인 요청 실패시
@@ -121,8 +143,56 @@ export function clientStatusReducer(state = initialState, action) {
                 login: {
                     loading: false,
                     error: action.error,
-                    isLogin: false
+                    isLogin: false//false 면 로그인 되어 있지 않은 상태, true면 로그인되어 있는 상태처리, null 기본 값
                 }
+            };
+        case API_CLIENT_SETTING_INFO_REQUEST: //사용자 환경정보 가져오기 요청 액션
+            return {
+                ...state,
+                loading: true,
+                width: state.width,
+                session: state.session,
+                login: state.login //false 면 로그인 되어 있지 않은 상태, true로그인
+            };
+        case API_CLIENT_SETTING_INFO_SUCCESS: //사용자 환경정보 가져오기 요청 액션 성공
+            return {
+                ...state,
+                loading: false,
+                width: state.width,
+                session: {
+                    _id: state.session._id,
+                    type: state.session.type,
+                    email: state.session.email,
+                    country: state.session.country,
+                    birth: {
+                        year: state.session.birth.year,
+                        month: state.session.birth.month,
+                        date: state.session.birth.date,
+                    },
+                    gender: state.session.gender,
+                    grade: state.session.grade,
+                    point: state.session.point,
+                    name: {
+                        first: state.session.name.first,
+                        last: state.session.name.last
+                    },
+                    nickname: state.session.nickname,
+                    phone: state.session.phone,
+                    status: state.session.status,
+                    option: action.option,
+                    thumbnail: state.session.thumbnail,
+                    babies: state.session.babies,
+                    addresses: state.session.addresses,
+                },
+                login: state.login
+            };
+        case API_CLIENT_SETTING_INFO_FAILURE: //사용자 환경정보 가져오기 요청 액션 실패
+            return {
+                ...state,
+                loading: false,
+                width: state.width,
+                session: state.session,
+                login: state.login
             };
         case API_WEB_LOGOUT_REQUEST://로그아웃 요청하기
             return initialState;

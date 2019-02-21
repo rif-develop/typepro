@@ -10,7 +10,7 @@ function requestJoin({formData}) {
 
     return axios({
         method: 'post',
-        url: '/signup/requestsignup',
+        url: '/signup/request/signUp',
         data: {
             email: formData.get('email'),
             password: formData.get('password'),

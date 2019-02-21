@@ -45,22 +45,34 @@ router.post('/login', async (req, res) => {
                 crypto.pbkdf2(req.body.password, process.env.SECURITY_SALT, 77655, 64, process.env.SECURITY_HASH, (err, password) => {
                     const encrytedPw = password.toString(process.env.SECURITY_DIGEST);
 
-                    User.findOne().where('email').equals(req.body.email).where('password').equals(encrytedPw).exec((err, user) => {
+                    User.findOne({
+                        email:req.body.email,
+                        password:encrytedPw
+                    }).populate({path: 'babies', options: { sort: { 'order': 1 } } }).exec((err, user) => {
+
                         if (err) {
                             console.log('# 에러' + err);
                             throw err;
                         }
-                        //findeOne이면 1개니까 user 그 외에 find면은 user.length> 0 , user[0]._id이런식
+
                         if (user) {
                             console.log('# 일치하는 계정을 찾았습니다.');
 
+                            //필요한 다른 스키마들을 파퓰레이트해서 클라이언트에 전달해준다.
+
+                            //1. 배송지 주소를 populate 한다.
+                            //2. 아이 정보를 populate 해준다.
+
                             //REDIS DB에 세션을 저장시킨다.
                             req.session.key = user;
+
+                            console.log(req.session);
 
                             // 클라이언트에 유저의 세션 전달;
                             return res.json({
                                 success: true,
                                 session: req.session.key,
+                                sessionId:req.session.id
                             });
 
                         } else {

@@ -1,0 +1,438 @@
+.baby-info-register-modal {
+  position: absolute;
+  background-color: #fff;
+  z-index: 9;
+  -webkit-box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  text-align: center;
+  width: 332px;
+  max-width: 100%;
+
+  &--head {
+    padding: 12.5px 0;
+    border-bottom: 1px solid #e3e3e3;
+
+    &--title {
+      -ms-word-break: keep-all;
+      word-break: keep-all;
+      -ms-word-wrap: break-word;
+      word-wrap: break-word;
+      font-size: 20px;
+      color: #333;
+      font-weight: 500;
+      letter-spacing: -1px;
+      padding: 0 30px;
+      line-height: normal;
+    }
+
+    //title
+  }
+
+  //head
+
+
+  //아아ㅣ 등록 폼
+  &--form {
+
+    //썸네일 부분
+    &--thumb-box {
+      margin: 36px auto 30px;
+      text-align: center;
+
+      ._image {
+        width: 100px;
+        height: 100px;
+        display: inline-block;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+
+      //image
+
+      &--buttons {
+        text-align: center;
+        margin-top: 14px;
+
+        .__remove-baby-thumbnail-button {
+          cursor: pointer;
+          display: inline-block;
+          padding: 0 14px;
+          height: 28px;
+          background-color: rgb(255, 255, 255);
+          font-size: 12px;
+          font-weight: 500;
+          margin-right: 3px;
+          border-width: 1px;
+          border-style: solid;
+          border-color: rgb(24, 24, 24);
+          border-image: initial;
+          border-radius: 16px;
+          transition: all 0.25s ease-out 0s;
+
+          &:focus, &:hover {
+            opacity: .85;
+          }
+        }
+
+        //__remove-baby-thumbnail
+        .__find-picture-button {
+          position: relative;
+          display: inline-block;
+          padding: 0 16px;
+          height: 28px;
+          line-height: 28px;
+          font-size: 12px;
+          font-weight: 500;
+          color: rgb(255, 255, 255);
+          cursor: pointer;
+          background-color: rgb(144, 19, 254);
+          border-radius: 16px;
+          overflow: hidden;
+
+          &:focus, &:hover {
+            opacity: .85;
+          }
+
+          input {
+            position: absolute;
+            top: 0px;
+            width: 1px;
+            height: 1px;
+            margin-left: -999px;
+          }
+        }
+
+        //.__find-picture-button
+
+      }
+
+    }
+
+    // thumb-box
+
+
+    &--container {
+      position: relative;
+      width: 80%;
+      margin: 0 auto 10px;
+      -webkit-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      -moz-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      -ms-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      -o-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+      &.active {
+        margin-top: 25px;
+      }
+
+      .__default-label-component {
+        position: absolute;
+        top: 12px;
+        left: 10px;
+        height: 16px;
+        display: block;
+        -webkit-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        -moz-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        -ms-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        -o-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        font-size: 12px;
+        font-weight: 300;
+        color: #333;
+        background-color: #fff;
+
+        &.active {
+          top: -20px;
+          left: 4px;
+          font-size: 13px;
+          letter-spacing: 0.4px;
+          font-weight: 500;
+
+          span {
+            opacity: 0;
+            font-size: 11px;
+            color: #ff1a6f;
+            -webkit-animation: opaAni 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            -o-animation: opaAni 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            animation: opaAni 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+          }
+
+          @keyframes opaAni {
+            from {
+              opacity: 0;
+            }
+            to {
+              opacity: 1;
+            }
+          }
+
+        }
+      }
+
+      .__default-input-component {
+        width: 100%;
+        height: 36px;
+        border: 1px solid #e0ddfc;
+        font-size: 12px;
+        text-indent: 10px;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        -webkit-transition: all 0.2s ease-out;
+        -moz-transition: all 0.2s ease-out;
+        -ms-transition: all 0.2s ease-out;
+        -o-transition: all 0.2s ease-out;
+        transition: all 0.2s ease-out;
+
+        &.__warn {
+          border: 1px solid #ff1a6f;
+        }
+      }
+
+      //__default-label-component
+
+      .birthdate--input-box {
+        display: table;
+        table-layout: fixed;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        text-align: center;
+        vertical-align: middle;
+
+        .__default-input-component {
+          display: table-cell;
+          width: 33.3333%;
+        }
+      }
+
+    }
+
+    .__select-radio-button {
+      position: relative;
+      display: inline-block;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%;
+      border: 1px solid #e8ecf5;
+      width: 14px;
+      height: 14px;
+      font-size: 12px;
+      text-align: center;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      -webkit-transition: all 0.25s ease-out;
+      -moz-transition: all 0.25s ease-out;
+      -ms-transition: all 0.25s ease-out;
+      -o-transition: all 0.25s ease-out;
+      transition: all 0.25s ease-out;
+
+      &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        padding: 4px;
+        top: 50%;
+        left: 50%;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        background-color: #e8ecf5;
+        border: 2px solid #fff;
+      }
+
+      &.active {
+        border: 1px solid #9013fe;
+
+        &:after {
+          background-color: #9013fe;
+        }
+
+      }
+    }
+
+    //select-radio-button
+
+    .__radio-label-component {
+      font-size: 12px;
+      font-weight: 500;
+      color: #333;
+      display: inline-block;
+      position: relative;
+      padding-left: 8px;
+      margin-right: 40px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      input {
+        position: fixed;
+        opacity: 0;
+      }
+    }
+
+    //혈액형 셀렉터
+    .__blood-type-selector {
+      position: absolute;
+      display: none;
+      width: 100%;
+      top: 0;
+      right: 0;
+      z-index: 1;
+      background-color: #fff;
+
+
+      &.active {
+        display: block;
+      }
+
+      button {
+        width: 100%;
+        height: 22px;
+        border: 1px solid #e0ddfc;
+        font-size: 14px;
+        text-indent: 10px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+
+        &:focus, &:hover {
+          background-color: #e0ddfc;
+        }
+      }
+
+      //button
+    }
+
+    //container
+
+  }
+
+  //form
+
+  &--buttons {
+    position: relative;
+    height: 60px;
+    border-top: 1px solid #e3e3e3;
+
+    button {
+      position: absolute;
+      top: 14px;
+      cursor: pointer;
+      -webkit-transition: all 0.24s ease-out;
+      -moz-transition: all 0.24s ease-out;
+      -ms-transition: all 0.24s ease-out;
+      -o-transition: all 0.24s ease-out;
+      transition: all 0.24s ease-out;
+    }
+
+    //취소 버튼
+    .__cancel-baby-modal-button {
+      padding: 0 14px;
+      height: 32px;
+      left: 34px;
+      border: 1px solid #b8bcc9;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      font-size: 15px;
+      color: #989ba5;
+      font-weight: 500;
+      text-indent: 17px;
+      letter-spacing: -0.4px;
+      background: #f9fbff url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAAIVBMVEUAAACZnKabm6iZnKWZnKWYm6acoKmZnaf///+ZnKWYm6W257u1AAAACnRSTlMA6Cnv264dawFs7Z/usgAAAHBJREFUeAF900sKxDAMg2Hl3dH9Dzxd/qlB3pkPSqMoes4ca+sze415Hv38Tuu39eZ3jqapNE8NU2keWqbSvLQblda21Kl5ve3WYtRq0GrUalQalZYxfzb/UD5KDiHFl4OPa7zsWJNYsFzNE0odn8MfS0IOC7MTU10AAAAASUVORK5CYII=) no-repeat 12px/13px 13px;
+
+      &:focus, &:hover {
+        color: #181818;
+      }
+    }
+
+    //__cancel-baby-modal-button
+
+    .__confirm-baby-modal-button {
+      padding: 0 14px;
+      min-width: 72px;
+      height: 32px;
+      right: 34px;
+      border: 1px solid #b8bcc9;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      font-size: 15px;
+      font-weight: 500;
+      color: #181818;
+      letter-spacing: -0.4px;
+      text-indent: 17px;
+      background: #f9fbff url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAUCAMAAACpgK3LAAAAbFBMVEUAAAAYGBgjIyMYGBgZGRkYGBgZGRkYGBgYGBgbGxshISEfHx8ZGRkaGhobGxsfHx8oKCgYGBgYGBgZGRkYGBgZGRkYGBgYGBgZGRkbGxsZGRkbGxscHBwZGRkZGRkaGhoZGRkaGhoYGBgYGBijjLW+AAAAI3RSTlMA7wrK7Ojk0XIoFxSfNhsQBvff2dTEv6plQjIuI7umlYZQSlQ6OwsAAACTSURBVCjPfdFtD4IgEMDxUFIiNNRKLXu87/8dYxfnjnn6f8Xx24CNnVzdq9as2FRASNYDGrSi7QHTGwZuw7rjwu5kZxsmP34sM82tLgEaQ3YjK/HMHtfP7G+KWUjFaQrriiyPb+nirL7MTvGWAagXM8rMyo0adWKXLP2fXDLKu9muZKyhkYyq8AsfzHjWqeLt070fxLobcQXK0fAAAAAASUVORK5CYII=) no-repeat 12px/13px 9px;
+
+      &:focus, &:hover {
+        opacity: .6;
+        color: #181818;
+      }
+    }
+
+  }
+
+  //buttons
+
+  //모달창 닫는 엑스자 모양 버튼
+  .__close-modal-button {
+    position: absolute;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    top: -40px;
+    right: -26px;
+    border: none;
+    text-indent: -999px;
+    overflow: hidden;
+    -webkit-transition: all 0.25s ease-out;
+    -moz-transition: all 0.25s ease-out;
+    -ms-transition: all 0.25s ease-out;
+    -o-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
+    background: url('./diary-edit-btn-close@2x.png') no-repeat center/24px 24px;
+
+    &:hover, &:focus {
+      -webkit-transform: rotate(180deg) scale(1.3);
+      -moz-transform: rotate(180deg) scale(1.3);
+      -ms-transform: rotate(180deg) scale(1.3);
+      -o-transform: rotate(180deg) scale(1.3);
+      transform: rotate(180deg) scale(1.3);
+    }
+  }
+
+  //button
+}
+
+//baby-info-register-modal
+
+@media only screen and (max-width: 640px){
+  .baby-info-register-modal{
+    width: 100%;
+  }
+  .baby-info-register-modal .__close-modal-button{
+    display: none;
+  }
+}

@@ -1,7 +1,5 @@
 import {all, fork} from 'redux-saga/effects';
-import {watcherCounter} from './counterSaga';
 import {watcherLanguage} from './languageAction';
-import {watcherSaga} from "./axiosSaga";
 import {watcherAutoLogin} from "./autoLoginSaga";
 import {wathcerAlarmHeader, wathcerClientInfoHeader, watcherMobileMenu} from './headerSaga';
 import {watcherWebLogin} from "./clientStatusAction";
@@ -13,12 +11,11 @@ import {watcherPasswordCheck} from "./mypageAction";
 import {watcherFind} from "./findAction";
 import {watcherPasswordChange} from "./passwordChangeAction";
 import {watcherCropperRequest} from "./cropperAction";
+import {watcherCurrentBabyInfo} from './babyInfoAction';
 
 export default function* rootSaga() {
     yield all([
-        fork(watcherCounter),
         fork(watcherLanguage),
-        fork(watcherSaga),
         fork(watcherAutoLogin),
         fork(wathcerAlarmHeader),
         fork(wathcerClientInfoHeader),
@@ -35,7 +32,8 @@ export default function* rootSaga() {
         fork(watcherPasswordCheck),
         fork(watcherFind),
         fork(watcherPasswordChange),
-        fork(watcherCropperRequest)
+        fork(watcherCropperRequest),
+        fork(watcherCurrentBabyInfo)
     ]);
 }
 

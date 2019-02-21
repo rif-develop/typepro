@@ -45,9 +45,11 @@ router.post('/register', [
         try {
 
             const result = await address.save();         //데이터 베이스에 저장
+
             if (result.address.default) { //만약 디폴트 값이 트루라면
                 await Address.update({_id: {$ne: result._id}}, {$set: {'address.default': false}}, {multi: true}); //저장하는 배송지를 제외한 나머지를 false로
             }
+
             //갱신된 배송지를 클라이언트 단으로 전송
             await Address.find().where('writer').equals(result.writer).limit(3).lean().exec((err, docs) => {
 

@@ -27,6 +27,9 @@ import PasswordChangeLayout from "./pages/password/PasswordChangeLayout";
 import FindClientChangeLayout from "./pages/find/FindClientChangeLayout";
 import NotValidPage from "./pages/error/NotValidPage";
 import PasswordChangeByPhoneLayout from "./pages/password/PasswordChangeByPhoneLayout";
+import DashboardLayout from "./pages/dashboard/DashboardLayout";
+import {webSocket} from "./websocket/WebSocketComponent";
+import AdminLayout from "./pages/admin/AdminLayout";
 
 const root = document.getElementById('app');
 
@@ -62,6 +65,11 @@ window.addEventListener('resize', function () {
 });
 //cookie값에 따라 언어 분기
 
+
+//웹소켓 시작
+webSocket();
+
+
 /*익스 10보다 버전이 낮으면 대체 페이지로*/
 if (ieVersion < LauchableVersion.ie) {
     ReactDOM.render(
@@ -92,6 +100,8 @@ if (ieVersion < LauchableVersion.ie) {
                         <Route exact path={'/mypage/password'} component={PasswordChangeLayout}/>
                         <Route exact path={'/email/passwordchange'} component={FindClientChangeLayout}/>
                         <Route exact path={'/phone/passwordchange'} component={PasswordChangeByPhoneLayout}/>
+                        <Route exact path={'/dashboard'} component={DashboardLayout}/>
+                        <Route exact path={'/admin'} component={AdminLayout}/>
                         <Redirect from="*" to="/404error"/>
                         <Redirect to={'/login'}/>
                     </Switch>

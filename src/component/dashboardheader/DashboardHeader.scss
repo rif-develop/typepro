@@ -1,0 +1,298 @@
+//대쉬보드 헤더
+@import '../../lib/base';
+
+@font-face {
+  font-family: "fontopo-regular";
+  src: url("/fonts/fontopoFONTOPO-Regular.woff") format("woff");
+}
+
+.dashboard-header-component {
+  position: relative;
+  width: 70%;
+  margin: 0 auto;
+  padding: 28px 0;
+  -webkit-transition: all 0.25s ease-out;
+  -moz-transition: all 0.25s ease-out;
+  -ms-transition: all 0.25s ease-out;
+  -o-transition: all 0.25s ease-out;
+  transition: all 0.25s ease-out;
+
+  > div {
+    display: inline-block;
+  }
+
+
+  /*아이 선택 부분*/
+  &--baby-container {
+    position: relative;
+
+    &__selected {
+      width: 64px;
+      height: 64px;
+      z-index: 4;
+      overflow: hidden;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      border: 8px solid #4d40b5;
+      display: block;
+      cursor: pointer;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    //dashboard-header-component--baby-container__selected
+
+    //아이 리스트 목록
+    &__list-box {
+      position: absolute;
+      padding: 8px 11px;
+      top: 68px;
+      left: -11px;// (86 - 64) % 2
+      background-color: #4d40b5;
+      z-index: 6;
+      -webkit-border-radius: 50px;
+      -moz-border-radius: 50px;
+      border-radius: 50px;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+
+      //
+      &__buttons {
+        position: relative;
+        text-align: center;
+
+        button {
+          cursor: pointer;
+          border: none;
+          font-size: 11px;
+          font-weight: 500;
+          width: 54px;
+          height: 26px;
+          -webkit-border-radius: 32px;
+          -moz-border-radius: 32px;
+          border-radius: 32px;
+
+          &:hover, &:focus {
+            opacity: .85;
+          }
+        }
+
+        //button
+        //수정버튼
+
+        .__modify-button {
+          background-color: #e0ddfc;
+          color:#3726af;
+        }
+
+        //삭제버튼
+        .__delete-button {
+          margin-top: 8px;
+          background-color: #3e30ac;
+          color:#e0ddfc;
+        }
+
+        //추가버튼
+        .__add-button {
+          background-color: #e0ddfc;
+          color:#3726af;
+        }
+
+
+      }
+
+
+      .__add-button{
+        background-color: #fff;
+        color:#333;
+        cursor: pointer;
+        border: none;
+        font-size: 11px;
+        font-weight: 500;
+        width: 54px;
+        height: 26px;
+        -webkit-border-radius: 32px;
+        -moz-border-radius: 32px;
+        border-radius: 32px;
+        &:hover, &:focus {
+          opacity: .85;
+        }
+      }
+    }
+
+    //list -box
+  }
+
+  //아이 선택 부분
+
+  //날짜 선택 컴포넌
+  &--date-selector {
+    position: relative;
+    margin-left: 1.5625vw;
+    padding: 0.8333vw 2.2396vw;
+    background-color: #4d40b5;
+    -webkit-border-radius: 32px;
+    -moz-border-radius: 32px;
+    border-radius: 32px;
+
+    > label {
+      margin-right: 1.042vw;
+      cursor: pointer;
+      width: 31px;
+      height: 29px;
+      display: inline-block;
+      background: url("./web-dashboard-2560-1329-date-btn-calendar@2x.png") no-repeat center/contain;
+
+      input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 1px;
+        height: 1px;
+        border: none;
+        background-color: transparent;
+        cursor: none;
+      }
+    }
+
+    //label
+
+    &--nav {
+      display: inline-block;
+
+      time {
+        color: #e0ddfc;
+        font-family: 'fontopo-regular';
+        font-size: 1.25vw;
+        margin: 0 0.7813vw;
+      }
+
+      //time
+
+
+      button {
+        display: inline-block;
+        border: none;
+        width: 32px;
+        height: 32px;
+        cursor: pointer;
+        vertical-align: middle;
+      }
+
+      &__prev {
+        background: url("./dashboard-btn-arrow-l@2x.png") no-repeat center/contain;
+      }
+
+      //prev 이전 날짜 버튼
+
+      &__next {
+        background: url("./web-dashboard-2560-1329-dashboard-btn-arrow-r@2x.png") no-repeat center/contain;
+
+      }
+
+      //next 내일 날짜 버
+    }
+
+    //dashboard-header-component--date-selector--nav
+
+  }
+
+  //dashboard-header-component--date-selector
+
+
+  //업데이트 정보 표시
+  &--update-info {
+    margin-left: 1.25vw;
+
+    h2 {
+      font-size: 14px;
+      color: #3726af;
+      display: inline-block;
+      font-weight: bold;
+    }
+
+    //h2
+
+    &--device {
+      margin-top: 10px;
+
+
+      div {
+        position: relative;
+        display: inline-block;
+        margin-right: 20px;
+
+        &:last-child {
+          margin-right: 0;
+        }
+
+        img {
+          width: 20px;
+          height: 20px;
+        }
+
+        time {
+          font-size: 14px;
+          color: #e0ddfc;
+          font-weight: 500;
+          margin-left: 8px;
+        }
+      }
+
+    }
+
+
+  }
+
+  //dashboard-header-component--update-info
+
+
+  //기기 연결 부분
+  &--device {
+    position: absolute;
+    right: 0;
+
+    > div {
+      display: inline-block;
+    }
+
+    &--desc {
+      text-align: right;
+
+      p {
+        color: $sapphire;
+        font-size: 0.9375vw;
+        font-weight: 500;
+        line-height: normal;
+        letter-spacing: normal;
+      }
+    }
+
+    //desc
+
+
+    &__connected {
+      margin-left: 1.40625vw;
+
+      img {
+        display: inline-block;
+        width: 3.333vw;
+        margin-right: 0.7292vw;
+        cursor: pointer;
+      }
+    }
+  }
+
+
+  //dashboard-header-component--baby-container
+}
+
+//dashboard--header-component

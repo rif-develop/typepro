@@ -24,9 +24,14 @@ class DefaultOptionComponent extends React.Component {
 
     setOption() {
         const option = this.props.optionName;
+        const clientIdx = this.props.clientIdx;
 
-        if(this.props.setOptionRequest){
-            this.props.setOptionRequest(option);
+        let formData = new FormData();
+        formData.set('option', option);
+        formData.set('clientIdx', clientIdx);
+
+        if (this.props.setOptionRequest) {
+            this.props.setOptionRequest(formData);
         }
     }
 
@@ -37,8 +42,8 @@ class DefaultOptionComponent extends React.Component {
                 <h2>{this.props.name || DefaultOptionComponent.defaultState.name}</h2>
                 <p>{this.props.desc || DefaultOptionComponent.defaultState.desc}</p>
                 <a href="javascript:void(0)" className={cx(styles['__switch'], this.props.switch ? styles['active'] : undefined)} id="group-member-activity-option" onClick={this.setOption}>
-                    <div className={styles['active']}></div>
-                    <input type="hidden" name={this.props.optionName || DefaultOptionComponent.defaultState.optionName} value={this.props.switch} readOnly="readonly"/>
+                    <div className={this.props.switch ? styles['active']:undefined}></div>
+                    <input type="hidden" name={this.props.optionName || DefaultOptionComponent.defaultState.optionName} defaultValue={this.props.switch} readOnly="readonly"/>
                 </a>
             </li>
         )

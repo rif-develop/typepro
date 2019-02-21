@@ -36,6 +36,7 @@ class AddressLayout extends React.Component {
 
     componentDidMount() {
         loadScript('http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false', 'daum-map', '');
+        document.body.scrollTo(0, 0);
         //유저의 배송지 목록을 불러온다.(나중에 리덕스 사가로 바꾸자.);
     }
 

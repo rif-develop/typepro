@@ -2,30 +2,31 @@ import {takeLatest, put, takeEvery, call} from "redux-saga/effects";
 import axios from 'axios';
 
 export function* watcherSetting() {
-    yield takeEvery('SET_MENU_REQUEST', setSettingMenu)
+    yield takeEvery('API_CLIENT_SETTING_INFO_REQUEST', setSettingMenu);
 }
 
 
-function settingAxios(value) {
+function settingAxios({formData}) {
     return axios({
         method: 'POST',
         url: '/setting/update',
         data: {
-            option: value.option
+            option: formData.get('option'),
+            clientIdx: formData.get('clientIdx')
         }
     });
 }
 
-function* setSettingMenu(option) {
+function* setSettingMenu(formData) {
 
 
     try {
 
-        const response = yield call(settingAxios, option);
+        const response = yield call(settingAxios, formData);
 
         if (response.data.success) {
             yield put({
-                type: 'SET_MENU_SUCCESS',
+                type: 'API_CLIENT_SETTING_INFO_SUCCESS',
                 option: response.data.option
             });
         } else {
@@ -35,7 +36,7 @@ function* setSettingMenu(option) {
     } catch (e) {
         console.log(e);
         yield put({
-            type: 'SET_MENU_FAILURE',
+            type: 'API_CLIENT_SETTING_INFO_FAILURE',
             error: e
         })
     }

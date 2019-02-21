@@ -8,10 +8,23 @@ const API_CROPPER_THUMBNAIL_SEND_REQUEST = 'API_CROPPER_THUMBNAIL_SEND_REQUEST';
 const API_CROPPER_THUMBNAIL_SEND_SUCCESS = 'API_CROPPER_THUMBNAIL_SEND_SUCCESS';
 const API_CROPPER_THUMBNAIL_SEND_FAILURE = 'API_CROPPER_THUMBNAIL_SEND_FAILURE';
 
-//s3 썸네일 삭제 요청 액션 디스패치
+//s3 클라이언트 썸네일 삭제 요청 액션 디스패치
 const API_THUMBNAIL_REMOVE_REQUEST = 'API_THUMBNAIL_REMOVE_REQUEST';
 const API_THUMBNAIL_REMOVE_SUCCESS = 'API_THUMBNAIL_REMOVE_SUCCESS';
 const API_THUMBNAIL_REMOVE_FAILURE = 'API_THUMBNAIL_REMOVE_FAILURE';
+
+//s3 아기 임시 썸네일 삭제 요청 액션 디스패치
+const API_BABY_THUMBNAIL_REMOVE_REQUEST = 'API_BABY_THUMBNAIL_REMOVE_REQUEST';
+const API_BABY_THUMBNAIL_REMOVE_SUCCESS = 'API_BABY_THUMBNAIL_REMOVE_SUCCESS';
+const API_BABY_THUMBNAIL_REMOVE_FAILURE = 'API_BABY_THUMBNAIL_REMOVE_FAILURE';
+
+//잘라진 BLOB이미지를 서버에 전송 (s3에 임시저장소에 저장시킴)
+const API_THUMBNAIL_TEMP_SAVE_REQUEST = 'API_THUMBNAIL_TEMP_SAVE_REQUEST';
+const API_THUMBNAIL_TEMP_SAVE_SUCCESS = 'API_THUMBNAIL_TEMP_SAVE_SUCCESS';
+const API_THUMBNAIL_TEMP_SAVE_FAILURE = 'API_THUMBNAIL_TEMP_SAVE_FAILURE';
+
+//src 리셋
+const SET_CROPPER_SRC_INIT = 'SET_CROPPER_SRC_INIT';
 
 const initialState = {
     loading: false,
@@ -26,13 +39,14 @@ const initialState = {
         type: null,
         size: null,
         originName: null,
-    }
+    },
+    src: null
 };
 
 export function cropperReducer(state = initialState, action) {
     switch (action.type) {
         case SET_CROPPER_MODAL_TOGGLE_REQUEST:
-            return {...state, loading: false, open: !state.open, error: state.error, file: state.file};
+            return {...state, loading: false, open: !state.open, error: state.error, file: state.file, src: initialState.src};
         case SET_CROPPER_SRC_RESULT_REQUEST:
             return {
                 ...state,
@@ -45,7 +59,8 @@ export function cropperReducer(state = initialState, action) {
                     type: action.fileType,
                     size: action.size,
                     originName: action.originName,
-                }
+                },
+                src: initialState.src
             };
         case API_CROPPER_THUMBNAIL_SEND_REQUEST: //서버에 크랍된 이미지 전송 요청
             return {
@@ -53,7 +68,8 @@ export function cropperReducer(state = initialState, action) {
                 loading: true,
                 open: state.open,
                 error: state.error,
-                file: state.file
+                file: state.file,
+                src: initialState.src
             };
         case API_CROPPER_THUMBNAIL_SEND_SUCCESS: //성공
             return {
@@ -61,7 +77,8 @@ export function cropperReducer(state = initialState, action) {
                 loading: false,
                 open: false,
                 error: initialState.error,
-                file: state.file
+                file: state.file,
+                src: initialState.src
             };
         case API_CROPPER_THUMBNAIL_SEND_FAILURE: //서버 실패
             return {
@@ -69,34 +86,108 @@ export function cropperReducer(state = initialState, action) {
                 loading: false,
                 open: false,
                 error: action.error,
-                file: initialState.file
+                file: initialState.file,
+                src: initialState.src
             };
         case API_THUMBNAIL_REMOVE_REQUEST:
-            return{
+            return {
                 ...state,
-                loading:true,
-                open:false,
-                error:initialState.error,
-                file:initialState.file
+                loading: true,
+                open: false,
+                error: initialState.error,
+                file: initialState.file,
+                src: initialState.src
             };
         case API_THUMBNAIL_REMOVE_SUCCESS:
-            return{
+            return {
                 ...state,
-                loading:false,
-                open:false,
-                error:initialState.error,
-                file:initialState.file
+                loading: false,
+                open: false,
+                error: initialState.error,
+                file: initialState.file,
+                src: initialState.src
             };
         case API_THUMBNAIL_REMOVE_FAILURE:
-            return{
+            return {
                 ...state,
-                loading:false,
-                open:false,
-                error:action.error,
-                file:initialState.file
+                loading: false,
+                open: false,
+                error: action.error,
+                file: initialState.file,
+                src: initialState.src
+            };
+        case API_THUMBNAIL_TEMP_SAVE_REQUEST: //서버에 잘라진 이미지 전송 요청
+            return {
+                ...state,
+                loading: initialState.loading,
+                open: state.open,
+                error: initialState.error,
+                file: initialState.file,
+                src: initialState.src
+            };
+        case API_THUMBNAIL_TEMP_SAVE_SUCCESS://서버에 잘라진 이미지 전송 성공
+            return {
+                ...state,
+                loading: initialState.loading,
+                open: false,
+                error: initialState.error,
+                file: initialState.file,
+                src: action.src
+            };
+        case API_THUMBNAIL_TEMP_SAVE_FAILURE://서버에 잘라진 이미지 전송 실패
+            return {
+                ...state,
+                loading: initialState.loading,
+                open: false,
+                error: action.error,
+                file: initialState.file,
+                src: initialState.src
+            };
+        case API_BABY_THUMBNAIL_REMOVE_REQUEST://아기 썸네일 삭제 요청
+            return {
+                ...state,
+                loading: initialState.loading,
+                open: state.open,
+                error: initialState.error,
+                file: initialState.file,
+                src: initialState.src
+            };
+        case API_BABY_THUMBNAIL_REMOVE_SUCCESS://아기 썸네일 삭제 성공
+            return {
+                ...state,
+                loading: initialState.loading,
+                open: false,
+                error: initialState.error,
+                file: initialState.file,
+                src: initialState.src
+            };
+        case API_BABY_THUMBNAIL_REMOVE_FAILURE://서버에 잘라진 이미지 전송 실패
+            return {
+                ...state,
+                loading: initialState.loading,
+                open: false,
+                error: action.error,
+                file: initialState.file,
+                src: initialState.src
             };
         case SET_CROPPER_MODAL_INIT:
-            return initialState;
+            return {
+                ...state,
+                loading: initialState.loading,
+                open: initialState.open,
+                error: initialState.error,
+                file: initialState.file,
+                src: state.src
+            };
+        case SET_CROPPER_SRC_INIT:
+            return{
+                ...state,
+                loading: initialState.loading,
+                open: initialState.open,
+                error: initialState.error,
+                file: initialState.file,
+                src:initialState.src
+            };
         default:
             return state;
     }

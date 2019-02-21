@@ -1,0 +1,217 @@
+//위젯 컴포넌트
+
+$defaultHeight: 370px;
+$defaultWidth: 318px;
+$widgetThinGray: #fafafa;
+@import '../../lib/base';
+
+
+.dashboard-component--widget {
+  transition-property: transform;
+  width: $defaultWidth;
+  height: $defaultHeight;
+  max-height: $defaultHeight;
+  background-color: $white;
+  -webkit-box-sizing: padding-box;
+  -moz-box-sizing: padding-box;
+  box-sizing: padding-box;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+
+  &--container {
+    padding: 32px 40px 24px;
+
+    &--title {
+      font-size: 22px;
+      font-weight: bold;
+      color: $sapphire;
+      margin-bottom: 12px;
+    }
+
+    //dashboard-component--widget--container--title
+
+    //위젯 디바이스 이미지
+    &--icon-img {
+      position: relative;
+      margin: 0 auto;
+      width: 180px;
+      height: 180px;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%;
+      text-align: center;
+      overflow: hidden;
+      text-indent: -9999px;
+
+      &.--smart-bottle {
+        background: #fafafa url('./image/web-dashboard-2560-1329-card-feeding-icn-smart-bottle@2x.png') no-repeat center/48% auto
+      }
+
+      &.--smart-peepee{
+        background: #fafafa url('./image/web-dashboard-2560-1329-card-pooing-icn-diaper@2x.png') no-repeat center/48% auto
+      }
+
+      &.--smart-temp{
+        background: #fafafa url('./image/web-dashboard-2560-1329-card-temp-icn-temperature@2x.png') no-repeat center/48% auto
+      }
+
+      //smartbottle
+    }
+
+    //dashboard-component--widget--container--icon-img
+
+
+    &--widget-info {
+      text-align: center;
+      margin-top: 10px;
+
+      p {
+        color: #3726af;
+        font-size: 12px;
+        font-weight: 500;
+        margin-bottom: 12px;
+      }
+
+      time {
+        font-size: 24px;
+        font-weight: 700;
+        color: #3726af;
+        font-family: fontopo-regular, sans-serif;
+      }
+
+      time,span{
+        vertical-align: baseline;
+      }
+
+      .separated-spec{
+        font-size: 13px;
+        color:#3726af;
+      }
+
+    }
+
+    //dashboard-component--widget--container--widget-info
+
+
+    &--thumbnail {
+      position: relative;
+      margin: 0 auto;
+      width: 180px;
+      height: 180px;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%;
+      overflow: hidden;
+      background-color: $widgetThinGray;
+      text-align: center;
+      vertical-align: middle;
+
+      img {
+        max-width: 100px;
+        max-height: 100px;
+        margin-top: 40px;
+        position: relative;
+        display: inline-block;
+        width: 100px;
+        height: auto;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+      }
+
+    }
+
+    //dashboard-component--widget--container--thumbnail
+
+
+    &--info {
+      text-align: center;
+      margin-top: 15px;
+      margin-bottom: 13px;
+
+      &__title {
+        margin-bottom: 11px;
+
+        h2, img {
+          display: inline-block;
+        }
+
+        h2 {
+          font-size: 18px;
+          font-weight: 500;
+          color: #3726af;
+          margin-right: 6px;
+        }
+
+        img {
+          width: 20px;
+          height: 20px;
+          -webkit-border-radius: 50%;
+          -moz-border-radius: 50%;
+          border-radius: 50%;
+          overflow: hidden;
+          -webkit-transition: all 0.25s ease-out;
+          -moz-transition: all 0.25s ease-out;
+          -ms-transition: all 0.25s ease-out;
+          -o-transition: all 0.25s ease-out;
+          transition: all 0.25s ease-out;
+        }
+
+      }
+
+      //title
+
+      h2 {
+        font-size: 18px;
+        font-weight: 500;
+        color: $sapphire;
+        display: inline-block;
+      }
+
+      span {
+        display: block;
+        color: #3726af;
+        font-size: 11px;
+        line-height: normal;
+        letter-spacing: normal;
+      }
+    }
+
+    //dashboard-component--widget--container--info
+
+
+    &--button-box {
+      text-align: center;
+
+      .__more-info-button {
+        border: none;
+        width: 60px;
+        height: 24px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        -webkit-border-radius: 32px;
+        background-color: #523ed9;
+        -moz-border-radius: 32px;
+        border-radius: 32px;
+        color: $white;
+        line-height: 23px;
+        cursor: pointer;
+        font-size: 10px;
+        font-weight: 500;
+
+        &.baby-register {
+          margin-top: 22px;
+        }
+      }
+
+      //more-info-button
+
+    }
+
+
+  }
+
+  //.dashboard-component--widget--container
+}

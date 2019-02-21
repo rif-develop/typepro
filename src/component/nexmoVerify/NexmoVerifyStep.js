@@ -111,10 +111,11 @@ class NexmoVerifyStep extends React.PureComponent {
                     <legend>{locale.string['04']}</legend>
                     <div className={styles['phone-auth-modal--container--process-text']}>
                         {
-                            getCookie('lang') === 'en' ? <p>{locale.string['05']}<em>{this.props.phoneNumber}</em></p>
-                                : <p><em>{this.props.phoneNumber || '123455667'}</em>{locale.string['05']}</p>
+                            getCookie('lang') === 'en' ? <p>{locale.string['05']}<em> {this.props.phoneNumber}</em></p>
+                                : getCookie('lang')==='zh' ? <p>已向<em> {this.props.phoneNumber}</em> {locale.string['05']}</p>:<p><em>{this.props.phoneNumber || '123455667'}</em>{locale.string['05']}</p>
 
                         }
+
                         <div>
                             <span>{locale.string['11']}</span>
                             <button type={'button'} tabIndex={4} role={'button'}>{locale.string['06']}</button>
