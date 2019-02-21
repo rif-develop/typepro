@@ -17,7 +17,7 @@ const redisOption = {
         logErrors: true
     }),
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     secret: process.env.REDIS_SECRET,
     name: 'session-info',
     cookie: process.env.NODE_ENV === 'development' ? {
