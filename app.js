@@ -6,7 +6,7 @@ const session = require('express-session');
 const app = express();
 const redis = require('redis');
 const client = redis.createClient();
-
+const cors = require('cors');
 //socket.io
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
@@ -42,6 +42,12 @@ if (envResult.error) {
 
 console.log(`${process.env.WHO_IS_DEVELOPER}님이 어플리케이션 서버를 실행했습니다.`);
 
+const corsOptions = {
+    origin: 'http://example.com',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
+app.use(cors({ credentials: true, origin: true }));
 
 /*미들웨어*/
 app.use(cookieParser(process.env.REDIS_SECRET));
