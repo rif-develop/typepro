@@ -44,7 +44,8 @@ console.log(`${process.env.WHO_IS_DEVELOPER}님이 어플리케이션 서버를 
 
 
 /*미들웨어*/
-app.use(cookieParser());
+app.use(cookieParser(process.env.REDIS_SECRET));
+
 //json parser
 app.use(express.json());
 app.use(express.urlencoded({limit: '4mb', extended: true, parameterLimit: 1000000}));
@@ -100,6 +101,7 @@ app.use('/dashboard', dashboardRouter);
 
 //앱 테스트 라우터
 app.use('/app', appRouter);
+
 //새로고침시 페이지 뜰 수 있게 하기.
 app.get('*', (req, res) => {
     console.log('### 요청에 의한 페이지 렌더링 ###');
@@ -210,7 +212,6 @@ function onConnect(socket) {
 
     //스마트 보틀, 피피는 http통신, 템프는 소켓 실시간 통신
 
-    const clientIdx = null;
     //엡에서 보내는 스마트템프 실시간 온도 데이터 받기
     socket.on('smarttemp', (data) => {
         // console.log('# 스마트 템프 - 데이터 연결');
@@ -223,13 +224,13 @@ function onConnect(socket) {
         // console.log(data);
     });
 
-    socket.on('join', (data)=> {
+    socket.on('join', (data) => {
         console.log(`방을 파자 :${data.clientId}`);
         socket.join(data.clientId); // We are using room of socket io
     });
 
-    socket.on('test', (data)=>{
-        socket.emit('response',data+'response');
+    socket.on('test', (data) => {
+        socket.emit('response', data + 'response');
         console.log(data);
     });
 
