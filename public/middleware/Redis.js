@@ -7,7 +7,6 @@ require('dotenv').config();
 let time = new Date();
 time.setTime(time.getTime() + (1 * 3600 * 1000)); //1시간
 
-console.log(process.env.NODE_ENV);
 const redisOption = {
     store: new RedisStore({
         host: process.env.REDIS_HOST,

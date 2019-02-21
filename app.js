@@ -54,7 +54,7 @@ app.use(express.urlencoded({limit: '4mb', extended: true, parameterLimit: 100000
 app.use(session(redisOption));
 
 //배포용 파일 경로
-app.use('/dist', express.static(__dirname + '/dist'));x
+app.use('/dist', express.static(__dirname + '/dist'));
 /*인덱스 페이지 경로*/
 app.use('/', express.static(__dirname));
 
