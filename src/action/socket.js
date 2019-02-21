@@ -1,3 +1,4 @@
 import io from 'socket.io-client';
 
-export const socket = io(process.env.AWS_EC2_IP);
+console.log(process.env.SERVERIP);
+export const socket = io('http://13.209.101.234:80');

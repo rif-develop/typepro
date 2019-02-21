@@ -8,6 +8,7 @@ export const sagaMiddleware = createSagaMiddleware();
 const reduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
 
 let mode = process.env.MODE;
+console.log(mode);
 
 export const store = createStore(
     reducer,

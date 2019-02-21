@@ -27,7 +27,7 @@ module.exports  = {
         hot:true,
         inline:true,
         proxy:{
-            '*':'http://www.cizz3007.com'
+            '*':'http://127.0.0.1:80'
         }
     },
     module: {
@@ -92,7 +92,7 @@ module.exports  = {
         new webpack.DefinePlugin({
            'process.env':{
                'MODE':`"${process.env.NODE_ENV}"`,
-               'SERVER_IP':`"${process.env.AWS_EC2_IP}"`
+               'SERVER':`'${process.env.AWS_EC2_IP}'`
            }
         }),
         new webpack.HotModuleReplacementPlugin()
