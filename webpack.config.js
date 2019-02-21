@@ -26,9 +26,9 @@ module.exports  = {
         open:true,
         hot:true,
         inline:true,
-        // proxy:{
-        //     '*':'http://localhost:80'
-        // }
+        proxy:{
+            '*':'http://www.cizz3007.com'
+        }
     },
     module: {
         rules: [
