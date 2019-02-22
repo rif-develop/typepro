@@ -7,6 +7,8 @@ export function* watcherCurrentBabyInfo() {
     yield takeEvery('API_DELETE_BABY_INFO_REQUEST', babyDeleteSaga);
     // 아이 등록
     yield takeEvery('API_REGISTER_BABY_INFO_REQUEST', babyInfoSaga);
+    //기본 아기 정보 가져오기
+    yield takeEvery('API_DEFAULT_BABY_INFO_REQUEST', defaultBabySaga);
 
 }
 
@@ -22,13 +24,13 @@ function getCurrentBabyInfoAxios(val) {
     });
 }
 
+//현재 클릭한 아이의 정보를 가져온다.
 function* getCurrentBabyInfoSaga(val) {
     try {
         const response = yield call(getCurrentBabyInfoAxios, val.obj);
         //통신 성공시에
         const data = response.data;
         if (data.success) {
-            console.log(data.currentBaby);
             yield put({
                 type: 'API_CURRENT_BABY_INFO_SUCCESS',
                 currentBaby: data.currentBaby
@@ -75,13 +77,16 @@ function* babyInfoSaga(formData) {
         //아이 정보가 등록되면 src를 꼭 지워주자.
         //currentBaby reducer의 현재 아이도 갱신해주자.
         if (response.data.success) {
-            //1. 세션 갱신
-            //2. 모달창 닫기
+            //1. 유저 세션 갱신(아이의 정보는 여기에 저장)
+            //2. 모달창 닫기(등록,수정)
             //3. 크랍퍼에 남아 있는 src 지워주기
             //4. 현재 아이에 정보 넣기
+
+            const lastBaby = response.data.session.babies.length;
+
             yield all([
                 put({
-                    type: 'API_REGISTER_BABY_INFO_SUCCESS',
+                    type: 'UPDATE_CLIENT_SESSION',
                     session: response.data.session
                 }),
                 put({
@@ -147,3 +152,36 @@ function* babyDeleteSaga(data) {
         });
     }
 }
+
+function defaultBabyAxios(obj) {
+    console.log(obj);
+    return axios({
+        url: "/baby/get/defaultbaby",
+        method: 'POST',
+        data: {
+            clientIdx: obj.clientIdx
+        }
+    });
+}
+
+
+//기본 아이 정보 가져오기
+function* defaultBabySaga(obj) {
+    try {
+        const response = yield call(defaultBabyAxios, obj);
+        if (response.data.success) {
+            yield put({
+                type: 'API_DEFAULT_BABY_INFO_SUCCESS',
+                currentBaby: response.data.currentBaby
+            });
+        } else {
+            throw response.data
+        }
+    } catch (e) {
+        yield put({
+            type: 'API_DEFAULT_BABY_INFO_FAILURE',
+            error: e
+        })
+    }
+}
+

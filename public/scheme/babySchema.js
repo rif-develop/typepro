@@ -1,13 +1,17 @@
 const mongoose = require('mongoose');
 const {Schema} = mongoose;
-const Baby = require('./baby');
-const User = require('./user');
+const Baby = require('./babySchema');
+const User = require('./userSchema');
 
 const babySchema = new Schema({
     parent: {
         type: mongoose.Types.ObjectId,
         required: true,
         ref: 'User',
+    },
+    defaultBaby: {
+        type: Boolean,
+        required: true
     },
     name: {
         type: String,
@@ -36,16 +40,9 @@ const babySchema = new Schema({
         type: String,
     },
     createdAt: {
-        type: Date
-    },
-    defaultCheck: { //앱에서는 무조건 아이가 한 명이 있어야 한다ㅣ. 데이터가 아이에게 맞물리기 떄문에 ,그러니 회원가입시 웹도 아이를 한명 만드는데 default가 false로 해놓고 이 아이를 수정할 때, true로 바꿔준다.
-        required: false,
-        type: Boolean,
-        default: false,
-    },
-    order: {
-        type: Number,
-        default: 0
+        type: Date,
+        default: Date.now(),
+        required: true
     },
     src: {
         required: false,

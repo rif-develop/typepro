@@ -52,16 +52,16 @@ class _BabyHeightComponent extends React.PureComponent {
             //글자가 없으면 레이블 내리기
             this.setState({
                 focus: false,
-                valid:null
+                valid: null
             })
         }
     }
 
-    inputKeyHandler(){
+    inputKeyHandler() {
         const maxLen = this.height.current.maxLength;
         const len = this.height.current.value.length;
         const val = this.height.current.value;
-        if(len > maxLen){
+        if (len > maxLen) {
             this.height.current.value = val.substring(0, maxLen);
         }
     }
@@ -69,30 +69,32 @@ class _BabyHeightComponent extends React.PureComponent {
     render() {
 
         let {valid} = this.state;
+        const {height} = this.props;
         return (
-            <div className={cx(styles['baby-info-register-modal--form--container'], this.state.focus ? styles['active'] : undefined)}>
-                <label htmlFor="client-baby-height" className={cx(styles['__default-label-component'], this.state.focus ? styles['active'] : undefined)}>
+            <div className={cx(styles['baby-info-register-modal--form--container'], this.state.focus || height ? styles['active'] : undefined)}>
+                <label htmlFor="client-baby-height" className={cx(styles['__default-label-component'], this.state.focus ||height ? styles['active'] : undefined)}>
                     {this.state.focus ? '키' : '키를 입력해주세요.'}
-                    {!valid && valid !== null ? <span>를 정확히 입력해주세요.</span>:undefined}
+                    {!valid && valid !== null ? <span>를 정확히 입력해주세요.</span> : undefined}
                 </label>
                 <input type={'number'} name="height" id="client-baby-height"
                        ref={this.height}
-                       className={cx(styles['__default-input-component'],!valid && valid !== null ?  styles['__warn']:undefined)}
+                       className={cx(styles['__default-input-component'], !valid && valid !== null ? styles['__warn'] : undefined)}
                        maxLength={6}
                        placeholder={this.state.focus ? '키를 입력해주세요.' : null}
                        required={true}
                        autoCapitalize={'off'}
+                       defaultValue={height}
                        onFocus={this.inputFocusHandler}
                        onBlur={this.inputBlurHandler}
                        onKeyDown={(e) => {
-                           if(e.keyCode===69){
+                           if (e.keyCode === 69) {
                                e.preventDefault();
                                return false;
                            }
                            this.inputKeyHandler();
                        }}
-                       onKeyUp={(e)=>{
-                           if(e.keyCode===69){
+                       onKeyUp={(e) => {
+                           if (e.keyCode === 69) {
                                e.preventDefault();
                                return false;
                            }

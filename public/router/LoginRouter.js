@@ -1,6 +1,6 @@
 const express = require('express');
 const crypto = require('crypto');
-const User = require('../scheme/user');
+const User = require('../scheme/userSchema');
 const router = express.Router();
 
 
@@ -45,10 +45,12 @@ router.post('/login', async (req, res) => {
                 crypto.pbkdf2(req.body.password, process.env.SECURITY_SALT, 77655, 64, process.env.SECURITY_HASH, (err, password) => {
                     const encrytedPw = password.toString(process.env.SECURITY_DIGEST);
 
+                    //-1 내림 차순(큰숫자에서 작은숫자로)
+                    //1 오름 차순(작은 숫자에서 큰숫자로)
                     User.findOne({
                         email:req.body.email,
                         password:encrytedPw
-                    }).populate({path: 'babies', options: { sort: { 'order': 1 } } }).exec((err, user) => {
+                    }).populate({path: 'babies', options: { sort: { '_id': 1} } }).exec((err, user) => {
 
                         if (err) {
                             console.log('# 에러' + err);
@@ -61,12 +63,11 @@ router.post('/login', async (req, res) => {
                             //필요한 다른 스키마들을 파퓰레이트해서 클라이언트에 전달해준다.
 
                             //1. 배송지 주소를 populate 한다.
+
                             //2. 아이 정보를 populate 해준다.
 
                             //REDIS DB에 세션을 저장시킨다.
                             req.session.key = user;
-
-                            console.log(req.session);
 
                             // 클라이언트에 유저의 세션 전달;
                             return res.json({
@@ -108,26 +109,35 @@ router.post('/login', async (req, res) => {
 });//end router
 
 
-//로그아웃
-router.post('/logout', (req, res) => {
+//로그아웃 처리 라우터
+router.post('/logout', async (req, res) => {
     //세션 삭제
-    req.session.destroy((err) => {
-        if (err) {
-            console.log(err);
-            res.json({
-                success: false,
-                msg: '세션 삭제 과정에서 에러 발생.'
-            });
-        } else {
-            console.log('# 세션이 성공적으로 삭제되었습니다.');
-            res.json({
-                success: true,
-                msg: '로그아웃이 성공적으로 되었습니다.'
-            });
-        }
-    });
-    //쿠키도 삭제
-    res.clearCookie('session-info');
+    try{
+        req.session.destroy((err) => {
+            if (err) {
+                console.log('#로그아웃 과정 중에 에러가 발생했습니다.');
+                throw err;
+
+            } else {
+                console.log('# 세션이 성공적으로 삭제되었습니다. 로그아웃 되었습니다.');
+                res.json({
+                    success: true,
+                    msg: '로그아웃이 성공적으로 되었습니다.'
+                });
+            }
+        });
+
+    } catch (e) {
+        console.log(e);
+        res.json({
+            success: false,
+            msg: '세션 삭제 과정에서 에러 발생.'
+        });
+    } finally {
+        //세션삭제시에 쿠키도 삭제
+        res.clearCookie('session-info');
+    }
+
 });
 
 

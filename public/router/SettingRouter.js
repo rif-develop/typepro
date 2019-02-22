@@ -1,7 +1,7 @@
 const express = require('express');
 const Validation = require('../middleware/Validations');
 const router = express.Router();
-const User = require('../scheme/user');
+const User = require('../scheme/userSchema');
 const checkValidOption = require('../middleware/checkValidOption');
 
 router.post('/update', async (req, res) => {

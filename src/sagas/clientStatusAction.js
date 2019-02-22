@@ -27,7 +27,6 @@ function* webLoginRequestSaga(formData) {
         const response = yield call(webLoginAxios, formData);
         //로그인 요청 후 비밀번호 및 아이디 적합 검증후 성공시 서버에서 success:ture 리턴 그 외에는 전부 에러니까 던진다.
         if (response.data.success) {
-            console.log('# 로그인 요청 성공');
             yield put({
                 type: 'API_WEB_LOGIN_SUCCESS',
                 session: response.data.session
@@ -75,7 +74,6 @@ function* logoutSaga() {
 
 //세션 요청 비동기 통신
 function sessionAxios() {
-    console.log('비동기 통신..');
     return axios({
         method: 'POST',
         url: '/getSession',
@@ -89,18 +87,10 @@ function* sessionRequestSaga() {
         const response = yield call(sessionAxios);
 
         if (response.data.isSession) {
-            const babies = response.data.session.babies;
             yield put({
                 type: 'API_WEB_LOGIN_SUCCESS',
                 session: response.data.session
             });
-            //아이가 존재한다면 아이 리듀서도 갱신
-            if (babies.length > 1) {
-                yield put({
-                    type: 'SET_FIRST_BABY_INFO',
-                    baby: babies[0]
-                });
-            }
         } else {
             throw response.data;
         }

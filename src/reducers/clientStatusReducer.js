@@ -17,8 +17,8 @@ const API_CLIENT_SETTING_INFO_REQUEST = 'API_CLIENT_SETTING_INFO_REQUEST';
 const API_CLIENT_SETTING_INFO_SUCCESS = 'API_CLIENT_SETTING_INFO_SUCCESS';
 const API_CLIENT_SETTING_INFO_FAILURE = 'API_CLIENT_SETTING_INFO_FAILURE';
 
-//아이 썸네일 등록 요청 액션
-
+//서버에서 갱신된 세션 정보로 클라이언ㅌ의 리덕스 세션 정보를 업데이트시키는 액션
+const UPDATE_CLIENT_SESSION = 'UPDATE_CLIENT_SESSION';
 
 //session 설정
 const initialState = {
@@ -196,6 +196,14 @@ export function clientStatusReducer(state = initialState, action) {
             };
         case API_WEB_LOGOUT_REQUEST://로그아웃 요청하기
             return initialState;
+        case UPDATE_CLIENT_SESSION:
+            return {
+                loading: false,
+                width: state.width,
+                session: action.session,
+                login: state.login,
+                error: initialState.error,
+            };
         default:
             return state
     }

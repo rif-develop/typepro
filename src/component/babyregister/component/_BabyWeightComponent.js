@@ -65,10 +65,11 @@ class _BabyWeightComponent extends React.PureComponent {
 
     render() {
         const {valid} = this.state;
+        const {weight} = this.props;
 
         return (
-            <div className={cx(styles['baby-info-register-modal--form--container'], this.state.focus ? styles['active'] : undefined)}>
-                <label htmlFor="client-baby-weight" className={cx(styles['__default-label-component'], this.state.focus ? styles['active'] : undefined)}>
+            <div className={cx(styles['baby-info-register-modal--form--container'], this.state.focus ||weight ? styles['active'] : undefined)}>
+                <label htmlFor="client-baby-weight" className={cx(styles['__default-label-component'], this.state.focus ||weight ? styles['active'] : undefined)}>
                     {this.state.focus ? '몸무게' : '몸무게를 입력해주세요.'}
                     {!valid && valid !== null ? <span>를 정확히 입력해주세요.</span>:undefined}
                 </label>
@@ -80,6 +81,7 @@ class _BabyWeightComponent extends React.PureComponent {
                        maxLength={5}
                        placeholder={this.state.focus ? '몸무게를 입력해주세요.' : null}
                        required={true}
+                       defaultValue={weight}
                        autoCapitalize={'off'}
                        onFocus={this.inputFocusHandler}
                        onBlur={this.inputBlurHandler}

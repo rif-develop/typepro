@@ -23,7 +23,6 @@ const nexmoRouter = require('./public/router/NexmoPhoneRouter');
 const emailRouter = require('./public/router/EmailRouter');
 const imageRouter = require('./public/router/ImageUploadRouter');
 const settingRouter = require('./public/router/SettingRouter');
-const deviceRouter = require('./public/router/DeviceRouter');
 const babyInfoRouter = require('./public/router/BabyInfoRouter');
 const pushRouter = require('./public/router/PushRouter');
 const dashboardRouter = require('./public/router/DashboardRouter');
@@ -95,15 +94,11 @@ app.use('/setting', settingRouter);
 //앱 푸쉬 라우터
 // app.use('/app', pushRouter);
 
-//디바이스 라우터
-app.use('/app/device', deviceRouter);
-
 //아이 정보 라우터
 app.use('/baby', babyInfoRouter);
 
 //대쉬보드 라우터
 app.use('/dashboard', dashboardRouter);
-
 
 //앱 테스트 라우터
 app.use('/app', appRouter);
@@ -225,13 +220,15 @@ function onConnect(socket) {
 
     //엡에서 보내는 스마트템프 실시간 온도 데이터 받기
     socket.on('smarttemp', (data) => {
-        // console.log('# 스마트 템프 - 데이터 연결');
+        console.log('# 스마트 템프 - 데이터 연결');
 
         //서버에서 앱으로 데이터 보내주기 (앱에서 요청하였으니 앱이랑 물려있음);
         socket.emit('smarttemp', {msg: '스마트 템프 연결 성공'});
 
         //소켓 룸에 참여한 특정 유저에게 데이터를 보내준다.
-        io.sockets.in(process.env.TEST).emit('response', data);
+        // io.sockets.in(process.env.TEST).emit('response', data);
+
+        socket.broadcast.emit('response', data);
         // console.log(data);
     });
 

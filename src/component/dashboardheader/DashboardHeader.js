@@ -28,44 +28,51 @@ const activeBottle = require('./web-dashboard-2560-1329-dashboard-icn-bottle-act
 const activePeepee = require('./web-dashboard-2560-1329-dashboard-icn-peepee-active@2x.png');
 const activeTemp = require('./web-dashboard-2560-1329-dashboard-icn-temp-active@2x.png');
 
-const clientBabyList = (clientBabies, babyRegisterToggle, babyDeleteRequest, getThisBaby, babyListToggle) => {
+const clientBabyList = (clientBabies, babyRegisterToggle, babyDeleteRequest, getThisBaby, babyListToggle, babyModifyToggle, setModifyInfo) => {
     return (
-            <div className={styles['dashboard-header-component--baby-container__list-box']} key={clientBabies.length + Date.now()}>
-                <Anime opacity={[0, 1]} translateY={['1.5em', '0']} translateX={['2.3em', '0']} delay={(e, i) => i * 50}>
-                    {
-                        clientBabies.map((elem, key) => {
-                            return (
-                                <div key={key} data-id={elem._id}>
-                                    <a href={'#'} key={key} className={styles['dashboard-header-component--baby-container__selected']} onClick={(e) => {
-                                        getThisBaby({
-                                            clientIdx: elem.parent,
-                                            babyIdx: elem._id
-                                        });
-                                    }}>
-                                        <img src={elem.src !== null ? elem.src : defaultThumb} title={'dd'}/>
-                                    </a>
-                                    <div className={styles['dashboard-header-component--baby-container__list-box__buttons']}>
-                                        <button type={'button'} className={styles['__modify-button']}>수정</button>
-                                        <button type={'button'} className={styles['__delete-button']} onClick={(e) => {
-                                            //아이가 한 명만 남았을 경우에 삭제하면 베이비리스트 창 닫아주기
-                                            if(clientBabies.length <= 1){
-                                                babyListToggle();
-                                                babyDeleteRequest(elem.parent, elem._id);
-                                            } else {
-                                                babyDeleteRequest(elem.parent, elem._id);
-                                            }
-                                        }}>삭제
-                                        </button>
-                                    </div>
+        <div className={styles['dashboard-header-component--baby-container__list-box']} key={clientBabies.length + Date.now()}>
+            <Anime opacity={[0, 1]} scale={[0.4, 1]} translateY={[`${Math.floor(Math.random() * 10 % 2) === 0 ? '+' : '-'}${Math.random() * 5}em`, '0']}
+                   translateX={[`${Math.floor(Math.random() * 10 % 2) === 0 ? '+' : '-'}${Math.random() * 5}em`, '0']} delay={(e, i) => i * 70}>
+                {
+                    clientBabies.map((elem, key) => {
+                        return (
+                            <div key={key} data-id={elem._id}>
+                                <a href={'#'} key={key} className={styles['dashboard-header-component--baby-container__selected']} onClick={(e) => {
+                                    getThisBaby({
+                                        clientIdx: elem.parent,
+                                        babyIdx: elem._id
+                                    });
+                                }}>
+                                    <img src={elem.src !== null ? elem.src : defaultThumb} title={'dd'}/>
+                                </a>
+                                <div className={styles['dashboard-header-component--baby-container__list-box__buttons']}>
+                                    <button type={'button'} className={styles['__modify-button']} onClick={(e) => {
+                                        //모달창 토글
+                                        babyModifyToggle();
+                                        //수정할 아이 정보
+                                        setModifyInfo(elem);
+                                    }}>수정
+                                    </button>
+                                    <button type={'button'} className={styles['__delete-button']} onClick={(e) => {
+                                        //아이가 한 명만 남았을 경우에 삭제하면 베이비리스트 창 닫아주기
+                                        if (clientBabies.length <= 1) {
+                                            babyListToggle();
+                                            babyDeleteRequest(elem.parent, elem._id);
+                                        } else {
+                                            babyDeleteRequest(elem.parent, elem._id);
+                                        }
+                                    }}>삭제
+                                    </button>
                                 </div>
-                            )
-                        })
-                    }
-                </Anime>
-                <div style={{textAlign: 'center', marginTop: '10px'}}>
-                    <button type={'button'} onClick={babyRegisterToggle} className={styles['__add-button']}>추가</button>
-                </div>
+                            </div>
+                        )
+                    })
+                }
+            </Anime>
+            <div style={{textAlign: 'center', marginTop: '10px'}}>
+                <button type={'button'} onClick={babyRegisterToggle} className={styles['__add-button']}>추가</button>
             </div>
+        </div>
     )
 };
 
@@ -78,23 +85,29 @@ class DashboardHeader extends React.PureComponent {
 
 
     render() {
-        const {babyRegisterToggle, clientBabies, babyDeleteRequest, getThisBaby, currentBaby, babyListToggle, babyList} = this.props;
+        const {babyRegisterToggle, clientBabies, babyDeleteRequest, getThisBaby, currentBaby, babyListToggle, babyList, babyModifyToggle, setModifyInfo} = this.props;
         //리덕스 스토어의 값이 널이 아니고, 아이는 1명 미만
+        const condition = clientBabies.length < 1;
         return (
             <div className={styles['dashboard-header-component']}>
                 {/*클라이언트의 자녀 정보*/}
-                <div className={styles['dashboard-header-component--baby-container']}>
-                    {/*아이가 있을 경우 현재 선택 된 아이의 정보로*/}
 
-                    {/*아이가 없을 경우 와 아이가 있을 경우*/}
+
+                <div className={styles['dashboard-header-component--baby-container']}>
+
                     {
-                        clientBabies !== null ?  <a href="javascript:void(0)" title="등록된 아기가 없습니다." className={styles['dashboard-header-component--baby-container__selected']} onClick={clientBabies.length < 1 ? babyRegisterToggle : babyListToggle}>
-                            <img src={ clientBabies.length < 1  || currentBaby.src === null ? defaultThumb : currentBaby.src} alt={'현재 선택된 아이의 썸네일 이미지입니다'}/>
-                        </a>:undefined
+                        condition ?
+                            <a href="javascript:void(0)" title="등록된 아기가 없습니다." className={styles['dashboard-header-component--baby-container__selected']} onClick={condition ? babyRegisterToggle : babyListToggle}>
+                                <img src={defaultThumb} alt={'현재 선택된 아이의 썸네일 이미지입니다'}/>
+                            </a> :
+                            <a href="javascript:void(0)" title="등록된 아기가 없습니다." className={styles['dashboard-header-component--baby-container__selected']} onClick={condition ? babyRegisterToggle : babyListToggle}>
+                                <img src={defaultThumb} alt={'현재 선택된 아이의 썸네일 이미지입니다'}/>
+                            </a>
                     }
+
                     {/*아이 리스트 창*/}
                     {
-                        babyList && clientBabies ? clientBabyList(clientBabies, babyRegisterToggle, babyDeleteRequest, getThisBaby, babyListToggle) : undefined
+                        babyList && clientBabies ? clientBabyList(clientBabies, babyRegisterToggle, babyDeleteRequest, getThisBaby, babyListToggle, babyModifyToggle, setModifyInfo) : undefined
                     }
                 </div>
                 {/*클라이언트의 자녀 정보*/}
@@ -121,7 +134,7 @@ const mapDispatchToProps = (dispatch) => {
         }),
         babyListToggle: () => dispatch({
             type: 'SET_BABY_LIST_TOGGLE'
-        })
+        }),
     }
 };
 

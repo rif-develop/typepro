@@ -1,6 +1,6 @@
 const express = require('express');
 const {check, validationResult} = require('express-validator/check');
-const Address = require('../scheme/address');
+const Address = require('../scheme/addressSchema');
 const router = express.Router();
 
 //formData parse하기 위해서 필요한 것 nodejs 는 기본적으로 파싱하는 것이 없다.

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Nexmo = require('nexmo');
 const Validations = require('../middleware/Validations');
-const User = require('../scheme/user');
+const User = require('../scheme/userSchema');
 const nexmo = new Nexmo({
     apiKey: process.env.NEXMO_API_KEY,
     apiSecret: process.env.NEXMO_API_SECRET

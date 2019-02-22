@@ -1,18 +1,21 @@
 const Validations = require("../middleware/Validations");
 //schema
-const User = require('../scheme/user');
-const Baby = require('../scheme/baby');
-const BottleSchema = require('../scheme/smartbottle');
-const PeepeeSchema = require('../scheme/smartpeepee');
-const TempSchema = require('../scheme/smarttemp');
+const User = require('../scheme/userSchema');
+const Baby = require('../scheme/babySchema');
+const BottleSchema = require('../scheme/smartbottleSchema');
+const PeepeeSchema = require('../scheme/smartpeepeeSchema');
+const TempSchema = require('../scheme/smarttempSchema');
 
 const express = require('express');
 const router = express.Router();
 const crypto = require('crypto');
-const generateHashToken = require('../middleware/generateHashToken');
 const {headerCheck} = require('../middleware/HeaderCheck');
 const redis = require('redis');
 const client = redis.createClient();
+//컨트롤러
+const BabyController = require('../querycontroller/BabyController');
+const UserController = require('../querycontroller/UserController');
+
 //app에서 회원가입요청을 처리하는 라우터
 router.post('/signup', async (req, res) => {
     try {
@@ -630,6 +633,7 @@ router.post('/register/babyinfo', async (req, res) => {
         const height = req.body.height;
         const bloodType = req.body.bloodType.toUpperCase();
 
+        const isEmptySrc = Validations.isEmpty(src);
         const isEmptyClientIdx = Validations.isEmpty(clientIdx);
         const isEmptyName = Validations.isEmpty(name);
         const isEmptyGender = Validations.isEmpty(gender);
@@ -648,94 +652,46 @@ router.post('/register/babyinfo', async (req, res) => {
 
         if (allValid) {
             console.log('# 모든 요청 값들이 유효성을 통과했습니다.');
-            //1. 아이 생성
-            //2. 아이의 order 업데이트 해주기
-            //3. 유저 아이 필드 업데이트
-            //4. 세션 업데이트
 
+            console.log('#모든 값이 정상입니다.');
 
-            //먼저 아이의 부모가 될 계정부터 확인
+            //0. 기존 아이가 존재하는 지 검색하여 존재한다면 defaultBaby:false, 아이가 없던 유저라면 defaultBaby:true
+            const hasBaby = await BabyController.countUserBabies(clientIdx);
 
+            //아이 스키마 생성
             const baby = new Baby({
                 parent: clientIdx,
                 name: name,
+                defaultBaby: hasBaby === 0, //기본 선택 아기, 나중에 아이를 삭제 했을 떄 남은 아이가 한 명이라면 그 아이는 true로
                 gender: gender,
-                weight: weight,
-                height: height,
-                bloodType: bloodType,
                 year: year,
                 month: month,
-                date: date
+                date: date,
+                bloodType: bloodType,
+                weight: weight,
+                height: height,
+                createdAt: Date.now(),
+                src: isEmptySrc ? null : src, //비어있으면 null을 넣고 아니면 src
             });
 
-            await baby.save(async (err, result) => {
-                console.log('#아이 저장이 완료되었습니다.');
-                console.log(result);
+            //1. 아이를 저장합니다.
+            const babySaveResult = await BabyController.createBaby(baby);
+            //아이의 _id
+            const babyIdx = babySaveResult._id;
+            //부모의 _id
+            const parentIdx = babySaveResult.parent;
 
-                if (err) {
-                    throw 'server'
-                }
-                //clientidx값
-                const parent = result.parent;
-                const babyId = result._id;
-                console.log(parent, babyId);
+            //2. 아이의 부모 유저의 babies 필드를 업데이트 한다.(oid);
+            const newUserInfo = await UserController.updateBabyId(parentIdx, babyIdx);
 
-                //아이의 order를 업데이트 해준다.
-                await Baby.find({parent: parent}).lean().exec((err, docs) => {
-                    if (err) {
-                        throw 'server'
-                    }
+            //세션 갱신
+            req.session.key = newUserInfo;
 
-                    if (docs) {
-                        console.log('#아이의 순서를 업데이트 합니다.');
-                        console.log(docs.length);
-
-                        Baby.findOneAndUpdate({
-                            parent: parent,
-                            _id: babyId
-                        }, {
-                            $set: {order: docs.length}
-                        }, {
-                            new: true,
-                            multi: true,
-                            $setOnInsert: true
-                        }).lean().exec((err, docs) => {
-                            if (err) {
-                                throw 'server'
-                            }
-
-                            if (docs) {
-                                console.log('#유저의 값을 갱신합니다.');
-                                console.log(docs);
-
-                                User.findOneAndUpdate({
-                                    _id: docs.parent,
-                                }, {
-                                    $push: {babies: docs._id}
-                                }, {new: true, multi: true}).populate('babies').lean().exec((err, docs) => {
-                                    if (err) {
-                                        throw 'server'
-                                    }
-
-                                    if (docs) {
-                                        console.log('# 유저 갱신 완료');
-                                        console.log(docs);
-
-                                        //세션 갱신
-                                        req.session.key = docs;
-                                        //리턴
-                                        return res.json({
-                                            response: 'success',
-                                            babies: docs.babies
-                                        });
-                                    }
-
-                                });
-                            }
-                        });
-
-                    }
-                });
+            //세션에서 모든 데이터를 관리하므로, 세션을 갱신해 준다. nosql은 정규화보단 집합적으로 관리한다는 것을 잊지 말것.
+            //서버로 데이터 보내기
+            res.json({
+                response: 'success',
+                babies: newUserInfo.babies,
             });
 
 
@@ -892,6 +848,5 @@ router.post('/register', async (req, res) => {
     }
 
 });
-
 
 module.exports = router;

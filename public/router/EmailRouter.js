@@ -8,7 +8,7 @@ const redis = require('redis');
 const client = redis.createClient();
 const validations = require('../middleware/Validations');
 
-const User = require('../scheme/user');
+const User = require('../scheme/userSchema');
 
 
 //url친화적인 토큰을 생성한다.

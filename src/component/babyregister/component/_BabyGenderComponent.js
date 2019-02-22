@@ -9,7 +9,7 @@ class _BabyGenderComponent extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            gender: 'm'
+            gender: this.props.gender ==='m' ? 'm':'f'
         };
 
         //binding
@@ -23,9 +23,10 @@ class _BabyGenderComponent extends React.PureComponent {
     }
 
     render() {
+        const {gender} = this.props;
         return (
             <div className={styles['baby-info-register-modal--form--container']}>
-                <div className={cx(styles['__select-radio-button'], this.state.gender === 'm' ? styles['active'] : undefined)} role={'radiogroup'}
+                <div className={cx(styles['__select-radio-button'],  this.state.gender === 'm' ? styles['active'] : undefined)} role={'radiogroup'}
                      onClick={(e) => {
                          this.onClickSetGender('m');
                      }}>
@@ -38,10 +39,10 @@ class _BabyGenderComponent extends React.PureComponent {
                     <input type="radio"
                            name="gender"
                            id="__radio-gender-component-male"
-                           checked={this.state.gender === 'm'}
+                           checked={ this.state.gender === 'm'}
                            role={'radio'}
-                           value="m" onChange={(e)=>{
-                               this.onClickSetGender('m')
+                           value="m" onChange={(e) => {
+                        this.onClickSetGender('m')
                     }}/>
                 </label>
 
@@ -58,8 +59,8 @@ class _BabyGenderComponent extends React.PureComponent {
                            id="__radio-gender-component-female"
                            role={'radio'}
                            value="f"
-                           checked={this.state.gender === 'f'} onChange={(e)=>{
-                               this.onClickSetGender('f')
+                           checked={this.state.gender === 'f'} onChange={(e) => {
+                        this.onClickSetGender('f')
                     }}/>
                 </label>
             </div>

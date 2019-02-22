@@ -4,7 +4,7 @@ const multer = require('multer');
 const multerS3 = require('multer-s3');
 const generateHashToken = require('../middleware/generateHashToken');
 const router = express.Router();
-const User = require('../scheme/user');
+const User = require('../scheme/userSchema');
 const Validation = require('../middleware/Validations');
 //AWS 설정
 

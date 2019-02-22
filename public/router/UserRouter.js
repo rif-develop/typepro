@@ -1,5 +1,5 @@
 const express = require('express');
-const User = require('../scheme/user');
+const User = require('../scheme/userSchema');
 const {check, validationResult} = require('express-validator/check');
 const crypto = require('crypto');
 const Validations = require('../middleware/Validations');

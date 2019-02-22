@@ -5,13 +5,13 @@ import classnames from 'classnames';
 
 const cx = classnames.bind(styles);
 
-class _BabyBloodtypeComponent extends React.PureComponent{
+class _BabyBloodtypeComponent extends React.PureComponent {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             bloodTypeSelector: false,
-            bloodType: 'A',
+            bloodType: this.props.bloodType || 'A',
         };
 
         this.bloodTypeSelectorToggle = this.bloodTypeSelectorToggle.bind(this);
@@ -32,8 +32,9 @@ class _BabyBloodtypeComponent extends React.PureComponent{
         });
     }
 
-    render(){
-        return(
+    render() {
+        const {bloodType} = this.props;
+        return (
             <div className={styles['baby-info-register-modal--form--container']}>
                 <div className={styles['__default-label-component']}>혈액형</div>
                 <input type={'text'}

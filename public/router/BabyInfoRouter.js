@@ -5,13 +5,13 @@ const multer = require('multer');
 const multerS3 = require('multer-s3');
 const generateHashToken = require('../middleware/generateHashToken');
 const Validations = require('../middleware/Validations');
-const User = require('../scheme/user');
-const Baby = require('../scheme/baby');
-const {removeBaby} = require('../query/removeQuery');
-const mongoose = require('mongoose');
-const {Schema} = mongoose;
-const {s3delete} = require('../middleware/AwsS3');
+const User = require('../scheme/userSchema');
+const Baby = require('../scheme/babySchema');
 
+const BabyController = require('../querycontroller/BabyController');
+const UserController = require('../querycontroller/UserController');
+
+//이 라우터는 아이의 관한 모든 백엔드 API요청을 처리하는 라우터입니다.
 
 const s3 = new aws.S3({
     accessKeyId: process.env.AWS_ACCESS_KEY,
@@ -25,7 +25,7 @@ aws.config.update({
     region: process.env.AWS_S3_REGION,
 });
 
-
+//
 const upload = multer({
     storage: multerS3({
         s3: s3,
@@ -59,11 +59,111 @@ const upload = multer({
     })
 });
 
+// 아이 수정 요청 처리 라우터
+router.post('/update', async (req, res) => {
+    try {
+        console.log('# 웹 - 아이 수정 요청 시작');
+        console.log(req.body);
+
+        const clientIdx = req.body.clientIdx;
+        const babyIdx = req.body.babyIdx;
+        const name = req.body.name;
+        const weight = req.body.weight;
+        const height = req.body.height;
+        const bloodType = req.body.bloodType;
+        const year = req.body.year;
+        const month = req.body.month;
+        const date = req.body.date;
+        const gender = req.body.gender;
+
+        //s3 key 링크
+        const src = req.body.src;
+
+        const isEmptyClientIdx = Validations.isEmpty(clientIdx);
+        const isEmptyBabyIdx = Validations.isEmpty(babyIdx);
+        const isEmptyName = Validations.isEmpty(name);
+        const isEmptyWeight = Validations.isEmpty(weight);
+        const isEmptyHeight = Validations.isEmpty(height);
+        const isEmptyBloodType = Validations.isEmpty(bloodType);
+        const isEmptyYear = Validations.isEmpty(year);
+        const isEmptyMonth = Validations.isEmpty(month);
+        const isEmptyDate = Validations.isEmpty(date);
+
+        const isValidWeight = Validations.checkFloatDoublePoint(weight);
+        const isValidHeight = Validations.checkFloatDoublePoint(height);
+        const isValidYear = year.length === 4;
+        const isValidMonth = month.length === 2;
+        const isValidDate = date.length === 2;
+
+        const isValidBloodType = await BabyController.checkBloodType(bloodType);
+
+        const allValid = (!isEmptyBabyIdx && !isEmptyClientIdx && !isEmptyName && !isEmptyWeight && !isEmptyHeight && !isEmptyBloodType && !isEmptyYear && !isEmptyMonth && !isEmptyDate)
+            && (isValidBloodType && isValidDate && isValidWeight && isValidHeight && isValidYear && isValidMonth);
+
+        if (allValid) {
+            console.log('# 모두 적합 -  수정을 시작합니다.');
+
+            //쿼리 컨트롤러에 넘겨줄 객체 생성;
+            const obj = {
+                _id: babyIdx,
+                parent: clientIdx,
+                name: name,
+                weight: weight,
+                height: height,
+                year: year,
+                month: month,
+                date: date,
+                bloodType: bloodType,
+                gender: gender,
+                src: src
+            };
+
+            //수정 쿼리 실행
+            const babyUpdate = await BabyController.updateOneBaby(obj);
+            //세션 갱신
+            // req.session.key = newUserInfo;
+
+            //세션에서 모든 데이터를 관리하므로, 세션을 갱신해 준다. nosql은 정규화보단 집합적으로 관리한다는 것을 잊지 말것.
+            //서버로 데이터 보내기
+            res.json({
+                success: true,
+                // session: newUserInfo,
+            });
+
+            console.log(babyUpdate);
+
+        } else if (isEmptyClientIdx) {
+            throw 'emptyClientIdx'
+        } else if (isEmptyBabyIdx) {
+            throw 'emptyBabyIdx'
+        } else if (isEmptyName) {
+            throw 'emptyName';
+        } else if (isEmptyYear) {
+            throw 'emptyYear'
+        } else if (isEmptyMonth) {
+            throw 'emptyMonth';
+        } else if (isEmptyDate) {
+            throw 'emptyDate';
+        } else if (isEmptyWeight) {
+            throw 'emptyWeight';
+        } else if (isEmptyHeight) {
+            throw 'emptyHeight';
+        }
+
+
+    } catch (e) {
+
+    } finally {
+        console.log('# 웹 - 아이 수정 요청 종료');
+    }
+});
+
+
 //아이 등록 요청 처리 라우터
 router.post('/register', upload.single('image'), async (req, res) => {
     try {
 
-        console.log('#아이 등록 요청 시작');
+        console.log('#웹 - 아이 등록 요청 시작');
 
         console.log(req.body);
         const clientIdx = req.body.clientIdx;
@@ -77,8 +177,8 @@ router.post('/register', upload.single('image'), async (req, res) => {
         const gender = req.body.gender;
         //s3 key 링크
         const src = req.body.src;
-        const isEmptySrc = Validations.isEmpty(src);
 
+        const isEmptySrc = Validations.isEmpty(src);
         const isEmptyClientIdx = Validations.isEmpty(clientIdx);
         const isEmptyName = Validations.isEmpty(name);
         const isEmptyWeight = Validations.isEmpty(weight);
@@ -94,138 +194,77 @@ router.post('/register', upload.single('image'), async (req, res) => {
         const isValidMonth = month.length === 2;
         const isValidDate = date.length === 2;
 
-        const promo = (bloodType) => new Promise((resolve, reject) => {
-            const bloodEnum = ['A', 'B', 'O', 'AB'];
+        // 이렇게 만든 게 베스트 프랙티스다 라우터안에다가 await하고 쿼리 컨트롤러는 async -> primise 패턴
+        const isValidBloodType = await BabyController.checkBloodType(bloodType);
 
-            //혈액형 검사
-            bloodEnum.forEach((ele, i) => {
-                if (bloodType.indexOf(ele) === 0) {
-                    resolve(true)
-                } else {
-                    reject(false)
-                }
+        const allValid = (!isEmptyClientIdx && !isEmptyName && !isEmptyWeight && !isEmptyHeight && !isEmptyBloodType && !isEmptyYear && !isEmptyMonth && !isEmptyDate)
+            && (isValidBloodType && isValidDate && isValidWeight && isValidHeight && isValidYear && isValidMonth);
+
+        if (allValid) {
+            console.log('#모든 값이 정상입니다.');
+
+            //등록하는 게 없어졌는데, 누가 썼는지는 알아져야 해서, 로그로만 쓰라해서,
+            //사용자 계정에 디바이스 3개 스키마,
+            // 디바이스의 시리얼 번호는 계속 추가할 수 있게, 1번 피피..2번 피피, 3번 피피,
+
+            //0. 기존 아이가 존재하는 지 검색하여 존재한다면 defaultBaby:false, 아이가 없던 유저라면 defaultBaby:true
+            const hasBaby = await BabyController.countUserBabies(clientIdx);
+
+            //아이 스키마 생성
+            const baby = new Baby({
+                parent: clientIdx,
+                name: name,
+                defaultBaby: hasBaby === 0, //기본 선택 아기, 나중에 아이를 삭제 했을 떄 남은 아이가 한 명이라면 그 아이는 true로
+                gender: gender,
+                year: year,
+                month: month,
+                date: date,
+                bloodType: bloodType,
+                weight: weight,
+                height: height,
+                createdAt: Date.now(),
+                src: isEmptySrc ? null : src, //비어있으면 null을 넣고 아니면 src
             });
-        });
 
-        promo(bloodType).then((result) => {
-            return result;
-        }).then((result) => {
+            //1. 아이를 저장합니다.
+            const babySaveResult = await BabyController.createBaby(baby);
+            //아이의 _id
+            const babyIdx = babySaveResult._id;
+            //부모의 _id
+            const parentIdx = babySaveResult.parent;
 
-            const isValidBloodType = result;
-            const allValid = (!isEmptyClientIdx && !isEmptyName && !isEmptyWeight && !isEmptyHeight && !isEmptyBloodType && !isEmptyYear && !isEmptyMonth && !isEmptyDate)
-                && (isValidBloodType && isValidDate && isValidWeight && isValidHeight && isValidYear && isValidMonth);
+            //2. 아이의 부모 유저의 babies 필드를 업데이트 한다.(oid);
+            const newUserInfo = await UserController.updateBabyId(parentIdx, babyIdx);
 
-            if (allValid) {
-                console.log('#모든 값이 정상입니다.');
-                //등록하는 게 없어졌는데, 누가 썼는지는 알아져야 해서, 로그로만 쓰라해서,
-                //사용자 계정에 디바이스 3개 스키마,
-                // 디바이스의 시리얼 번호는 계속 추가할 수 있게, 1번 피피..2번 피피, 3번 피피,
+            //세션 갱신
+            req.session.key = newUserInfo;
 
+            //세션에서 모든 데이터를 관리하므로, 세션을 갱신해 준다. nosql은 정규화보단 집합적으로 관리한다는 것을 잊지 말것.
+            //서버로 데이터 보내기
+            res.json({
+                success: true,
+                session: newUserInfo,
+            });
 
-                //아이 스키마 생성
-                const baby = new Baby({
-                    parent: clientIdx,
-                    name: name,
-                    gender: gender,
-                    year: year,
-                    month: month,
-                    date: date,
-                    bloodType: bloodType,
-                    weight: weight,
-                    height: height,
-                    createdAt: Date.now(),
-                    src: isEmptySrc ? null : src, //비어있으면 null을 넣고 아니면 src
-                });
-
-                console.log('# 데이터 저장 중..');
-
-                //데이터 베이스에 아이 저장
-
-
-                baby.save(async (err, result) => {
-                    if (err) {
-                        throw 'server'
-                    }
-
-
-                    const babyId = result._id;
-                    const parentId = result.parent;
-
-                    console.log(parentId);
-
-                    //1. 모든 아이의 갯수를 구한다.(현재 부모의 아이디로 아이의 갯수를 구함); 아이의 순번을 정해주기 위해서
-                    await Baby.find({
-                        parent: parentId
-                    }).lean().exec((err, docs) => {
-                        if (err) {
-                            throw 'server'
-                        }
-
-                        if (docs) {
-                            console.log('#아이의 수');
-                            console.log(docs.length);
-                            console.log(docs);
-
-                            //order를 업데이트 해준다.
-                            Baby.findOneAndUpdate({_id: babyId, parent: parentId}, {
-                                $set: {order: docs.length}
-                            }, {new: true, multi: true, $setOnInsert: true}).lean().exec((err, docs) => {
-                                if (err) {
-                                    throw 'server'
-                                }
-                                if (docs) {
-                                    console.log('# 순서를 업데이트 했습니다.');
-                                    console.log(docs);
-                                }
-                            });
-                        }
-                    });
-
-                    //유저에 업데이트 해준다. array에 push, 삭제할 떄는 $pull
-                    await User.findOneAndUpdate({_id: clientIdx}, {
-                        $push: {babies: result._id},
-                    }, {
-                        new: true,
-                        $setOnInsert: true,
-                    }).populate({path: 'babies', options: {sort: {'order': 1}}}).exec((err, docs) => {
-
-                        if (err) {
-                            throw 'server'
-                        }
-
-                        if (docs) {
-                            console.log('# 아이 정보를 저장했습니다.');
-                            console.log(docs);
-
-                            //세션 갱신
-                            req.session.key = docs;
-
-                            //세션에서 모든 데이터를 관리하므로, 세션을 갱신해 준다. nosql은 정규화보단 집합적으로 관리한다는 것을 잊지 말것.
-                            //서버로 데이터 보내기
-                            return res.json({
-                                success: true,
-                                session: docs,
-                                baby:result
-                            });
-                        }
-
-                    });//query
-
-                });//end save
-
-
-            } else if (isEmptyClientIdx) {
-                throw 'require'
-            }
-        }).catch((err) => {
-            console.log(err);
-            throw 'server';
-        });
-
+        } else if (isEmptyClientIdx) {
+            throw 'require'
+        } else if (isEmptyName) {
+            throw 'emptyName';
+        } else if (isEmptyYear) {
+            throw 'emptyYear'
+        } else if (isEmptyMonth) {
+            throw 'emptyMonth';
+        } else if (isEmptyDate) {
+            throw 'emptyDate';
+        } else if (isEmptyWeight) {
+            throw 'emptyWeight';
+        } else if (isEmptyHeight) {
+            throw 'emptyHeight';
+        }
 
     } catch (e) {
         console.log('# 아이 등록 과정 중 에러가 발생했습니다.');
-        console.log(e);
+        console.log(`# 에러 종류 : ${e}`);
         return res.json({
             error: true,
             type: e
@@ -248,70 +287,43 @@ router.post('/delete', async (req, res) => {
         *2. 부모의 id값, 아이의 id값이 필요하다.
         * */
 
-        console.log(req.body);
-
         const clientIdx = req.body.clientIdx;
         const babyIdx = req.body.babyIdx;
-
-        console.log(clientIdx, babyIdx);
 
         const isEmptyClient = Validations.isEmpty(clientIdx);
         const isEmptyBaby = Validations.isEmpty(babyIdx);
 
         //아이 삭제 처리 전에 실행
-
         if (!isEmptyClient && !isEmptyBaby) {
-            console.log('#삭제시 필요한 값들이 전부 있습니다.');
+            console.log('# 아이 삭제시 필요한 값들이 전부 있습니다.');
 
             //1.아이 삭제
-            await Baby.findOneAndRemove({_id: babyIdx, parent: clientIdx}, async (err, docs) => {
-                if (err) {
-                    throw 'server'
-                }
+            const deleteResult = await BabyController.deleteOneBaby(clientIdx, babyIdx);
 
-                if (docs) {
-                    console.log('#삭제된 아이');
-                    console.log(docs);
-                    //s3에 키값이 있는 아이일 경우 s3에서 키 값을 지워준다.
-                    const isEmptyS3Key = Validations.isEmpty(docs.src);
-                    if (!isEmptyS3Key) {
-                        //2.아이가 썸네일이 있는 경우에는 썸네일도 삭제해준다.
-                        //s3에서 이미지 삭제
-                        console.log('# 썸네일이 있는 아이입니다.');
-                        await s3delete(docs.src);
-                    }
+            const isDefaultBaby = deleteResult.defaultBaby;
 
-                }
+            //1.삭제한 아이의 defaultBaby가 true라면 다른 아이 중에 가장 처 번째 아이를 true로
+            if (isDefaultBaby) {
+                const defaultBabyResult = await BabyController.setDefaultBaby(clientIdx);
+                console.log(defaultBabyResult);
+            }
 
+            //3. 유저의 참조부분 갱신
+            const userInfo = await UserController.deleteBabyOID(clientIdx, babyIdx);
+
+            //4. 세션 갱신
+            req.session.key = userInfo;
+
+            res.json({
+                success: true,
+                session: userInfo
             });
-            //3.유저 babies에 있는 참조하는 oid를 삭제한다.(new:true)를 해야 새로 변경된 값을 반환한다. 잊지 말아라. 여러개 업데이트 할꺼면 multi:true
-            await User.findByIdAndUpdate({_id: clientIdx},
-                {$pull: {babies: babyIdx}},
-                {multi: true, new: true}).populate('babies').exec((err, docs) => {
-                if (err) {
-                    throw 'server'
-                }
-
-                if (docs) {
-                    console.log('#아이 삭제 결과 값');
-                    console.log(docs);
-                    //세션 갱신 및 클라이언트에 전달
-                    req.session.key = docs;
-
-                    res.json({
-                        success: true,
-                        session: docs
-                    });
-                }
-            });
-
 
         } else if (isEmptyClient) {
             throw 'emptyClientIdx'
         } else if (isEmptyBaby) {
             throw 'emptyBabyIdx'
         }
-
 
     } catch (e) {
         console.log(`# 아이 삭제 과정 중 에러 ${e}`);
@@ -327,7 +339,6 @@ router.post('/delete', async (req, res) => {
 router.post('/get/info', async (req, res) => {
     try {
         console.log('# 웹에서 현재 아이의 정보 요청 시작');
-        console.log(req.body);
 
         const clientIdx = req.body.clientIdx;
         const babyIdx = req.body.babyIdx;
@@ -339,23 +350,14 @@ router.post('/get/info', async (req, res) => {
 
         if (allValid) {
             console.log(`# 요구되는 모든 값들이 있습니다. ${clientIdx},${babyIdx}`);
-            Baby.findOne({
-                parent: clientIdx,
-                _id: babyIdx
-            }).lean().exec((err, docs) => {
-                if (err) {
-                    throw 'server'
-                }
 
-                if (docs) {
-                    console.log('# 요청된 아이를 반환합니다.');
-                    console.log(docs);
-                    res.json({
-                        success: true,
-                        currentBaby: docs
-                    });
-                }
+            const result = await BabyController.findOneBaby(clientIdx, babyIdx);
+
+            res.json({
+                success: true,
+                currentBaby: result
             });
+
         } else if (isEmptyBabyIdx) {
             throw 'emptyBabyIdx'
         } else if (isEmptyClientIdx) {
@@ -372,6 +374,50 @@ router.post('/get/info', async (req, res) => {
     } finally {
         console.log('# 현재 아이 정보 요청 처리 끝');
     }
+});
+
+
+//defaultBaby가 true인 아기를 찾아서 반환(기본아기);
+router.post('/get/defaultbaby', async (req, res) => {
+    try {
+        const clientIdx = req.body.clientIdx;
+
+        const defaultBaby = await BabyController.getDefaultBaby(clientIdx);
+        console.log("결과 값 ,", defaultBaby);
+
+        if (defaultBaby !== false) {
+            res.json({
+                success: true,
+                currentBaby: defaultBaby
+            });
+        } else {
+            res.json({
+                success: false,
+            });
+        }
+
+
+    } catch (e) {
+        console.log('#에러 ', e);
+        res.json({
+            error: true,
+            type: 'server'
+        })
+    }
+});
+
+router.get('/test', async (req, res) => {
+    try {
+        //동기식 처리를 해주자. 그래야 값이 넘어간다.
+        // const result = await BabyController.createBaby(req.query);
+        const val = req.query.parentIdx;
+        const babiesLen = await BabyController.countUserBabies(val);
+
+        return res.json(babiesLen);
+    } catch (e) {
+
+    }
+
 });
 
 

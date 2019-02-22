@@ -133,9 +133,10 @@ class _BabybirthdateComponent extends React.PureComponent {
 
     render() {
         const {valid} = this.state;
+        const {year, month, date} = this.props;
         return (
-            <div className={cx(styles['baby-info-register-modal--form--container'], this.state.focus ? styles['active'] : undefined)}>
-                <label htmlFor="client-baby-year" className={cx(styles['__default-label-component'], this.state.focus ? styles['active'] : undefined)}>
+            <div className={cx(styles['baby-info-register-modal--form--container'], this.state.focus || year || month || date ? styles['active'] : undefined)}>
+                <label htmlFor="client-baby-year" className={cx(styles['__default-label-component'], this.state.focus || year || month || date ? styles['active'] : undefined)}>
                     생년월일
                     {
                         valid === 'isEmpty' ? <span>을 입력해주세요.</span> : null
@@ -152,6 +153,7 @@ class _BabybirthdateComponent extends React.PureComponent {
                            autoCapitalize={'off'}
                            placeholder={'Year'}
                            data-react-type={'year'}
+                           defaultValue={year}
                            onFocus={this.inputFocusHandler}
                            onBlur={this.inputBlurHandler}
                            onBlurCapture={(e) => {
@@ -182,6 +184,7 @@ class _BabybirthdateComponent extends React.PureComponent {
                            required={true}
                            autoCapitalize={'off'}
                            placeholder={'Month'}
+                           defaultValue={month}
                            data-react-type={'month'}
                            onFocus={this.inputFocusHandler}
                            onBlur={this.inputBlurHandler}
@@ -212,6 +215,7 @@ class _BabybirthdateComponent extends React.PureComponent {
                            maxLength="2"
                            required={true}
                            autoCapitalize={'off'}
+                           defaultValue={date}
                            placeholder={'Day'}
                            data-react-type={'date'}
                            onFocus={this.inputFocusHandler}

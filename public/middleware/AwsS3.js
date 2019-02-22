@@ -12,7 +12,7 @@ aws.config.update({
     region: process.env.AWS_S3_REGION,
 });
 
-exports.s3delete = async (key) => await s3.deleteObject({Bucket: process.env.AWS_BABY_THUMBNAIL_BUCKET, Key: key.substring(key.lastIndexOf('/') + 1, key.length)}, (err, data) => {
+exports.s3delete = (key) =>  s3.deleteObject({Bucket: process.env.AWS_BABY_THUMBNAIL_BUCKET, Key: key.substring(key.lastIndexOf('/') + 1, key.length)}, (err, data) => {
     if (err) {
         console.log(err, err.stack);
         throw 'server';

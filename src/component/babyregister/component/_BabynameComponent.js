@@ -56,10 +56,11 @@ class _BabynameComponent extends React.PureComponent {
 
     render() {
         const {valid} = this.state;
+        const {name} = this.props;
         return (
             <div className={cx(styles['baby-info-register-modal--form--container'], this.state.focus ? styles['active'] : undefined)}>
-                <label htmlFor="client-baby-name" className={cx(styles['__default-label-component'], this.state.focus ? styles['active'] : undefined)}>
-                    {this.state.focus ? "이름" : "이름을 입력해주세요."}
+                <label htmlFor="client-baby-name" className={cx(styles['__default-label-component'], this.state.focus || name ? styles['active'] : undefined)}>
+                    {this.state.focus || name? "이름" : "이름을 입력해주세요."}
                     {valid === 'isEmpty' && valid !== null ? <span>를 정확히 입력해주세요.</span> : undefined}
                 </label>
                 <input type="text" name="name"
@@ -68,8 +69,9 @@ class _BabynameComponent extends React.PureComponent {
                        className={styles['__default-input-component']}
                        required={true} autoCapitalize="off"
                        autoComplete={'none'}
-                       maxLength="20"
-                       placeholder={this.state.nameFocus ? '이름을 입력해주세요.' : undefined}
+                       maxLength={20}
+                       defaultValue={name || ''}
+                       placeholder={this.state.focus ? '이름을 입력해주세요.' : undefined}
                        onFocus={this.inputFocusHandler}
                        onBlur={this.inputBlurHandler}/>
             </div>
