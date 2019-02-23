@@ -179,7 +179,7 @@ class _BabybirthdateComponent extends React.PureComponent {
                 <div className={cx(styles['birthdate--input-box'], this.state.focus ? undefined : styles['active'])}>
                     <input type={'number'}
                            name="year"
-                           id="client-baby-year"
+                           id={styles['client-baby-year']}
                            ref={this.year}
                            className={cx(styles['__default-input-component'], condition ? styles['__warn'] : undefined)}
                            maxLength="4"
@@ -210,7 +210,7 @@ class _BabybirthdateComponent extends React.PureComponent {
                            }}/>
                     <input type={'number'}
                            name="month"
-                           id="client-baby-month"
+                           id={styles['client-baby-month']}
                            ref={this.month}
                            className={cx(styles['__default-input-component'], condition ? styles['__warn'] : undefined)}
                            maxLength="2"
@@ -241,7 +241,7 @@ class _BabybirthdateComponent extends React.PureComponent {
                            }}/>
                     <input type={'number'}
                            name="date"
-                           id="client-baby-date"
+                           id={styles['client-baby-date']}
                            ref={this.date}
                            className={cx(styles['__default-input-component'], condition ? styles['__warn'] : undefined)}
                            maxLength="2"

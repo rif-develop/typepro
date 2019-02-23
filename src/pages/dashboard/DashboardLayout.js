@@ -16,6 +16,7 @@ import SmartpeepeeWidgetComponent from "../../component/widget/SmartpeepeeWidget
 import SmartTempWidgetComponent from "../../component/widget/SmartTempWidgetComponent";
 import {socket} from "../../action/socket";
 import BabyModifyModal from "../../component/babyregister/BabyModifyModal";
+import {checkMobile} from "../../action/checkmobile";
 
 class DashboardLayout extends React.PureComponent {
 
@@ -103,7 +104,7 @@ class DashboardLayout extends React.PureComponent {
         if (width <= 640) {
             //snapshot을 반환하면 componentDidUpdate에서 받아서 처리한다.
             return 'mobilePackery'
-        } else if (width >= 640) {
+        } else if (width > 640) {
             return 'desktopPackery'
         }
         return null
@@ -149,10 +150,11 @@ class DashboardLayout extends React.PureComponent {
         //팩커리 변수
         let pckry = this.pckry;
         const elem = this.container.current;//요소를 담을 컨테이너
+
         if(elem!==null){
             pckry = new Packery(elem, option);
         }
-        if(packery && pckry!==null){
+        if(packery && pckry!==null && mobilecheck()===false){
             const target = document.querySelectorAll('.widget-list');
             target.forEach((elem, key) => {
                 let draggie = new Draggabilly(elem);
