@@ -81,7 +81,7 @@ const clientBabyList = (clientBabies, babyRegisterToggle, babyDeleteRequest, get
                     })
                 }
             </Anime>
-            <div style={{textAlign: 'center', marginTop: '10px'}}>
+            <div style={{textAlign: 'center', marginTop: '20px', marginBottom:'12px'}}>
                 <button type={'button'} onClick={babyRegisterToggle} className={styles['__add-button']}>추가</button>
             </div>
         </div>

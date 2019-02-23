@@ -31,7 +31,7 @@ class DashboardLayout extends React.PureComponent {
                 columnWidth: 318,
                 transitionDuration: '0.4s'
             },
-            smarttemp: 0,
+            smartTemp: null,
             clientIdx: this.props.clientIdx,
             packery: 'no'
         };
@@ -123,7 +123,7 @@ class DashboardLayout extends React.PureComponent {
 
     setTempState(data) {
         this.setState({
-            smarttemp: data
+            smartTemp: data
         })
     }
 
@@ -140,7 +140,7 @@ class DashboardLayout extends React.PureComponent {
 
         } = this.props;
 
-        const {smarttemp, option, packery} = this.state;
+        const {smartTemp, option, packery} = this.state;
 
         if (!isLogin) {
             //로그인 되어 있지 않다면 돌려보낸다.
@@ -149,14 +149,16 @@ class DashboardLayout extends React.PureComponent {
         //팩커리 변수
         let pckry = this.pckry;
         const elem = this.container.current;//요소를 담을 컨테이너
-        pckry = new Packery(elem, option);
-
-        const target = document.querySelectorAll('.widget-list');
-        target.forEach((elem, key) => {
-            let draggie = new Draggabilly(elem);
-            pckry.bindDraggabillyEvents(draggie);
-        });
-
+        if(elem!==null){
+            pckry = new Packery(elem, option);
+        }
+        if(packery && pckry!==null){
+            const target = document.querySelectorAll('.widget-list');
+            target.forEach((elem, key) => {
+                let draggie = new Draggabilly(elem);
+                pckry.bindDraggabillyEvents(draggie);
+            });
+        }
 
         return (
             <Fragment>
@@ -186,7 +188,7 @@ class DashboardLayout extends React.PureComponent {
                             <BabyInfoWidgetComponent clientBabies={clientBabies} currentBaby={currentBaby} babyRegisterToggle={babyRegisterToggle} babyModifyToggle={babyModifyToggle} setModifyInfo={setModifyInfo}/>
                             <SmartbottleWidgetComponent/>
                             <SmartpeepeeWidgetComponent/>
-                            <SmartTempWidgetComponent temperature={smarttemp}/>
+                            <SmartTempWidgetComponent temperature={smartTemp}/>
                         </Fragment>
                     </ul>
                 </div>
