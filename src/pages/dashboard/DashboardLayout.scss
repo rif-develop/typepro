@@ -252,40 +252,10 @@
     }
 
   }
-
-  //list
-
-  /*드래그 할 때*/
-  .dashboard--list.is-dragging, .dashboard--list.is-positioning-post-drag {
-    background: $pantone_3242_c_blur;
-    z-index: 2; /*드래그 할 때의 zindex*/
-    opacity: .6;
-
-  }
-
-  /*드래그 placeholder*/
-  .packery-drop-placeholder {
-    outline: 2px dashed $pantone_3242_c;
-    outline-offset: -6px;
-    -webkit-transition: all 0.25s ease-out;
-    -moz-transition: all 0.25s ease-out;
-    -ms-transition: all 0.25s ease-out;
-    -o-transition: all 0.25s ease-out;
-    transition: all 0.25s ease-out;
-    -webkit-animation: dashboard-placeholderAni 1s linear infinite alternate;
-    -o-animation: dashboard-placeholderAni 1s linear infinite alternate;
-    animation: dashboard-placeholderAni 1s linear infinite alternate;
-  }
-
 }
 
 @media only screen and (max-width: 640px) {
   .dashboard-component {
     width: 90%;
-    height: initial;
-  }
-  .dashboard-component .dashboard-component--widget {
-    width: 100%;
-    margin-bottom: 24px;
   }
 }

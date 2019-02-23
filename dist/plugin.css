@@ -1,0 +1,33 @@
+/*드래그 할 때*/
+.is-dragging, .is-positioning-post-drag {
+    background: #bfefec;
+    z-index: 2; /*드래그 할 때의 zindex*/
+    opacity: .6;
+
+}
+
+/*드래그 placeholder*/
+.packery-drop-placeholder {
+    outline: 2px dashed #bfefec;
+    outline-offset: -6px;
+    -webkit-transition: all 0.25s ease-out;
+    -moz-transition: all 0.25s ease-out;
+    -ms-transition: all 0.25s ease-out;
+    -o-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
+    -webkit-animation: dashboard-placeholderAni 1s linear infinite alternate;
+    -o-animation: dashboard-placeholderAni 1s linear infinite alternate;
+    animation: dashboard-placeholderAni 1s linear infinite alternate;
+}
+
+@keyframes dashboard-placeholderAni {
+    from {
+        opacity: 1;
+        outline: 2px dashed rgb(113, 219, 212);
+
+    }
+    to {
+        opacity: 0.2;
+        outline: 2px dashed rgb(133, 255, 128);
+    }
+}

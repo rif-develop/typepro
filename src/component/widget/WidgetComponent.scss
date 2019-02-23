@@ -48,11 +48,11 @@ $widgetThinGray: #fafafa;
         background: #fafafa url('./image/web-dashboard-2560-1329-card-feeding-icn-smart-bottle@2x.png') no-repeat center/48% auto
       }
 
-      &.--smart-peepee{
+      &.--smart-peepee {
         background: #fafafa url('./image/web-dashboard-2560-1329-card-pooing-icn-diaper@2x.png') no-repeat center/48% auto
       }
 
-      &.--smart-temp{
+      &.--smart-temp {
         background: #fafafa url('./image/web-dashboard-2560-1329-card-temp-icn-temperature@2x.png') no-repeat center/48% auto
       }
 
@@ -80,13 +80,13 @@ $widgetThinGray: #fafafa;
         font-family: fontopo-regular, sans-serif;
       }
 
-      time,span{
+      time, span {
         vertical-align: baseline;
       }
 
-      .separated-spec{
+      .separated-spec {
         font-size: 13px;
-        color:#3726af;
+        color: #3726af;
       }
 
     }
@@ -214,4 +214,13 @@ $widgetThinGray: #fafafa;
   }
 
   //.dashboard-component--widget--container
+}
+
+@media only screen and (max-width: 640px) {
+  .dashboard-component--widget {
+    width: 100%;
+    margin-bottom: 24px;
+    -ms-touch-action: pan-y !important;
+    touch-action: pan-y !important;
+  }
 }

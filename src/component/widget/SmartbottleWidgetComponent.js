@@ -8,7 +8,7 @@ class SmartbottleWidgetComponent extends React.PureComponent {
 
     render() {
         return (
-            <div className={cx(styles['dashboard-component--widget'],!this.props.desktop && 'widget-list')}>
+            <div className={cx(styles['dashboard-component--widget'], 'widget-list')}>
                 <div className={styles['dashboard-component--widget--container']}>
                     <h1 className={styles['dashboard-component--widget--container--title']}>수유</h1>
                     <div className={cx(styles['dashboard-component--widget--container--icon-img'], styles['--smart-bottle'])}>스마트 보틀이미지 입니다.</div>

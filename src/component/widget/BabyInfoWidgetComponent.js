@@ -23,7 +23,7 @@ class BabyInfoWidgetComponent extends React.PureComponent {
 
 
         return (
-            <div className={cx(styles['dashboard-component--widget'], !this.props.desktop && 'widget-list')}>
+            <div className={cx(styles['dashboard-component--widget'], 'widget-list')}>
                 <div className={styles['dashboard-component--widget--container']}>
                     <h1 className={styles['dashboard-component--widget--container--title']}>아이정보</h1>
                     <div className={styles['dashboard-component--widget--container--thumbnail']}>
