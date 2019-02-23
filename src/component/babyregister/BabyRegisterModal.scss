@@ -162,6 +162,7 @@
           span {
             opacity: 0;
             font-size: 11px;
+            vertical-align: baseline;
             color: #ff1a6f;
             -webkit-animation: opaAni 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
             -o-animation: opaAni 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
@@ -206,17 +207,59 @@
       //__default-label-component
 
       .birthdate--input-box {
-        display: table;
+        diplay: table;
+        width: 100%;
         table-layout: fixed;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
         box-sizing: border-box;
         text-align: center;
         vertical-align: middle;
+        overflow: hidden;
+
 
         .__default-input-component {
           display: table-cell;
           width: 33.3333%;
+          -webkit-transition: none;
+          -moz-transition: none;
+          -ms-transition: none;
+          -o-transition: none;
+          transition: none;
+        }
+
+        //component
+
+        //inputbox
+        &.active {
+          display: block;
+
+          .__default-input-component {
+            display: block;
+            width: 100%;
+            //년도
+            &#client-baby-year {
+              width: 100%;
+              position: relative;
+              display: block;
+            }
+
+            //월
+            &#client-baby-month {
+              position: relative;
+              display: none;
+            }
+
+            //일
+            &#client-baby-date {
+              position: relative;
+              display: none;
+            }
+          }
+
+          //component
+
+
         }
       }
 
@@ -428,11 +471,11 @@
 
 //baby-info-register-modal
 
-@media only screen and (max-width: 640px){
-  .baby-info-register-modal{
+@media only screen and (max-width: 640px) {
+  .baby-info-register-modal {
     width: 100%;
   }
-  .baby-info-register-modal .__close-modal-button{
+  .baby-info-register-modal .__close-modal-button {
     display: none;
   }
 }

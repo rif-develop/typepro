@@ -106,8 +106,6 @@ export function babyInfoReducer(state = initialState, action) {
                 ...state,
                 register: initialState.register,
                 modify: !state.modify,
-                babyList:state.babyList,
-                currentBaby:state.currentBaby,
                 src: null //모달창이 닫히면 src도 사라져야 함.
             };
         case SET_BABY_INFO_ALL_MODAL_CLOSE:
@@ -156,6 +154,7 @@ export function babyInfoReducer(state = initialState, action) {
             return {
                 ...state,
                 loading: false,
+                babyList:false,
                 register: initialState.register,
                 modify: initialState.modify,
                 src: initialState.src,
@@ -177,7 +176,6 @@ export function babyInfoReducer(state = initialState, action) {
                 loading: true,
                 register: state.register, //모달창은 현저 상태 유지
                 modify: initialState.modify, //수정 모달창은 닫는다.
-                babyList: initialState.babyList,
                 error: initialState.error,
                 src: state.src,
                 currentBaby: state.currentBaby,
@@ -201,7 +199,6 @@ export function babyInfoReducer(state = initialState, action) {
                 loading: false,
                 register: state.register, //모달창은 현저 상태 유지
                 modify: initialState.modify, //수정 모달창은 닫는다.
-                babyList: initialState.babyList,
                 error: action.error,
                 src: state.src,
                 currentBaby: state.currentBaby,
@@ -211,37 +208,18 @@ export function babyInfoReducer(state = initialState, action) {
             return {
                 ...state,
                 loading: true,
-                width: state.width,
-                session: state.session,
-                login: state.login,
-                error: {
-                    error: false,
-                    type: null
-                }
             };
         case API_DELETE_BABY_INFO_SUCCESS: //아이 삭제 요청 성공
             return {
                 ...state,
                 loading: false,
-                width: state.width,
-                session: action.session,
-                login: state.login,
-                error: {
-                    error: false,
-                    type: null
-                }
+                currentBaby:action.currentBaby
             };
         case API_DELETE_BABY_INFO_FAILURE: // 아이 삭제 요청 실패
             return {
                 ...state,
                 loading: false,
-                width: state.width,
-                session: state.session,
-                login: state.login,
-                error: {
-                    error: true,
-                    type: action.error
-                }
+                error:action.error
             };
         case SET_MODIFY_BABY_INFO : //수정할 아이의 정보를 리덕스 스토어에 갱신
             return {
@@ -270,13 +248,11 @@ export function babyInfoReducer(state = initialState, action) {
             return {
                 ...state,
                 loading: false,
-                register: initialState.register, //모달창은 항상 닫힌 상태로
-                modify: initialState.modify, //수정 모달창은 현재 상태를 유지
-                babyList: initialState.babyList, //갱신시 리스트 닫기
-                error: initialState.error,
+                modify: initialState.modify, //수정 모달창은 닫는다.
+                babyList: false, //갱신시 리스트 닫기
                 src: initialState.src,
-                currentBaby: state.currentBaby, //얘를 바꾸줘야 할까..?
-                currentModifyBaby: initialState.currentModifyBaby //요청 보낼 떄는 아직 수정한 아이 상태를 보존
+                currentBaby: action.currentBaby, //현재 선택된 아기를 클릳 후 수정하였을 경우 갱신을 위해 현재 아이 정보 변경ㄷ
+                currentModifyBaby: initialState.currentModifyBaby //수정이 끝났다면 이 값을 비운다.
             };
         case API_MODIFY_BABY_INFO_FAILURE://아이 수정 실패
             return {
@@ -305,13 +281,7 @@ export function babyInfoReducer(state = initialState, action) {
         case API_DEFAULT_BABY_INFO_SUCCESS:
             return{
                 ...state,
-                // register: initialState.register,
-                // modify: initialState.modify,
-                // babyList: initialState.babyList,
-                // error: initialState.error,
-                // src: initialState.src,
                 currentBaby: action.currentBaby,
-                // currentModifyBaby: initialState.currentModifyBaby,
             };
         case API_DEFAULT_BABY_INFO_FAILURE:
             return{

@@ -78,9 +78,7 @@ class BabyModifyModal extends React.PureComponent {
         formData.set('babyIdx', babyIdx);
 
         //아이수정 요청 액션 디스패치
-        // this.props.babyRegisterRequest(formData);
-        //크랍퍼 초기화 요청 액션 디스패치
-
+        this.props.babyModifyRequest(formData);
     }
 
     render() {
@@ -148,6 +146,10 @@ const mapDispatchToProps = (dispatch) => {
             size: size,
             originName: originName,
         }),
+        babyModifyRequest:(formData)=> dispatch({
+            type:'API_MODIFY_BABY_INFO_REQUEST',
+            formData
+        })
     }
 };
 

@@ -5,6 +5,9 @@ const {headerCheck} = require('../middleware/HeaderCheck');
 const Smartbottle = require('../scheme/smartbottleSchema');
 const Baby = require('../scheme/babySchema');
 
+//컨트롤러
+const SmartbottleController = require('../querycontroller/SmartbottleController');
+
 //스마트 보틀 라우터
 router.post('/smartbottle', async (req, res) => {
     try {
@@ -35,24 +38,54 @@ router.post('/smartbottle', async (req, res) => {
             ele.serialNumber = serialNumber;
             ele.macAddress = macAddress;
             ele.firmware = firmware;
-            ele.owner = clientIdx;
-            ele.baby = babyIdx;
             arr.push(ele);
         });
-        console.log('배열');
-        console.log(arr);
+
+        const clientHasData = await SmartbottleController.findOneBaby(clientIdx, babyIdx);
+
+        //이미 데이터가 존재한다면 거기에 계속 덧붙여 나간다.
+        if(clientHasData.length > 0){
+
+            Smartbottle.findOneAndUpdate({
+                owner:clientIdx,
+                baby:babyIdx
+            },{
+                $push:{
+                    'data':data
+                }
+            },{
+                new:true,
+                multi:true,
+                $setOnInsert:true
+            }).lean().exec((err,docs)=>{
+                if(err){
+                    throw 'server'
+                }
+
+                if(docs){
+                    console.log(docs);
+                }
+            });
 
 
 
+        } else{
 
-        const smartbottle = new Smartbottle({
-            data: arr
-        });
+            //데이터가 없는 회원이라면 새로 만든다.
+            console.log('배열');
+            console.log(arr);
 
-        smartbottle.save().then((result) => {
-            console.log(result);
-        });
 
+            const smartbottle = new Smartbottle({
+                owner: clientIdx,
+                baby: babyIdx,
+                data: arr
+            });
+
+            smartbottle.save().then((result) => {
+                console.log(result);
+            });
+        }
 
         return res.json({
             response: 'success',
@@ -61,7 +94,11 @@ router.post('/smartbottle', async (req, res) => {
 
 
     } catch (e) {
-
+        console.log(e);
+        res.json({
+            error:true,
+            type:'server'
+        })
     } finally {
 
     }

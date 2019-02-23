@@ -17,7 +17,6 @@ const bottleTimeIcon = require('./update-icn-bottle@2x.png');
 const peepeeTimeIcon = require('./update-icn-peepee@2x.png');
 const tempTimeIcon = require('./update-icn-temp@2x.png');
 
-
 //비활성화된 기기
 const inactiveBottle = require('./web-dashboard-2560-1329-dashboard-icn-bottle-inactive@2x.png');
 const inactivePeepee = require('./web-dashboard-2560-1329-dashboard-icn-peepee-inactive@2x.png');
@@ -27,6 +26,11 @@ const inactiveTemp = require('./web-dashboard-2560-1329-dashboard-icn-temp-inact
 const activeBottle = require('./web-dashboard-2560-1329-dashboard-icn-bottle-active@2x.png');
 const activePeepee = require('./web-dashboard-2560-1329-dashboard-icn-peepee-active@2x.png');
 const activeTemp = require('./web-dashboard-2560-1329-dashboard-icn-temp-active@2x.png');
+
+//기본 아이 썸네일
+const boyThumb = require('./image/card-baby-info-icn-biy@2x.png');
+const girlThumb = require('./image/card-baby-info-icn-girl@2x.png');
+
 
 const clientBabyList = (clientBabies, babyRegisterToggle, babyDeleteRequest, getThisBaby, babyListToggle, babyModifyToggle, setModifyInfo) => {
     return (
@@ -43,7 +47,15 @@ const clientBabyList = (clientBabies, babyRegisterToggle, babyDeleteRequest, get
                                         babyIdx: elem._id
                                     });
                                 }}>
-                                    <img src={elem.src !== null ? elem.src : defaultThumb} title={'dd'}/>
+                                    {
+                                        (elem.src === null || elem.src === 'null') && elem.gender === 'm' ? <img src={boyThumb} title={elem.name+'이 반가워요!'}/> : null
+                                    }
+                                    {
+                                        (elem.src === null || elem.src === 'null') && elem.gender === 'f' ? <img src={girlThumb} title={elem.name+'이 반가워요!'}/> : null
+                                    }
+                                    {
+                                        (elem.src !== null || elem.src !== 'null') ? <img src={elem.src} title={elem.name+'이 반가워요!'}/> : null
+                                    }
                                 </a>
                                 <div className={styles['dashboard-header-component--baby-container__list-box__buttons']}>
                                     <button type={'button'} className={styles['__modify-button']} onClick={(e) => {

@@ -12,7 +12,10 @@ class _BabynameComponent extends React.PureComponent {
         super(props);
         this.state = {
             focus: false,
-            valid: null
+            error: {
+                error: false,
+                type: null
+            }
         };
 
         //ref
@@ -26,6 +29,10 @@ class _BabynameComponent extends React.PureComponent {
         //레이블을 위로 옮기기 위해서 트루로 바꿔준다.
         this.setState({
             focus: true,
+            error: {
+                error: false,
+                type: null
+            }
         });
     }
 
@@ -35,19 +42,19 @@ class _BabynameComponent extends React.PureComponent {
         if (ref.value.length > 0) {
             const isEmpty = Validations.isEmpty(ref.value);
 
-            //빈 값이라면
-            if (isEmpty) {
-                this.setState({
-                    valid: 'isEmpty'
-                });
-            } else{
-                this.setState({
-                    valid:null
-                })
-            }
+            this.setState({
+                error: {
+                    error: false,
+                    type: null
+                }
+            })
         } else {
             this.setState({
-                focus: false
+                focus: true,
+                error: {
+                    error: true,
+                    type: 'emptyName'
+                }
             });
         }
 
@@ -55,18 +62,19 @@ class _BabynameComponent extends React.PureComponent {
     }
 
     render() {
-        const {valid} = this.state;
+        const {error} = this.state;
         const {name} = this.props;
+        const errorCondition = error.error && error.type === 'emptyName';
         return (
             <div className={cx(styles['baby-info-register-modal--form--container'], this.state.focus ? styles['active'] : undefined)}>
                 <label htmlFor="client-baby-name" className={cx(styles['__default-label-component'], this.state.focus || name ? styles['active'] : undefined)}>
-                    {this.state.focus || name? "이름" : "이름을 입력해주세요."}
-                    {valid === 'isEmpty' && valid !== null ? <span>를 정확히 입력해주세요.</span> : undefined}
+                    {this.state.focus || name ? "이름" : "이름을 입력해주세요."}
+                    {errorCondition ? <span>을 정확히 입력해주세요.</span> : undefined}
                 </label>
                 <input type="text" name="name"
                        ref={this.name}
                        id="client-baby-name"
-                       className={styles['__default-input-component']}
+                       className={cx(styles['__default-input-component'], errorCondition ? styles['__warn'] : undefined)}
                        required={true} autoCapitalize="off"
                        autoComplete={'none'}
                        maxLength={20}

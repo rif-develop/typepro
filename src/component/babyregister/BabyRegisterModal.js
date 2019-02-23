@@ -82,7 +82,7 @@ class BabyRegisterModal extends React.PureComponent {
 
     render() {
 
-        const {closeModal, clientIdx, toggleCropper, setFileInfo, cropperInit, cropperBlobSend, thumbnailRemove, thumbnail} = this.props;
+        const {closeModal, clientIdx, toggleCropper, setFileInfo, cropperInit, cropperBlobSend, thumbnailRemove, thumbnail,error} = this.props;
         return (
             <div className={styles['baby-info-register-modal']} ref={this.modal}>
                 <div className={styles['baby-info-register-modal--head']}>
@@ -92,10 +92,10 @@ class BabyRegisterModal extends React.PureComponent {
                     <fieldset form={'baby-info-register-modal--form'}>
                         <legend>아이정보를 등록하실 수 있는 폼입니다.</legend>
                         <ThumbnailComponent toggle={toggleCropper} clientIdx={clientIdx} fileResult={setFileInfo} thumbnailRemove={thumbnailRemove} thumbnail={thumbnail}/>
-                        <BabynameComponent/>
-                        <BabybirthdateComponent/>
-                        <BabyHeightComponent/>
-                        <BabyWeightComponent/>
+                        <BabynameComponent error={error}/>
+                        <BabybirthdateComponent error={error}/>
+                        <BabyHeightComponent error={error}/>
+                        <BabyWeightComponent error={error}/>
                         <BabyBloodtypeComponent/>
                         <BabyGenderComponent/>
                     </fieldset>
@@ -117,6 +117,7 @@ BabyRegisterModal.propTypes = {
 const mapStateToProps = (state) => {
     return {
         thumbnail: state.babyInfoReducer.src,
+        error:state.babyInfoReducer.error
     }
 };
 

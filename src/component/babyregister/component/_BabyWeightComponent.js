@@ -11,7 +11,10 @@ class _BabyWeightComponent extends React.PureComponent {
         super(props);
         this.state = {
             focus: false,
-            valid: null
+            error: {
+                error: false,
+                type: null
+            }
         };
         //ref
         this.weight = React.createRef();
@@ -24,7 +27,11 @@ class _BabyWeightComponent extends React.PureComponent {
 
     inputFocusHandler() {
         this.setState({
-            focus: true
+            focus: true,
+            error: {
+                error: false,
+                type: null
+            }
         })
     }
 
@@ -34,20 +41,28 @@ class _BabyWeightComponent extends React.PureComponent {
         if (val.length > 0) {
             const isValid = Validations.checkFloatDoublePoint(val);
             //유효성 통과하면
-            console.log(isValid);
             if (isValid) {
                 this.setState({
-                    valid: true
+                    error: {
+                        error: false,
+                        type: null
+                    }
                 });
             } else {
                 this.setState({
-                    valid: false
+                    error: {
+                        error: true,
+                        type: 'notValidWeight'
+                    }
                 });
+                this.weight.current.value = '';
             }
         } else {
             this.setState({
-                focus: false,
-                valid:null
+                error: {
+                    error: true,
+                    type: 'emptyWeight'
+                }
             });
         }
 
@@ -64,20 +79,25 @@ class _BabyWeightComponent extends React.PureComponent {
     }
 
     render() {
-        const {valid} = this.state;
+        const {error} = this.state;
         const {weight} = this.props;
 
+        const emptyCon = error.error && error.type === 'emptyWeight';
+        const validCon = error.error && error.type === 'notValidWeight';
+        console.log(emptyCon, validCon);
+
         return (
-            <div className={cx(styles['baby-info-register-modal--form--container'], this.state.focus ||weight ? styles['active'] : undefined)}>
-                <label htmlFor="client-baby-weight" className={cx(styles['__default-label-component'], this.state.focus ||weight ? styles['active'] : undefined)}>
+            <div className={cx(styles['baby-info-register-modal--form--container'], this.state.focus || weight ? styles['active'] : undefined)}>
+                <label htmlFor="client-baby-weight" className={cx(styles['__default-label-component'], this.state.focus || weight ? styles['active'] : undefined)}>
                     {this.state.focus ? '몸무게' : '몸무게를 입력해주세요.'}
-                    {!valid && valid !== null ? <span>를 정확히 입력해주세요.</span>:undefined}
+                    {emptyCon ? <span>를 입력해주세요.</span> : undefined}
+                    {validCon ? <span>는 정수2자리, 소수점 2자리까지 가능합니다.</span> : undefined}
                 </label>
                 <input type={'number'}
                        name={'weight'}
                        id={'client-baby-weight'}
                        ref={this.weight}
-                       className={cx(styles['__default-input-component'],!valid && valid !== null ?  styles['__warn']:undefined)}
+                       className={cx(styles['__default-input-component'], emptyCon || validCon ? styles['__warn'] : undefined)}
                        maxLength={5}
                        placeholder={this.state.focus ? '몸무게를 입력해주세요.' : null}
                        required={true}

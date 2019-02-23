@@ -69,25 +69,25 @@ class DashboardLayout extends React.PureComponent {
         //2. clientIdx를 보내서 서버에서 디폴트 아기값을 가져와야 한다. 하지만 새로고침하면 props가 늦게 받아진다.
         //자신만의 방을 만든다.
 
-        socket.emit('test', 'dd');
-        socket.emit('smarttemp', '스마트 보틀 연결되었습니다.');
-        socket.emit('smartbottle', '스마트 피피 연결되었습니다.');
-        socket.emit('smartpeepee', '스마트 템프 연결되었습니다.');
+        // socket.emit('test', 'dd');
+        // socket.emit('smarttemp', '스마트 보틀 연결되었습니다.');
+        // socket.emit('smartbottle', '스마트 피피 연결되었습니다.');
+        // socket.emit('smartpeepee', '스마트 템프 연결되었습니다.');
 
 
-        socket.emit('join', {clientId: 'test'});
-
-
-        socket.on('response', (data) => {
-            console.log('서버오 통신에 성공해서 값을 가져옴');
-            console.log(data);
-            const temp = data.temperature;
-            this.setTempState(temp);
-        });
-
-        socket.on('get smartbottle', (data) => {
-            console.log(data);
-        })
+        // socket.emit('join', {clientId: 'test'});
+        //
+        //
+        // socket.on('response', (data) => {
+        //     console.log('서버오 통신에 성공해서 값을 가져옴');
+        //     console.log(data);
+        //     const temp = data.temperature;
+        //     this.setTempState(temp);
+        // });
+        //
+        // socket.on('get smartbottle', (data) => {
+        //     console.log(data);
+        // })
     }
 
     // componentWillUpdate(nextProps, nextState, nextContext) {
@@ -180,7 +180,7 @@ class DashboardLayout extends React.PureComponent {
                 }
                 {/*아이 수정 모달*/}
                 {
-                    babyModifyModal && <BabyModifyModal babyModifyToggle={babyModifyToggle}/>
+                    babyModifyModal && <BabyModifyModal babyModifyToggle={babyModifyToggle} clientIdx={clientIdx}/>
                 }
                 {/* 이미지 크랍퍼 불러오기 */}
                 {

@@ -118,16 +118,26 @@ router.post('/update', async (req, res) => {
                 src: src
             };
 
-            //수정 쿼리 실행
+            //1. 수정 쿼리 실행
             const babyUpdate = await BabyController.updateOneBaby(obj);
+
+            //2. 세션 갱신을 위해 유저의 정보를 가져온다.
+            const newUserInfo = await UserController.findOneClient(obj.parent);
+
+            //3 defaultBaby:true인 아기의 값을 찾아 반환한다.currentBaby 갱신을 위해서
+            const currentBaby = await BabyController.getDefaultBaby(obj.parent);
+
+            console.log(currentBaby)
             //세션 갱신
-            // req.session.key = newUserInfo;
+            req.session.key = newUserInfo;
 
             //세션에서 모든 데이터를 관리하므로, 세션을 갱신해 준다. nosql은 정규화보단 집합적으로 관리한다는 것을 잊지 말것.
             //서버로 데이터 보내기
+
             res.json({
                 success: true,
-                // session: newUserInfo,
+                session: newUserInfo,
+                currentBaby:currentBaby
             });
 
             console.log(babyUpdate);
@@ -152,7 +162,11 @@ router.post('/update', async (req, res) => {
 
 
     } catch (e) {
-
+        console.log('# 웹 - 아이 수정 에러 :', e);
+        res.json({
+            error:true,
+            type:e
+        })
     } finally {
         console.log('# 웹 - 아이 수정 요청 종료');
     }
@@ -236,6 +250,9 @@ router.post('/register', upload.single('image'), async (req, res) => {
             //2. 아이의 부모 유저의 babies 필드를 업데이트 한다.(oid);
             const newUserInfo = await UserController.updateBabyId(parentIdx, babyIdx);
 
+            //3. defaultBaby:true인 아기 메서드
+            const defaultBaby = await BabyController.getDefaultBaby(parentIdx);
+
             //세션 갱신
             req.session.key = newUserInfo;
 
@@ -244,6 +261,7 @@ router.post('/register', upload.single('image'), async (req, res) => {
             res.json({
                 success: true,
                 session: newUserInfo,
+                currentBaby: defaultBaby
             });
 
         } else if (isEmptyClientIdx) {
@@ -265,7 +283,7 @@ router.post('/register', upload.single('image'), async (req, res) => {
     } catch (e) {
         console.log('# 아이 등록 과정 중 에러가 발생했습니다.');
         console.log(`# 에러 종류 : ${e}`);
-        return res.json({
+        res.json({
             error: true,
             type: e
         })
@@ -299,25 +317,48 @@ router.post('/delete', async (req, res) => {
 
             //1.아이 삭제
             const deleteResult = await BabyController.deleteOneBaby(clientIdx, babyIdx);
-
             const isDefaultBaby = deleteResult.defaultBaby;
 
-            //1.삭제한 아이의 defaultBaby가 true라면 다른 아이 중에 가장 처 번째 아이를 true로
-            if (isDefaultBaby) {
-                const defaultBabyResult = await BabyController.setDefaultBaby(clientIdx);
-                console.log(defaultBabyResult);
-            }
+            console.log('데헷;', deleteResult);
 
-            //3. 유저의 참조부분 갱신
+            //2. 유저의 참조부분 갱신(babies에 oid삭제)
             const userInfo = await UserController.deleteBabyOID(clientIdx, babyIdx);
 
-            //4. 세션 갱신
-            req.session.key = userInfo;
+            //3. 삭제 후 남아 있는 아이가 몇 명인지 확인
+            console.log('삭제 후 클라이언트의 현재 남아 있는 아이의 수 :', userInfo.babies.length);
+            console.log('마지막 아이가 삭제후 실행이 되었는가 ? ', true);
 
-            res.json({
-                success: true,
-                session: userInfo
-            });
+            const clientBabiesLen = userInfo.babies.length;
+
+            //1. 아이가 1명이상이며, 삭제한 아이가 defaultBaby:true라면 남아있는 다른 아이 중에 가장 마지막 아이의 defaultbaby를 true로 바꿔준다.
+            //2. (중요) 삭제 할 아이가 마지막 아이라면 실행되어서는 안 된다.
+            if (isDefaultBaby && clientBabiesLen >= 1) {
+                const defaultBabyResult = await BabyController.setDefaultBaby(clientIdx);
+            }
+
+            //3.5 유저의 아기가 1명이상이라면 default가 true인 아기를 돌려주고 아니면 만다.
+            if (clientBabiesLen >= 1) {
+                const defaultBaby = await BabyController.getDefaultBaby(clientIdx);
+                //4. 세션 갱신
+                req.session.key = userInfo;
+
+                res.json({
+                    success: true,
+                    session: userInfo,
+                    currentBaby: defaultBaby,
+                    lastBaby: false, // 아직 아이가 남았으니 currentBaby에 표시해줌
+                });
+            } else {
+                req.session.key = userInfo;
+
+                res.json({
+                    success: true,
+                    session: userInfo,
+                    lastBaby: true, //더 이상 아기가 없다고 알려줌
+                });
+
+            }
+
 
         } else if (isEmptyClient) {
             throw 'emptyClientIdx'
@@ -335,7 +376,7 @@ router.post('/delete', async (req, res) => {
 });
 
 
-//웹에서 클릭된 아이의 정보 요청을 처리하는 라우터(현재아이)
+//웹에서 클릭된 아이의 정보 요청을 처리하는 라우터(현재아이). 클릭한 아이는 defaultBaby:true로 하고 나머지 아이들은 false로
 router.post('/get/info', async (req, res) => {
     try {
         console.log('# 웹에서 현재 아이의 정보 요청 시작');
@@ -351,7 +392,7 @@ router.post('/get/info', async (req, res) => {
         if (allValid) {
             console.log(`# 요구되는 모든 값들이 있습니다. ${clientIdx},${babyIdx}`);
 
-            const result = await BabyController.findOneBaby(clientIdx, babyIdx);
+            const result = await BabyController.setAllDefaultBabyToFalse(clientIdx, babyIdx);
 
             res.json({
                 success: true,

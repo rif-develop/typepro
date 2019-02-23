@@ -3,21 +3,31 @@ import styles from './WidgetComponent.scss';
 import classnames from 'classnames';
 
 const cx = classnames.bind(styles);
-
+//성별 아이콘
 const boyIcon = require('./boy.png');
 const girIcon = require('./girl.png');
+//성별 썸네일
+const defaultBoyThumb = require('./image/card-baby-info-icn-biy@2x.png');
+const defaultGirlThumb = require('./image/card-baby-info-icn-girl@2x.png');
 
 class BabyInfoWidgetComponent extends React.PureComponent {
     render() {
 
         const {currentBaby, clientBabies} = this.props;
         const condition = currentBaby !== null && currentBaby !== undefined && clientBabies.length > 0;
+
+        const thumbCon = currentBaby.src !== null && currentBaby.src !== 'null';
+        console.log('a', currentBaby);
         return (
             <div className={cx(styles['dashboard-component--widget'], 'widget-list')}>
                 <div className={styles['dashboard-component--widget--container']}>
                     <h1 className={styles['dashboard-component--widget--container--title']}>아이정보</h1>
                     <div className={styles['dashboard-component--widget--container--thumbnail']}>
-                        <img src={condition ? currentBaby.src : require('./icn-no-baby@2x.png')} width="auto" height="auto" alt={'썸네일을 등록하지 않은 아이입니다.'}/>
+                        {
+                            condition ? <img src={thumbCon ? currentBaby.src : currentBaby.gender === 'm' ? defaultBoyThumb : defaultGirlThumb} width="auto" height="auto" alt={'썸네일을 등록하지 않은 아이입니다.'}/>
+                                : <img src={require('./icn-no-baby@2x.png')} width="auto" height="auto" alt={'아이가 없습니다. 아이를 등록해 주세요.'}/>
+
+                        }
                     </div>
                     <div className={styles['dashboard-component--widget--container--info']}>
                         {

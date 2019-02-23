@@ -13,9 +13,12 @@ class _BabybirthdateComponent extends React.PureComponent {
 
         this.state = {
             focus: false,
-            valid: null,
             minYear: null,
-            maxYear: null
+            maxYear: null,
+            error: {
+                error: false,
+                type: null
+            }
         };
         //ref
         this.year = React.createRef();
@@ -23,10 +26,10 @@ class _BabybirthdateComponent extends React.PureComponent {
         this.date = React.createRef();
         //binding
 
-        this.inputBlurHandler = this.inputBlurHandler.bind(this);
         this.inputFocusHandler = this.inputFocusHandler.bind(this);
         this.inputChangeHandler = this.inputChangeHandler.bind(this);
         this.birthdateOnBlurHandler = this.birthdateOnBlurHandler.bind(this);
+        this.setStateFocusTrue = this.setStateFocusTrue.bind(this);
     }
 
     componentDidMount() {
@@ -44,40 +47,14 @@ class _BabybirthdateComponent extends React.PureComponent {
     inputFocusHandler() {
         //레이블 위로
         this.setState({
-            focus: true
+            focus: true,
+            error:{
+                error:false,
+                type:null
+            }
         });
     }
 
-    inputBlurHandler() {
-        const yearVal = this.year.current.value;
-        const monthVal = this.month.current.value;
-        const dateVal = this.date.current.value;
-        //칸이 한 개라도 글 자가 있다면 리턴시킨다.
-        if (yearVal.length > 0 || monthVal.length > 0 || dateVal.length > 0) {
-            const isEmptyYear = Validations.isEmpty(yearVal);
-            const isEmptyMonth = Validations.isEmpty(monthVal);
-            const isEmptyDate = Validations.isEmpty(dateVal);
-            //하나라도 빈 값인지 체크하기
-
-            if (isEmptyYear && isEmptyMonth && isEmptyDate) {
-                this.setState({
-                    valid: 'isEmpty'
-                });
-            } else {
-                this.setState({
-                    valid: null
-                });
-            }
-
-        } else {
-            //레이블 아래로 내리기
-            this.setState({
-                focus: false
-            });
-        }
-
-
-    }
 
     inputChangeHandler(ref) {
         const len = ref.value.length;
@@ -90,12 +67,62 @@ class _BabybirthdateComponent extends React.PureComponent {
 
     birthdateOnBlurHandler(ref) {
         let value = ref.value;
+
         const maxlength = ref.maxLength;
         const dataSet = ref.dataset.reactType;
 
-        if (value.length === 0) {
+        //모든 인풋 값이 비었다면 focus:false로 label내린다.
+        const yearLen = this.year.current.value.length;
+        const monthLen = this.month.current.value.length;
+        const dateLen = this.date.current.value.length;
+
+        //벗어 났을 때 year가 비었다면
+        if (yearLen < 4) {
+            this.setState({
+                focus: true,
+                error: {
+                    error: true,
+                    type: 'emptyBirth',
+                }
+            });
+        } else if (monthLen < 1) {
+            this.setState({
+                focus: true,
+                error: {
+                    error: true,
+                    type: 'emptyBirth',
+                }
+            });
+        } else if (dateLen < 1) {
+            this.setState({
+                focus: true,
+                error: {
+                    error: true,
+                    type: 'emptyBirth',
+                }
+            });
+        } else{
+            this.setState({
+                focus: true,
+                error: {
+                    error: false,
+                    type: null,
+                }
+            });
+        }
+
+
+        if (yearLen === 0 && monthLen === 0 && dateLen === 0) {
+            this.setState({
+                focus: true,
+                error: {
+                    error: true,
+                    type: 'emptyBirth',
+                }
+            });
             return;
         }
+
 
         if (value.length > maxlength) {
             value = value.slice(0, maxlength);
@@ -103,9 +130,9 @@ class _BabybirthdateComponent extends React.PureComponent {
         }
 
         if ('year' === dataSet) {
+
             if (value < this.state.minYear || value > this.state.maxYear) {
                 ref.value = '';
-                ref.focus();
                 return;
             }
 
@@ -113,7 +140,6 @@ class _BabybirthdateComponent extends React.PureComponent {
         } else if ('month' === dataSet) {
             if (value < 1 || value > 12) {
                 ref.value = '';
-                ref.focus();
                 return;
             } else if (value.length === 1 && value > 0 && value < 10) {
                 ref.value = '0' + ref.value;
@@ -123,7 +149,6 @@ class _BabybirthdateComponent extends React.PureComponent {
         } else if ('date' === dataSet) {
             if (value < 1 || value > 31) {
                 ref.value = '';
-                ref.focus();
                 return;
             } else if (value.length === 1 && value > 0 && value < 10) {
                 ref.value = '0' + ref.value;
@@ -131,31 +156,39 @@ class _BabybirthdateComponent extends React.PureComponent {
         }
     }
 
+    setStateFocusTrue() {
+        this.setState({
+            focus: true
+        })
+    }
+
     render() {
         const {valid} = this.state;
         const {year, month, date} = this.props;
+
+        const condition = this.state.error.error && this.state.error.type === 'emptyBirth';
+
         return (
             <div className={cx(styles['baby-info-register-modal--form--container'], this.state.focus || year || month || date ? styles['active'] : undefined)}>
                 <label htmlFor="client-baby-year" className={cx(styles['__default-label-component'], this.state.focus || year || month || date ? styles['active'] : undefined)}>
                     생년월일
                     {
-                        valid === 'isEmpty' ? <span>을 입력해주세요.</span> : null
+                        condition? <span>을 입력해주세요.</span> : null
                     }
                 </label>
-                <div className={styles['birthdate--input-box']}>
+                <div className={cx(styles['birthdate--input-box'], this.state.focus ? undefined : styles['active'])}>
                     <input type={'number'}
                            name="year"
                            id="client-baby-year"
                            ref={this.year}
-                           className={styles['__default-input-component']}
+                           className={cx(styles['__default-input-component'], condition ? styles['__warn'] : undefined)}
                            maxLength="4"
                            required={true}
                            autoCapitalize={'off'}
-                           placeholder={'Year'}
+                           placeholder={this.state.focus ? 'Year' : '생년월일을 입력해주세요.'}
                            data-react-type={'year'}
                            defaultValue={year}
                            onFocus={this.inputFocusHandler}
-                           onBlur={this.inputBlurHandler}
                            onBlurCapture={(e) => {
                                this.birthdateOnBlurHandler(this.year.current);
                            }}
@@ -179,7 +212,7 @@ class _BabybirthdateComponent extends React.PureComponent {
                            name="month"
                            id="client-baby-month"
                            ref={this.month}
-                           className={styles['__default-input-component']}
+                           className={cx(styles['__default-input-component'], condition ? styles['__warn'] : undefined)}
                            maxLength="2"
                            required={true}
                            autoCapitalize={'off'}
@@ -187,7 +220,6 @@ class _BabybirthdateComponent extends React.PureComponent {
                            defaultValue={month}
                            data-react-type={'month'}
                            onFocus={this.inputFocusHandler}
-                           onBlur={this.inputBlurHandler}
                            onBlurCapture={(e) => {
                                this.birthdateOnBlurHandler(this.month.current);
                            }}
@@ -211,7 +243,7 @@ class _BabybirthdateComponent extends React.PureComponent {
                            name="date"
                            id="client-baby-date"
                            ref={this.date}
-                           className={styles['__default-input-component']}
+                           className={cx(styles['__default-input-component'], condition ? styles['__warn'] : undefined)}
                            maxLength="2"
                            required={true}
                            autoCapitalize={'off'}
@@ -219,7 +251,6 @@ class _BabybirthdateComponent extends React.PureComponent {
                            placeholder={'Day'}
                            data-react-type={'date'}
                            onFocus={this.inputFocusHandler}
-                           onBlur={this.inputBlurHandler}
                            onBlurCapture={(e) => {
                                this.birthdateOnBlurHandler(this.date.current);
                            }}

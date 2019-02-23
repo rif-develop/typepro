@@ -11,7 +11,10 @@ class _BabyHeightComponent extends React.PureComponent {
         super(props);
         this.state = {
             focus: false,
-            valid: null
+            error:{
+                error:false,
+                type:null
+            }
         };
         //ref
         this.height = React.createRef();
@@ -25,8 +28,13 @@ class _BabyHeightComponent extends React.PureComponent {
 
     inputFocusHandler() {
         this.setState({
-            focus: true
+            focus: true,
+            error:{
+                error:false,
+                type:null
+            }
         });
+
     }
 
     inputBlurHandler() {
@@ -40,19 +48,28 @@ class _BabyHeightComponent extends React.PureComponent {
             //유효성 검사에 통과하묜
             if (validHeight) {
                 this.setState({
-                    valid: true
+                    error:{
+                        error:false,
+                        type:null
+                    }
                 });
             } else {
                 this.setState({
-                    valid: false,
+                    error:{
+                        error:true,
+                        type:'notValidHeight'
+                    }
                 });
+                this.height.current.value = '';
             }
 
         } else {
             //글자가 없으면 레이블 내리기
             this.setState({
-                focus: false,
-                valid: null
+                error:{
+                    error:true,
+                    type:'emptyHeight'
+                }
             })
         }
     }
@@ -68,17 +85,22 @@ class _BabyHeightComponent extends React.PureComponent {
 
     render() {
 
-        let {valid} = this.state;
+        let {error} = this.state;
         const {height} = this.props;
+
+        const validatedCon = error.error && error.type === 'notValidHeight' ;
+        const emptyCon = error.error && error.type ==='emptyHeight';
+
         return (
             <div className={cx(styles['baby-info-register-modal--form--container'], this.state.focus || height ? styles['active'] : undefined)}>
                 <label htmlFor="client-baby-height" className={cx(styles['__default-label-component'], this.state.focus ||height ? styles['active'] : undefined)}>
                     {this.state.focus ? '키' : '키를 입력해주세요.'}
-                    {!valid && valid !== null ? <span>를 정확히 입력해주세요.</span> : undefined}
+                    {validatedCon ? <span>는 정수 3자리, 소수점 2자리까지 가능합니다.</span> : undefined}
+                    {emptyCon ? <span>를 입력해주세요.</span> : undefined}
                 </label>
                 <input type={'number'} name="height" id="client-baby-height"
                        ref={this.height}
-                       className={cx(styles['__default-input-component'], !valid && valid !== null ? styles['__warn'] : undefined)}
+                       className={cx(styles['__default-input-component'], validatedCon || emptyCon ? styles['__warn'] : undefined)}
                        maxLength={6}
                        placeholder={this.state.focus ? '키를 입력해주세요.' : null}
                        required={true}

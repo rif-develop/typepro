@@ -2,18 +2,18 @@ const mongoose = require('mongoose');
 const {Schema} = mongoose;
 
 const smartpeepeeSchema = new Schema({
+    owner: {
+        type: mongoose.Types.ObjectId,
+        required: true,
+        ref: 'User',
+    },
+    baby: {
+        type: mongoose.Types.ObjectId,
+        required: true,
+        ref: 'Baby'
+    },
     data: [
         {
-            owner: {
-                type: mongoose.Types.ObjectId,
-                required: true,
-                ref: 'User',
-            },
-            baby: {
-                type: mongoose.Types.ObjectId,
-                required: true,
-                ref: 'Baby'
-            },
             serialNumber: {
                 type: String,
             },

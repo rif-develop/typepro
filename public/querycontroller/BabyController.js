@@ -29,10 +29,12 @@ class BabyController {
 
     //아이 한 명을 제거하는 메서드
     static async deleteOneBaby(clientIdx, babyIdx) {
-        return new Promise((resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             try {
-
+                //1. 삭제시 defaultBaby:true라면 맨 마지막 등록한 아기를 defaultBaby:true로 만들어준다. 그러고 true인 객체를 반환한다.
+                // 2. 삭제시 defaultBaby:true면 currentBaby를 초기화한다.
                 console.log('# 아이를 삭제 메서드 시작');
+
                 Baby.findOneAndRemove({
                     _id: babyIdx,
                     parent: clientIdx
@@ -42,10 +44,10 @@ class BabyController {
                     }
 
                     if (docs) {
-                        console.log('# 삭제된 아이', docs);
                         const isEmptyS3Key = Validations.isEmpty(docs.src);
+
+                        //2.아이가 썸네일이 있는 경우에는 썸네일도 삭제해준다.
                         if (!isEmptyS3Key) {
-                            //2.아이가 썸네일이 있는 경우에는 썸네일도 삭제해준다.
                             //s3에서 이미지 삭제
                             console.log('# 썸네일이 있는 아이입니다.');
                             s3delete(docs.src);
@@ -53,6 +55,7 @@ class BabyController {
                         resolve(docs);
                     }
                 });
+
             } catch (e) {
                 console.log(e);
                 return e;
@@ -108,8 +111,6 @@ class BabyController {
             } finally {
                 console.log('# 아이 수정 종료');
             }
-
-
         });
     }
 
@@ -192,6 +193,7 @@ class BabyController {
             try {
                 console.log('# 쿼리 시작');
                 console.log(clientIdx);
+
                 Baby.findOne({
                     parent: clientIdx,
                     defaultBaby: true
@@ -203,7 +205,9 @@ class BabyController {
                     if (docs !== null) {
                         console.log('# defaultBaby가 true인 아기');
                         resolve(docs);
-                    } else{
+                    } else {
+                        console.log('# defaultBaby 전부 false');
+
                         resolve(false)
                     }
                 })
@@ -216,6 +220,65 @@ class BabyController {
         });
     }
 
+    //매개변수를 제외한 나머지 아이들의 값 defaultBaby를 false로, 매개변수로 넘긴 값은 true로
+    static async setAllDefaultBabyToFalse(clientIdx, babyIdx) {
+        return new Promise((resolve, reject) => {
+            try {
+                //defaultBaby:false
+                console.log('# defaultBaby 변경 중..');
+                Baby.updateMany({
+                    parent: clientIdx,
+                    _id: {
+                        $nin: babyIdx
+                    }
+                }, {
+                    $set: {
+                        defaultBaby: false
+                    }
+                }, {
+                    new: true,
+                    multi: true,
+                    $setOnInsert: true
+                }).lean().exec((err, docs) => {
+                    if (err) {
+                        reject('server')
+                    }
+
+                    if (docs) {
+
+                        console.log(docs);
+
+                        Baby.findOneAndUpdate({
+                            _id: babyIdx,
+                            parent: clientIdx
+                        }, {
+                            $set: {
+                                defaultBaby: true
+                            }
+                        }, {
+                            new: true,
+                            $setOnInsert: true
+                        }).lean().exec((err, docs) => {
+                            if (err) {
+                                reject('server')
+                            }
+                            if (docs) {
+                                console.log(docs);
+                                resolve(docs);
+                            }
+                        });
+                    }
+                });//query
+
+
+            } catch (e) {
+                reject('server')
+            } finally {
+                console.log('# defaultBaby 변경 끝');
+            }
+        });
+    }
+
 
     //아이를 기본 아이 상태로 바꾼다.(defaultBaby가 true인 아이가 페이지 로드후 보인다.);
     static async setDefaultBaby(clientIdx) {
@@ -223,13 +286,14 @@ class BabyController {
             try {
                 Baby.findOne({
                     parent: clientIdx
-                }).sort({'_id': 1}).limit(1).lean().exec((err, docs) => {
+                }).sort({$natural: 1}).limit(1).lean().exec((err, docs) => {
+
                     if (err) {
-                        throw 'server'
+                        reject('server');
                     }
 
                     if (docs) {
-                        console.log(docs);
+                        console.log('setDefaultBaby ',docs);
                         Baby.findOneAndUpdate({
                             _id: docs._id,
                             parent: clientIdx
@@ -237,7 +301,7 @@ class BabyController {
                             $set: {'defaultBaby': true}
                         }).lean().exec((err, docs) => {
                             if (err) {
-                                return 'server'
+                                reject('server');
                             }
 
                             if (docs) {
@@ -248,7 +312,7 @@ class BabyController {
                     }
                 });
             } catch (e) {
-                return e;
+                reject(e);
             } finally {
                 console.log('# 아이 기본설정화 메서드 종료');
             }

@@ -5,6 +5,35 @@ const User = require('../scheme/userSchema');
 
 class UserController {
 
+    static async findOneClient(clientIdx) {
+        return new Promise((resolve, reject) => {
+            try {
+                console.log('# 클라이언트의 정보 찾기 시작.');
+                console.log('populate 했는지 체크하자(중요)');
+                User.findOne({
+                    _id:clientIdx
+                }).populate('babies').lean().exec((err,docs)=>{
+                    if(err){
+                        reject('server');
+                    }
+
+                    if(docs!== null){
+                        console.log('#클라이언트를 찾았습니다.');
+                        resolve(docs);
+                    }
+                    console.log('# 발견된 클라이언트가 없습니다.');
+                })
+            } catch (e) {
+                reject('server');
+
+            } finally {
+                console.log('# 클라이언트의 정보 찾기 종료.');
+
+            }
+        });
+    }
+
+
     //부모의 babies 스키마에 아이의 OID를 삽입한다.
     static async updateBabyId(parentIdx, babyIdx) {
         return new Promise((res, rej) => {
@@ -46,12 +75,11 @@ class UserController {
                     {$pull: {babies: babyIdx}},
                     {multi: true, new: true}).populate('babies').exec((err, docs) => {
                     if (err) {
-                        throw 'server'
+                        reject('server');
                     }
 
                     if (docs) {
-                        console.log('# 아이 삭제 결과 값');
-                        console.log(docs);
+                        console.log('# user babies oid 삭제 결과 ', docs);
 
                         resolve(docs);
 
@@ -59,7 +87,7 @@ class UserController {
                 });
             } catch (e) {
                 console.log(e);
-                return e;
+                reject('server');
             } finally {
                 console.log('# 유저 아이 삭제 메서드 종료');
 
