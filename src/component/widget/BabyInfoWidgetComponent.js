@@ -13,13 +13,17 @@ const defaultGirlThumb = require('./image/card-baby-info-icn-girl@2x.png');
 class BabyInfoWidgetComponent extends React.PureComponent {
     render() {
 
-        const {currentBaby, clientBabies} = this.props;
+        //State Props
+        const {currentBaby, clientBabies, clientIdx} = this.props;
+        //Action Props
+        const {babyModifyToggle, babyRegisterToggle,setModifyInfo} = this.props;
         const condition = currentBaby !== null && currentBaby !== undefined && clientBabies.length > 0;
 
         const thumbCon = currentBaby.src !== null && currentBaby.src !== 'null';
-        console.log('a', currentBaby);
+
+
         return (
-            <div className={cx(styles['dashboard-component--widget'], 'widget-list')}>
+            <div className={cx(styles['dashboard-component--widget'], !this.props.desktop && 'widget-list')}>
                 <div className={styles['dashboard-component--widget--container']}>
                     <h1 className={styles['dashboard-component--widget--container--title']}>아이정보</h1>
                     <div className={styles['dashboard-component--widget--container--thumbnail']}>
@@ -42,7 +46,12 @@ class BabyInfoWidgetComponent extends React.PureComponent {
                         }
                     </div>
                     <div className={styles['dashboard-component--widget--container--button-box']}>
-                        <button type="button" className={cx(styles['__more-info-button'], condition ? undefined : styles['baby-register'])} onClick={condition ? null : null}>
+                        <button type="button" className={cx(styles['__more-info-button'], condition ? undefined : styles['baby-register'])} onClick={condition ? (e) => {
+                            //수정할 아이의 정보를 리덕스에 디스패치
+                            setModifyInfo(currentBaby);
+                            //수정 모달창 토글
+                            babyModifyToggle();
+                        } : babyRegisterToggle}>
                             {condition ? '수정' : '등록'}
                         </button>
                     </div>

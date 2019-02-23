@@ -84,6 +84,7 @@ class BabyModifyModal extends React.PureComponent {
     render() {
 
         const {clientIdx, toggleCropper, setFileInfo, babyModifyToggle, thumbnailRemove, thumbnail, babyInfo} = this.props;
+
         return (
             <div className={styles['baby-info-register-modal']} ref={this.modal}>
                 <div className={styles['baby-info-register-modal--head']}>

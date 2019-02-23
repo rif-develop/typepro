@@ -50,10 +50,4 @@ Packery.prototype.initShiftLayout = function (positions, attr) {
 
 }; //initShiftLayout
 
-/*팩커리 드래거블 해제*/
-Packery.prototype.unbindDraggabillyEvents = function (draggie) {
-    draggie.off('dragStart', this.handleDraggabilly.dragStart);
-    draggie.off('dragMove', this.handleDraggabilly.dragMove);
-    draggie.off('dragEnd', this.handleDraggabilly.dragEnd);
-};
 

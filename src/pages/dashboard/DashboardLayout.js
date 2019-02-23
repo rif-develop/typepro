@@ -21,21 +21,23 @@ class DashboardLayout extends React.PureComponent {
 
     constructor(props) {
         super(props);
-
-        this.props.getSession();
         this.state = {
             option: {
                 itemSelector: '.widget-list',
                 gutter: 24,
                 percentPosition: false,
                 initLayout: true,
+                stagger: 40,
                 columnWidth: 318,
                 transitionDuration: '0.4s'
             },
             smarttemp: 0,
-            clientIdx: this.props.clientIdx
+            clientIdx: this.props.clientIdx,
+            packery: 'no'
         };
 
+        //packery, this.pckry로 접근;
+        let pckry = null;
         //ref
         this.container = React.createRef();
         //bind
@@ -44,7 +46,6 @@ class DashboardLayout extends React.PureComponent {
 
     static getDerivedStateFromProps(props, state) {
         if (props.clientIdx !== state.clientIdx) {
-
             return {
                 clientIdx: props.clientIdx,
             }
@@ -55,16 +56,23 @@ class DashboardLayout extends React.PureComponent {
     componentDidMount() {
         //화면 맨위로
         document.body.scrollTo(0, 0);
-
-        //대쉬보드에 들어왔을 경우 소켓을 켜서 데이터를 받을 준비가 됐다고 서버에 알린다.
         //1. 세션을 가져오고
-
+        this.props.getSession();
 
         setTimeout(() => {
             const clientIdx = this.state.clientIdx;
             this.props.getDefaultBabyInfo(clientIdx);
         }, 150);
 
+
+        //대쉬보드에 들어왔을 경우 소켓을 켜서 데이터를 받을 준비가 됐다고 서버에 알린다.
+
+        //팩커리 드래거블 바인
+
+
+        //         //client의 _id로 방에 참가시킨다.
+        //
+        //         socket.emit('join', {clientId: 'test'});
 
         //2. clientIdx를 보내서 서버에서 디폴트 아기값을 가져와야 한다. 하지만 새로고침하면 props가 늦게 받아진다.
         //자신만의 방을 만든다.
@@ -90,55 +98,28 @@ class DashboardLayout extends React.PureComponent {
         // })
     }
 
-    // componentWillUpdate(nextProps, nextState, nextContext) {
-    //     // if(nextProps.clientIdx){
-    //     //     this.props.getDefaultBabyInfo(nextProps.clientIdx);
-    //     // }
-    //
-    //     if (nextProps.width) {
-    //         if (nextProps.width >= 641) {
-    //             const elem = this.container.current;//요소를 담을 컨테이너
-    //             const pckry = new Packery(elem, this.state.option);
-    //
-    //             const target = document.querySelectorAll('.widget-list');
-    //             //팩커리 드래거블 바인
-    //             setTimeout(() => {
-    //                 target.forEach((elem, key) => {
-    //                     const draggie = new Draggabilly(elem);
-    //                     pckry.bindDraggabillyEvents(draggie);
-    //                     pckry.layout()
-    //                 });
-    //             }, 300);
-    //
-    //
-    //         } else {
-    //             const elem = this.container.current;//요소를 담을 컨테이너
-    //             const pckry = new Packery(elem, this.state.option);
-    //
-    //             // const target = document.querySelectorAll('.widget-list');
-    //             //
-    //             // setTimeout(()=>{
-    //             //     target.forEach((elem, key) => {
-    //             //         const draggie = new Draggabilly(elem);
-    //             //         pckry.unbindDraggabillyEvents(draggie);
-    //             //         pckry.layout()
-    //             //     });
-    //             // },300);
-    //
-    //
-    //         }
-    //     }
-    // }
+    getSnapshotBeforeUpdate(prevProps, prevState) {
+        const width = prevProps.width;
+        if (width <= 640) {
+            //snapshot을 반환하면 componentDidUpdate에서 받아서 처리한다.
+            return 'mobilePackery'
+        } else if (width >= 640) {
+            return 'desktopPackery'
+        }
+        return null
+    }
 
-    // componentWillReceiveProps(nextProps, nextContext) {
-    //
-    //     if (nextProps.clientIdx) {
-    //         //client의 _id로 방에 참가시킨다.
-    //
-    //         socket.emit('join', {clientId: 'test'});
-    //     }
-    // }
-
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (snapshot === 'mobilePackery') {
+            this.setState({
+                packery: false
+            })
+        } else if (snapshot === 'desktopPackery') {
+            this.setState({
+                packery: true
+            })
+        }
+    }
 
     setTempState(data) {
         this.setState({
@@ -159,12 +140,23 @@ class DashboardLayout extends React.PureComponent {
 
         } = this.props;
 
-        const {smarttemp} = this.state;
+        const {smarttemp, option, packery} = this.state;
 
         if (!isLogin) {
             //로그인 되어 있지 않다면 돌려보낸다.
             return false;
         }
+        //팩커리 변수
+        let pckry = this.pckry;
+        const elem = this.container.current;//요소를 담을 컨테이너
+        pckry = new Packery(elem, option);
+
+        const target = document.querySelectorAll('.widget-list');
+        target.forEach((elem, key) => {
+            let draggie = new Draggabilly(elem);
+            pckry.bindDraggabillyEvents(draggie);
+        });
+
 
         return (
             <Fragment>
@@ -190,10 +182,12 @@ class DashboardLayout extends React.PureComponent {
                 <div className={styles['dashboard-layout-container']}>
                     <DashboardHeader setModifyInfo={setModifyInfo} babyRegisterToggle={babyRegisterToggle} babyModifyToggle={babyModifyToggle} babyDeleteRequest={babyDeleteRequest} clientBabies={clientBabies}/>
                     <ul className={styles['dashboard-component']} ref={this.container} id={'pckry-component'}>
-                        <BabyInfoWidgetComponent clientBabies={clientBabies} currentBaby={currentBaby}/>
-                        <SmartbottleWidgetComponent/>
-                        <SmartpeepeeWidgetComponent/>
-                        <SmartTempWidgetComponent temperature={smarttemp}/>
+                        <Fragment>
+                            <BabyInfoWidgetComponent clientBabies={clientBabies} currentBaby={currentBaby} babyRegisterToggle={babyRegisterToggle} babyModifyToggle={babyModifyToggle} setModifyInfo={setModifyInfo}/>
+                            <SmartbottleWidgetComponent/>
+                            <SmartpeepeeWidgetComponent/>
+                            <SmartTempWidgetComponent temperature={smarttemp}/>
+                        </Fragment>
                     </ul>
                 </div>
             </Fragment>

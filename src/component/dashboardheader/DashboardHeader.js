@@ -48,13 +48,13 @@ const clientBabyList = (clientBabies, babyRegisterToggle, babyDeleteRequest, get
                                     });
                                 }}>
                                     {
-                                        (elem.src === null || elem.src === 'null') && elem.gender === 'm' ? <img src={boyThumb} title={elem.name+'이 반가워요!'}/> : null
+                                        (elem.src === null || elem.src === 'null') && elem.gender === 'm' ? <img src={boyThumb} title={elem.name + '이 반가워요!'}/> : null
                                     }
                                     {
-                                        (elem.src === null || elem.src === 'null') && elem.gender === 'f' ? <img src={girlThumb} title={elem.name+'이 반가워요!'}/> : null
+                                        (elem.src === null || elem.src === 'null') && elem.gender === 'f' ? <img src={girlThumb} title={elem.name + '이 반가워요!'}/> : null
                                     }
                                     {
-                                        (elem.src !== null || elem.src !== 'null') ? <img src={elem.src} title={elem.name+'이 반가워요!'}/> : null
+                                        (elem.src !== null || elem.src !== 'null') ? <img src={elem.src} title={elem.name + '이 반가워요!'}/> : null
                                     }
                                 </a>
                                 <div className={styles['dashboard-header-component--baby-container__list-box__buttons']}>
@@ -98,8 +98,13 @@ class DashboardHeader extends React.PureComponent {
 
     render() {
         const {babyRegisterToggle, clientBabies, babyDeleteRequest, getThisBaby, currentBaby, babyListToggle, babyList, babyModifyToggle, setModifyInfo} = this.props;
-        //리덕스 스토어의 값이 널이 아니고, 아이는 1명 미만
-        const condition = clientBabies.length < 1;
+
+        //아이가 1명이상이며, 썸네일이 있는 아이의 조건
+        const condition = clientBabies.length >= 1;
+        //현재 선택된 아기의 썸네일 값 조건
+        const thumbCon = currentBaby.src !== null && currentBaby.src !== 'null';
+
+        //썸네일 조건
         return (
             <div className={styles['dashboard-header-component']}>
                 {/*클라이언트의 자녀 정보*/}
@@ -107,14 +112,16 @@ class DashboardHeader extends React.PureComponent {
 
                 <div className={styles['dashboard-header-component--baby-container']}>
 
+                    {/*썸네일 조건*/}
                     {
                         condition ?
-                            <a href="javascript:void(0)" title="등록된 아기가 없습니다." className={styles['dashboard-header-component--baby-container__selected']} onClick={condition ? babyRegisterToggle : babyListToggle}>
-                                <img src={defaultThumb} alt={'현재 선택된 아이의 썸네일 이미지입니다'}/>
+                            <a href="javascript:void(0)" title={currentBaby.name+'이의 대쉬보드 입니다.'} className={styles['dashboard-header-component--baby-container__selected']} onClick={condition ? babyListToggle : babyRegisterToggle}>
+                                <img src={thumbCon ? currentBaby.src : !thumbCon && currentBaby.gender==='m' ? boyThumb:girlThumb} alt={'현재 선택된 아이의 썸네일 이미지입니다'}/>
                             </a> :
-                            <a href="javascript:void(0)" title="등록된 아기가 없습니다." className={styles['dashboard-header-component--baby-container__selected']} onClick={condition ? babyRegisterToggle : babyListToggle}>
+                            <a href="javascript:void(0)" title="등록된 아기가 없습니다." className={styles['dashboard-header-component--baby-container__selected']} onClick={condition ? babyListToggle : babyRegisterToggle}>
                                 <img src={defaultThumb} alt={'현재 선택된 아이의 썸네일 이미지입니다'}/>
                             </a>
+
                     }
 
                     {/*아이 리스트 창*/}

@@ -110,13 +110,10 @@ export function babyInfoReducer(state = initialState, action) {
             };
         case SET_BABY_INFO_ALL_MODAL_CLOSE:
             return {
-                register: initialState.register, //모달창은 항상 닫힌 상태로
-                modify: initialState.modify, //수정 모달창은 현재 상태를 유지
-                babyList: state.babyList, //갱신시 리스트 닫기
+                ...state,
+                register: initialState.register,
+                modify: initialState.modify,
                 error: initialState.error,
-                src: state.src,
-                currentBaby: state.currentBaby,
-                currentModifyBaby: state.baby
             };
         case SET_BABY_LIST_TOGGLE:
             return {
