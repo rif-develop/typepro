@@ -15,7 +15,7 @@ module.exports = finPasswordTemplate = (token, email) => {
                     <p style="font-size: 1em; font-weight: normal; line-height:1.36; margin: 0; padding: 0;">아래 버튼은 비밀번호 찾기를 신청한 후 30분이 지나면 유효하지 않습니다.</p>
                 </div>
                 <div class="find-password-section--centered--box" style="font-size: 14px; margin: 31px auto 0; text-align: center">
-                    <a href="${mode === 'development' ? 'http://localhost:8080':'http://www.cizz3007.com'}/email/passwordchange?token=${token}&email=${email}" style="display: inline-block; vertical-align: middle; text-align: center;">
+                    <a href="${mode === 'development' ? 'http://localhost:8080':'https://www.cizz3007.com'}/email/passwordchange?token=${token}&email=${email}" style="display: inline-block; vertical-align: middle; text-align: center;">
                         <div style="display:inline-block; width: 160px; height: 36px; line-height: 36px; background-image: url('https://s3.ap-northeast-2.amazonaws.com/littleone/etc/mailing-password-btn.png'); background-size: 160px 36px; background-repeat: no-repeat;  font-size: 13px; color:#fff; font-style: normal; text-decoration: none; font-weight: 700;">비밀번호 변경하기</div>
                     </a>
                 </div>
