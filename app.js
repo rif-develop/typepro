@@ -62,13 +62,14 @@ app.use(express.urlencoded({limit: '4mb', extended: true, parameterLimit: 100000
 //session redis 사용
 app.use(session(redisOption));
 
-app.use(function(req, res, next) {
-    if((!req.secure) && (req.get('X-Forwarded-Proto') !== 'https')) {
-        res.redirect('https://' + req.get('Host') + req.url);
-    }
-    else
-        next();
-});
+//http로 접속시 자동으로 https로 리다이렉트 시켜주는 미들웨어
+// app.use(function(req, res, next) {
+//     if((!req.secure) && (req.get('X-Forwarded-Proto') !== 'https')) {
+//         res.redirect('https://' + req.get('Host') + req.url);
+//     }
+//     else
+//         next();
+// });
 
 
 //배포용 파일 경로
