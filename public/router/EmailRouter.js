@@ -8,8 +8,12 @@ const redis = require('redis');
 const client = redis.createClient();
 const validations = require('../middleware/Validations');
 
+//schema
 const User = require('../scheme/userSchema');
+const EmailSubscription = require('../scheme/emailSubscribeSchema');
 
+//controller
+const EmailSubscriptionController = require('../querycontroller/EmailSubscriptionController');
 
 //url친화적인 토큰을 생성한다.
 //레디스
@@ -354,9 +358,54 @@ router.post('/modifypassword', async (req, res) => {
             type: 'server'
         });
     }
-
-
 });
 
+//이메일 구독 신청처리 하는 라우터
+router.post('/subscribe', async (req, res) => {
+    try {
+        console.log('#이메일 구독을 시작합니다.');
+        const email = req.body.email;
+        console.log(email);
+
+        const isEmptyEmail = validations.isEmpty(email);
+        const isValidEmail = validations.checkEmail(email);
+        console.log(isValidEmail);
+
+        if (!isEmptyEmail && isValidEmail) {
+
+            // 1. 중복된 이메일인지 확인한다.
+            const emailCount = await EmailSubscriptionController.checkDuplicatedEmail(email);
+            console.log('갯수', emailCount);
+
+            //2. 중복된 이메일이고 회원이라면 option을 켜준다.
+
+            // 3.중복되지 않았다면 구독 스키마에 저장한다.
+            if (emailCount === 0) {
+                const emailSave = await EmailSubscriptionController.saveEmail(email);
+                console.log('result ', emailSave);
+                res.json({
+                    success: true
+                });
+            } else {
+                //중복
+                throw 'duplicated'
+            }
+
+        } else if (isEmptyEmail) {
+            throw 'emptyEmail';
+        } else if (!isValidEmail) {
+            throw 'notValidEmail';
+        }
+    } catch (e) {
+        console.log('# 에러 : ', e);
+        res.json({
+            error: true,
+            type: e
+        });
+    } finally {
+        console.log('#이메일 구독 처리 종료');
+
+    }
+});
 
 module.exports = router;

@@ -14,6 +14,14 @@ const smartbottleSchema = new Schema({
     },
     data: [
         {
+            _id: {
+                autoIndex: false,
+            },
+            baby:{
+                type: mongoose.Types.ObjectId,
+                required: true,
+                ref: 'Baby'
+            },
             serialNumber: {
                 type: String,
             },
@@ -23,7 +31,7 @@ const smartbottleSchema = new Schema({
             firmware: {
                 type: String,
             },
-            feedTime: {
+            createdAt: {
                 type: Date,
             },
             temperature: {
@@ -31,11 +39,7 @@ const smartbottleSchema = new Schema({
             },
             angle: {
                 type: Number,
-            },
-            createdAt: {
-                type: Date,
-                default: Date.now(),
-            },
+            }
         }
     ]
 });

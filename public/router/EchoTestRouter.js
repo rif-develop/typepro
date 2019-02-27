@@ -395,28 +395,39 @@ router.post('/get/babyinfo', async (req, res) => {
 
         const clientIdx = req.body.clientIdx;
 
-        //아이가 없는 유저와 있는 유 저를 구별해서 처리
-        await User.findById({_id: clientIdx}).populate('babies').exec((err, docs) => {
-            if (err) {
-                throw 'server'
-            }
-            console.log(docs.babies.length);
-            if (docs.babies.length > 0) {
-                console.log('# 앱 아이 정보 요청 처리 결과');
-                console.log(docs);
-                res.json({
-                    response: 'success',
-                    _id: docs._id,
-                    babies: docs.babies
-                });
-            } else {
-                res.json({
-                    response: 'fail',
-                    msg: '아이가 없습니다.'
-                });
-            }
-        });
+        const isEmptyClientIdx = Validations.isEmpty(clientIdx);
 
+        if(isEmptyClientIdx){
+            console.log('# 로그인 필요');
+            res.json({
+                response: 'fail',
+                msg: '로그인 해주세요. noClientIdx'
+            });
+        } else{
+            //아이가 없는 유저와 있는 유 저를 구별해서 처리
+            await User.findById({_id: clientIdx}).populate('babies').exec((err, docs) => {
+                if (err) {
+                    throw 'server'
+                }
+
+                if (docs !== null && docs !== undefined && docs.babies.length > 0) {
+                    console.log(docs.babies.length);
+
+                    console.log('# 앱 아이 정보 요청 처리 결과');
+                    console.log(docs);
+                    res.json({
+                        response: 'success',
+                        _id: docs._id,
+                        babies: docs.babies
+                    });
+                } else {
+                    res.json({
+                        response: 'fail',
+                        msg: '아이가 없습니다.'
+                    });
+                }
+            });
+        }
 
     } catch (e) {
         console.log('# 아이 정보 요청 서버 에러');

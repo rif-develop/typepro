@@ -14,6 +14,14 @@ const smartpeepeeSchema = new Schema({
     },
     data: [
         {
+            _id: {
+                autoIndex: false
+            },
+            baby:{
+                type: mongoose.Types.ObjectId,
+                required: true,
+                ref: 'Baby'
+            },
             serialNumber: {
                 type: String,
             },
@@ -23,19 +31,18 @@ const smartpeepeeSchema = new Schema({
             firmware: {
                 type: String,
             },
-            feedTime: {
-                type: Date,
-            },
-            temperature: {
-                type: Number,
-            },
-            angle: {
-                type: Number,
-            },
             createdAt: {
                 type: Date,
-                default: Date.now(),
             },
+            humidity: {
+                type: Number,
+            },
+            temperature: {
+                type: Number
+            },
+            type: {
+                type: String
+            }
         }
     ]
 });

@@ -12,6 +12,8 @@ import {watcherFind} from "./findAction";
 import {watcherPasswordChange} from "./passwordChangeAction";
 import {watcherCropperRequest} from "./cropperAction";
 import {watcherCurrentBabyInfo} from './babyInfoAction';
+import {watcherSubcscription} from "./subscriptionAction";
+import {watcherDate} from "./dateAction";
 
 export default function* rootSaga() {
     yield all([
@@ -33,7 +35,9 @@ export default function* rootSaga() {
         fork(watcherFind),
         fork(watcherPasswordChange),
         fork(watcherCropperRequest),
-        fork(watcherCurrentBabyInfo)
+        fork(watcherCurrentBabyInfo),
+        fork(watcherSubcscription),
+        fork(watcherDate)
     ]);
 }
 

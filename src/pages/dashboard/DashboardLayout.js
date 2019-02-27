@@ -17,6 +17,7 @@ import SmartTempWidgetComponent from "../../component/widget/SmartTempWidgetComp
 import {socket} from "../../action/socket";
 import BabyModifyModal from "../../component/babyregister/BabyModifyModal";
 import {checkMobile} from "../../action/checkmobile";
+import DatePickerComponent from "../../component/datepicker/DatePickerComponent";
 
 class DashboardLayout extends React.PureComponent {
 
@@ -33,7 +34,6 @@ class DashboardLayout extends React.PureComponent {
                 transitionDuration: '0.4s'
             },
             smartTemp: null,
-            clientIdx: this.props.clientIdx,
             packery: 'no'
         };
 
@@ -48,11 +48,17 @@ class DashboardLayout extends React.PureComponent {
     static getDerivedStateFromProps(props, state) {
         if (props.clientIdx !== state.clientIdx) {
             return {
-                clientIdx: props.clientIdx,
+                clientIdx: props.clientIdx
+            }
+        }
+        if (props.babyIdx !== state.babyIdx) {
+            return {
+                babyIdx: props.babyIdx
             }
         }
         return null
     }
+
 
     componentDidMount() {
         //화면 맨위로
@@ -60,43 +66,49 @@ class DashboardLayout extends React.PureComponent {
         //1. 세션을 가져오고
         this.props.getSession();
 
+
+        socket.emit('join', {clientId: '5c750b1a08edf25f97f2fb70'});
+        socket.emit('test','dddd')
+
+
+        socket.on('get smarttemp', (data) => {
+            console.log('서버오 통신에 성공해서 값을 가져옴');
+            console.log(data);
+            const temp = data.temperature;
+            this.setTempState(temp);
+        });
+
+        socket.on('get smartbottle',(data)=>{
+            console.log('# 스마트 보틀 데이터가 드디어@@');
+            console.log(data);
+        });
+
+        socket.on('get smartpeepee',(data)=>{
+            console.log('# 스마트 피피 데이터가 드이어~~');
+            console.log(data);
+        });
+
+        //1.세션을 가져오고 디폴트 아기를 가져오고 그 디폴트 아기의 정보도 가져온다.
         setTimeout(() => {
             const clientIdx = this.state.clientIdx;
             this.props.getDefaultBabyInfo(clientIdx);
-        }, 150);
+        }, 200)
 
+        setTimeout(() => {
+            const obj = {
+                clientIdx: this.props.clientIdx,
+                babyIdx: this.props.babyIdx,
+                date: new Date()
+            };
 
-        //대쉬보드에 들어왔을 경우 소켓을 켜서 데이터를 받을 준비가 됐다고 서버에 알린다.
+            this.props.deviceDataRequest(obj)
+        }, 300);
 
-        //팩커리 드래거블 바인
-
-
-        //         //client의 _id로 방에 참가시킨다.
-        //
-        //         socket.emit('join', {clientId: 'test'});
+        //client의 _id로 방에 참가시킨다.
 
         //2. clientIdx를 보내서 서버에서 디폴트 아기값을 가져와야 한다. 하지만 새로고침하면 props가 늦게 받아진다.
         //자신만의 방을 만든다.
 
-        // socket.emit('test', 'dd');
-        // socket.emit('smarttemp', '스마트 보틀 연결되었습니다.');
-        // socket.emit('smartbottle', '스마트 피피 연결되었습니다.');
-        // socket.emit('smartpeepee', '스마트 템프 연결되었습니다.');
-
-
-        // socket.emit('join', {clientId: 'test'});
-        //
-        //
-        // socket.on('response', (data) => {
-        //     console.log('서버오 통신에 성공해서 값을 가져옴');
-        //     console.log(data);
-        //     const temp = data.temperature;
-        //     this.setTempState(temp);
-        // });
-        //
-        // socket.on('get smartbottle', (data) => {
-        //     console.log(data);
-        // })
     }
 
     getSnapshotBeforeUpdate(prevProps, prevState) {
@@ -106,6 +118,11 @@ class DashboardLayout extends React.PureComponent {
             return 'mobilePackery'
         } else if (width > 640) {
             return 'desktopPackery'
+        }
+        console.log(prevState.babyIdx);
+        console.log(prevProps.babyIdx)
+        if (prevProps.babyIdx !== prevState.babyIdx) {
+            return 'babyIdxReady'
         }
         return null
     }
@@ -119,6 +136,9 @@ class DashboardLayout extends React.PureComponent {
             this.setState({
                 packery: true
             })
+        } else if (snapshot === 'babyIdxReady') {
+            console.log(snapshot);
+
         }
     }
 
@@ -132,14 +152,20 @@ class DashboardLayout extends React.PureComponent {
 
     }
 
+
     render() {
 
+
+        //PropsToState
         const {
             isLogin, language, babyRegisterToggle, babyRegisterModal, babyModifyModal, closeAllModal,
             clientIdx, clientBabies, cropperOpen, cropperBlobSend, currentBaby, babyModifyToggle,
             cropperInit, toggleCropper, fileInfo, babyThumbnailCrop, babyDeleteRequest, setModifyInfo,
-
+            pickerState, babyIdx
         } = this.props;
+
+        //Action
+        const {datepickerOpenRequest, deviceDataRequest} = this.props;
 
         const {smartTemp, option, packery} = this.state;
 
@@ -151,10 +177,10 @@ class DashboardLayout extends React.PureComponent {
         let pckry = this.pckry;
         const elem = this.container.current;//요소를 담을 컨테이너
 
-        if(elem!==null){
+        if (elem !== null) {
             pckry = new Packery(elem, option);
         }
-        if(packery && pckry!==null && mobilecheck()===false){
+        if (packery && pckry !== null && mobilecheck() === false) {
             const target = document.querySelectorAll('.widget-list');
             target.forEach((elem, key) => {
                 let draggie = new Draggabilly(elem);
@@ -169,6 +195,10 @@ class DashboardLayout extends React.PureComponent {
                 {/*아이 모달창 활성화시 레이어 뒤에  스크린 블락*/}
                 {
                     babyRegisterModal || babyModifyModal ? <ScreenBlockComponent action={closeAllModal}/> : undefined
+                }
+                {/*날짜 선택시 뜨는 모달창*/}
+                {
+                    pickerState && <ScreenBlockComponent action={datepickerOpenRequest}/>
                 }
                 {/*아이 등록 모달*/}
                 {
@@ -186,12 +216,10 @@ class DashboardLayout extends React.PureComponent {
                 <div className={styles['dashboard-layout-container']}>
                     <DashboardHeader setModifyInfo={setModifyInfo} babyRegisterToggle={babyRegisterToggle} babyModifyToggle={babyModifyToggle} babyDeleteRequest={babyDeleteRequest} clientBabies={clientBabies}/>
                     <ul className={styles['dashboard-component']} ref={this.container} id={'pckry-component'}>
-                        <Fragment>
-                            <BabyInfoWidgetComponent clientBabies={clientBabies} currentBaby={currentBaby} babyRegisterToggle={babyRegisterToggle} babyModifyToggle={babyModifyToggle} setModifyInfo={setModifyInfo}/>
-                            <SmartbottleWidgetComponent/>
-                            <SmartpeepeeWidgetComponent/>
-                            <SmartTempWidgetComponent temperature={smartTemp}/>
-                        </Fragment>
+                        <BabyInfoWidgetComponent clientBabies={clientBabies} currentBaby={currentBaby} babyRegisterToggle={babyRegisterToggle} babyModifyToggle={babyModifyToggle} setModifyInfo={setModifyInfo}/>
+                        <SmartbottleWidgetComponent/>
+                        <SmartpeepeeWidgetComponent/>
+                        <SmartTempWidgetComponent temperature={smartTemp}/>
                     </ul>
                 </div>
             </Fragment>
@@ -211,7 +239,9 @@ const mapStateToProps = (state) => {
         clientBabies: state.clientStatusReducer.session.babies,
         cropperOpen: state.cropperReducer.open,
         fileInfo: state.cropperReducer.file,
-        currentBaby: state.babyInfoReducer.currentBaby
+        currentBaby: state.babyInfoReducer.currentBaby,
+        pickerState: state.dateReducer.dateModal,
+        babyIdx: state.babyInfoReducer.currentBaby._id
     }
 };
 const
@@ -255,6 +285,13 @@ const
             getDefaultBabyInfo: (clientIdx) => dispatch({
                 type: 'API_DEFAULT_BABY_INFO_REQUEST',
                 clientIdx
+            }),
+            datepickerOpenRequest: () => dispatch({
+                type: 'SET_DATE_PICKER_TOGGLE'
+            }),
+            deviceDataRequest: (obj) => dispatch({ //렌더링 시 서버에 디바이스 데이터 요청
+                type: 'API_CURRENT_DATE_DATA_REQUEST',
+                obj
             })
 
 

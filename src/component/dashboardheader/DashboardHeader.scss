@@ -189,14 +189,23 @@
 
       &__prev {
         background: url("./dashboard-btn-arrow-l@2x.png") no-repeat center/contain;
+        &.disabled{
+          opacity: .3;
+        }
       }
 
       //prev 이전 날짜 버튼
 
       &__next {
         background: url("./web-dashboard-2560-1329-dashboard-btn-arrow-r@2x.png") no-repeat center/contain;
+        &.disabled{
+          opacity: .3;
+          cursor: not-allowed;
+        }
 
       }
+
+
 
       //next 내일 날짜 버
     }

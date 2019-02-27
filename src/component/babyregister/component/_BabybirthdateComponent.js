@@ -156,6 +156,7 @@ class _BabybirthdateComponent extends React.PureComponent {
         }
     }
 
+
     setStateFocusTrue() {
         this.setState({
             focus: true
@@ -176,7 +177,7 @@ class _BabybirthdateComponent extends React.PureComponent {
                         condition? <span>을 입력해주세요.</span> : null
                     }
                 </label>
-                <div className={cx(styles['birthdate--input-box'], this.state.focus ? undefined : styles['active'])}>
+                <div className={cx(styles['birthdate--input-box'], this.state.focus || year || month || date ? undefined : styles['active'])}>
                     <input type={'number'}
                            name="year"
                            id={styles['client-baby-year']}

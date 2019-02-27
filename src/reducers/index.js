@@ -13,6 +13,9 @@ import {findAccountReducer} from "./findReducer";
 import {passwordChangeReducer} from "./passwordChangeReducer";
 import {cropperReducer} from "./cropperReducer";
 import {babyInfoReducer} from "./babyInfoReducer";
+import {subscriptionReducer} from "./subscriptionReducer";
+import {dateReducer} from './dateReducer';
+import {dashboardReducer} from "./dashboardReducer";
 
 export default combineReducers({
     clientStatusReducer,
@@ -28,5 +31,8 @@ export default combineReducers({
     findAccountReducer,
     passwordChangeReducer,
     cropperReducer,
-    babyInfoReducer
+    babyInfoReducer,
+    subscriptionReducer,
+    dateReducer,
+    dashboardReducer
 });
