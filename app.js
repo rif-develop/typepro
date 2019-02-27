@@ -14,7 +14,6 @@ const cors = require('cors');
 
 const socketIoSetup = require('./public/middleware/SocketIo');
 
-
 const redisOption = require('./public/middleware/Redis');
 //몽구스 프라미스 설정
 mongoose.Promise = global.Promise;
@@ -193,7 +192,7 @@ mongoose.connection.on('disconnected', () => {
 });
 
 
-http.listen(process.env.NODE_ENV === 'development' ? process.env.PORT : 80, () => {
+http.listen(443, () => {
     console.log(`서버 포트 ${process.env.PORT}에서 NODE-EXPRESS 서버 실행`);
 });
 //소켓 서버
