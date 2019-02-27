@@ -26,9 +26,6 @@ module.exports  = {
         open:true,
         hot:true,
         inline:true,
-        proxy:{
-            '*':'http://127.0.0.1:80'
-        }
     },
     module: {
         rules: [

@@ -62,6 +62,15 @@ app.use(express.urlencoded({limit: '4mb', extended: true, parameterLimit: 100000
 //session redis 사용
 app.use(session(redisOption));
 
+app.use(function(req, res, next) {
+    if((!req.secure) && (req.get('X-Forwarded-Proto') !== 'https')) {
+        res.redirect('https://' + req.get('Host') + req.url);
+    }
+    else
+        next();
+});
+
+
 //배포용 파일 경로
 app.use('/dist', express.static(__dirname + '/dist'));
 /*인덱스 페이지 경로*/
@@ -157,6 +166,7 @@ const connect = () => {
     if (process.env.NODE_ENV !== 'production') {
         mongoose.set('debug', true);
     }//end if
+
     mongoose.connect(process.env.DB_URL, {
         dbName: 'littleone',
         useNewUrlParser: true,
