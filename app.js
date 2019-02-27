@@ -192,7 +192,7 @@ mongoose.connection.on('disconnected', () => {
 });
 
 
-http.listen(443, () => {
+http.listen(80, () => {
     console.log(`서버 포트 ${process.env.PORT}에서 NODE-EXPRESS 서버 실행`);
 });
 //소켓 서버
