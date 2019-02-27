@@ -1,7 +1,7 @@
 const setup = (server) => {
     //app express에서 서버 받아와서 io에 할당
     const io = require('socket.io')(server);
-
+    console.log('# 소켓 서버 실행합니다.');
     //대쉬보드 라우터
 
     io.on('connection', function onConnect(socket) {
