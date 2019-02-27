@@ -192,7 +192,7 @@ mongoose.connection.on('disconnected', () => {
 });
 
 
-http.listen(process.env.NODE_ENV === 'development' ? process.env.PORT : 443, () => {
+http.listen(process.env.NODE_ENV === 'development' ? process.env.PORT : 80, () => {
     console.log(`서버 포트 ${process.env.PORT}에서 NODE-EXPRESS 서버 실행`);
 });
 //소켓 서버
