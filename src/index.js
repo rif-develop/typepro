@@ -28,7 +28,9 @@ import FindClientChangeLayout from "./pages/find/FindClientChangeLayout";
 import NotValidPage from "./pages/error/NotValidPage";
 import PasswordChangeByPhoneLayout from "./pages/password/PasswordChangeByPhoneLayout";
 import DashboardLayout from "./pages/dashboard/DashboardLayout";
+//웹소켓
 import {webSocket} from "./websocket/WebSocketComponent";
+
 import AdminLayout from "./pages/admin/AdminLayout";
 
 const root = document.getElementById('app');
@@ -65,11 +67,8 @@ window.addEventListener('resize', function () {
 });
 //cookie값에 따라 언어 분기
 
-
 //웹소켓 시작
-webSocket();
-
-
+webSocket()
 /*익스 10보다 버전이 낮으면 대체 페이지로*/
 if (ieVersion < LauchableVersion.ie) {
     ReactDOM.render(
