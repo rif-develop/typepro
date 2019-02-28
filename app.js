@@ -70,6 +70,14 @@ app.use((req, res, next) => {
         next();
 });
 
+//헬스 체크 페이지
+app.get('/healthCheck', function(req, res)
+{
+    res.writeHead(200, { "Content-Type": "text/html" });
+    res.write("Health Check Page");
+    res.end();
+});
+
 
 //배포용 파일 경로
 app.use('/dist', express.static(__dirname + '/dist'));
