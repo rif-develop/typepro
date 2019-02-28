@@ -44,7 +44,6 @@ class IndexLayout extends React.Component {
 
     }
 
-
     render() {
         const {language} = this.props;
         return (
@@ -60,8 +59,8 @@ class IndexLayout extends React.Component {
                     <div className={styles['index-background']}>
                         <Section05/>
                         <Section06/>
-                        <Section07/>
-                        <Section08/>
+                        <Section07 language={language}/>
+                        <Section08 language={language}/>
                     </div>
                 </main>
                 <Footer index={true}/>

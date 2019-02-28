@@ -34,9 +34,8 @@ const appRouter = require('./public/router/EchoTestRouter');
 
 
 //헬스 체크 페이지
-app.get('/healthCheck', function(req, res)
-{
-    res.writeHead(200, { "Content-Type": "text/html" });
+app.get('/healthCheck', function (req, res) {
+    res.writeHead(200, {"Content-Type": "text/html"});
     res.write("Health Check Page! hi aws!");
     res.end();
 });
@@ -73,7 +72,7 @@ app.use(session(redisOption));
 
 //http로 접속시 자동으로 https로 리다이렉트 시켜주는 미들웨어
 app.use((req, res, next) => {
-    if ((!req.secure) && (req.get('X-Forwarded-Proto') !== 'https')) {
+    if ((!req.secure) && (req.get('X-Forwarded-Proto') !== 'https') && (process.env.NODE_ENV !== 'development')) {
         console.log('# HTTPS 리다이렉션 미들웨어 실행');
         res.redirect('https://' + req.get('Host') + req.url);
     } else
@@ -204,6 +203,7 @@ mongoose.connection.on('disconnected', () => {
 http.listen(process.env.PORT || 3000, () => {
     console.log(`서버 포트 ${process.env.PORT}에서 NODE-EXPRESS 서버 실행`);
 });
+
 //소켓 서버
 socketIoSetup(http);
 
