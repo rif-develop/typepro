@@ -102,6 +102,7 @@ if (ieVersion < LauchableVersion.ie) {
                         <Route exact path={'/phone/passwordchange'} component={PasswordChangeByPhoneLayout}/>
                         <Route exact path={'/dashboard'} component={DashboardLayout}/>
                         <Route exact path={'/admin'} component={AdminLayout}/>
+                        <Route eact path={'/healthCheck'}/>
                         <Redirect from="*" to="/404error"/>
                         <Redirect to={'/login'}/>
                     </Switch>

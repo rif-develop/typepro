@@ -60,7 +60,6 @@ class Head extends React.Component {
                 <meta property="og:video:height" content="720"/>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
                 <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-                <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests"/>
                 <meta name="format-detection" content="telephone=no, address=no, email=no"/>
                 <meta name="msapplication-TileColor" content="#da532c"/>
                 <meta name="msapplication-TileImage" content="/favicon/icon-144.png"/>
