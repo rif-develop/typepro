@@ -3,6 +3,7 @@ const setup = (server) => {
     const io = require('socket.io')(server);
     console.log('# 소켓 서버 실행합니다.');
     //대쉬보드 라우터
+    io.set('transports', ['websocket']);
 
     io.on('connection', function onConnect(socket) {
         console.log('소켓 연결 되었습니다.');
