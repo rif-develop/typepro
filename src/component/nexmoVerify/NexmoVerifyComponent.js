@@ -1,6 +1,5 @@
 import React, {Fragment} from 'react';
 import styles from './PhoneAuthModalComponent.scss';
-import classnames from 'classnames';
 import ScreenBlockComponent from "../screenblock/ScreenBlockComponent";
 import {innerCenter} from "../../lib/script";
 import {connect} from "react-redux";
@@ -8,9 +7,6 @@ import NexmoVerifyStep from "./NexmoVerifyStep";
 import NexmoRequestStep from "./NexmoRequestStep";
 import PinkSpinnerComponent from "../loading/PinkSpinnerComponent";
 import {getCookie} from "../../action/cookie/Cookie";
-import FocusLock from 'react-focus-lock';
-
-const cx = classnames.bind(styles);
 
 class NexmoVerifyComponent extends React.Component {
 

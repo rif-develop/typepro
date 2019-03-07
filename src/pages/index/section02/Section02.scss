@@ -86,7 +86,12 @@
     width: 90%;
   }
   .secondary-section--content--head .outer .inner .centered h1 {
-    font-size: 10.63vw;
+    font-size: 44px;
+    vertical-align: baseline;
+  }
+  .secondary-section--content--head .outer .inner .centered span{
+    font-size: 39px;
+    vertical-align: baseline;
   }
   .secondary-section--content p {
     margin: 0 auto;

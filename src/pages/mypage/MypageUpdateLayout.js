@@ -79,8 +79,9 @@ class MypageUpdateLayout extends React.Component {
 
         return (
             <Fragment>
-                <Head language={language} title={'리틀원 - 회원 정보 수정'} description={'리틀원 회원님의 개인 정보를 수정하실 수 있는 페이지입니다.'}/>
-                <Header/>
+                {
+                    modalOpen ? <NexmoVerifyComponent actionType={'updatePhone'} toggle={openModalRequest}/> : null
+                }
                 {
                     success && <ModalComponent action={(e) => {
                         this.props.history.push('/')
@@ -93,12 +94,8 @@ class MypageUpdateLayout extends React.Component {
                     cropperOpen && <CropperComponent cropperBlobSend={cropperBlobSend} toggle={toggleCropper} fileInfo={fileInfo} clientIdx={clientIdx} init={cropperInit}/>
                 }
 
-
-                {
-                    modalOpen ? <NexmoVerifyComponent actionType={'updatePhone'} toggle={openModalRequest}/> : null
-                }
-
-
+                <Head language={language} title={'리틀원 - 회원 정보 수정'} description={'리틀원 회원님의 개인 정보를 수정하실 수 있는 페이지입니다.'}/>
+                <Header/>
                 <section className={styles['client-join-section']}>
                     <div className={styles['client-join-section--desc']}>
                         <h1>회원 정보 수정</h1>

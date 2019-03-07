@@ -9,7 +9,7 @@ import Footer from "../../component/footer/Footer";
 import InputPropsEmailComponent from "../../component/input/InputPropsEmailComponent";
 import DefaultLoading from "../../component/loading/DefaultLoading";
 import ModalComponent from "../../component/modal/ModalComponent";
-import NexmoVerifyComponent from "../../component/modal/NexmoVerifyComponent";
+import NexmoVerifyComponent from "../../component/nexmoVerify/NexmoVerifyComponent";
 
 
 const cx = classnames.bind(styles);

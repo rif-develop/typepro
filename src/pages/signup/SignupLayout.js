@@ -1,5 +1,6 @@
 import React, {Fragment} from 'react';
 import styles from './SignupLayout.scss';
+import {Link} from "react-router-dom";
 import classnames from 'classnames';
 import {connect} from "react-redux";
 import Head from "../../component/head/head";
@@ -10,6 +11,7 @@ import InputPasswordComponent from "../../component/input/InputPasswordComponent
 import InputTermsagreeComponent from "../../component/input/InputTermsagreeComponent";
 import InputSubmitComponent from "../../component/input/InputSubmitComponent";
 import ModalComponent from "../../component/modal/ModalComponent";
+import Anime from 'react-anime';
 
 const cx = classnames.bind(styles);
 
@@ -94,48 +96,72 @@ class SignupLayout extends React.Component {
                 {error.error && error.type === 'server' ? <ModalComponent subject={'알림'} desc={'서버 에러'} action={storeInit}/> : null}
                 {error.error && error.type === 'duplicated' ? <ModalComponent subject={'알림'} desc={'중복된 이메일입니다.'} action={storeInit}/> : null}
                 {error.error && error.type === 'required' ? <ModalComponent subject={'알림'} desc={'입력요소를 전부 입력해주세요.'} action={storeInit}/> : null}
+                {/*회원 가입 성공시에*/}
+                {
+                    success ?
+                        <div className={styles['sign-up--component']}>
+                            <Anime key={Date.now()} opacity={[0, 1]} delay={(e, i) => i * 120} easing={"easeInSine"}>
+                                <span className={styles['__word']}>회</span>
+                                <span className={styles['__word']}>원</span>
+                                <span className={styles['__word']}>가</span>
+                                <span className={styles['__word']}>입</span>
+                                <span className={styles['__word']}>이</span>
+                                <span className={styles['__word']}> </span>
+                                <span className={styles['__word']}>완</span>
+                                <span className={styles['__word']}>료</span>
+                                <span className={styles['__word']}>되</span>
+                                <span className={styles['__word']}>었</span>
+                                <span className={styles['__word']}>습</span>
+                                <span className={styles['__word']}>니</span>
+                                <span className={styles['__word']}>다</span>
+                            </Anime>
+                            <Link to={'/login'}>
+                                <Anime key={Date.now()} opacity={[0,1]} delay={1200} duration={1200} easing={"easeInSine"}>
+                                    <span className={styles['__link-login']}>로그인 하러 가기</span>
+                                </Anime>
+                            </Link>
+                        </div>
+                        :
+                        <section className={styles['client-join-section']}>
+                            <div className={styles['client-join-section--logo']}>
+                                리틀원의 회원가입 섹션의 로고입니다.
+                            </div>
+                            <div className={styles['client-join-section--bar']}></div>
+                            <div className={styles['client-join-section--desc']}>
+                                <h1>회원가입</h1>
+                                <p>간단한 가입으로 리틀원의 서비스를 이용하실 수 있습니다.</p>
+                            </div>
+                            <div>
+                                <form className={styles['client-join-section--form']} id="client-join-section--form" role="form">
+                                    <fieldset form="client-join-section--form">
+                                        <legend>리틀원의 회원가입 폼입니다.</legend>
+                                        <InputEmailComponent action={this.emailDuplicatedCheck} checkDuplicated={true}/>
+                                        <InputPasswordComponent action={this.passwordValidationHandler}/>
+                                        <InputTermsagreeComponent action={this.termsStateHandler} terms={this.state.validatedTerms}/>
+                                        <InputSubmitComponent action={requestSignUp}
+                                                              validatedEmail={this.state.validatedEmail}
+                                                              validatedPassword={this.state.validatedPassword}
+                                                              validatedTerms={this.state.validatedTerms}
+                                                              isEmailDuplicated={this.state.isEmailDuplicated}
+                                                              failAction={requestFailure}/>
+                                    </fieldset>
+                                </form>
+                                {/*<div className={styles['client-join-section-horizontal-line']}>*/}
+                                {/*<em>OR</em>*/}
+                                {/*<span className={styles['client-join-section-horizontal-line--bar']}></span>*/}
+                                {/*</div>*/}
+                                {/*<SocialSignButton/>*/}
+                            </div>
+                        </section>
+                }
 
-                {success ? <ModalComponent subject={'성공'} desc={'회원가입이 완료되었습니다.'} action={() => {
-                    this.props.history.push('/')
-                }}/> : null}
-                <section className={styles['client-join-section']}>
-                    <div className={styles['client-join-section--logo']}>
-                        리틀원의 회원가입 섹션의 로고입니다.
-                    </div>
-                    <div className={styles['client-join-section--bar']}></div>
-                    <div className={styles['client-join-section--desc']}>
-                        <h1>회원가입</h1>
-                        <p>간단한 가입으로 리틀원의 서비스를 이용하실 수 있습니다.</p>
-                    </div>
-                    <div>
-                        <form className={styles['client-join-section--form']} id="client-join-section--form" role="form">
-                            <fieldset form="client-join-section--form">
-                                <legend>리틀원의 회원가입 폼입니다.</legend>
-                                <InputEmailComponent action={this.emailDuplicatedCheck} checkDuplicated={true}/>
-                                <InputPasswordComponent action={this.passwordValidationHandler}/>
-                                <InputTermsagreeComponent action={this.termsStateHandler} terms={this.state.validatedTerms}/>
-                                <InputSubmitComponent action={requestSignUp}
-                                                      validatedEmail={this.state.validatedEmail}
-                                                      validatedPassword={this.state.validatedPassword}
-                                                      validatedTerms={this.state.validatedTerms}
-                                                      isEmailDuplicated={this.state.isEmailDuplicated}
-                                                      failAction={requestFailure}/>
-                            </fieldset>
-                        </form>
-                        {/*<div className={styles['client-join-section-horizontal-line']}>*/}
-                        {/*<em>OR</em>*/}
-                        {/*<span className={styles['client-join-section-horizontal-line--bar']}></span>*/}
-                        {/*</div>*/}
-                        {/*<SocialSignButton/>*/}
-                    </div>
-                </section>
                 <Footer/>
             </Fragment>
         )
     }
 }
 
-//왠만하면 자식 컴포넌트들이 전달받아서 shouldcomponentupdate 할 수 있도록  밖에서 넘겨주자
+//왠만하면 자식 컴포넌트들이 전달받아서 shouldcomponentupdate 할 수 있도록 밖에서 넘겨주자
 const mapStateToProps = (state) => {
     return {
         language: state.languageReducer.language,
@@ -154,7 +180,7 @@ const mapDispatchToProps = (dispatch) => {
         }),
         requestFailure: (error) => dispatch({
             type: 'API_SIGN_UP_COMPLETE_FAILURE',
-            error:error
+            error: error
         })
     }
 };

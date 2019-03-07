@@ -14,11 +14,13 @@ class InputPhoneAuthComponent extends React.Component {
     render() {
         const {clientPhone, phoneVerified} = this.props;
         return (
-            <div className={styles['client-join-section--form--authorization-box']}>
-                <a href="javascript:void(0)" className={cx(styles['__auth-client-phone-button'], phoneVerified || clientPhone ? styles['active'] : undefined)} role="button" onClick={this.props.toggle}>
-                    <span className={styles['--mobile-icon']}>휴대폰 인증</span>
-                    <span className={styles['__authorization']}></span>
-                </a>
+            <div className={cx(styles['client-join-section--form--authorization-box'], phoneVerified || clientPhone ? styles['active'] : undefined)}>
+                <div className={styles['client-join-section--form--select-box']}>
+                    <button type="button" role="button" className={cx(styles['__auth-client-phone-button'], styles['active'])} onClick={this.props.toggle}>
+                        <span className={styles['--mobile-icon']}></span>
+                        휴대폰 인증                        <span className={styles['__authorization']}></span>
+                    </button>
+                </div>
             </div>
         )
     }

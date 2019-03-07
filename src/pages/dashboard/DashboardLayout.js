@@ -50,6 +50,7 @@ class DashboardLayout extends React.PureComponent {
         //bind
         this.setTempState = this.setTempState.bind(this);
     }
+
     componentDidMount() {
         //화면 맨위로
         document.body.scrollTo(0, 0);
@@ -179,50 +180,56 @@ class DashboardLayout extends React.PureComponent {
             });
         }
 
-        if (!isLogin) {
+        if (isLogin !== null && !isLogin) {
             return (
                 <Redirect to={'/login'}></Redirect>
             )
+        } else if (isLogin === null) {
+            return(
+                <div>...</div>
+            )
+        } else {
+            return (
+                <Fragment>
+                    <Head language={language} title={'리틀원 - 대쉬보드'} desc={'리틀원에서 소중한 아이의 매일의 변화를 관리하세요!'}/>
+                    <Header dashboard={true}/>
+
+                    {/*아이 모달창 활성화시 레이어 뒤에  스크린 블락*/}
+                    {
+                        babyRegisterModal || babyModifyModal ? <ScreenBlockComponent action={closeAllModal}/> : undefined
+                    }
+                    {/*날짜 선택시 뜨는 모달창*/}
+                    {
+                        pickerState && <ScreenBlockComponent action={datepickerOpenRequest}/>
+                    }
+                    {/*아이 등록 모달*/}
+                    {
+                        babyRegisterModal && <BabyRegisterModal closeModal={babyRegisterToggle} clientIdx={clientIdx}/>
+                    }
+                    {/*아이 수정 모달*/}
+                    {
+                        babyModifyModal && <BabyModifyModal babyModifyToggle={babyModifyToggle} clientIdx={clientIdx}/>
+                    }
+                    {/* 이미지 크랍퍼 불러오기 */}
+                    {
+                        cropperOpen &&
+                        <CropperComponent cropperBlobSend={cropperBlobSend} toggle={toggleCropper} fileInfo={fileInfo} clientIdx={clientIdx} init={cropperInit} isBabyCrop={true} babyThumbnailCrop={babyThumbnailCrop}/>
+                    }
+                    <div className={styles['dashboard-layout-container']}>
+                        <DashboardHeader setModifyInfo={setModifyInfo} babyRegisterToggle={babyRegisterToggle} babyModifyToggle={babyModifyToggle} babyDeleteRequest={babyDeleteRequest} clientBabies={clientBabies}/>
+                        <ul className={styles['dashboard-component']} ref={this.container} id={'pckry-component'}>
+                            <BabyInfoWidgetComponent clientBabies={clientBabies} currentBaby={currentBaby} babyRegisterToggle={babyRegisterToggle} babyModifyToggle={babyModifyToggle} setModifyInfo={setModifyInfo}/>
+                            <SmartbottleWidgetComponent/>
+                            <SmartpeepeeWidgetComponent/>
+                            <SmartTempWidgetComponent temperature={smartTemp}/>
+                        </ul>
+                    </div>
+                </Fragment>
+
+            )
         }
 
-        return (
-            <Fragment>
-                <Head language={language} title={'리틀원 - 대쉬보드'} desc={'리틀원에서 소중한 아이의 매일의 변화를 관리하세요!'}/>
-                <Header dashboard={true}/>
 
-                {/*아이 모달창 활성화시 레이어 뒤에  스크린 블락*/}
-                {
-                    babyRegisterModal || babyModifyModal ? <ScreenBlockComponent action={closeAllModal}/> : undefined
-                }
-                {/*날짜 선택시 뜨는 모달창*/}
-                {
-                    pickerState && <ScreenBlockComponent action={datepickerOpenRequest}/>
-                }
-                {/*아이 등록 모달*/}
-                {
-                    babyRegisterModal && <BabyRegisterModal closeModal={babyRegisterToggle} clientIdx={clientIdx}/>
-                }
-                {/*아이 수정 모달*/}
-                {
-                    babyModifyModal && <BabyModifyModal babyModifyToggle={babyModifyToggle} clientIdx={clientIdx}/>
-                }
-                {/* 이미지 크랍퍼 불러오기 */}
-                {
-                    cropperOpen &&
-                    <CropperComponent cropperBlobSend={cropperBlobSend} toggle={toggleCropper} fileInfo={fileInfo} clientIdx={clientIdx} init={cropperInit} isBabyCrop={true} babyThumbnailCrop={babyThumbnailCrop}/>
-                }
-                <div className={styles['dashboard-layout-container']}>
-                    <DashboardHeader setModifyInfo={setModifyInfo} babyRegisterToggle={babyRegisterToggle} babyModifyToggle={babyModifyToggle} babyDeleteRequest={babyDeleteRequest} clientBabies={clientBabies}/>
-                    <ul className={styles['dashboard-component']} ref={this.container} id={'pckry-component'}>
-                        <BabyInfoWidgetComponent clientBabies={clientBabies} currentBaby={currentBaby} babyRegisterToggle={babyRegisterToggle} babyModifyToggle={babyModifyToggle} setModifyInfo={setModifyInfo}/>
-                        <SmartbottleWidgetComponent/>
-                        <SmartpeepeeWidgetComponent/>
-                        <SmartTempWidgetComponent temperature={smartTemp}/>
-                    </ul>
-                </div>
-            </Fragment>
-
-        )
     }
 }
 
