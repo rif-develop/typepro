@@ -16,7 +16,6 @@ class InputSubmitComponent extends React.Component {
 
     onSubmitHandler(e) {
         e.preventDefault();
-
         if (this.props.validatedEmail && this.props.validatedPassword && this.props.validatedTerms && !this.props.isEmailDuplicated) {
             const target = document.getElementById('client-join-section--form');
             const form = new FormData(target);
@@ -53,7 +52,11 @@ class InputSubmitComponent extends React.Component {
     render() {
         return (
             <div>
-                <button type="submit" role="button" className={cx(styles['__join-member-button'], styles['__submit-default-button'])} onClick={this.onSubmitHandler}>회원가입</button>
+                <button type="submit" role="button" className={cx(styles['__join-member-button'], styles['__submit-default-button'])} onClick={this.onSubmitHandler} onKeyDown={(e)=>{
+                    if(e.keyCode===13){
+                        this.onSubmitHandler(e);
+                    }
+                }}>회원가입</button>
             </div>
         )
     }

@@ -1,4 +1,5 @@
 import React, {Fragment} from 'react';
+import {Router, Route, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import styles from './DashboardLayout.scss';
 import BabyInfoWidgetComponent from "../../component/widget/BabyInfoWidgetComponent";
@@ -18,8 +19,13 @@ import {socket} from "../../action/socket";
 import BabyModifyModal from "../../component/babyregister/BabyModifyModal";
 import {checkMobile} from "../../action/checkmobile";
 import DatePickerComponent from "../../component/datepicker/DatePickerComponent";
+import LoginLayout from "../login/Login";
 
 class DashboardLayout extends React.PureComponent {
+
+    static defaultProps = {
+        isLogin: false
+    };
 
     constructor(props) {
         super(props);
@@ -34,7 +40,7 @@ class DashboardLayout extends React.PureComponent {
                 transitionDuration: '0.4s'
             },
             smartTemp: null,
-            packery: 'no'
+            packery: 'no',
         };
 
         //packery, this.pckry로 접근;
@@ -44,22 +50,6 @@ class DashboardLayout extends React.PureComponent {
         //bind
         this.setTempState = this.setTempState.bind(this);
     }
-
-    static getDerivedStateFromProps(props, state) {
-        if (props.clientIdx !== state.clientIdx) {
-            return {
-                clientIdx: props.clientIdx
-            }
-        }
-        if (props.babyIdx !== state.babyIdx) {
-            return {
-                babyIdx: props.babyIdx
-            }
-        }
-        return null
-    }
-
-
     componentDidMount() {
         //화면 맨위로
         document.body.scrollTo(0, 0);
@@ -68,7 +58,7 @@ class DashboardLayout extends React.PureComponent {
 
 
         socket.emit('join', {clientId: '5c750b1a08edf25f97f2fb70'});
-        socket.emit('test','dddd')
+        socket.emit('test', 'dddd')
 
 
         socket.on('get smarttemp', (data) => {
@@ -78,12 +68,12 @@ class DashboardLayout extends React.PureComponent {
             this.setTempState(temp);
         });
 
-        socket.on('get smartbottle',(data)=>{
+        socket.on('get smartbottle', (data) => {
             console.log('# 스마트 보틀 데이터가 드디어@@');
             console.log(data);
         });
 
-        socket.on('get smartpeepee',(data)=>{
+        socket.on('get smartpeepee', (data) => {
             console.log('# 스마트 피피 데이터가 드이어~~');
             console.log(data);
         });
@@ -92,7 +82,7 @@ class DashboardLayout extends React.PureComponent {
         setTimeout(() => {
             const clientIdx = this.state.clientIdx;
             this.props.getDefaultBabyInfo(clientIdx);
-        }, 200)
+        }, 200);
 
         setTimeout(() => {
             const obj = {
@@ -108,9 +98,24 @@ class DashboardLayout extends React.PureComponent {
 
         //2. clientIdx를 보내서 서버에서 디폴트 아기값을 가져와야 한다. 하지만 새로고침하면 props가 늦게 받아진다.
         //자신만의 방을 만든다.
-
     }
 
+
+    static getDerivedStateFromProps(props, state) {
+        if (props.clientIdx !== state.clientIdx) {
+            return {
+                clientIdx: props.clientIdx
+            }
+        }
+        if (props.babyIdx !== state.babyIdx) {
+            return {
+                babyIdx: props.babyIdx
+            }
+        }
+        return null
+    }
+
+    //렌더링 후에 돔에 반영되기 전에
     getSnapshotBeforeUpdate(prevProps, prevState) {
         const width = prevProps.width;
         if (width <= 640) {
@@ -118,11 +123,6 @@ class DashboardLayout extends React.PureComponent {
             return 'mobilePackery'
         } else if (width > 640) {
             return 'desktopPackery'
-        }
-        console.log(prevState.babyIdx);
-        console.log(prevProps.babyIdx)
-        if (prevProps.babyIdx !== prevState.babyIdx) {
-            return 'babyIdxReady'
         }
         return null
     }
@@ -136,9 +136,6 @@ class DashboardLayout extends React.PureComponent {
             this.setState({
                 packery: true
             })
-        } else if (snapshot === 'babyIdxReady') {
-            console.log(snapshot);
-
         }
     }
 
@@ -154,8 +151,6 @@ class DashboardLayout extends React.PureComponent {
 
 
     render() {
-
-
         //PropsToState
         const {
             isLogin, language, babyRegisterToggle, babyRegisterModal, babyModifyModal, closeAllModal,
@@ -169,10 +164,6 @@ class DashboardLayout extends React.PureComponent {
 
         const {smartTemp, option, packery} = this.state;
 
-        if (!isLogin) {
-            //로그인 되어 있지 않다면 돌려보낸다.
-            return false;
-        }
         //팩커리 변수
         let pckry = this.pckry;
         const elem = this.container.current;//요소를 담을 컨테이너
@@ -188,10 +179,17 @@ class DashboardLayout extends React.PureComponent {
             });
         }
 
+        if (!isLogin) {
+            return (
+                <Redirect to={'/login'}></Redirect>
+            )
+        }
+
         return (
             <Fragment>
                 <Head language={language} title={'리틀원 - 대쉬보드'} desc={'리틀원에서 소중한 아이의 매일의 변화를 관리하세요!'}/>
                 <Header dashboard={true}/>
+
                 {/*아이 모달창 활성화시 레이어 뒤에  스크린 블락*/}
                 {
                     babyRegisterModal || babyModifyModal ? <ScreenBlockComponent action={closeAllModal}/> : undefined

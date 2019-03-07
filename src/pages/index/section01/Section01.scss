@@ -33,7 +33,7 @@
         p {
           margin-top: 1.3625vw;
           font-size: 1.3541vw;
-          font-weight: 100;
+          font-weight: 300;
           line-height: normal;
           letter-spacing: 1px;
         }
@@ -45,7 +45,7 @@
         p {
           font-size: 1.2541vw;
           line-height: normal;
-          font-weight: 100;
+          font-weight: 300;
         }
       }
 
@@ -84,6 +84,7 @@
     z-index: 3;
     width: 27.6563vw;
     height: 26.7188vw;
+    overflow: visible;
 
   }
 
@@ -94,6 +95,8 @@
     position: absolute;
     width: 27.6563vw;
     height: 26.7188vw;
+    overflow: visible;
+
   }
 
   #green {
@@ -103,6 +106,7 @@
     position: absolute;
     width: 30.05208vw;
     height: 30.05208vw;
+    overflow: visible;
   }
 
 }

@@ -22,7 +22,7 @@ export function* watcherUpdateAddress() {
     yield takeEvery('UPDATE_ADDRESS_REQUEST', updateSaga)
 }
 
-//어드레스 저장하기 비동기 통신
+//배송지 저장 비동기 통신
 function setAddressAxios({formData}) {
     console.log('배송지 저장 비동기 통신 시작...');
 
@@ -40,26 +40,25 @@ function setAddressAxios({formData}) {
             address2: formData.get('address2'),
             default: formData.get('default') || false,
         },
-        processData: false,
-        contentType: false,
-        cache: false
     });
 
 }
 
+//배송지 저장 리덕스-사가
 function* setAddressSaga(formData) {
     try {
         const response = yield call(setAddressAxios, formData);
 
-        if (response.data.error) {
-            throw response.data
-        } else {
+        const isSuccess = response.data.success;
+
+        if (isSuccess) {
             yield put({
                 type: "SET_ADDRESS_SUCCESS",
-                data: response.data
+                data: response.data.addressList
             });
+        } else {
+            throw response.data
         }
-
     } catch (e) {
         yield put({
             type: 'SET_ADDRESS_FAILURE',
@@ -73,7 +72,7 @@ function* setAddressSaga(formData) {
 function getAddressListAxios(id) {
 
     return axios({
-        url: '/address/getaddress',
+        url: '/address/get/address',
         method: 'POST',
         data: {
             id: id
@@ -82,7 +81,7 @@ function getAddressListAxios(id) {
 
 }
 
-//사이드 이펙트 처리
+//배송지 리스트 리덕스 사가 사이드 이펙트 처리
 function* getListSaga() {
 
     const userIdx = store.getState().clientStatusReducer.session._id;
@@ -94,12 +93,19 @@ function* getListSaga() {
         const response = yield call(getAddressListAxios, userIdx);
 
         //payload의 이름은 리듀서에서의 이름과 같아야 한다.
-        yield put({
-            type: 'GET_ADDRESS_LIST_SUCCESS',
-            data: response.data
-        });
+        const isSuccess = response.data.success;
+
+        if (isSuccess) {
+            yield put({
+                type: 'GET_ADDRESS_LIST_SUCCESS',
+                data: response.data.addressList
+            });
+        } else {
+            throw response.data;
+        }
+
     } catch (e) {
-        console.log('//배송지 주소를 가져오는데 실패했습니다.');
+        console.log(e);
         yield put({
             type: 'GET_ADDRESS_LIST_FAILURE',
             error: e
@@ -108,11 +114,9 @@ function* getListSaga() {
 }
 
 
-//배송지 삭제 통신
+//배송지 삭제 비동기 통신
 function removeAddressAxios({docsIdx, writerIdx}) {
-    console.log('#배송지 삭제 통신을 시작합니다.');
-    console.log(writerIdx);
-    console.log(docsIdx);
+
     return axios({
         url: '/address/remove',
         method: 'POST',
@@ -133,10 +137,18 @@ function* removeSaga(request) {
 
         const response = yield call(removeAddressAxios, {docsIdx, writerIdx});
 
-        yield put({
-            type: 'DELETE_ADDRESS_SUCCESS',
-            data: response.data
-        })
+        const isSuccess = response.data.success;
+
+        if (isSuccess) {
+            yield put({
+                type: 'DELETE_ADDRESS_SUCCESS',
+                data: response.data.addressList
+            });
+        } else {
+            throw response.data
+        }
+
+
     } catch (e) {
         yield put({
             type: 'DELETE_ADDRESS_FAILURE',
@@ -149,9 +161,6 @@ function* removeSaga(request) {
 ///기본 배송지로 설정하기
 
 function setDefaultAxios({docsIdx, writerIdx}) {
-    console.log('기본 배송지 설정..')
-    console.log(docsIdx);
-    console.log(writerIdx);
     return axios({
         url: '/address/default',
         data: {
@@ -169,10 +178,19 @@ function* defaultSaga(request) {
     const response = yield call(setDefaultAxios, {docsIdx, writerIdx});
 
     try {
-        yield put({
-            type: 'SET_DEFAULT_ADDRESS_SUCCESS',
-            data: response.data
-        });
+
+        const isSuccess = response.data.success;
+
+        if(isSuccess){
+            yield put({
+                type: 'SET_DEFAULT_ADDRESS_SUCCESS',
+                data: response.data.addressList
+            });
+        } else{
+            throw response.data
+        }
+
+
     } catch (e) {
         yield put({
             type: 'SET_DEFAULT_ADDRESS_FAILURE',

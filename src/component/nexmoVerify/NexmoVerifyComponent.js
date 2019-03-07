@@ -8,6 +8,7 @@ import NexmoVerifyStep from "./NexmoVerifyStep";
 import NexmoRequestStep from "./NexmoRequestStep";
 import PinkSpinnerComponent from "../loading/PinkSpinnerComponent";
 import {getCookie} from "../../action/cookie/Cookie";
+import FocusLock from 'react-focus-lock';
 
 const cx = classnames.bind(styles);
 
@@ -59,6 +60,12 @@ class NexmoVerifyComponent extends React.Component {
                         countryList && <ScreenBlockComponent zIndex={{zIndex: 10}} action={openCountryList}/>
                     }
 
+
+                    {/*네이버 그린팩토리 lab 22022d에서 처리연락
+
+
+
+                    */}
                     <div className={styles['phone-auth-modal--container']}>
                         {
                             nextStep ?

@@ -4,14 +4,6 @@
 }
 
 /*애니메이션*/
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
 
 
 .alarm-list-component {
@@ -19,7 +11,7 @@
   opacity: 0;
   position: absolute;
   top: 45px;
-  left: -164px;
+  left: -158px;
   background-color: #fff;
   max-width: 340px;
   height: 278px;

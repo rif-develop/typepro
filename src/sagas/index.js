@@ -1,7 +1,6 @@
 import {all, fork} from 'redux-saga/effects';
 import {watcherLanguage} from './languageAction';
 import {watcherAutoLogin} from "./autoLoginSaga";
-import {wathcerAlarmHeader, wathcerClientInfoHeader, watcherMobileMenu} from './headerSaga';
 import {watcherWebLogin} from "./clientStatusAction";
 import {watcherSetting} from "./settingAction";
 import {watcherAddress, watcherAddressList, watcherAddressRemove, watcherSetDefaultAddress, watcherUpdateAddress} from './addressAction';
@@ -19,9 +18,6 @@ export default function* rootSaga() {
     yield all([
         fork(watcherLanguage),
         fork(watcherAutoLogin),
-        fork(wathcerAlarmHeader),
-        fork(wathcerClientInfoHeader),
-        fork(watcherMobileMenu),
         fork(watcherWebLogin),
         fork(watcherSetting),
         fork(watcherAddress),

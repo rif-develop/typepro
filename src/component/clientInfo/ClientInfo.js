@@ -20,6 +20,8 @@ class ClientInfo extends React.Component {
     };
 
     render() {
+        //props to Action
+        const {onClickHeaderInit} = this.props;
 
         let items = [
             {
@@ -41,13 +43,14 @@ class ClientInfo extends React.Component {
         ];
 
 
+
         return (
             <div className={cx(styles['client-info-component'], this.props.active && styles['active'])}>
                 <div className={styles['client-info-component--triangle']}></div>
                 <div className={styles['client-info-component--head']}>
                     <img src={this.props.thumbnail || require('./icn-no-baby@2x.png')} alt={'고객님의 썸네일 이미지입니다.'}/>
                     <div className={styles['client-info-component--head--desc']}>
-                        <p>닉네임<span>님</span></p>
+                        <p>{this.props.nickName || this.props.email}<span>님</span></p>
                         <div className={styles['client-info-component--head--desc__activity']}>
                             <span>등급 : {this.props.grade === 0 ? '일반' : '??'}</span>
                             <span>포인트 : {this.props.point || 0} P</span>
@@ -61,7 +64,7 @@ class ClientInfo extends React.Component {
                 <ul className={styles['client-info-component__list']}>
                     {
                         items ? items.map((item, key) => {
-                            return <li key={key}><Link to={item.url}>{item.boardName}</Link></li>
+                            return <li key={key}><Link to={item.url} onClick={onClickHeaderInit}>{item.boardName}</Link></li>
                         }) : <li>메뉴가 활성화 되지 않았습니다.</li>
 
                     }

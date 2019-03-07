@@ -17,31 +17,15 @@ class IndexLayout extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            data: null
-        }
     }
-
-    componentWillMount() {
+    componentDidMount() {
         //세션을 받아와서 상태 갱신
         this.props.getSession();
-    }
-
-    componentWillReceiveProps(nextProps, nextContext) {
     }
 
     shouldComponentUpdate(nextProps, nextState, nextContext) {
         const evalValue = this.props.language !== nextProps.language;
         return evalValue
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log('업데이트 완료');
-    }
-
-    componentDidMount() {
-        document.body.scrollTo(0, 0);
-
     }
 
     render() {
@@ -52,7 +36,6 @@ class IndexLayout extends React.Component {
                 <Header/>
                 <main>
                     <Section01/>
-                    {this.state.data}
                     <Section02/>
                     <Section03/>
                     <Section04/>
@@ -77,7 +60,6 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
     return {
-        onClickHandler: () => dispatch({}),
         getSession: () => dispatch({
             type: 'REFRESH_SESSION_REQUEST'
         })

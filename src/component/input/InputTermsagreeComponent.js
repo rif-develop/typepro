@@ -27,7 +27,7 @@ class InputTermsagreeComponent extends React.Component {
         return (
             <div>
                 <div className={styles['client-join-section--form--terms-box']}>
-                    <a href="javascript:void(0)" className={styles['__check-terms-agree-button']}
+                    <a href={'javascript:void(0)'} className={styles['__check-terms-agree-button']}
                        role="button"
                        aria-labelledby="term-check-input-component"
                        onClick={this.onChangeHandler}>

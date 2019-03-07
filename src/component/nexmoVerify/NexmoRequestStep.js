@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import PhoneAuthCountrySelector from "../selector/PhoneAuthCountrySelector";
 import {Validations} from "../../lib/validation";
 import {getCookie} from "../../action/cookie/Cookie";
+import FocusLock from 'react-focus-lock';
 
 const cx = classnames.bind(styles);
 
@@ -13,11 +14,16 @@ class NexmoRequestStep extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            inputFocus: false
+            inputFocus: false,
         };
+
+        this.map = {};
+
+
         //ref
         this.phone = React.createRef();
         this.nextBtn = React.createRef();
+        this.selectCountryBtn = React.createRef();
         //binding
         this.onClickCountrySelector = this.onClickCountrySelector.bind(this);
         this.inputFocus = this.inputFocus.bind(this);
@@ -26,10 +32,12 @@ class NexmoRequestStep extends React.PureComponent {
         this.onProcessPhoneAuth = this.onProcessPhoneAuth.bind(this);
         this.onKeyEnter = this.onKeyEnter.bind(this);
         this.onKeyUp = this.onKeyUp.bind(this);
+
     }
 
     componentDidMount() {
         this.phone.current.focus();
+        //ESC누르면 모달창 꺼지게
     }
 
     inputFocus(e) { //인풋에 포커스 갔을 시, 애니메이션
@@ -63,7 +71,7 @@ class NexmoRequestStep extends React.PureComponent {
         const ref = this.phone.current;
         //한글 자음들어간 문자 제거(리덕스 스토어에 숫자만 들어가도록)
         ref.value = ref.value.replace(/[^0-9]/g, "");
-        if(ref.value.length > 1){
+        if (ref.value.length > 1) {
             this.props.onChangePhone(ref.value);
 
         }
@@ -84,6 +92,7 @@ class NexmoRequestStep extends React.PureComponent {
         Validations.handleKeyUp(e);
     }
 
+
     render() {
         const {country, countryList, openCountryList, phoneNumber, locale} = this.props;
 
@@ -91,6 +100,7 @@ class NexmoRequestStep extends React.PureComponent {
         if (getCookie('lang') === 'en') {
             style = {'fontSize': '16px'};
         }
+
 
         return (
             <div id={'phone-auth-form'} role={'form'}>
@@ -101,9 +111,14 @@ class NexmoRequestStep extends React.PureComponent {
                     }
 
                 </div>
-                <button className={cx(styles['language-selector-container--list__selector'], styles['phone-prefix-button'])} type={'button'} tabIndex={0} role={'button'}
-                        aria-roledescription={locale.description['01']}
-                        onClick={openCountryList}>
+                <FocusLock>
+                    <button className={cx(styles['language-selector-container--list__selector'], styles['phone-prefix-button'])}
+                            type={'button'}
+                            tabIndex={101}
+                            role={'button'}
+                            aria-roledescription={locale.description['01']}
+                            onClick={openCountryList}
+                            ref={this.selectCountryBtn}>
                                             <span className={cx(styles['flag-icon'],
                                                 country === 'us' ? styles['--us'] :
                                                     country === 'ko' ? styles['--ko'] :
@@ -115,39 +130,43 @@ class NexmoRequestStep extends React.PureComponent {
                                                                             country === 'au' ? styles['--au'] :
                                                                                 country === 'sp' ? styles['--sp'] :
                                                                                     country === 'tw' ? styles['--tw'] : null)}></span>
-                    <span>+{country === 'us' ? 1 :
-                        country === 'ko' ? 82 :
-                            country === 'uk' ? 44 :
-                                country === 'ca' ? 1 :
-                                    country === 'ja' ? 81 :
-                                        country === 'zh' ? 86 :
-                                            country === 'nz' ? 64 :
-                                                country === 'au' ? 61 :
-                                                    country === 'sp' ? 65 :
-                                                        country === 'tw' ? 886 : null}</span>
-                </button>
+                        <span>+{country === 'us' ? 1 :
+                            country === 'ko' ? 82 :
+                                country === 'uk' ? 44 :
+                                    country === 'ca' ? 1 :
+                                        country === 'ja' ? 81 :
+                                            country === 'zh' ? 86 :
+                                                country === 'nz' ? 64 :
+                                                    country === 'au' ? 61 :
+                                                        country === 'sp' ? 65 :
+                                                            country === 'tw' ? 886 : null}</span>
+                    </button>
 
-                <div className={styles['phone-text-field']}>
-                    <label className={this.state.inputFocus ? styles['active'] : null} htmlFor={'phone-number'}>{locale.string['02']}</label>
-                    <input type={'tel'} name={'request-phone'}
-                           autoCapitalize={'off'}
-                           autoComplete={'off'}
-                           ref={this.phone}
-                           id={'phone-number'}
-                           onFocus={this.inputFocus}
-                           onBlur={this.inputBlur}
-                           placeholder={locale.placeholder['01']}
-                           onKeyDown={this.onKeyEnter}
-                           onKeyUp={this.onKeyUp}
-                           onChange={this.onChangeHandler}
-                           tabIndex={1}/>
-                </div>
-                <div className={styles['phone-error-field']}>
-                    <p></p>
-                </div>
-                <div className={styles['phone-auth-modal--container--button-box']}>
-                    <button type={'button'} tabIndex={2} ref={this.nextBtn} onClick={country && phoneNumber ? this.onProcessPhoneAuth : null} className={styles['__request-verify-btn']}>{locale.string['03']}</button>
-                </div>
+                    <div className={styles['phone-text-field']}>
+                        <label className={this.state.inputFocus ? styles['active'] : null} htmlFor={'phone-number'}>{locale.string['02']}</label>
+                        <input type={'tel'} name={'request-phone'}
+                               autoCapitalize={'off'}
+                               autoComplete={'off'}
+                               ref={this.phone}
+                               id={'phone-number'}
+                               onFocus={this.inputFocus}
+                               onBlur={this.inputBlur}
+                               placeholder={locale.placeholder['01']}
+                               onKeyDown={this.onKeyEnter}
+                               onKeyUp={this.onKeyUp}
+                               onChange={this.onChangeHandler}
+                               tabIndex={102}/>
+                    </div>
+                    <div className={styles['phone-error-field']}>
+                        <p></p>
+                    </div>
+                    <div className={styles['phone-auth-modal--container--button-box']}>
+                        <button type={'button'}
+                                tabIndex={103}
+                                ref={this.nextBtn}
+                                onClick={country && phoneNumber ? this.onProcessPhoneAuth : null} className={styles['__request-verify-btn']}>{locale.string['03']}</button>
+                    </div>
+                </FocusLock>
             </div>
         )
     }

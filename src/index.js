@@ -5,7 +5,7 @@ import {Route, BrowserRouter as Router, HashRouter, Switch, Redirect,} from "rea
 import {Provider} from 'react-redux';
 import rootSaga from "./sagas";
 
-import {CheckWebBrowser} from "./lib/script";
+import {CheckWebBrowser, getCurrentScrollPos} from "./lib/script";
 import IndexLayout from "./pages/index";
 import LoginLayout from "./pages/login/Login";
 import ErrorPage from "./pages/error/ErrorPage";
@@ -32,6 +32,10 @@ import DashboardLayout from "./pages/dashboard/DashboardLayout";
 import {socket} from "./action/socket";
 import AdminLayout from "./pages/admin/AdminLayout";
 import QrcodeForwardLayout from "./pages/qrcode/QrcodeForwardLayout";
+//스크롤 폴리필
+import smoothscroll from 'smoothscroll-polyfill';
+
+smoothscroll.polyfill();
 
 const root = document.getElementById('app');
 
@@ -64,6 +68,35 @@ window.addEventListener('resize', function () {
     store.dispatch({
         type: 'SET_WINDOW_WIDTH_REQUEST',
     })
+});
+
+//이전 스크롤 위치
+let lastScrollTop = getCurrentScrollPos();
+
+window.addEventListener('scroll', function (e) {
+    //현재 스크롤 위치
+    const currentScrollTop = getCurrentScrollPos();
+
+    console.log(lastScrollTop, currentScrollTop);
+
+    if (currentScrollTop > lastScrollTop && (currentScrollTop >= 70)) {
+        //false아래
+        console.log('아래로 ');
+        //아래면은 active:True props
+        store.dispatch({
+            type: 'SET_WINDOW_SCROLL_Y_REQUEST',
+            scrollTop: false//false면 안 보이게
+        });
+    } else {
+        //true위
+        console.log('위로');
+        store.dispatch({
+            type: 'SET_WINDOW_SCROLL_Y_REQUEST',
+            scrollTop: true
+        });
+    }
+    //이전 스크롤 위치 값 갱신
+    lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
 });
 //cookie값에 따라 언어 분기
 
@@ -109,6 +142,7 @@ if (ieVersion < LauchableVersion.ie) {
             </HelmetProvider>
         </Provider>, root
     );
+    setTimeout(()=>{
+        window.scroll({top: 0, left: 0, behavior: 'smooth'});
+    },200)
 }
-
-

@@ -3,6 +3,8 @@ const User = require('../scheme/userSchema');
 const {check, validationResult} = require('express-validator/check');
 const crypto = require('crypto');
 const Validations = require('../middleware/Validations');
+//컨트롤러
+const UserController = require('../querycontroller/UserController');
 
 const router = express.Router();
 
@@ -88,7 +90,7 @@ router.post('/request/signUp', async (req, res) => {
                             console.log(result);
 
                             return res.json({
-                                success:true
+                                success: true
                             });
 
 
@@ -124,7 +126,7 @@ router.post('/request/signUp', async (req, res) => {
         } else if (!isValidPassword) {
             throw 'notValidPassword';
 
-        } else if(!isValidTerms){
+        } else if (!isValidTerms) {
             throw 'notValidTerms';
         }
     } catch (e) {
@@ -211,8 +213,39 @@ router.post('/nicknamecheck', async (req, res) => {
 
 
     }
+});
 
 
+router.post('/request/withdrawal', async (req, res) => {
+    try {
+        console.log('# 회원 탈퇴 요청 처리 시작');
+        const password = req.body.password;
+        const isEmptypassword = Validations.isEmpty(password);
+        const isValidPassword = Validations.checkPassword(password);
+
+        const allValid = !isEmptypassword && isValidPassword;
+
+        if (allValid) {
+            console.log('# 유효성 통과');
+
+        const encryptedPassword = await UserController.generateCryptoPassword(password);
+            console.log(encryptedPassword);
+
+
+        } else if (isEmptypassword) {
+            throw 'emptyPassword';
+        } else if (!isValidPassword) {
+            throw 'notValidPassword';
+        }
+    } catch (e) {
+        console.log('# 에러', e);
+        res.json({
+            error: true,
+            type: e
+        });
+    } finally {
+        console.log('# 회원 탈퇴 요청 처리 끝');
+    }
 });
 
 module.exports = router;

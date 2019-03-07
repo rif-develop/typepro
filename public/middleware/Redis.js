@@ -27,7 +27,7 @@ const redisOption = {
         expires: 3600000,
         maxAge:86400000,
     } : {
-        secure: true,
+        secure: false,
         httpOnly: false,
         path: '/',
         expires: 3600000,

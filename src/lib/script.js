@@ -92,6 +92,7 @@ export function removeChar(event) {
         event.target.value = event.target.value.replace(/[^0-9]/g, "");
     }
 }
+
 //숫자만 허용
 export function acceptOnlyNumber(e) {
     const event = event || window.event;
@@ -112,14 +113,14 @@ export function getParams() {
 
     let params;
     // url에서 '?' 문자 이후의 파라미터 문자열까지 자르기
-    params = url.substring( url.indexOf('?')+1, url.length );
+    params = url.substring(url.indexOf('?') + 1, url.length);
     // 파라미터 구분자("&") 로 분리
     params = params.split("&");
 
     // params 배열을 다시 "=" 구분자로 분리하여 param 배열에 key = value 로 담는다.
     let size = params.length;
     let key, value;
-    for(let i=0 ; i < size ; i++) {
+    for (let i = 0; i < size; i++) {
         key = params[i].split("=")[0];
         value = params[i].split("=")[1];
 
@@ -130,11 +131,11 @@ export function getParams() {
 }
 
 
-Storage.prototype.setObject = function(key, value) {
+Storage.prototype.setObject = function (key, value) {
     this.setItem(key, JSON.stringify(value));
 };
 
-Storage.prototype.getObject = function(key) {
+Storage.prototype.getObject = function (key) {
     return JSON.parse(this.getItem(key));
 };
 
@@ -161,4 +162,19 @@ export function getOS() {
     }
 
     return os;
+}
+
+//디바이스 width구하는 함수
+export function getCurrentDeviceWidth() {
+    const width = window.innerWidth && document.documentElement.clientWidth ?
+        Math.min(window.innerWidth, document.documentElement.clientWidth) :
+        window.innerWidth ||
+        document.documentElement.clientWidth ||
+        document.getElementsByTagName('body')[0].clientWidth;
+    return width;
+}
+
+
+export function getCurrentScrollPos() {
+    return window.scrollY || window.pageYOffset || document.documentElement.scrollTop
 }

@@ -7,6 +7,7 @@ import HeaderAlarm from "../headerAlarm/HeaderAlarm";
 import ClientInfo from "../clientInfo/ClientInfo";
 import MobileMenu from "../mobileMenu/MobileMenu";
 import SubLink from "../sublink/SubLink";
+import MobileHeaderAlarmComponent from "../mobileheaderalarm/MobileHeaderAlarmComponent";
 
 const cx = classnames.bind(styles);
 
@@ -16,7 +17,6 @@ class Header extends React.Component {
         super(props);
         this.state = {
             subMenu: false,
-            mobileMenu: false
         };
 
         this.Menu1 = React.createRef();
@@ -28,13 +28,11 @@ class Header extends React.Component {
         this.onMouseLeaveHandler = this.onMouseLeaveHandler.bind(this);
         this.onHoverHandler = this.onHoverHandler.bind(this);
         this.onHoverLeaveHandler = this.onHoverLeaveHandler.bind(this);
-        this.onClickMobileMenuHandler = this.onClickMobileMenuHandler.bind(this);
+        this.onClickHeaderInit = this.onClickHeaderInit.bind(this);
     }
 
-    onClickMobileMenuHandler() {
-        this.setState({
-            mobileMenu: !this.state.mobileMenu
-        })
+    onClickHeaderInit() {
+        this.props.headerInit();
     }
 
     onMouseEnterHandler() {
@@ -79,13 +77,17 @@ class Header extends React.Component {
     }
 
     render() {
+        //propsToAction
+        const {clientAlarmToggle, clientMenuToggle, logoutRequest, clientMobileMenuToggle} = this.props;
+        //propsToState
+        const {nickName, thumbnail, clientMenu, grade, point, email, isLogin, mobileMenu, alarmMenu, dashboard, width, headerActive} = this.props;
 
-        const {loading, error, alarmList, thumbnail, point, grade, clientMenu, isLogin, mobileMenu, onClickClientHandler, onClickAlarmHandler, onClickMobileHandler, logoutRequest} = this.props;
         const dashboardStyle = {
-            position:'relative'
-        }
+            position: 'relative'
+        };
+
         return (
-            <header className={styles['header']} id={'header-component'} style={this.props.dashboard ? dashboardStyle : undefined} onMouseLeave={this.onMouseLeaveHandler}>
+            <header className={cx(styles['header'], !headerActive ? styles['__scrolling-down'] : undefined)} id={'header-component'} style={dashboard ? dashboardStyle : undefined} onMouseLeave={this.onMouseLeaveHandler}>
                 <div>
                     {/*로고*/}
                     <div className={styles['header--logo']}>
@@ -148,22 +150,26 @@ class Header extends React.Component {
                                     </Link>
                                 </div> :
                                 <Fragment>
-                                    <div className={styles['header--menu__alarm']} role="graphics-object" onClick={onClickAlarmHandler}>
+                                    <div className={styles['header--menu__alarm']} role="graphics-object" onClick={clientAlarmToggle}>
                                         <div className={styles['header--menu__alarm__notification']}></div>
-                                        <HeaderAlarm active={alarmList}/>
+                                        {/*헤더 알람*/}
+                                        {
+                                            width > 768 && <HeaderAlarm active={alarmMenu}/>
+                                        }
                                     </div>
-                                    <div className={styles['header--menu__client-info']} role="graphics-symbol" onClick={onClickClientHandler}>
-                                        <a href="javascript:void(0)">
+                                    <div className={styles['header--menu__client-info']} role="graphics-symbol">
+                                        <a href="javascript:void(0)" onClick={clientMenuToggle}>
                                             <img src={thumbnail || require('./icn-no-baby@2x.png')} alt={'client-thumbnail'}/>
                                         </a>
-                                        <ClientInfo active={clientMenu} logout={logoutRequest} thumbnail={thumbnail} point={point} grade={grade}/>
+                                        {/*클라이언트 정보 창*/}
+                                        <ClientInfo active={clientMenu} logout={logoutRequest} thumbnail={thumbnail} point={point} grade={grade} nickName={nickName} email={email} onClickHeaderInit={this.onClickHeaderInit}/>
                                     </div>
                                 </Fragment>
                         }
                     </div>
                     {/*모바일용 메뉴*/}
-                    <div className={styles['header--hamburger']} onClick={this.onClickMobileMenuHandler}>
-                        <a href="javascript:void(0)" className={cx(styles['header--hamburger__menu'], this.state.mobileMenu ? styles['active'] : null)}>
+                    <div className={styles['header--hamburger']} onClick={clientMobileMenuToggle}>
+                        <a href="javascript:void(0)" className={cx(styles['header--hamburger__menu'], mobileMenu ? styles['active'] : null)}>
                             <span></span>
                             <span></span>
                             <span></span>
@@ -171,9 +177,13 @@ class Header extends React.Component {
                     </div>
                 </div>
                 {/*모바일 슬라이더 메뉴*/}
-                <MobileMenu active={this.state.mobileMenu} isLogin={isLogin} grade={grade} point={point} logout={logoutRequest} thumbnail={thumbnail}/>
+                <MobileMenu mobileMenu={mobileMenu} isLogin={isLogin} grade={grade} point={point} logout={logoutRequest} thumbnail={thumbnail} nickName={nickName} email={email} onClickHeaderInit={this.onClickHeaderInit}/>
                 {/*서브링크(제품)*/}
                 <SubLink active={this.state.subMenu}/>
+                {
+                    width <= 768 && alarmMenu && <MobileHeaderAlarmComponent/>
+
+                }
             </header>
         );
     }
@@ -181,23 +191,38 @@ class Header extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        loading: state.headerReducer.loading,
-        alarmList: state.headerReducer.alarmList,
+        alarmMenu: state.headerReducer.alarmMenu,
         clientMenu: state.headerReducer.clientMenu,
+        mobileMenu: state.headerReducer.mobileMenu,
+        width: state.clientStatusReducer.width,
+        //
+        loading: state.headerReducer.loading,
         error: state.headerReducer.error,
         isLogin: state.clientStatusReducer.login.isLogin,
+        //
         thumbnail: state.clientStatusReducer.session.thumbnail,
         point: state.clientStatusReducer.session.point,
         grade: state.clientStatusReducer.session.grade,
+        nickName: state.clientStatusReducer.session.nickname,
+        email: state.clientStatusReducer.session.email,
+        //
+        headerActive: state.clientStatusReducer.scrollTop
+
     }
 };
 const mapDispatchToProps = (dispatch) => {
     return {
-        onClickClientHandler: () => dispatch({
-            type: 'HEADER_CLIENT_ACTIVE_REQUEST'
+        clientMenuToggle: () => dispatch({
+            type: 'SET_HEADER_CLIENT_ACTIVE_REQUEST'
         }),
-        onClickAlarmHandler: () => dispatch({
-            type: 'HEADER_ALARM_ACTIVE_REQUEST'
+        clientAlarmToggle: () => dispatch({
+            type: 'SET_HEADER_ALARM_ACTIVE_REQUEST'
+        }),
+        clientMobileMenuToggle: () => dispatch({
+            type: 'SET_HEADER_MOBILE_MENU_REQUEST'
+        }),
+        headerInit: () => dispatch({
+            type: 'SET_HEADER_INIT'
         }),
         logoutRequest: () => dispatch({
             type: 'API_WEB_LOGOUT_REQUEST'

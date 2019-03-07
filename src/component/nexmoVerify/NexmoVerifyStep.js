@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import {Validations} from "../../lib/validation";
 import PinkSpinnerComponent from "../loading/PinkSpinnerComponent";
 import {getCookie} from "../../action/cookie/Cookie";
+import FocusLock from 'react-focus-lock';
 
 const cx = classnames.bind(styles);
 
@@ -105,55 +106,57 @@ class NexmoVerifyStep extends React.PureComponent {
             style = {'fontSize': '16px'};
         }
         return (
-            <form id={'phone-auth-form'} role={'form'}>
-                <h1 className={styles['phone-auth-modal--container--title']} style={style}>{locale.string['01']}</h1>
-                <fieldset form={'phone-auth-form'}>
-                    <legend>{locale.string['04']}</legend>
-                    <div className={styles['phone-auth-modal--container--process-text']}>
-                        {
-                            getCookie('lang') === 'en' ? <p>{locale.string['05']}<em> {this.props.phoneNumber}</em></p>
-                                : getCookie('lang')==='zh' ? <p>已向<em> {this.props.phoneNumber}</em> {locale.string['05']}</p>:<p><em>{this.props.phoneNumber || '123455667'}</em>{locale.string['05']}</p>
+            <FocusLock>
+                <form id={'phone-auth-form'} role={'form'}>
+                    <h1 className={styles['phone-auth-modal--container--title']} style={style}>{locale.string['01']}</h1>
+                    <fieldset form={'phone-auth-form'}>
+                        <legend>{locale.string['04']}</legend>
+                        <div className={styles['phone-auth-modal--container--process-text']}>
+                            {
+                                getCookie('lang') === 'en' ? <p>{locale.string['05']}<em> {this.props.phoneNumber}</em></p>
+                                    : getCookie('lang') === 'zh' ? <p>已向<em> {this.props.phoneNumber}</em> {locale.string['05']}</p> : <p><em>{this.props.phoneNumber || '123455667'}</em>{locale.string['05']}</p>
 
-                        }
+                            }
 
-                        <div>
-                            <span>{locale.string['11']}</span>
-                            <button type={'button'} tabIndex={4} role={'button'}>{locale.string['06']}</button>
+                            <div>
+                                <span>{locale.string['11']}</span>
+                                <button type={'button'} tabIndex={4} role={'button'}>{locale.string['06']}</button>
+                            </div>
                         </div>
-                    </div>
-                    {this.props.loading && <PinkSpinnerComponent/>}
-                    <div className={styles['phone-text-field']}>
-                        <label className={this.state.inputFocus ? styles['active'] : undefined} htmlFor={'code-component'}>{locale.string['07']}</label>
-                        <input type={'number'}
-                               name={'code'}
-                               id={'code-component'}
-                               autoCapitalize={'off'}
-                               autoComplete={'off'}
-                               ref={this.codeInput}
-                               maxLength={4}
-                               onFocus={this.inputFocus}
-                               onBlur={this.inputBlur}
-                               tabIndex={1}
-                               onChange={this.onChangeCodeHandler} onKeyDown={this.onKeyDownHandler}/>
-                    </div>
-                    <div className={styles['phone-error-field']}>
-                        <p>
-                            {this.props.error.error && this.props.error.type === 'emptyPhone' ? locale.error['01'] : undefined}
-                            {this.props.error.error && this.props.error.type === 'emptyRequestId' ? locale.error['02'] : undefined}
-                            {this.props.error.error && this.props.error.type === 'emptyCode' ? locale.error['03'] : undefined}
-                            {this.props.error.error && this.props.error.type === 'emptyCountry' ? locale.error['04'] : undefined}
-                            {this.props.error.error && this.props.error.type === 'wrongCode' ? locale.error['05'] : undefined}
-                            {this.props.error.error && this.props.error.type === 'manyRequest' ? locale.error['06'] : undefined}
-                            {this.props.error.error && this.props.error.type === 'requestExpired' ? locale.error['07'] : undefined}
-                            {this.props.error.error && this.props.error.type === 'server' ? locale.error['08'] : undefined}
-                        </p>
-                    </div>
-                    <div className={styles['phone-auth-modal--container--button-box']}>
-                        <button type={'reset'} tabIndex={3} className={cx(styles['__request-verify-btn'], styles['cancel-btn'])} onClick={this.backToRequestStep}>{locale.string['08']}</button>
-                        <button type={'submit'} tabIndex={2} onClick={this.checkDigitCode} className={styles['__request-verify-btn']}>{locale.string['09']}</button>
-                    </div>
-                </fieldset>
-            </form>
+                        {this.props.loading && <PinkSpinnerComponent/>}
+                        <div className={styles['phone-text-field']}>
+                            <label className={this.state.inputFocus ? styles['active'] : undefined} htmlFor={'code-component'}>{locale.string['07']}</label>
+                            <input type={'number'}
+                                   name={'code'}
+                                   id={'code-component'}
+                                   autoCapitalize={'off'}
+                                   autoComplete={'off'}
+                                   ref={this.codeInput}
+                                   maxLength={4}
+                                   onFocus={this.inputFocus}
+                                   onBlur={this.inputBlur}
+                                   tabIndex={1}
+                                   onChange={this.onChangeCodeHandler} onKeyDown={this.onKeyDownHandler}/>
+                        </div>
+                        <div className={styles['phone-error-field']}>
+                            <p>
+                                {this.props.error.error && this.props.error.type === 'emptyPhone' ? locale.error['01'] : undefined}
+                                {this.props.error.error && this.props.error.type === 'emptyRequestId' ? locale.error['02'] : undefined}
+                                {this.props.error.error && this.props.error.type === 'emptyCode' ? locale.error['03'] : undefined}
+                                {this.props.error.error && this.props.error.type === 'emptyCountry' ? locale.error['04'] : undefined}
+                                {this.props.error.error && this.props.error.type === 'wrongCode' ? locale.error['05'] : undefined}
+                                {this.props.error.error && this.props.error.type === 'manyRequest' ? locale.error['06'] : undefined}
+                                {this.props.error.error && this.props.error.type === 'requestExpired' ? locale.error['07'] : undefined}
+                                {this.props.error.error && this.props.error.type === 'server' ? locale.error['08'] : undefined}
+                            </p>
+                        </div>
+                        <div className={styles['phone-auth-modal--container--button-box']}>
+                            <button type={'reset'} tabIndex={3} className={cx(styles['__request-verify-btn'], styles['cancel-btn'])} onClick={this.backToRequestStep}>{locale.string['08']}</button>
+                            <button type={'submit'} tabIndex={2} onClick={this.checkDigitCode} className={styles['__request-verify-btn']}>{locale.string['09']}</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </FocusLock>
         )
     }
 }

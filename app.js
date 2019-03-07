@@ -29,11 +29,12 @@ const settingRouter = require('./public/router/SettingRouter');
 const babyInfoRouter = require('./public/router/BabyInfoRouter');
 const pushRouter = require('./public/router/PushRouter');
 const dashboardRouter = require('./public/router/DashboardRouter');
+const withdrawalRouter = require('./public/router/WithdrawalRouter');
 //앱 라우터
 const appRouter = require('./public/router/EchoTestRouter');
 
 
-//헬스 체크 페이지
+//헬스 체크 페이지(AWS 로드밸런서);
 app.get('/healthCheck', function (req, res) {
     res.writeHead(200, {"Content-Type": "text/html"});
     res.write("Health Check Page! hi aws!");
@@ -93,6 +94,9 @@ app.use('/signup', userRouter);
 
 // 로그인 라우터
 app.use(loginRouter);
+
+// 회원 탈퇴 라우터
+app.use(withdrawalRouter);
 
 //배송지 관리 라우터
 app.use('/address', addressRouter);

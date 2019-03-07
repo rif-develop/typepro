@@ -105,9 +105,10 @@ html, body {
   -webkit-user-drag: none;
   -webkit-user-select: none;
   -ms-user-select: none;
-  /*스크롤 제거*/
+  /*스크롤 제거(overflow:auto이면 이벤트 리스너 스크롤링 안 먹힘;)*/
   -ms-overflow-style: none;
-  overflow: auto;
+  //overflow: auto;
+  //맥북에서 스크롤링 되게
   -webkit-overflow-scrolling:touch;
 
 }

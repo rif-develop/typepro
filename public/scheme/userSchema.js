@@ -226,5 +226,6 @@ const userSchema = new Schema({
     ]
 
 });
+
 /*User라는 이름으로 userSchema 스키마 객체를 내보낸다.*/
 module.exports = mongoose.model('User', userSchema);

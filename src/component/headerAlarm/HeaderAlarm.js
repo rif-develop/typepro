@@ -19,6 +19,8 @@ class HeaderAlarm extends React.Component{
             )
         };
 
+        const {active} = this.props;
+
         return(
             <div className={cx(styles['alarm-list-component'],this.props.active && styles['active'])}>
                 <div className={styles['alarm-list-component--triangle']}></div>
