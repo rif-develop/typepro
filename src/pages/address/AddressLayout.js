@@ -24,7 +24,12 @@ class AddressLayout extends React.Component {
     }
 
     componentDidMount() {
-        loadScript('http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false', 'daum-map', '');
+        if(process.env.MODE==='development'){
+            loadScript('http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false', 'daum-map', '');
+        } else{
+            loadScript('https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js?autoload=false','daum-map','');
+        }
+
         //유저의 배송지 목록을 불러온다.(나중에 리덕스 사가로 바꾸자.);
         this.props.getSession();
         setTimeout(() => {
